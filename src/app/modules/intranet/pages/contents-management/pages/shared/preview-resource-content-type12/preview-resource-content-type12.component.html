@@ -1,0 +1,52 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #12</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    <div class="map-area">
+      <iframe
+        [src]="mapUrl"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+      @if (resourceContent.detail) {
+        <div class="source my-2">
+          <b>
+            {{ resourceContent.detail }}
+          </b>
+        </div>
+      }
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

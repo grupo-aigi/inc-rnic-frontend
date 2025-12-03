@@ -1,0 +1,46 @@
+<section class="blog-area ptb-0">
+  <div class="sidebar-widget news-sidebar-widget search">
+    <form class="" autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.typeAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      @if (recommendedOptions.length > 0 && displaySearchOptions) {
+        <div
+          style="padding-left: 20px; padding-right: 20px; position: relative"
+          >
+          <div class="search-options">
+            <app-retirements-recommendations
+              [recommendedOptions]="recommendedOptions"
+            ></app-retirements-recommendations>
+          </div>
+        </div>
+      }
+
+      <button
+        class="search-button"
+        type="button"
+        (click)="handleClickSearch($event)"
+        >
+        @if (loadingRecommendations) {
+          <div
+            class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+            role="status"
+            >
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        } @else {
+          <i [class]="searchTerm ? 'bx bx-x' : 'bx bx-search'"></i>
+        }
+      </button>
+    </form>
+  </div>
+</section>

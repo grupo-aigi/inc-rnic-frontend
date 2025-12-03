@@ -1,0 +1,161 @@
+<div class="page-title-area bg-events">
+  <div class="container">
+    <div class="page-title-content dynamic-font-size">
+      <h2 class="dynamic-font-size">{{ labels.events[lang] }}</h2>
+
+      <ul>
+        <li>
+          @if (variant === 'PUBLIC') {
+            <a routerLink="/">{{ labels.main[lang] }}</a>
+          } @else {
+            <a routerLink="/intranet">{{ labels.main[lang] }}</a>
+          }
+        </li>
+        <li class="active dynamic-font-size">{{ labels.events[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="blog-area ptb-100">
+  <div class="container">
+    <div class="section-title dynamic-font-size">
+      <span class="top-title dynamic-font-size">{{ labels.events[lang] }}</span>
+      <h2 class="dynamic-font-size">{{ labels.StayUpToDate[lang] }}</h2>
+    </div>
+
+    <app-events-filter
+      (onFiltersChange)="updateEventFilters($event)"
+    ></app-events-filter>
+
+    @if (loadingPosters) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingEvents[lang] }}...</p>
+      </div>
+    } @else {
+      <div class="row">
+        <div class="col-12 mb-1">
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            [showNoResults]="false"
+            (onPageChange)="handleGoToPage($event)"
+          >
+          </app-complete-pagination>
+        </div>
+        @for (eventPoster of eventPosters; track eventPoster) {
+          <div class="col-lg-4 col-md-6">
+            <div class="single-blog-post">
+              <div class="blog-img" style="position: relative">
+                <a
+                  [routerLink]="
+                    variant === 'PUBLIC'
+                      ? '/eventos/' + eventPoster.urlName
+                      : '/intranet/eventos/' + eventPoster.urlName
+                  "
+                >
+                  <img
+                    [src]="
+                      getImageUrlByName(eventPoster.imageName) ||
+                      '/img/blog/blog-10.jpg'
+                    "
+                    alt="Image"
+                  />
+                </a>
+                <p class="event-scope__ribbon">
+                  {{
+                    lang === 'es'
+                      ? eventPoster.scope === 'NATIONAL'
+                        ? 'NACIONAL'
+                        : 'INTERNACIONAL'
+                      : eventPoster.scope === 'NATIONAL'
+                        ? 'NATIONAL'
+                        : 'INTERNATIONAL'
+                  }}
+                </p>
+              </div>
+              <div
+                class="blog-content position-relative"
+                [title]="eventPoster.description"
+              >
+                <span
+                  class="rounded-pill badge badge-primary p-2 event-category"
+                  [ngStyle]="{
+                    'background-color': wordToHexColor(
+                      eventPoster.category.name
+                    ),
+                  }"
+                >
+                  {{ eventPoster.category.name }}
+                </span>
+                <ul style="margin-top: 10px" class="dynamic-font-size">
+                  <li>
+                    <i class="bx bxs-calendar"></i>
+                    {{ labels.fromDate[lang] }}
+                    {{ formatEventDate(eventPoster.startDate) }}
+                    {{ labels.toDate[lang] }}
+                    {{ formatEventDate(eventPoster.endDate) }}
+                  </li>
+                </ul>
+                <ul style="margin-top: -20px" class="dynamic-font-size">
+                  <li>
+                    <i class="bx bx-group"></i>{{ labels.organizer[lang] }}:
+                    {{
+                      eventPoster.author
+                        ? eventPoster.author
+                        : labels.noOrganizer[lang]
+                    }}
+                  </li>
+                </ul>
+                <h3 style="margin-top: -15px" class="dynamic-font-size">
+                  <a
+                    target="_blank"
+                    [routerLink]="
+                      variant === 'PUBLIC'
+                        ? '/eventos/' + eventPoster.urlName
+                        : '/intranet/eventos/' + eventPoster.urlName
+                    "
+                    >{{ eventPoster.title }}</a
+                  >
+                </h3>
+                <p class="dynamic-font-size">
+                  {{ trimEventDescription(eventPoster.description) }}
+                </p>
+                <a
+                  target="_blank"
+                  [routerLink]="
+                    variant === 'PUBLIC'
+                      ? '/eventos/' + eventPoster.urlName
+                      : '/intranet/eventos/' + eventPoster.urlName
+                  "
+                  class="read-more dynamic-font-size"
+                  >{{ labels.viewEventDetails[lang] }}</a
+                >
+              </div>
+            </div>
+          </div>
+        }
+        @if (error) {
+          <div class="alert alert-danger text-center mt-5" role="alert">
+            {{ labels.errorLoadingEvents[lang] }}
+          </div>
+        }
+        <div class="col-12 mb-5">
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+          >
+          </app-complete-pagination>
+        </div>
+      </div>
+    }
+  </div>
+</section>

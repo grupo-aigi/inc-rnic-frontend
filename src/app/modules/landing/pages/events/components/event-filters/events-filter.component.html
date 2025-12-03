@@ -1,0 +1,269 @@
+<section class="blog-area ptb-0">
+  <div class="sidebar-widget news-sidebar-widget search">
+    <form class="" autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control dynamic-font-size"
+        name="searchTerm"
+        [(ngModel)]="filterCriteria.busqueda"
+        [placeholder]="labels.searchAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      @if (recommendedOptions.length > 0 && displaySearchOptions) {
+        <div
+          style="padding-left: 20px; padding-right: 20px; position: relative"
+          >
+          <div class="search-options dynamic-font-size">
+            <ul>
+              @for (
+                recommendedOption of recommendedOptions; track
+                recommendedOption; let isLast = $last) {
+                <li
+                  >
+                  <a
+                [href]="
+                  variant === 'PUBLIC'
+                    ? '/eventos/' + recommendedOption.urlName
+                    : '/intranet/eventos/' + recommendedOption.urlName
+                "
+                    class="option-item row d-flex flex-row justify-content-between align-items-center recommendation-item"
+                    >
+                    <span class="col-lg-5" style="font-weight: 600">
+                      {{ recommendedOption.title }}
+                    </span>
+                    <div
+                      class="col-lg-7 row d-flex flex-row justify-content-end align-items-center flex-wrap"
+                      >
+                      <span
+                        class="col-sm-5 col-lg-3"
+                    [ngStyle]="{
+                      'background-color': wordToHexColor(
+                        recommendedOption.category.name
+                      ),
+                    }"
+                    style="
+                      width: fit-content;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                      color: white;
+                    "
+                        >
+                        {{ recommendedOption.category.name }}
+                      </span>
+                      <p class="col-sm-7 col-lg-4 text-end">
+                        <i class="flaticon-calendar" style="margin: 0px 5px"></i>
+                        {{
+                        formatDate(recommendedOption.startDate).split(',')[0] +
+                        ' - ' +
+                        formatDate(recommendedOption.endDate)
+                        }}
+                      </p>
+                    </div>
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
+
+      <button
+        class="search-button dynamic-font-size"
+        type="button"
+        (click)="handleClickSearch($event)"
+        >
+        @if (loadingRecommendations) {
+          <div
+            class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+            role="status"
+            >
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        } @else {
+          <i
+            [class]="filterCriteria.busqueda ? 'bx bx-x' : 'bx bx-search'"
+            class="dynamic-font-size"
+          ></i>
+        }
+      </button>
+    </form>
+
+    @if (showFiltersButton) {
+      <button
+        class="filter-button"
+        type="button"
+        (click)="showFilters()"
+        >
+        <i class="bx bx-filter"></i>
+      </button>
+    }
+
+    @if (!showFiltersButton) {
+      <div class="tab_content">
+        <div class="tabs_item">
+          <form autocomplete="off" class="get-quote-form mt-3">
+            <div class="row">
+              <div
+                class="col-lg-6 col-md-12 col-sm-12"
+                style="max-height: 200px; overflow-y: auto"
+                >
+                <p class="user-select-none mb-0 dynamic-font-size">
+                  {{ labels.category[lang] }}
+                </p>
+                <select
+                  [(ngModel)]="filterCriteria.categoriaId"
+                  name="categoryId"
+                  class="w-100 form-select rounded-0"
+                  style="height: 50px"
+                  >
+                  <option value="">
+                    {{ labels.allCategories[lang] }}
+                  </option>
+                  @for (category of eventCategories; track category) {
+                    <option
+                      [value]="category.id"
+                      >
+                      {{ category.name }}
+                    </option>
+                  }
+                </select>
+              </div>
+              <div
+                class="col-lg-6 col-md-12 col-sm-12"
+                style="max-height: 200px; overflow-y: auto"
+                >
+                <p class="user-select-none mb-0 dynamic-font-size">
+                  {{ labels.eventType[lang] }}
+                </p>
+                <select
+                  [(ngModel)]="filterCriteria.tipo"
+                  name="tipo"
+                  class="w-100 form-select rounded-0"
+                  style="height: 50px"
+                  >
+                  <option value="">
+                    {{ labels.allTypesOfEvents[lang] }}
+                  </option>
+                  @for (type of allEventTypes; track type) {
+                    <option
+                      [value]="type.es.toUpperCase()"
+                      >
+                      {{ type[lang] }}
+                    </option>
+                  }
+                </select>
+              </div>
+            </div>
+            <div class="row">
+              <div class="d-flex col-lg-6 col-sm-12 mt-5 position-relative">
+                <input
+                  id="startDate"
+                  name="startDate"
+                  [(ngModel)]="filterCriteria.desde"
+                  type="date"
+                  class="form-control h-100 dynamic-font-size"
+                  />
+                <p
+                  class="position-absolute user-select-none dynamic-font-size"
+                  style="left: 15px; bottom: 40px"
+                  >
+                  {{ labels.startDate[lang] }}
+                </p>
+              </div>
+              <div class="d-flex col-lg-6 col-sm-12 mt-5 position-relative">
+                <input
+                  id="endDate"
+                  name="endDate"
+                  [(ngModel)]="filterCriteria.hasta"
+                  type="date"
+                  class="form-control h-100 dynamic-font-size"
+                  />
+                <p
+                  class="position-absolute user-select-none dynamic-font-size"
+                  style="left: 15px; bottom: 40px"
+                  >
+                  {{ labels.endDate[lang] }}
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+        @if (showInvalidDatesAlert) {
+          <div
+            class="alert alert-danger mt-3 text-center"
+            role="alert"
+            >
+            <b>{{ labels.invalidDatesEntered[lang] }}</b>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        @if (filterCriteria.etiquetaId) {
+          @if (getTagNameById(filterCriteria.etiquetaId)) {
+            <div class="d-flex align-items-center">
+              <span class="px-1">{{ labels.currentTag[lang] }}:</span>
+              <span class="rounded-pill bg-info badge badge-primary p-2">
+                <span
+                  type="button"
+                  class="section-chip bg-transparent text-white"
+                  style="font-weight: 800"
+                  >
+                  #{{ getTagNameById(filterCriteria.etiquetaId) }}
+
+                  <i
+                    class="bx bx-down-arrow-circle"
+                    style="
+                      font-size: 1.2rem;
+                      position: absolute;
+                      top: 5px;
+                      right: 5px;
+                      cursor: pointer;
+                    "
+                  ></i>
+                </span>
+              </span>
+            </div>
+          } @else {
+            <div class="alert alert-danger mt-3 text-center" role="alert">
+              <b>{{ labels.tagNotFound[lang] }}</b>
+            </div>
+          }
+        }
+      </div>
+    </div>
+
+    @if (!showFiltersButton) {
+      <div class="mt-2 mb-0">
+        <button
+          (click)="executeFilters()"
+          class="default-btn mt-2 mb-1 m-2"
+          type="button"
+          style="padding: 12px 15px; float: right"
+          >
+          <i class="bx bx-filter-alt"></i>
+          {{ labels.filter[lang] }}
+        </button>
+        <button
+          (click)="clearFilters($event)"
+          class="default-btn mt-2 mb-1"
+          type="button"
+        style="
+          padding: 12px 15px;
+          float: right;
+          background-color: rgb(184, 51, 51);
+        "
+          >
+          <i class="bx bx-x"></i>
+          {{ labels.clearFilters[lang] }}
+        </button>
+      </div>
+    }
+  </div>
+</section>

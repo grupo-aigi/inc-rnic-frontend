@@ -1,0 +1,104 @@
+<div (click)="handleToggleShowApprovers()" class="mb-4" style="cursor: pointer">
+  <div
+    class="d-flex justify-content-between align-items-center px-3 bg-secondary-color"
+  >
+    <div class="approvers-section-title">
+      <h3 class="title">{{ labels.approvers[lang] }}</h3>
+    </div>
+
+    @if (showApproversList) {
+      <i class="bx bx-chevron-up"></i>
+    } @else {
+      <i class="bx bx-chevron-down"></i>
+    }
+  </div>
+</div>
+
+@if (showApproversList) {
+  <div class="container row m-auto">
+    @if (loadingApproves) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ 'Cargando' }}...</p>
+      </div>
+    } @else {
+      @if (pagination.totalElements === 1) {
+        <small>
+          {{ labels.foundOne[lang] }} {{ pagination.totalElements }}
+          {{ labels.approver[lang] }}.
+        </small>
+      }
+      @if (pagination.totalElements > 1) {
+        <small>
+          {{ labels.foundMulti[lang] }} {{ pagination.totalElements }}
+          {{ labels.approversLower[lang] }}.
+        </small>
+      }
+
+      <div class="approvers-list">
+        @for (approverInfo of approvals; track approverInfo) {
+          <div class="col-lg-12 col-sm-12 mb-3">
+            <div class="candidate-list-box container card">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-4">
+                    @if (approverInfo.browserUrl) {
+                      <div class="candidate-list-images">
+                        <img
+                          [src]="approverInfo.browserUrl"
+                          alt=""
+                          class="avatar-md img-thumbnail rounded-circle"
+                        />
+                      </div>
+                    } @else {
+                      <i
+                        style="
+                          font-size: 50px;
+                          border-radius: 50%;
+                          padding: 15px;
+                        "
+                        class="bx bx-user rounded-circle text-center w-100"
+                      ></i>
+                    }
+                  </div>
+                  <div class="col-lg-9 col-md-8 col-sm-8">
+                    <div class="candidate-list-content">
+                      <h5 class="fs-19 mb-0">
+                        <a class="primary-link" href="#">
+                          {{ approverInfo.approver.name }}
+                        </a>
+                      </h5>
+                      @if (approverInfo.confirmedAt) {
+                        <p class="text-muted mb-2">
+                          {{ labels.approvalDate[lang] }}:
+                          {{ formatDate(approverInfo.confirmedAt) }}
+                        </p>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (pagination.totalElements === 0) {
+        <div class="alert alert-info mt-1 text-center" role="alert">
+          <b>{{ labels.noApproversFound[lang] }}</b>
+        </div>
+      } @else {
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+        >
+        </app-complete-pagination>
+      }
+    }
+  </div>
+}

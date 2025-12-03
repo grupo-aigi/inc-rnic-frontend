@@ -1,0 +1,32 @@
+<div>
+  <span
+    class="rounded-pill text-white"
+    style="background-color: #12bec8; padding: 5px 15px"
+    >
+    {{ newsletter.year }}
+  </span>
+</div>
+
+<ul class="py-1" style="padding: 5px 20px">
+  @for (month of newsletter.months; track month; let isLastMonth = $last) {
+    <li
+      class="my-2 row"
+      >
+      <div class="col-lg-9 col-md-8 col-sm-12">
+        <app-newsletter-month-item [month]="month"></app-newsletter-month-item>
+      </div>
+      <div class="col-lg-3 col-md-4 col-sm-12 my-1">
+        <button
+          (click)="handleRemoveNewsletter($event, month.month)"
+          class="default-btn m-1 w-100 bg-danger"
+          >
+          {{ labels.deleteBtn[lang] }}
+          <i class="bx bx-trash"></i>
+        </button>
+      </div>
+      @if (!isLastMonth) {
+        <hr />
+      }
+    </li>
+  }
+</ul>

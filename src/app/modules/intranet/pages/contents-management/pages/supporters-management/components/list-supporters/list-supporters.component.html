@@ -1,0 +1,104 @@
+@if (loadingSupporters) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center mt-5"
+  >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2 dynamic-font-size">{{ labels.loadingSupporters[lang] }}</p>
+  </div>
+} @else {
+  @if (supporters.length > 0) {
+    <div class="partner-area bg-color pb-5">
+      <div class="container pt-5">
+        <div class="partner-slider">
+          <owl-carousel-o [options]="supportersSlidesOptions">
+            @for (supporter of supporters; track supporter) {
+              <ng-template carouselSlide>
+                <div class="partner-item">
+                  <a [href]="supporter.url" target="_blank">
+                    <img
+                      [src]="
+                        getImageUrlByName(supporter.imageName) ||
+                        '/img/partner/partner-1.png'
+                      "
+                      alt="Image"
+                    />
+                  </a>
+                </div>
+              </ng-template>
+            }
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div
+      class="alert container alert-warning text-center"
+      style="margin: 100px auto"
+      role="alert"
+    >
+      {{ labels.noSupporters[lang] }}
+    </div>
+  }
+
+  @if (supporters.length > 0) {
+    <div class="ptb-70">
+      <h4 class="text-center">{{ labels.fullPartnersList[lang] }}</h4>
+    </div>
+  }
+  @if (supporters.length > 0) {
+    <div>
+      @for (
+        supporter of supporters;
+        track supporter;
+        let i = $index;
+        let isFirst = $first;
+        let isLast = $last
+      ) {
+        <div class="single-team container">
+          <div class="team-img pt-4">
+            <img
+              [src]="
+                supporter.imageName
+                  ? getImageUrlByName(supporter.imageName)
+                  : ''
+              "
+              alt="Image"
+              style="
+                border-bottom-left-radius: 5px;
+                border-bottom-right-radius: 5px;
+                max-height: 150px;
+              "
+            />
+          </div>
+          <div class="text-center m-3">
+            <h5>{{ supporter.url }}</h5>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button
+              (click)="handleRemoveSupporter(supporter.id!)"
+              class="btn default-btn bg-danger m-1"
+            >
+              {{ labels.delete[lang] }}
+            </button>
+            <button
+              [ngClass]="{ hidden: isFirst }"
+              (click)="handleMoveUp(supporter.id!)"
+              class="btn default-btn bg-success m-1"
+            >
+              {{ labels.moveUp[lang] }}
+            </button>
+            <button
+              [ngClass]="{ hidden: isLast }"
+              (click)="handleMoveDown(supporter.id!)"
+              class="btn default-btn bg-success m-1"
+            >
+              {{ labels.moveDown[lang] }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+}

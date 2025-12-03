@@ -1,0 +1,117 @@
+<div class="user-card-box border-0">
+  <div class="p-4 mx-2 card-body">
+    <div class="row d-flex justify-content-between align-items-center pb-3">
+      <div class="col-lg-8">
+        <div class="candidate-list-content mt-lg-0">
+          <h5 class="fs-19 mb-2">
+            {{ labels.userRoles[lang] }}
+            @if (isSuperAdmin) {
+              <span style="font-size: 0.7em; opacity: 0.5">
+                {{ labels.superAdminHasAllRoles[lang] }}
+              </span>
+            }
+          </h5>
+          @for (grantedAuthority of filteredRoles; track grantedAuthority; let i = $index) {
+            <div
+              class="form-check"
+              >
+              <input
+                #rolesCheckbox
+                [checked]="isRoleSelected(grantedAuthority.value)"
+                [disabled]="isSuperAdmin"
+                (click)="handleToggleRole(grantedAuthority.value)"
+                class="form-check-input"
+                type="checkbox"
+                name="authorities-checkbox"
+                id="role-{{ i }}"
+                [value]="grantedAuthority.value"
+                />
+              <label class="form-check-label user-select-none" for="role-{{ i }}">
+                {{ getRoleLabel(grantedAuthority.value) }}
+              </label>
+            </div>
+          }
+
+          @if (rolesHasChanged && newRoles.length > 0) {
+            <div class="mt-2">
+              <button
+                class="btn btn-danger bg-info border-0"
+                type="button"
+                style="margin-right: 10px"
+                (click)="handleResetChangeRoles()"
+                >
+                {{ labels.buttons.restore[lang] }} <i class="bx bx-reset m-1"></i>
+              </button>
+              <button
+                class="btn btn-danger bg-success border-0"
+                type="button"
+                (click)="handleConfirmChangeRoles()"
+                >
+                {{ labels.buttons.confirm[lang] }} <i class="bx bx-check m-1"></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (!isSuperAdmin) {
+        <div class="col-lg-3">
+          <button
+            (click)="handleOpenNewPasswordPopup()"
+            type="button"
+            class="btn btn-info text-white w-100"
+            >
+            <b>{{ labels.buttons.newPassword[lang] }}</b
+              ><i class="bx bxs-key m-1"></i>
+            </button>
+            @if (isAccountNonLocked) {
+              <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#lockUserUntilModal"
+                class="btn btn-secondary w-100 my-sm-2 my-md-2"
+                >
+                <b>{{ labels.lockUserAccount[lang] }}</b
+                  ><i class="bx bxs-lock m-1"></i>
+                </button>
+              } @else {
+                <button
+                  (click)="handleReactivateUser()"
+                  type="button"
+                  class="btn btn-secondary w-100 my-sm-2 my-md-2"
+                  >
+                  <b>{{ labels.restoreUserAccount[lang] }}</b
+                    ><i class="bx bxs-lock-open m-1"></i>
+                  </button>
+                }
+                <button
+                  (click)="handleShowDeleteConfirm()"
+                  type="button"
+                  class="btn btn-danger w-100 mb-sm-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#confirmDeleteUserModal"
+                  >
+                  <b>{{ labels.buttons.deleteUser[lang] }}</b
+                    ><i class="bx bxs-trash m-1"></i>
+                  </button>
+                </div>
+              }
+            </div>
+            @if (newRoles.length === 0) {
+              <div
+                class="alert alert-danger mt-3 text-center"
+                role="alert"
+                >
+                <b>{{ labels.userMustHaveAtLeastOneRole[lang] }}</b>
+              </div>
+            }
+          </div>
+        </div>
+
+        <app-lock-until-date-popup
+          (onSubmit)="handleLockUser($event)"
+        ></app-lock-until-date-popup>
+
+        <app-confirm-delete-popup
+          (onSubmit)="handleDeleteUser()"
+        ></app-confirm-delete-popup>

@@ -1,0 +1,26 @@
+<div class="widget-sidebar">
+  <div class="sidebar-widget categories">
+    <h3>{{ labels.newsletter[lang] }}:</h3>
+    <app-newsletter-list></app-newsletter-list>
+  </div>
+
+  <div class="sidebar-widget categories">
+    <h3>{{ labels.categories[lang] }}:</h3>
+    <app-news-category-list></app-news-category-list>
+  </div>
+
+  <div class="sidebar-widget recent-post">
+    <h3 class="widget-title">{{ labels.recentNews[lang] }}:</h3>
+    <app-recent-news-list></app-recent-news-list>
+  </div>
+
+  <div class="sidebar-widget categories">
+    <h3>{{ labels.monthlySummary[lang] }}:</h3>
+    <app-news-monthly-summary></app-news-monthly-summary>
+  </div>
+
+  <div class="sidebar-widget tags mb-0">
+    <h3>{{ labels.mainTags[lang] }}:</h3>
+    <app-news-tag-list></app-news-tag-list>
+  </div>
+</div>

@@ -1,0 +1,198 @@
+<section class="get-quote-area pt-4">
+  <div class="container">
+    <div class="section-title minutes-section-title">
+      <span>{{ labels.pageTitle[lang] }}</span>
+    </div>
+
+    <!-- <p>
+    {{ minute | json }}
+  </p>
+
+  <hr />
+
+  <p>{{ formGroup.value | json }}</p> -->
+
+  <form
+    [formGroup]="formGroup"
+    autocomplete="off"
+    (ngSubmit)="handleSubmit()"
+    class="edit-minute-form"
+    >
+    <div class="row">
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="">{{ labels.radNumber.placeholder[lang] }}</label>
+          <input
+            [value]="minute.id"
+            disabled
+            type="text"
+            class="form-control"
+            id="First-Name-1"
+            />
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{ labels.radDate.placeholder[lang] }}</label>
+          <input
+            [value]="minute.createdAt | date: 'yyyy-MM-dd'"
+            type="date"
+            disabled
+            class="form-control"
+            id="Email-1"
+            />
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{ labels.name.placeholder[lang] }}</label>
+          <input
+            formControlName="name"
+            type="text"
+            class="form-control"
+            id="Email-1"
+            />
+          @if (isFieldInvalid('name')) {
+            <small class="input-label__invalid">
+              {{ labels.name.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">
+            {{ labels.meetingDate.placeholder[lang] }}
+          </label>
+          <input
+            formControlName="meetingDate"
+            type="date"
+            class="form-control"
+            id="Email-1"
+            />
+          @if (isFieldInvalid('meetingDate')) {
+            <small
+              class="input-label__invalid"
+              >
+              {{ labels.meetingDate.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{
+            labels.startTime.placeholder[lang]
+          }}</label>
+          <input
+            formControlName="start"
+            type="time"
+            class="form-control"
+            id="Email-1"
+            />
+          @if (isFieldInvalid('start')) {
+            <small class="input-label__invalid">
+              {{ labels.startTime.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{ labels.endTime.placeholder[lang] }}</label>
+          <input
+            formControlName="end"
+            type="time"
+            class="form-control"
+            id="Email-1"
+            />
+          @if (isFieldInvalid('end')) {
+            <small class="input-label__invalid">
+              {{ labels.endTime.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{ labels.subject.placeholder[lang] }}</label>
+          <input formControlName="subject" type="text" class="form-control" />
+          @if (isFieldInvalid('subject')) {
+            <small
+              class="input-label__invalid"
+              >
+              {{ labels.subject.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-sm-12 mt-2">
+        <div class="form-group">
+          <label for="select-1">{{ labels.place.placeholder[lang] }}</label>
+          <input formControlName="place" type="text" class="form-control" />
+          @if (isFieldInvalid('place')) {
+            <small class="input-label__invalid">
+              {{ labels.place.error[lang] }}
+            </small>
+          }
+        </div>
+      </div>
+
+      <div class="row g-3 mt-3 mb-sm-4 mx-auto">
+        <div class="col-lg-4 col-sm-12">
+          <button class="default-btn bg-success w-100" type="submit">
+            {{ labels.submit[lang] }}
+          </button>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <button
+            class="default-btn bg-info w-100"
+            (click)="handleResetForm()"
+            type="button"
+            >
+            {{ labels.resetFields[lang] }}
+          </button>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+          <button
+            (click)="handleCloseEdit()"
+            class="default-btn bg-danger w-100"
+            type="button"
+            >
+            {{ labels.cancelEdit[lang] }}
+          </button>
+        </div>
+      </div>
+
+      @if (hasMinuteStarted) {
+        <div
+          class="col-lg-12 col-sm-12 approvers-section mt-4"
+          >
+          <app-edit-group-minute-assistants
+            [minuteId]="minute.id"
+            (onAddAssistant)="handleIncrementAssistants()"
+            (onRemoveAssistant)="handleDecrementAssistants()"
+          ></app-edit-group-minute-assistants>
+        </div>
+      } @else {
+        <div class="alert alert-info mt-3 text-center" role="alert">
+          <b>
+            No se puede registrar asistentes debido a que la reunión del acta
+            no ha iniciado
+          </b>
+        </div>
+      }
+
+    </div>
+  </form>
+</div>
+</section>

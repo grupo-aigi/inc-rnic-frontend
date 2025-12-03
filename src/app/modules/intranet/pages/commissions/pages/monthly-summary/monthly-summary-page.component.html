@@ -1,0 +1,92 @@
+@if (activeCommission) {
+  <div class="section-title grid">
+    <span class="col-lg-8 col-md-12 mx-auto" style="margin-top: 150px">
+      {{ labels.title[lang] }} {{ activeCommission.label[lang] | titlecase }}
+    </span>
+  </div>
+}
+
+<div class="container">
+  <div class="mb-3">
+    <button
+      #openClosePopup
+      class="btn default-btn dynamic-font-size"
+      data-bs-toggle="modal"
+      data-bs-target="#commissionMembersModal"
+      >
+      {{ labels.seeAllMembers[lang] }}
+    </button>
+  </div>
+
+  @if (loadingYears) {
+    <div>
+      <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        style="height: 30vh"
+        >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2 dynamic-font-size">
+          {{ labels.loadingCommissionInfo[lang] }}
+        </p>
+      </div>
+    </div>
+  } @else {
+    @for (year of years; track year) {
+      <nav class="navbar bg-body-tertiary mt-1 px-2">
+        <div
+          class="container-fluid"
+          style="cursor: pointer"
+          (click)="handleToggleYear(year)"
+          >
+          <a
+            class="navbar-brand py-3 dynamic-font-size"
+            style="width: 10%; font-size: 1.5rem; font-weight: 800"
+            >{{ year }}</a
+            >
+            @if (isYearActive(year)) {
+              <form class="d-flex w-50" role="search">
+                <input
+                  class="form-control me-2"
+                  (keyup)="handleSearch($event)"
+                  (click)="handleClickOnSearch($event)"
+                  placeholder="{{ labels.searchAll[lang] }} {{ year }}"
+                  aria-label="Search"
+                  />
+              </form>
+            }
+            @if (isYearActive(year)) {
+              <i
+                class="bx bxs-up-arrow"
+              ></i>
+            } @else {
+              <i class="bx bxs-down-arrow"></i>
+            }
+          </div>
+          @if (isYearActive(year)) {
+            <section class="w-100">
+              @if (activeCommission) {
+                <div>
+                  <app-commission-monthly-members
+                    [year]="year"
+                    [activeCommission]="activeCommission"
+                    [activeSearch$]="activeSearch$"
+                  ></app-commission-monthly-members>
+                </div>
+              }
+            </section>
+          }
+        </nav>
+      }
+    }
+
+  </div>
+
+  @if (activeCommission) {
+    <div>
+      <app-commission-members-modal
+        [activeCommission]="activeCommission"
+      ></app-commission-members-modal>
+    </div>
+  }

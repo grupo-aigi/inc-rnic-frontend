@@ -1,0 +1,145 @@
+<!-- Start Blog Area -->
+<section class="blog-area ptb-70">
+  <div class="container">
+    <app-convocations-filter
+      (onFiltersChange)="updateConvocationFilters($event)"
+    ></app-convocations-filter>
+
+    @if (loadingPosters) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">Cargando Convocationos...</p>
+      </div>
+    } @else {
+      <div class="row">
+        @for (
+          convocationPoster of convocationPosters;
+          track convocationPoster
+        ) {
+          <div class="col-lg-4 col-md-6">
+            <div class="single-blog-post">
+              <div class="blog-img" style="position: relative">
+                <a
+                  target="_blank"
+                  [href]="
+                    '/intranet/convocatorias/' + convocationPoster.urlName
+                  "
+                >
+                  <img
+                    [src]="getImageUrlByName(convocationPoster.imageName)"
+                    alt="Image"
+                  />
+                </a>
+                <p class="event-scope__ribbon">
+                  {{
+                    lang === 'es'
+                      ? convocationPoster.scope === 'NATIONAL'
+                        ? 'NACIONAL'
+                        : 'INTERNACIONAL'
+                      : convocationPoster.scope === 'NATIONAL'
+                        ? 'NATIONAL'
+                        : 'INTERNATIONAL'
+                  }}
+                </p>
+              </div>
+              <div
+                class="blog-content position-relative"
+                [title]="convocationPoster.description"
+              >
+                <span
+                  class="rounded-pill badge badge-primary p-2 event-category"
+                  [ngStyle]="{
+                    'background-color': wordToHexColor(
+                      convocationPoster.category.name
+                    ),
+                  }"
+                >
+                  {{ convocationPoster.category.name }}
+                </span>
+                <ul style="margin-top: 10px">
+                  <li>
+                    <i class="flaticon-calendar"></i
+                    >{{ formatConvocationDate(convocationPoster.startDate) }}
+                    -
+                    {{ formatConvocationDate(convocationPoster.endDate) }}
+                  </li>
+                </ul>
+                <ul style="margin-top: -20px">
+                  <li>
+                    <i class="flaticon-user"></i>{{ labels.budget[lang] }}:
+                    @if (convocationPoster.budget) {
+                      {{ convocationPoster.budget | currency }}
+                      <small>COP</small>
+                    } @else {
+                      {{ labels.noBudget[lang] }}
+                    }
+                  </li>
+                </ul>
+                <h3 style="margin-top: -15px">
+                  <a
+                    target="_blank"
+                    [href]="
+                      '/intranet/convocatorias/' + convocationPoster.urlName
+                    "
+                    >{{ convocationPoster.title }}</a
+                  >
+                </h3>
+                <p>
+                  {{
+                    trimConvocationDescription(convocationPoster.description)
+                  }}
+                </p>
+                <a
+                  target="_blank"
+                  [routerLink]="
+                    variant === 'PUBLIC'
+                      ? '/convocatorias/' + convocationPoster.urlName
+                      : '/intranet/convocatorias/' + convocationPoster.urlName
+                  "
+                  class="read-more"
+                  >Ver detalle de la convocatoria</a
+                >
+                <div class="d-flex mt-3 justify-content-evenly">
+                  <button
+                    (click)="handleEditConvocation(convocationPoster)"
+                    class="btn default-btn bg-info"
+                  >
+                    {{ labels.edit[lang] }}
+                  </button>
+                  <button
+                    class="btn default-btn bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteConvocationModal"
+                    (click)="handleSetConvocationToDelete(convocationPoster)"
+                  >
+                    {{ labels.delete[lang] }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+        >
+        </app-complete-pagination>
+      </div>
+    }
+  </div>
+</section>
+
+@if (convocationToDelete) {
+  <div>
+    <app-delete-convocation-confirmation
+      [title]="labels.deleteConvocationConfirmation"
+      [valueToType]="convocationToDelete.title"
+      (onConfirm)="handleConfirmDelete(convocationToDelete.id)"
+    ></app-delete-convocation-confirmation>
+  </div>
+}

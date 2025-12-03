@@ -1,0 +1,101 @@
+<div
+  style="
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 5px;
+  "
+  >
+  @for (section of searchSections; track section) {
+    <span
+      class="rounded-pill bg-info badge badge-primary p-2 position-relative"
+      style="padding-right: 30px !important"
+      >
+      @if (section.enabled) {
+        <button
+          type="button"
+          (click)="handleDisableSection($event, section.id)"
+          class="section-chip bg-transparent text-white"
+          style="font-weight: 800"
+          >
+          {{ section.label[lang] }}
+          <i
+            class="bx bx-down-arrow-circle"
+        style="
+          font-size: 1.2rem;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          cursor: pointer;
+        "
+          ></i>
+        </button>
+      }
+    </span>
+  }
+</div>
+
+@if (hasEnabledSections) {
+  <hr
+    class="container mt-1 mb-2 my-0"
+    />
+} @else {
+  <p class="text-center small" style="font-weight: 800">
+    {{ labels.noSectionsShown[lang] }}
+  </p>
+}
+
+<ng-template #noSectionsShown>
+  <p class="text-center small" style="font-weight: 800">
+    {{ labels.noSectionsShown[lang] }}
+  </p>
+</ng-template>
+
+@if (allSectionsShown) {
+  <div>
+    <p class="text-center small" style="font-weight: 800">
+      {{ labels.allSectionsShown[lang] }}
+    </p>
+  </div>
+}
+
+<div
+  style="
+    margin: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 5px;
+  "
+  >
+  @for (section of searchSections; track section) {
+    <span
+      class="rounded-pill bg-danger text-white badge badge-primary p-2 position-relative"
+      style="padding-right: 30px !important"
+      >
+      @if (!section.enabled) {
+        <button
+          type="button"
+          (click)="handleEnableSection($event, section.id)"
+          class="section-chip bg-transparent text-white"
+          style="font-weight: 800"
+          >
+          {{ section.label[lang] }}
+          <i
+            class="bx bx-up-arrow-circle"
+        style="
+          font-size: 1.2rem;
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          cursor: pointer;
+        "
+          ></i>
+        </button>
+      }
+    </span>
+  }
+</div>

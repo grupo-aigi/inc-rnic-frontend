@@ -1,0 +1,62 @@
+<div class="container primary-content py-2">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="project-section general-info">
+        <h3>{{ labels.generalInformation[lang] }}</h3>
+
+        <p>
+          <strong>{{ labels.madeBy[lang] }}: </strong> {{ minute.author?.name }}
+        </p>
+        <div class="row">
+          <div class="col-lg-12 mx-auto">
+            <ul>
+              <b>{{ labels.radNumber[lang] }}:</b>
+              {{
+              minute.id
+              }}
+
+              <li>
+                <b>{{ labels.radDate[lang] }}:</b>
+                {{ getTime(minute.createdAt!) }}
+              </li>
+
+              <li>
+                <b>{{ labels.meetingDate[lang] }}:</b> {{ meetingDate }}
+              </li>
+              <li>
+                <b>{{ labels.startTime[lang] }}:</b> {{ getTime(minute.start) }}
+              </li>
+              <li>
+                <b>{{ labels.endTime[lang] }}:</b> {{ getTime(minute.end) }}
+              </li>
+              <li>
+                <b>{{ labels.place[lang] }}:</b> {{ minute.place }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-12 col-sm-12 approvers-section">
+  <app-group-minute-approvers-list
+    [minuteId]="minute.id!"
+  ></app-group-minute-approvers-list>
+</div>
+
+@if (hasMinuteStarted) {
+  <div
+    class="col-lg-12 mt-4 col-sm-12 approvers-section"
+    >
+    <app-group-minute-assistants-list
+      [minuteId]="minute.id!"
+    ></app-group-minute-assistants-list>
+  </div>
+} @else {
+  <div class="alert alert-info mt-3 text-center" role="alert">
+    <b> {{ labels.noAssistantsFound[lang] }}</b>
+  </div>
+}
+

@@ -1,0 +1,279 @@
+<header class="header-area">
+  <div class="navbar-area">
+    <div class="mobile-nav">
+      <div class="container-fluid">
+        <div class="mobile-menu">
+          <div class="logo">
+            <a [routerLink]="['/intranet']">
+              <img
+                *ngIf="theme === 'DARK'"
+                width="150"
+                height="50"
+                src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                alt="logo"
+              />
+              <img
+                *ngIf="theme === 'LIGHT'"
+                width="150"
+                height="50"
+                src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                alt="logo"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desktop-nav desktop-nav__intranet" style="left: 300px">
+      <div
+        class="user-actions__menu-button"
+        (click)="handleToggleSidebarType()"
+      >
+        <i class="bx bx-menu"></i>
+      </div>
+
+      <div class="container-fluid">
+        <nav
+          class="navbar navbar-expand-md navbar-light"
+          style="justify-content: space-between; justify-content: space-between"
+        >
+          <div>
+            <a
+              class="navbar-brand navbar-brand__intranet"
+              [routerLink]="['/intranet']"
+            >
+              <img
+                *ngIf="theme === 'DARK'"
+                width="150"
+                height="50"
+                src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                alt="logo"
+              />
+              <img
+                *ngIf="theme === 'LIGHT'"
+                width="150"
+                height="50"
+                src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                alt="logo"
+              />
+            </a>
+          </div>
+
+          <div class="search-box search-box__intranet top-0">
+            <app-global-search></app-global-search>
+          </div>
+
+          <div
+            class="roles-section position-relative"
+            style="text-align: center"
+          >
+            <p>
+              <b style="font-size: 18px">{{ userInfo?.name }}</b>
+            </p>
+
+            <div #changeRole *ngIf="userInfo!.roles.length > 1; else oneRole">
+              <button
+                class="change-role__button"
+                (click)="handleToggleChangeRolePopup()"
+              >
+                {{ activeRole![lang] }} {{ displayChangeRolePopup ? '▲' : '▼' }}
+              </button>
+              <div class="login-popup__wrapper">
+                <app-change-role-popup
+                  (onChangeRole)="handleToggleChangeRolePopup()"
+                  *ngIf="displayChangeRolePopup"
+                ></app-change-role-popup>
+              </div>
+            </div>
+            <ng-template #oneRole>
+              <p
+                style="
+                  position: absolute;
+                  top: 25px;
+                  width: 100%;
+                  text-align: center;
+                  margin: auto;
+                "
+              >
+                {{ activeRole![lang] }}
+              </p>
+            </ng-template>
+          </div>
+
+          <div class="others-option">
+            <div class="navbar__language-select">
+              <ul class="navbar__language-area">
+                <li class="language-item-top">
+                  <div href="#" class="language-bar">
+                    <span>
+                      <span *ngIf="lang === 'es'">ES</span>
+                    </span>
+
+                    <span>
+                      <span *ngIf="lang === 'en'">EN</span>
+                    </span>
+                    <i class="bx bx-chevron-down"></i>
+                  </div>
+
+                  <ul class="language-item-bottom">
+                    <li class="language-item" *ngIf="lang !== 'es'">
+                      <div
+                        (click)="handleChangeAppLanguage('es')"
+                        class="language-link"
+                        style="cursor: pointer"
+                      >
+                        <span>ES</span>
+                      </div>
+                    </li>
+                    <li class="language-item" *ngIf="lang !== 'en'">
+                      <div
+                        (click)="handleChangeAppLanguage('en')"
+                        class="language-link position-relative"
+                        style="cursor: pointer"
+                      >
+                        <span>EN</span>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+            <div #logoutRef class="user-actions__photo">
+              <div
+                (click)="handleOpenLoginPopup()"
+                style="
+                  background-color: rgb(236, 234, 234);
+                  position: relative;
+                  cursor: pointer;
+                  width: 50px;
+                  right: 0px;
+                  top: -6px;
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: center;
+                  align-items: center;
+                  height: 50px;
+                  border-radius: 50%;
+                  font-size: 20px;
+                "
+              >
+                <div
+                  *ngIf="
+                    !loadingUserInfo && this.authService.userAvatar;
+                    else defaultAvatar
+                  "
+                >
+                  <img
+                    [src]="this.authService.userAvatar"
+                    alt="user avatar"
+                    style="
+                      width: 40px;
+                      height: 40px;
+                      border-radius: 50%;
+                      background-color: transparent;
+                      padding: 0px;
+                    "
+                  />
+                </div>
+                <ng-template #defaultAvatar>
+                  <i class="bx bx-user"></i>
+                </ng-template>
+              </div>
+
+              <div class="login-popup__wrapper">
+                <app-user-options-popup
+                  *ngIf="displayUserOptionsPopup === true"
+                ></app-user-options-popup>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="others-option-for-responsive">
+      <div class="container">
+        <div class="dot-menu">
+          <div class="inner">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="option-inner">
+            <div
+              class="others-option justify-content-around d-flex align-items-center!"
+            >
+              <div class="navbar__contact-us">
+                <div class="navbar__accessibility-panel-mobile">
+                  <div class="accessibility-item accessibility-item-first">
+                    A&nbsp;+
+                  </div>
+
+                  <div class="accessibility-item">A&nbsp;-</div>
+
+                  <div class="accessibility-item">
+                    <i *ngIf="appTheme === 'LIGHT'" class="bx bx-moon"></i>
+                    <i *ngIf="appTheme === 'DARK'" class="bx bx-sun"></i>
+                  </div>
+
+                  <div class="accessibility-item">
+                    <a
+                      href="https://convertic.gov.co/641/w3-propertyvalue-15339.html"
+                      target="_blank"
+                    >
+                      <i class="bx bxs-megaphone"></i>
+                    </a>
+                  </div>
+
+                  <div class="accessibility-item accessibility-item-last">
+                    <a
+                      href="https://centroderelevo.gov.co/632/w3-channel.html"
+                      target="_blank"
+                    >
+                      <i class="bx bx-braille"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div #logoutMobileRef class="get-quote">
+                <div
+                  (click)="handleOpenLoginPopup()"
+                  class="default-btn"
+                  style="cursor: pointer"
+                >
+                  Ingresar
+                </div>
+                <div class="login-popup__wrapper">
+                  <app-user-options-popup
+                    *ngIf="displayUserOptionsPopup === true"
+                  ></app-user-options-popup>
+                </div>
+              </div>
+
+              <form class="search-box">
+                <input
+                  type="text"
+                  name="Search"
+                  placeholder="Search for..."
+                  class="form-control"
+                />
+                <button type="submit" class="search-btn">
+                  <i class="bx bx-search"></i>
+                </button>
+                <button type="submit" class="close-btn">
+                  <i class="bx bx-x"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

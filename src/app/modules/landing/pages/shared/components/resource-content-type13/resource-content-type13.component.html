@@ -1,0 +1,32 @@
+<div class="row mt-5">
+  <div class="row mb-5">
+    @for (file of content.resources; track file; let i = $index) {
+      <div
+        class="col-lg-3 col-sm-12 position-relative"
+        >
+        <img
+          [src]="'/img/events/filetypes/' + file.filetype + '.png'"
+          [alt]="file.filename"
+          alt="image-{{ file.filetype }}"
+          width="100px"
+          class="image-list"
+          [title]="file.filename"
+          />
+        <div class="mb-5 mt-2">
+          <b class="mt-2">{{labels.file[lang]}} #{{ i + 1 }}</b>
+          <p>{{ file.originalFilename }} - {{ getFileSize(file.size) }}</p>
+          <span
+            (click)="downloadFile(file.filename, file.originalFilename)"
+            class="position-relative"
+            style="cursor: pointer"
+            >{{labels.download[lang]}}
+            <i
+              class="bx bx-download position-absolute"
+              style="top: 3px; right: -20px"
+              ></i
+            ></span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>

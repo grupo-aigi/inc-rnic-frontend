@@ -1,0 +1,466 @@
+<div class="container pt-4">
+  <div class="row flex-lg-nowrap">
+    <div class="col">
+      <div class="row">
+        <div class="col mb-3">
+          <div class="profile-edit-card">
+            <div class="profile-card-body">
+              <div class="e-profile">
+                <app-user-primary-info></app-user-primary-info>
+
+                <div class="tab-content pt-4 mt-5">
+                  <div class="tab-pane active">
+                    <form
+                      [formGroup]="formGroup"
+                      (ngSubmit)="handleSubmit()"
+                      class="form"
+                      novalidate=""
+                      >
+                      <div class="row">
+                        <h3 class="position-relative">
+                          {{ labels.personalInfo[lang] }}
+                        </h3>
+
+                        <div class="col">
+                          <div class="row">
+                            <div class="col-lg-6 col-sm-12 col-md-12 mt-3">
+                              <div class="form-group position-relative">
+                                <label>{{ labels.fullName[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  formControlName="fullName"
+                                  type="text"
+                                  name="name"
+                                  />
+                              </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12 col-md-12 mt-3">
+                              <div
+                                formGroupName="email"
+                                class="form-group position-relative"
+                                >
+                                <label>{{ labels.email[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  name="username"
+                                  [value]="this.authService.userInfo?.email"
+                                  disabled="true"
+                                  />
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="handleToggleVisibility('email')"
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('email')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div
+                              formGroupName="identification"
+                              class="col-lg-6 col-sm-12 col-md-12 mt-3"
+                              >
+                              <div class="form-group position-relative">
+                                <label>{{ labels.identification[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  [value]="
+                                    this.authService.userInfo?.identification
+                                  "
+                                  name="identification"
+                                  disabled="true"
+                                  />
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="
+                                    handleToggleVisibility('identification')
+                                  "
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('identification')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+
+                            <div
+                              formGroupName="phoneNumber"
+                              class="col-lg-6 col-sm-12 col-md-12 mt-3"
+                              >
+                              <div class="form-group position-relative">
+                                <label>{{ labels.phone[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  type="text"
+                                  formControlName="value"
+                                  name="phoneNumber"
+                                  />
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="
+                                    handleToggleVisibility('phoneNumber')
+                                  "
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('phoneNumber')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-12 mt-3">
+                              <div
+                                formGroupName="description"
+                                class="form-group position-relative"
+                                >
+                                <label>{{ labels.description[lang] }}</label>
+                                <textarea
+                                  class="form-control"
+                                  rows="5"
+                                  formControlName="value"
+                                  style="resize: vertical; max-height: 400px"
+                                ></textarea>
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="
+                                    handleToggleVisibility('description')
+                                  "
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('description')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <h3 class="position-relative">
+                              {{ labels.networkCommissions[lang] }}
+
+                              <button
+                                class="position-relative btn default-btn btn-info show-hide__button"
+                                style="left: 0px"
+                                (click)="handleToggleVisibility('commissions')"
+                                type="button"
+                                >
+                                @if (
+                                  this.formGroup
+                                  .get('commissions')
+                                  ?.get('display')?.value) {
+                                  <div
+                                    >
+                                    {{ labels.visible[lang] }}
+                                    <i class="bx bxs-show"></i>
+                                  </div>
+                                } @else {
+                                  <div>
+                                    {{ labels.hidden[lang] }}
+                                    <i class="bx bxs-hide"></i>
+                                  </div>
+                                }
+
+                              </button>
+                            </h3>
+
+                            <div
+                              formGroupName="commissions"
+                              class="col-lg-12 col-sm-12"
+                              >
+                              <div class="form-group position-relative">
+                                @for (commission of commissions; track commission) {
+                                  <div
+                                    class="form-check"
+                                    >
+                                    <input
+                                    [checked]="
+                                      isCommissionSelected(commission.value)
+                                    "
+                                    (click)="
+                                      handleToggleCommission(commission.value)
+                                    "
+                                      class="form-check-input"
+                                      type="checkbox"
+                                      name="commission-checkbox"
+                                      [id]="'commission-' + commission.value"
+                                      [value]="commission.value"
+                                      />
+                                    <label
+                                      class="form-check-label"
+                                      for="commission-{{ commission.value }}"
+                                      >
+                                      {{ commission.label[lang] }}
+                                    </label>
+                                  </div>
+                                }
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-2">
+                            <h3 class="mt-2">
+                              {{ labels.contactInfo[lang] }}
+                            </h3>
+
+                            <div
+                              formGroupName="linkedin"
+                              class="col-lg-4 col-sm-12 mt-3"
+                              >
+                              <div class="form-group position-relative">
+                                <label>{{ labels.linkedin[lang] }}</label>
+
+                                <input
+                                  class="form-control"
+                                  rows="5"
+                                  formControlName="value"
+                                  style="resize: vertical; max-height: 400px"
+                                  />
+                                @if (isFieldInvalid('linkedin', 'value')) {
+                                  <small
+                                    class="input-label__invalid"
+                                    >
+                                    {{ labels.linkedinUrl[lang] }}
+                                  </small>
+                                }
+
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="handleToggleVisibility('linkedin')"
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('linkedin')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-12 mt-3">
+                              <div
+                                formGroupName="orcid"
+                                class="form-group position-relative"
+                                >
+                                <label>{{ labels.orcid[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  formControlName="value"
+                                  rows="5"
+                                  style="resize: vertical; max-height: 400px"
+                                  />
+                                @if (isFieldInvalid('orcid', 'value')) {
+                                  <small
+                                    class="input-label__invalid"
+                                    >
+                                    {{ labels.orcidUrl[lang] }}
+                                  </small>
+                                }
+
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="handleToggleVisibility('orcid')"
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('orcid')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+
+                            <div class="col-lg-4 col-sm-12 mt-3">
+                              <div
+                                formGroupName="scopus"
+                                class="form-group position-relative"
+                                >
+                                <label>{{ labels.scopus[lang] }}</label>
+                                <input
+                                  class="form-control"
+                                  formControlName="value"
+                                  rows="5"
+                                  style="resize: vertical; max-height: 400px"
+                                  />
+                                @if (isFieldInvalid('scopus', 'value')) {
+                                  <small
+                                    class="input-label__invalid"
+                                    >
+                                    {{ labels.scopusUrl[lang] }}
+                                  </small>
+                                }
+
+                                <button
+                                  class="position-absolute btn default-btn btn-info show-hide__button"
+                                  (click)="handleToggleVisibility('scopus')"
+                                  type="button"
+                                  >
+                                  @if (
+                                    this.formGroup
+                                    .get('scopus')
+                                    ?.get('display')?.value) {
+                                    <div
+                                      >
+                                      {{ labels.visible[lang] }}
+                                      <i class="bx bxs-show"></i>
+                                    </div>
+                                  } @else {
+                                    <div>
+                                      {{ labels.hidden[lang] }}
+                                      <i class="bx bxs-hide"></i>
+                                    </div>
+                                  }
+
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mt-3">
+                        <div class="row justify-content-end">
+                          <div class="col-lg-2 col-sm-12">
+                            <button
+                              class="btn btn-success w-100 m-1 p-2"
+                              type="submit"
+                              >
+                              <i class="bx bx-save"></i>
+                              <span class="m-1">
+                                {{ labels.saveChanges[lang] }}
+                              </span>
+                            </button>
+                          </div>
+
+                          <div class="col-lg-2 col-sm-12">
+                            <button
+                              class="btn btn-info w-100 m-1 text-white p-2"
+                              type="button"
+                              (click)="handleRestoreValues()"
+                              >
+                              <i class="bx bx-sync"></i>
+                              <span class="m-1">
+                                {{ labels.restoreValuesButton[lang] }}
+                              </span>
+                            </button>
+                          </div>
+
+                          <div class="col-lg-2 col-sm-12">
+                            <button
+                              class="btn btn-danger w-100 m-1 p-2"
+                              type="button"
+                              (click)="handleCancelUpdate()"
+                              >
+                              <i class="bx bx-x"></i>
+
+                              <span class="m-1">
+                                {{ labels.cancelButton[lang] }}
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                    <div class="my-5">
+                      <hr />
+                    </div>
+
+                    <app-change-password></app-change-password>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

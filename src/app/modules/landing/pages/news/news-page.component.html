@@ -1,0 +1,184 @@
+<div class="page-title-area bg-newsletter">
+  <div class="container">
+    <div class="page-title-content dynamic-font-size">
+      <h2 class="dynamic-font-size">{{ labels.news[lang] }}</h2>
+
+      <ul>
+        <li class="dynamic-font-size">
+          @if (variant === 'PUBLIC') {
+            <a routerLink="/" class="dynamic-font-size">
+              {{ labels.main[lang] }}
+            </a>
+          } @else {
+            <a routerLink="/intranet" class="dynamic-font-size">
+              {{ labels.main[lang] }}
+            </a>
+          }
+        </li>
+        <li class="active dynamic-font-size">{{ labels.news[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="blog-area ptb-100">
+  <div class="container">
+    <div class="section-title">
+      <span class="top-title dynamic-font-size">{{ labels.news[lang] }}</span>
+      <h2 class="dynamic-font-size dynamic-font-size">
+        {{ labels.stayUpToDate[lang] }}
+      </h2>
+    </div>
+
+    <app-news-filter (onFiltersChange)="updateNewsFilters($event)">
+    </app-news-filter>
+
+    <section class="d-lg-none d-md-block d-sm-block">
+      <div
+        class="mb-4 dynamic-font-size"
+        style="cursor: pointer"
+        (click)="handleToggleMobileSidebar()"
+      >
+        <div
+          class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+        >
+          <span>{{ labels.showFilters[lang] }}</span>
+
+          @if (showMobileSidebar) {
+            <i class="bx bx-chevron-up"></i>
+          } @else {
+            <i class="bx bx-chevron-down"></i>
+          }
+        </div>
+      </div>
+
+      @if (showMobileSidebar) {
+        <div class="mb-3">
+          <app-news-right-sidebar></app-news-right-sidebar>
+        </div>
+      }
+    </section>
+    @if (loadingNews) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2 dynamic-font-size">{{ labels.loadingNews[lang] }}...</p>
+      </div>
+    } @else {
+      @if (newsPosters.length > 0) {
+        <div class="row">
+          <div class="col-lg-8 col-md-12">
+            <div class="row">
+              <div class="col-12 mb-1">
+                <app-complete-pagination
+                  [totalElements]="pagination.totalElements"
+                  [pageSize]="pagination.pageSize"
+                  [currentPage]="pagination.currentPage"
+                  [showTotalRecords]="true"
+                  (onPageChange)="handleGoToPage($event)"
+                >
+                </app-complete-pagination>
+              </div>
+              @for (newsPoster of newsPosters; track $index) {
+                <div class="col-lg-12 col-md-12">
+                  <div class="single-blog-post">
+                    <div class="blog-img">
+                      <a
+                        [routerLink]="
+                          variant === 'PUBLIC'
+                            ? '/noticias/' + newsPoster.urlName
+                            : '/intranet/noticias/' + newsPoster.urlName
+                        "
+                      >
+                        <img
+                          style="width: 100%"
+                          [src]="
+                            getImageUrlByName(newsPoster.imageName) ||
+                            '/img/blog/blog-7.jpg'
+                          "
+                          alt="Image"
+                        />
+                      </a>
+                    </div>
+                    <div class="blog-content">
+                      <span
+                        class="rounded-pill badge badge-primary news-category"
+                        [ngStyle]="{
+                          'background-color': wordToHexColor(
+                            newsPoster.category.name
+                          ),
+                        }"
+                      >
+                        {{ newsPoster.category.name }}
+                      </span>
+                      <ul class="dynamic-font-size">
+                        <li class="dynamic-font-size">
+                          <i class="bx bx-user"></i>
+                          <span
+                            class="dynamic-font-size"
+                            [title]="newsPoster.author"
+                            >{{ newsPoster.author }}
+                          </span>
+                        </li>
+                        <li>
+                          <i class="bx bx-calendar"></i>
+                          {{ labels.published[lang] }}:
+                          {{ formatNewsDate(newsPoster.updatedAt) }}
+                        </li>
+                      </ul>
+                      <h3 class="dynamic-font-size">
+                        <a
+                          [routerLink]="'/noticias/' + newsPoster.urlName"
+                          class="dynamic-font-size"
+                          >{{ newsPoster.title }}</a
+                        >
+                      </h3>
+                      <p style="text-align: justify" class="dynamic-font-size">
+                        {{ newsPoster.description }}
+                      </p>
+                      <a
+                        [routerLink]="'/noticias/' + newsPoster.urlName"
+                        class="read-more dynamic-font-size"
+                        >{{ labels.readDetails[lang] }}</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              }
+
+              @if (error) {
+                <div class="alert alert-danger text-center mt-5" role="alert">
+                  {{ labels.errorLoadingNews[lang] }}
+                </div>
+              }
+
+              <div class="col-12 mb-5">
+                <app-complete-pagination
+                  [totalElements]="pagination.totalElements"
+                  [pageSize]="pagination.pageSize"
+                  [currentPage]="pagination.currentPage"
+                  [showTotalRecords]="true"
+                  (onPageChange)="handleGoToPage($event)"
+                >
+                </app-complete-pagination>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 d-block d-lg-block d-md-none d-sm-none">
+            <app-news-right-sidebar></app-news-right-sidebar>
+          </div>
+        </div>
+      } @else {
+        <div
+          class="alert container alert-warning text-center dynamic-font-size"
+          style="margin: 100px auto"
+          role="alert"
+        >
+          {{ labels.noNews[lang] }}
+        </div>
+      }
+    }
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<div class="navbar__medium-break-6">
+  @switch (currentSidebarMode) {
+    @case ('FULL') {
+      <div style="margin-top: 80px; margin-right: 300px">
+        <app-sidebar-full></app-sidebar-full>
+      </div>
+    }
+
+    @case ('MEDIUM') {
+      <div style="margin-top: 80px; margin-right: 95px">
+        <app-sidebar-medium></app-sidebar-medium>
+      </div>
+    }
+
+    @case ('COLLAPSED') {
+      <div style="margin-top: 80px; margin-right: 0px"></div>
+    }
+
+    @default {
+      <div style="margin-top: 80px; margin-right: 300px">
+        <app-sidebar-full></app-sidebar-full>
+      </div>
+    }
+  }
+</div>

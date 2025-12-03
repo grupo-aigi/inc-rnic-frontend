@@ -1,0 +1,114 @@
+<div class="container">
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="row p-lg-5 p-4 shadow">
+        <div class="col-lg-7 col-md-12 col-sm-12 lc-block mb-4">
+          <h2>{{ project.generalTitle }}</h2>
+          <section>
+            <p class="mb-0 mt-2" style="font-weight: bolder">
+              {{ labels.missions[lang] }}:
+            </p>
+
+            @for (mission of project.missions; track mission) {
+              <div
+                class="d-flex flex-row justify-content-start align-items-start"
+                >
+                <i class="bx bxs-star pt-1 mx-1"></i>
+                <p>{{ getMissionName(mission.mission, lang) }}</p>
+              </div>
+            }
+          </section>
+
+          <section>
+            <span
+              class="rounded-pill badge badge-primary m-2 p-2"
+              [ngStyle]="{
+                'background-color': wordToHexColor(
+                  project.researchLine.researchLine
+                ),
+              }"
+              >{{
+              getResearchName(project.researchLine.researchLine, lang)
+              }}</span
+              >
+            </section>
+
+            <section class="d-flex flex-row align-items-baseline">
+              <p style="font-weight: bolder">{{ labels.projectType[lang] }}:</p>
+              <span class="m-1">{{ project.projectType.projectType }}</span>
+            </section>
+
+            <section class="pb-2">
+              <p class="mb-0" style="font-weight: bolder">
+                {{ labels.problemToSolve[lang] }}:
+              </p>
+              <p class="mt-0 mb-2">
+                {{ project.generalComponents.problem }}
+              </p>
+            </section>
+          </div>
+
+          <div class="col-lg-5 col-md-12 col-sm-12 lc-block mb-4">
+            <p style="font-weight: bolder">
+              {{ labels.researcherInformation[lang] }}
+            </p>
+            <section
+              class="d-flex flex-row justify-content-start align-items-baseline"
+              >
+              <i class="bx bx-user-pin pt-1"></i>
+              <p class="mx-1" style="font-weight: bolder">
+                {{ labels.name[lang] }}:
+              </p>
+              <span>{{ project.generalDescription.researcherName }}</span>
+            </section>
+
+            <section
+              class="d-flex flex-row justify-content-start align-items-baseline"
+              >
+              <i class="bx bx-buildings pt-1"></i>
+              <p class="mx-1" style="font-weight: bolder">
+                {{ labels.institution[lang] }}:
+              </p>
+              <span>{{ project.generalDescription.researcherInstitution }}</span>
+            </section>
+
+            <section
+              class="d-flex flex-row justify-content-start align-items-baseline"
+              >
+              <i class="bx bx-envelope pt-1"></i>
+              <p class="mx-1" style="font-weight: bolder">
+                {{ labels.email[lang] }}:
+              </p>
+              <span>{{ project.generalDescription.researcherEmail }}</span>
+            </section>
+
+            <section
+              class="d-flex flex-row justify-content-start align-items-baseline"
+              >
+              <i class="bx bx-phone-call pt-1"></i>
+              <p class="mx-1" style="font-weight: bolder">
+                {{ labels.phone[lang] }}:
+              </p>
+              <span>{{ project.generalDescription.researcherPhone }}</span>
+            </section>
+          </div>
+
+          <div class="col-12">
+            @if (showDetail) {
+              <article>
+                <app-project-detail [project]="project"></app-project-detail>
+              </article>
+            }
+
+            <button
+              (click)="toggleDetail()"
+              class="btn default-btn"
+              type="button"
+              >
+              {{ showDetail ? labels.showLess[lang] : labels.showMore[lang] }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

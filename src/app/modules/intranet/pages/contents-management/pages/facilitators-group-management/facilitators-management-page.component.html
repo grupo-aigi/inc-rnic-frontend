@@ -1,0 +1,29 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li #listFacilitatorsTab (click)="changeActiveTab(0)">
+        {{ labels.listFacilitators[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">{{ labels.createFacilitator[lang] }}</li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-facilitators></app-list-facilitators>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-facilitator
+                (onCreate)="createNetworkParticipant($event)"
+              ></app-create-facilitator>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

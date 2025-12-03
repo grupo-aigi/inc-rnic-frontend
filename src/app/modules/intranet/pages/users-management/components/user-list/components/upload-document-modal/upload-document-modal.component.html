@@ -1,0 +1,64 @@
+<div
+  class="modal fade"
+  id="uploadUserDocumentModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ labels.formNamePrefix[lang] }} {{ docType }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div
+            style="display: flex; flex-direction: row; justify-content: center"
+            >
+            <label for="fileInput_pdf" class="custom-pdf-file-button">
+              <input
+                type="file"
+                (change)="onFileSelected($event)"
+                id="fileInput_pdf"
+                class="file-input"
+                style="font-weight: 600"
+                />
+              {{ labels.buttons.uploadDocument[lang] }}
+            </label>
+          </div>
+          @if (uploadedFile) {
+            <p class="mt-2">
+              {{ labels.uploadedDocument[lang] }}: <b>{{ uploadedFile.name }}</b>
+            </p>
+          }
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button
+          #closeUploadPDFButton
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          >
+          {{ labels.buttons.close[lang] }}
+        </button>
+        <button
+          [disabled]="!uploadedFile"
+          type="button"
+          (click)="handleConfirmUpload($event)"
+          class="btn btn-success"
+          >
+          {{ labels.buttons.confirm[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

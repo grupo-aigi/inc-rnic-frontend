@@ -1,0 +1,34 @@
+<ul>
+  @for (newsItem of newsList; track newsItem) {
+    <li>
+      <div class="row" [title]="newsItem.description">
+        <div class="col-lg-5 col-md-2 col-sm-6">
+          <img
+            [src]="getImageUrlByName(newsItem.imageName)"
+            alt="Recent news img"
+          />
+        </div>
+        <div class="col-lg-7 col-md-10 col-sm-12">
+          <div class="d-flex flex-row align-items-baseline">
+            <i class="bx bx-calendar"></i>
+
+            <p class="px-1">
+              {{ formatNewsDate(newsItem.updatedAt) }}
+            </p>
+          </div>
+          <a
+            [routerLink]="
+              variant === 'PUBLIC'
+                ? '/noticias/' + newsItem.urlName
+                : '/intranet/noticias/' + newsItem.urlName
+            "
+          >
+            <p class="col-12">
+              {{ newsItem.title }}
+            </p>
+          </a>
+        </div>
+      </div>
+    </li>
+  }
+</ul>

@@ -1,0 +1,64 @@
+@if (!loadingUsers && error) {
+  <div
+    class="alert alert-danger text-center border-0"
+    role="alert"
+    >
+    <b>{{ labels.error[lang] }}</b>
+  </div>
+}
+
+<section class="pt-5 pb-5">
+  <div class="container">
+    <app-users-filters
+      (onExecuteFilters)="handleUpdateUsers($event)"
+    ></app-users-filters>
+
+    @if (!loadingUsers) {
+      <div style="margin-top: 50px">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+    }
+
+    @if (loadingUsers) {
+      <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        >
+        <div class="spinner-border m-5" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingUsers[lang] }}...</p>
+      </div>
+    } @else {
+      <div class="row">
+        <div class="col-lg-12">
+          @for (user of users; track user) {
+            <div>
+              <app-user-card [userInfo]="user"></app-user-card>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+
+    @if (!loadingUsers) {
+      <div style="margin-top: 50px">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+    }
+  </div>
+</section>

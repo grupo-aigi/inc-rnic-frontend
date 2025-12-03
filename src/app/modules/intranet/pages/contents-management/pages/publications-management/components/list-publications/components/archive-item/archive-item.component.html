@@ -1,0 +1,82 @@
+<div class="row px-5 py-2">
+  <div class="col-3">
+    <img
+      style="cursor: pointer"
+      [src]="archiveImageUrl || '/img/image500x810.png'"
+      width="300px"
+      alt="Image"
+      />
+  </div>
+
+  <div class="col-8">
+    <h4 style="font-weight: bold">
+      {{ archive.title }}
+    </h4>
+    <h6 style="font-weight: lighter">
+      <span style="font-weight: bold">Publicado:</span>
+      {{ formatDate(archive.createdAt!) }}
+    </h6>
+    <p class="py-2" style="font-weight: lighter">
+      <span style="font-weight: bold">{{ archive.description }}</span>
+    </p>
+    <div class="row mt-3">
+      <div class="col-6">
+        <a [href]="attachmentUrl" class="default-btn position-relative px-4">
+          Descargar
+          <i
+            class="bx bx-cloud-download"
+            style="font-size: 1.2rem; position: relative; top: 3px"
+          ></i>
+        </a>
+      </div>
+
+      <div class="col-6">
+        <button
+          (click)="handleFetchPdf()"
+          class="default-btn position-relative px-4 bg-info"
+          style="cursor: pointer"
+          >
+          Leer en línea
+          <i
+            class="bx bx-show"
+            style="font-size: 1.2rem; position: relative; top: 3px"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (errorDocument) {
+    <div>
+      <div class="container mt-5">
+        <div class="alert alert-danger" role="alert">
+          Error al cargar el documento
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (displayPdfDocument) {
+    <div class="row">
+      <div class="col-lg-1 col-md-12 col-sm-12">
+        <button
+          (click)="hideDocument()"
+          class="default-btn bg-danger px-3 my-3 w-100"
+          >
+          Ocultar <i class="bx bx-hide"></i>
+        </button>
+      </div>
+      <div class="col-12">
+        <div style="height: 100vh">
+          <iframe
+            id="pdfFrame"
+            [src]="pdfDocument"
+            width="100%"
+            height="100%"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  }
+</div>

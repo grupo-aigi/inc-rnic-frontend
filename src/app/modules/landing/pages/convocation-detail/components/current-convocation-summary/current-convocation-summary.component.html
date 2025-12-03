@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-lg-4 col-md-6 mx-md-auto d-lg-block d-md-block d-sm-none">
+    <img [src]="getImageUrlByName()" alt="Image" />
+  </div>
+
+  <div
+    class="col-lg-8 col-md-10 mb-5 mx-md-auto mt-lg-0 mt-md-4 d-lg-block d-md-block d-sm-none dynamic-font-size"
+  >
+    <div class="news-card__container">
+      <ul class="admin">
+        <li>
+          <i class="bx bx-dollar-circle dynamic-font-size"></i>
+          {{ convocationDetail.budget | currency }} <small>COP</small>
+        </li>
+        <li class="float">
+          <i class="bx bx-calendar-alt dynamic-font-size"></i>
+          {{ labels.openFrom[lang] }}
+          {{ formatDate(convocationDetail.startDate) }} {{ labels.to[lang] }}
+          {{ formatDate(convocationDetail.endDate) }}
+        </li>
+      </ul>
+
+      <div>
+        <p
+          class="rounded-pill badge badge-primary p-2 event-category dynamic-font-size"
+          [ngStyle]="{
+            'background-color': wordToHexColor(convocationDetail.category.name),
+          }"
+        >
+          {{ convocationDetail.category.name }}
+        </p>
+
+        <p class="dynamic-font-size">
+          {{ labels.convocationType[lang] }}:
+          @if (convocationDetail.scope === 'NATIONAL') {
+            <b>{{ labels.scopeNational[lang] }}</b>
+          } @else if (convocationDetail.scope === 'INTERNATIONAL') {
+            <b>{{ labels.scopeInternational[lang] }}</b>
+          }
+        </p>
+
+        <p style="text-align: justify" class="dynamic-font-size">
+          {{ convocationDetail.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3 mb-5">
+    <h4 class="dynamic-font-size">{{ labels.listOfFiles[lang] }}</h4>
+
+    @if (convocationDetail.files.length > 0) {
+      <div class="row mb-5">
+        @for (
+          archive of convocationDetail.files;
+          track archive;
+          let i = $index
+        ) {
+          <div class="col-lg-4 col-md-2 col-sm-12 position-relative">
+            <img
+              [src]="
+                '/img/events/filetypes/' +
+                getFileExtension(archive.filename) +
+                '.png'
+              "
+              [alt]="archive.name"
+              alt="Image"
+              width="100px"
+              class="image-list"
+              [title]="archive.name"
+            />
+            <div class="mb-5 mt-2">
+              <b class="mt-2">{{ labels.file[lang] }} #{{ i + 1 }}</b>
+              <p>{{ archive.name }}</p>
+              <a
+                [href]="getFileUrlByName(archive.filename, i)"
+                target="_blank"
+                class="text-info"
+              >
+                <p class="text-info" style="cursor: pointer">
+                  {{ labels.clickToDownload[lang] }}
+                </p>
+              </a>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="alert alert-info mt-3 text-center" role="alert">
+        <p>{{ labels.noConvocationResources[lang] }}</p>
+      </div>
+    }
+  </div>
+
+  <div class="col-11 mx-auto">
+    <hr />
+  </div>
+</div>

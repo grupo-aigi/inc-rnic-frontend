@@ -1,0 +1,211 @@
+<section class="user-area-style">
+  <div>
+    <div class="contact-form-action mb-50">
+      <div class="position-relative">
+        <button (click)="handleClosePopup()" class="login-close-popup__button">
+          <i class="bx bx-x-circle"></i>
+        </button>
+      </div>
+
+      @if (componentToShow === 'LOGIN') {
+        <div>
+          <form [formGroup]="loginFormGroup" (ngSubmit)="handleLogin()">
+            <div class="login-action">
+              <span class="log-rem">{{ labels.title[lang] }}</span>
+            </div>
+            <div class="form-group">
+              <input
+                class="form-control"
+                type="text"
+                name="email"
+                formControlName="email"
+                [placeholder]="labels.email.placeholder[lang]"
+              [ngClass]="{
+                'inline-text-input__invalid': isLoginFieldInvalid('email'),
+              }"
+                />
+              @if (isLoginFieldInvalid('email')) {
+                <small
+                  class="login-input-label__invalid"
+                  >
+                  {{ labels.email.errorMsg[lang] }}
+                </small>
+              }
+            </div>
+            <div class="form-group position-relative">
+              <input
+                class="form-control"
+                [type]="passwordTextType"
+                name="password"
+                formControlName="password"
+                [placeholder]="labels.password.placeholder[lang]"
+              [ngClass]="{
+                'inline-text-input__invalid': isLoginFieldInvalid('password'),
+              }"
+                />
+              <i
+                class="toggle-show__login-button"
+              [class]="
+                passwordTextType === 'password' ? 'bx bx-hide' : 'bx bx-show'
+              "
+                (click)="togglePasswordTextType()"
+              ></i>
+              @if (isLoginFieldInvalid('password')) {
+                <small
+                  class="login-input-label__invalid"
+                  >
+                  {{ labels.password.errorMsg[lang] }}
+                </small>
+              }
+            </div>
+            <div class="login-action" #changeComponentRef>
+              <span class="forgot-login">
+                <div
+                  style="cursor: pointer"
+                  (click)="handleChangeComponent('RECOVER_PASSWORD')"
+                  >
+                  {{ labels.forgotPassword[lang] }}
+                </div>
+              </span>
+            </div>
+            <button class="default-btn w-100" type="submit">
+              {{ labels.loginButton[lang] }}
+            </button>
+          </form>
+        </div>
+      }
+
+      @if (componentToShow === 'CHANGE_PASSWORD') {
+        <div>
+          <form
+            [formGroup]="changePassFormGroup"
+            (ngSubmit)="handleChangePassword()"
+            >
+            <div
+              #changeComponentRef
+              class="position-relative w-100"
+              style="height: 40px"
+              >
+              <div
+                (click)="handleChangeComponent('LOGIN')"
+                class="arrow-back__button position-absolute"
+                >
+                <i class="bx bx-arrow-back"></i>
+                <span class="log-rem" style="margin-left: 5px">Volver</span>
+                <!-- <span class="log-rem"
+                ><a [routerLink]="['/auth/register']">Crear cuenta</a></span
+                > -->
+              </div>
+            </div>
+            <div class="login-action">
+              <span class="log-rem">{{ labels.changePassword.title[lang] }}</span>
+              <!-- <span class="log-rem"
+              ><a [routerLink]="['/auth/register']">Crear cuenta</a></span
+              > -->
+            </div>
+            <div class="form-group position-relative">
+              <input
+                class="form-control"
+                [type]="editPasswordTextType"
+                name="currPassword"
+                formControlName="currPassword"
+              [placeholder]="
+                labels.changePassword.currentPassword.placeholder[lang]
+              "
+              [ngClass]="{
+                'inline-text-input__invalid':
+                  isChangePassFieldInvalid('currPassword'),
+              }"
+                />
+              <i
+                class="toggle-show__login-button"
+              [class]="
+                editPasswordTextType === 'password'
+                  ? 'bx bx-hide'
+                  : 'bx bx-show'
+              "
+                (click)="toggleEditPasswordTextType()"
+              ></i>
+              @if (isChangePassFieldInvalid('currPassword')) {
+                <small
+                  class="login-input-label__invalid"
+                  >{{ labels.changePassword.currentPassword.errorMsg[lang] }}</small
+                  >
+                }
+              </div>
+              <div class="form-group position-relative">
+                <input
+                  class="form-control"
+                  [type]="editPasswordTextType"
+                  name="newPassword"
+                  formControlName="newPassword"
+              [placeholder]="
+                labels.changePassword.newPassword.placeholder[lang]
+              "
+              [ngClass]="{
+                'inline-text-input__invalid':
+                  isChangePassFieldInvalid('newPassword'),
+              }"
+                  />
+                <i
+                  class="toggle-show__login-button"
+              [class]="
+                editPasswordTextType === 'password'
+                  ? 'bx bx-hide'
+                  : 'bx bx-show'
+              "
+                  (click)="toggleEditPasswordTextType()"
+                ></i>
+                @if (isChangePassFieldInvalid('newPassword')) {
+                  <small
+                    class="login-input-label__invalid"
+                    >
+                    {{ labels.changePassword.newPassword.errorMsg[lang] }}
+                  </small>
+                }
+              </div>
+              <button class="default-btn w-100" type="submit">
+                {{ labels.changePassword.submitButton[lang] }}
+              </button>
+            </form>
+          </div>
+        }
+
+        @if (componentToShow === 'RECOVER_PASSWORD') {
+          <div>
+            <div>
+              <div
+                #changeComponentRef
+                class="position-relative w-100"
+                style="height: 40px"
+                >
+                <div
+                  (click)="handleChangeComponent('LOGIN')"
+                  class="arrow-back__button position-absolute"
+                  >
+                  <i class="bx bx-arrow-back"></i>
+                  <span class="log-rem" style="margin-left: 5px">Volver</span>
+                  <!-- <span class="log-rem"
+                  ><a [routerLink]="['/auth/register']">Crear cuenta</a></span
+                  > -->
+                </div>
+              </div>
+              <div>
+                <p class="px-3 pb-3" style="line-height: 20px">
+                  para realizar el cambio de contraseña por favor contacte el
+                  siguiente correo electrónico
+                  <b>
+                    <a href="mailto:redcancer@cancer.gov.co"
+                      >redcancer&#64;cancer.gov.co</a
+                      >
+                    </b>
+                    con el asunto "Cambio de contraseña" indicando su correo
+                    electrónico
+                  </p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </section>

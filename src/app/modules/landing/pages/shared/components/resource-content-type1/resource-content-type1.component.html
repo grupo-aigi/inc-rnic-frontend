@@ -1,0 +1,8 @@
+<div class="content step-2">
+  <h3>{{ content.title }}</h3>
+  @for (paragraph of content.paragraphs; track paragraph) {
+    <p>
+      {{ paragraph }}
+    </p>
+  }
+</div>

@@ -1,0 +1,47 @@
+<section class="blog-area">
+  <div class="global-search-widget search p-0">
+    <form class="" autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.searchButton[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      @if (displaySearchOptions) {
+        <div
+          style="position: absolute; background-color: #b7fafd; width: 100%"
+          >
+          <div class="search-options">
+            <!-- <app-global-search-recommendations
+            [recommendations]="recommendedOptions"
+            >
+          </app-global-search-recommendations> -->
+        </div>
+      </div>
+    }
+
+    <button
+      class="search-button"
+      type="button"
+      (click)="handleClickSearch($event)"
+      >
+      @if (loadingRecommendations) {
+        <div
+          class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+          role="status"
+          >
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+      } @else {
+        <i [class]="searchTerm ? 'bx bx-x' : 'bx bx-search'"></i>
+      }
+    </button>
+  </form>
+</div>
+</section>

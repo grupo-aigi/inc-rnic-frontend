@@ -1,0 +1,136 @@
+@if (loadingAnnouncements) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    style="height: 100vh"
+    >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2 dynamic-font-size">
+      {{ labels.loadingAnnouncements[lang] }}
+    </p>
+  </div>
+} @else {
+  @if (announcements.length > 0) {
+    <div>
+      <section class="testimonials-area bg-color">
+        <owl-carousel-o [options]="announcementsSliderOptions">
+          @for (announcement of announcements; track announcement) {
+            <ng-template carouselSlide>
+              <div class="announcement-image__banner-container">
+                <img
+                [src]="
+                  getImageUrlByName(announcement.imageName) ||
+                  '/img/image500x810.png'
+                "
+                style="
+                  border-radius: 0px;
+                  padding: 10px;
+                  object-fit: cover;
+                  width: 100%;
+                  height: auto;
+                  max-height: calc(100vh - 100px);
+                  z-index: -1;
+                "
+                  alt=""
+                  />
+                <div
+                  class="position-absolute w-100 d-flex justify-content-center"
+                  style="z-index: 10000; bottom: 5px"
+                  >
+                  <div
+                    class="details d-flex flex-lg-row flex-md-column flex-sm-column justify-content-center"
+                    >
+                    <button
+                      type="button"
+                      class="default-btn my-3 dynamic-font-size mx-2"
+                      data-bs-toggle="modal"
+                      data-bs-target="#announcementDetailModal"
+                      (click)="setActiveAnnouncement(announcement.id!)"
+                      >
+                      {{ labels.seeDetails[lang] }}
+                    </button>
+                    <button
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteAnnouncementModal"
+                      class="default-btn my-3 dynamic-font-size bg-danger mx-2"
+                      (click)="setActiveAnnouncement(announcement.id!)"
+                      >
+                      {{ labels.deleteAnnouncement[lang] }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="testimonials-item mb-2 dynamic-font-size text-center">
+                {{ labels.issuedBy[lang] }}:
+                <h3 class="dynamic-font-size">{{ announcement.issuedBy }}</h3>
+                <span class="dynamic-font-size">{{
+                  formatAnnouncementDate(announcement.createdAt.getTime())
+                }}</span>
+              </div>
+            </ng-template>
+          }
+        </owl-carousel-o>
+      </section>
+      @if (activeAnnouncement) {
+        <div>
+          <app-delete-announcement-confirmation
+            [title]="labels.deleteAnnouncementConfirmation"
+            [valueToType]="activeAnnouncement.title"
+            (onConfirm)="handleConfirmDelete(activeAnnouncement.id!)"
+          ></app-delete-announcement-confirmation>
+        </div>
+      }
+
+      <div
+        class="modal fade"
+        id="announcementDetailModal"
+        tabindex="-1"
+        aria-labelledby="announcementDetailModalLabel"
+        aria-hidden="true"
+        >
+        <div class="modal-dialog">
+          @if (activeAnnouncement) {
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="announcementDetailModalLabel">
+                  {{ labels.announcementDetail.title[lang] }}
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <h3>{{ activeAnnouncement.title }}</h3>
+                @for (paragraph of activeAnnouncement.paragraphs; track paragraph) {
+                  <p>
+                    {{ paragraph }}
+                  </p>
+                }
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-danger"
+                  data-bs-dismiss="modal"
+                  >
+                  {{ labels.announcementDetail.closeBtn[lang] }}
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+    <div class="container">
+      <div class="alert alert-primary text-center mt-5" role="alert">
+        {{ labels.noAnnouncements[lang] }}
+      </div>
+    </div>
+  }
+}

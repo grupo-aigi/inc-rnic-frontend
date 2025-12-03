@@ -1,0 +1,56 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #15</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    <div class="row">
+      <h4>{{ labels.filesList[lang] }}</h4>
+
+      <div class="row mb-5">
+        @for (file of resourceContent.resources; track file; let i = $index) {
+          <div class="col-lg-3 col-sm-12 position-relative">
+            <img
+              [src]="'/img/events/filetypes/' + file.filetype + '.png'"
+              [alt]="file.filename"
+              alt="Image"
+              width="100px"
+              class="image-list"
+              [title]="file.filename"
+            />
+            <div class="mb-5 mt-2">
+              <b class="mt-2">{{ labels.fileNro[lang] }} #{{ i + 1 }}</b>
+              <p>{{ file.originalFilename }} - {{ getFileSize(file.size) }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

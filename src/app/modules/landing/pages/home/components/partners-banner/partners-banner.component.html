@@ -1,0 +1,83 @@
+<div class="main-events-section">
+  <div class="section-title">
+    <span
+      class="top-title dynamic-font-size"
+      style="padding-top: 50px !important"
+      >
+      {{ labels.ourPartners[lang] }}
+    </span>
+    <h2 class="dynamic-font-size">{{ labels.complementaryTitle[lang] }}</h2>
+  </div>
+
+  @if (loadingSupporters) {
+    <div
+      class="d-flex flex-column align-items-center justify-content-center mt-5 dynamic-font-size"
+      >
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="my-2 dynamic-font-size">
+        {{ labels.loadingSupporters[lang] }}
+      </p>
+    </div>
+  } @else {
+    @if (supporters.length > 0) {
+      <div
+        class="partner-area bg-color pb-5"
+        >
+        <div class="container pt-5">
+          <div class="partner-slider">
+            <owl-carousel-o [options]="supportersSlidesOptions">
+              @for (supporter of supporters; track supporter) {
+                <ng-template carouselSlide>
+                  <div class="partner-item">
+                    <a [href]="supporter.url" target="_blank">
+                      <img
+                    [src]="
+                      getImageUrlByName(supporter.imageName) ||
+                      '/img/partner/partner-1.png'
+                    "
+                        style="max-height: 100px"
+                        alt="Image"
+                        />
+                    </a>
+                  </div>
+                </ng-template>
+              }
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <p
+        class="alert text-center"
+        style="
+          border: 1px solid #12bec8;
+          color: white;
+          font-weight: 800;
+          background-color: #82dee5;
+        "
+        role="alert"
+        >
+        {{ labels.noSupporters[lang] }}
+      </p>
+    }
+    <ng-template #noSupporters>
+      <p
+        class="alert text-center"
+        style="
+          border: 1px solid #12bec8;
+          color: white;
+          font-weight: 800;
+          background-color: #82dee5;
+        "
+        role="alert"
+        >
+        {{ labels.noSupporters[lang] }}
+      </p>
+    </ng-template>
+  }
+
+</div>
+
+<!-- --------------------------------------- -->

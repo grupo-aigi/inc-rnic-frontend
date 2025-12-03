@@ -1,0 +1,31 @@
+<div class="content step-6">
+  @if (content.title) {
+    <h3>{{ content.title }}</h3>
+  }
+
+  @for (paragraph of content.paragraphs; track paragraph) {
+    <p>
+      {{ paragraph }}
+    </p>
+  }
+
+  @if (content.listType === 'ordered') {
+    <ol>
+      @for (item of content.items; track item) {
+        <li>
+          {{ item }}
+        </li>
+      }
+    </ol>
+  }
+
+  @if (content.listType === 'unordered') {
+    <ul>
+      @for (item of content.items; track item) {
+        <li>
+          {{ item }}
+        </li>
+      }
+    </ul>
+  }
+</div>

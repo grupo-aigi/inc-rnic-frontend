@@ -1,0 +1,38 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li #currentNCP (click)="changeActiveTab(0)">
+        {{ labels.currentNcp[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">{{ labels.editNcp[lang] }}</li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              @if (ncpInfo) {
+                <div>
+                  <app-current-ncp
+                    [ncpInfo]="ncpInfo"
+                    [ncpImage]="ncpImageUrl"
+                  ></app-current-ncp>
+                </div>
+              }
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-ncp-update
+                [ncpInfo]="ncpInfo || undefined"
+                [ncpImage]="ncpImageUrl"
+                (onPublish)="publishNCP($event)"
+              ></app-ncp-update>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

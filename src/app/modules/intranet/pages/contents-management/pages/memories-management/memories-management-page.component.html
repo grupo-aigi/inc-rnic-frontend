@@ -1,0 +1,33 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li #memoriesLI (click)="changeActiveTab(0)">
+        {{ labels.listMemories[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">
+        {{ memoryToEdit ? labels.editMemory[lang] : labels.createMemory[lang] }}
+      </li>
+    </ul>
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-memories
+                (onEditMemory)="handleEditMemory($event)"
+              ></app-list-memories>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-memory
+                [memoryToEdit]="memoryToEdit"
+                (onSubmit)="submitMemory($event)"
+              ></app-create-memory>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

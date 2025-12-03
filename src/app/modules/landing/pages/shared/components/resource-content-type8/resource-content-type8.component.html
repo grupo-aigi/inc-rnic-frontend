@@ -1,0 +1,51 @@
+<section class="testimonials-area testimonials-area-two pt-100">
+  <div class="container">
+    <div class="section-title w-100">
+      <h3>{{ content.title }}</h3>
+    </div>
+    @for (paragraph of content.paragraphs; track paragraph) {
+      <p class="w-100 px-1 pb-3">
+        {{ paragraph }}
+      </p>
+    }
+
+    <div class="testimonials">
+      <div class="testimonials-slider">
+        <owl-carousel-o [options]="testimonialsSliderOptions">
+          @for (quote of content.quotes; track quote) {
+            <ng-template carouselSlide>
+              <div class="testimonials-item">
+                <div
+                style="
+                  display: flex;
+                  flex-direction: row;
+                  justify-content: space-around;
+                  max-height: 300px;
+                "
+                  >
+                  <div class="col-lg-3 col-md-12">
+                    <img
+                      [src]="getImageByName(quote.imageName)"
+                      style="height: 100%; border-radius: 0px !important"
+                      alt=""
+                      />
+                  </div>
+                  <div class="col-lg-9 col-md-12" style="overflow-y: auto">
+                    <div class="testimonials-content">
+                      <p>
+                        “{{ quote.content }}”
+                        <i class="flaticon-right-quote"></i>
+                      </p>
+                      <h3>{{ quote.author }}</h3>
+                      <span>{{ quote.role }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          }
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>

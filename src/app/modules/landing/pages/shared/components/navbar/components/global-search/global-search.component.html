@@ -1,0 +1,41 @@
+<section class="blog-area">
+  <div class="global-search-widget search m-0 p-0">
+    <form autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control h-75"
+        name="searchTerm "
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.searchButton[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      @if (displaySearchOptions) {
+        <div
+          style="position: absolute; background-color: #b7fafd; width: 100%"
+          >
+          <div class="search-options">
+            <!-- <app-global-landing-search-chips
+            [searchSections]="searchSections"
+            (onChange)="fetchActiveSectionsInfo()"
+          ></app-global-landing-search-chips> -->
+          <!-- <app-global-search-recommendations
+          [recommendations]="recommendedOptions"
+          >
+        </app-global-search-recommendations> -->
+      </div>
+    </div>
+  }
+  <button
+    class="search-button h-100"
+    type="button"
+    (click)="handleClickSearch($event)"
+    >
+    <i class="bx bx-search position-relative" style="bottom: 3px"></i>
+  </button>
+</form>
+</div>
+</section>

@@ -1,0 +1,37 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li #listMinutesLI (click)="changeActiveTab(0)">
+        {{ labels.listMinutes[lang] }}
+      </li>
+      @if (isFacilitator) {
+        <li (click)="changeActiveTab(1)">
+          {{ labels.createMinute[lang] }}
+        </li>
+      }
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-commission-minutes></app-list-commission-minutes>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              @if (isFacilitator) {
+                <div>
+                  <app-create-commission-minute
+                    (onCreate)="createMinute($event)"
+                  ></app-create-commission-minute>
+                </div>
+              }
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

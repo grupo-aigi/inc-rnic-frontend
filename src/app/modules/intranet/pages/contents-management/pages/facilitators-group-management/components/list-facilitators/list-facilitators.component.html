@@ -1,0 +1,121 @@
+<section class="team-area">
+  <div class="container">
+    <div class="section-title" style="margin-bottom: 5px">
+      <h3 class="mb-4 mt-5">{{ labels.facilitatingGroup[lang] }}</h3>
+    </div>
+
+    @if (!loading && facilitators.length === 0) {
+      <div>
+        <div class="alert alert-primary text-center" role="alert">
+          {{ labels.noFacilitators[lang] }}
+        </div>
+      </div>
+    }
+
+    @if (!loading) {
+      <div class="team-slider mb-5">
+        <owl-carousel-o [options]="teamSlidesOptions">
+          @for (facilitator of facilitators; track facilitator) {
+            <ng-template carouselSlide>
+              <div class="single-team">
+                <div class="team-img">
+                  <img
+                [src]="
+                  facilitator.imageName
+                    ? getImageUrlByName(facilitator.imageName)
+                    : getPhotoByGender(facilitator.gender)
+                "
+                    alt="Image"
+                style="
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                "
+                    />
+                  @if (facilitator.displayContact) {
+                    <ul class="team-link">
+                      <li
+                  [style]="{
+                    display: facilitator.contact.linkedin ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="facilitator.contact.linkedin" target="_blank"
+                          ><i
+                          class="bx bxl-linkedin"
+                          style="border-radius: 50%; transition: none !important"
+                          ></i
+                        ></a>
+                      </li>
+                      <li
+                  [style]="{
+                    display: facilitator.contact.orcid ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="facilitator.contact.orcid" target="_blank">
+                          <img
+                            src="/img/social/orcid.svg"
+                            style="border-radius: 50%"
+                            alt=""
+                            />
+                        </a>
+                      </li>
+                      <li
+                  [style]="{
+                    display: facilitator.contact.scopus ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="facilitator.contact.scopus" target="_blank">
+                          <img
+                            src="/img/social/scopus.ico"
+                            style="border-radius: 50%"
+                            alt=""
+                            />
+                        </a>
+                      </li>
+                    </ul>
+                  }
+                </div>
+                <div class="team-content">
+                  <h3>{{ facilitator.name }}</h3>
+                  @if (facilitator.roles.length > 0) {
+                    <span class="text-start">
+                      <ul style="height: 100px; overflow-y: auto">
+                        @for (role of facilitator.roles; track role) {
+                          <li>{{ role }}</li>
+                        }
+                      </ul>
+                    </span>
+                  }
+                </div>
+                <div class="d-flex justify-content-evenly mt-4">
+                  <a
+                    [routerLink]="['editar/' + facilitator.id]"
+                    class="btn default-btn bg-info"
+                    >
+                    {{ labels.editButton[lang] }}
+                  </a>
+                  <button
+                    class="btn default-btn bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteFacilitatorModal"
+                    (click)="handleSetActiveFacilitator(facilitator)"
+                    >
+                    {{ labels.deleteButton[lang] }}
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          }
+        </owl-carousel-o>
+        @if (activeFacilitator) {
+          <div>
+            <app-delete-facilitator-confirmation
+              [title]="labels.deleteFacilitatorConfirmation"
+              [valueToType]="activeFacilitator.name"
+              (onConfirm)="handleConfirmDelete(activeFacilitator.id!)"
+            ></app-delete-facilitator-confirmation>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

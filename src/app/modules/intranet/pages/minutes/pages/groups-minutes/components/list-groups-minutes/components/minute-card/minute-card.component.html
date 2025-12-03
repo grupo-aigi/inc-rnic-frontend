@@ -1,0 +1,193 @@
+<div class="mb-60">
+  <div class="minute-card-body">
+    <div class="minute-card-container my-5 p-lg-5 p-sm-2 row">
+      <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="minute-card-content">
+          <h4 class="text-md-left" style="margin-left: 15px">
+            {{ minute.name }}
+          </h4>
+
+          <ul
+            class="d-md-flex flex-column flex-wrap text-capitalize ff-open-sans"
+          >
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px"
+            >
+              <i class="bx bx-cross position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px"
+                >{{ labels.topic[lang] }}:
+              </span>
+              {{ minute.subject }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px"
+            >
+              <i
+                class="bx bx-current-location position-relative"
+                style="top: 3px"
+              ></i>
+              <span class="bold" style="margin-left: 8px">
+                {{ labels.place[lang] }}:
+              </span>
+              {{ minute.place }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px"
+            >
+              <i class="bx bx-calendar position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px">
+                {{ labels.date[lang] }}:
+              </span>
+              {{ meetingDate }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px"
+            >
+              <i class="bx bx-calendar position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px"
+                >{{ labels.startDate[lang] }}:
+              </span>
+              {{ getTime(minute.start) }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px"
+            >
+              <i class="bx bx-calendar position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px">
+                {{ labels.endDate[lang] }}:
+              </span>
+              {{ getTime(minute.end) }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px; padding-top: 50px"
+            >
+              <i class="bx bx-like position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px">
+                {{ labels.numApprovers[lang] }}:
+              </span>
+              {{ minute.confirmation?.count }}
+            </li>
+
+            <li
+              class="mr-md-4 my-1 position-relative"
+              style="padding-right: 20px; padding-top: 0px"
+            >
+              <i class="bx bx-group position-relative" style="top: 3px"></i>
+              <span class="bold" style="margin-left: 10px">
+                {{ labels.attendance[lang] }}:
+              </span>
+
+              @if (minute.attendance) {
+                <span>{{ minute.attendance.count }}</span>
+              } @else {
+                <span
+                  class="rounded-pill bg-info badge badge-primary m-2 p-2 px-3"
+                >
+                  {{ labels.notAvailable[lang] }}
+                </span>
+              }
+            </li>
+
+            @if (hasUserApproved) {
+              <li class="mr-md-4 mt-3">
+                <span
+                  class="rounded-pill bg-success badge badge-primary position-relative m-1"
+                >
+                  <span class="position-relative p-1" style="bottom: 5px">
+                    {{ labels.youApproved[lang] }}
+                  </span>
+                  <i class="bx bx-like position-relative" style="top: 0px"></i>
+                </span>
+              </li>
+            }
+            @if (hasUserAssisted) {
+              <li class="mr-md-4 mt-3">
+                <span
+                  class="rounded-pill bg-success badge badge-primary position-relative m-1"
+                >
+                  <span class="position-relative p-1" style="bottom: 5px">
+                    {{ labels.youAttended[lang] }}
+                  </span>
+                  <i
+                    class="bx bx-user-pin position-relative"
+                    style="top: 0px"
+                  ></i>
+                </span>
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div class="row mb-sm-3 g-3">
+          @if (isOwnedByUser) {
+            @if (!showEdit) {
+              <div class="col-lg-6 col-sm-12">
+                <button
+                  class="default-btn w-100 bg-info"
+                  (click)="toggleEdit()"
+                >
+                  <i class="bx bx-edit"></i>
+                  {{ labels.edit[lang] }}
+                </button>
+              </div>
+            }
+          }
+
+          @if (!loadingApproval && !isOwnedByUser) {
+            @if (hasUserApproved) {
+              <div class="col-lg-6 col-sm-12">
+                <button
+                  [disabled]="loadingOperation"
+                  class="default-btn w-100 bg-danger"
+                  (click)="handleRemoveApproval()"
+                >
+                  <i class="bx bx-x"></i>
+                  <span style="margin-left: 10px">No aprobar</span>
+                </button>
+              </div>
+            } @else {
+              <div class="col-lg-6 col-sm-12">
+                <button
+                  [disabled]="loadingOperation"
+                  class="default-btn w-100 bg-success"
+                  (click)="handleApprove()"
+                >
+                  <i class="bx bx-check"></i>
+                  <span style="margin-left: 10px">Aprobar</span>
+                </button>
+              </div>
+            }
+          }
+        </div>
+      </div>
+
+      @if (showEdit) {
+        <div class="col-lg-6 col-md-12 col-sm-12 max-h-75vh overflow-y-auto">
+          <app-edit-group-minute
+            [minute]="minute"
+            (onClose)="toggleEdit()"
+            (onEdited)="handleMinuteEdited($event)"
+            (onAddAssistant)="handleIncrementAssistants()"
+            (onRemoveAssistant)="handleDecrementAssistants()"
+          >
+          </app-edit-group-minute>
+        </div>
+      } @else {
+        <div class="col-lg-6 col-md-12 col-sm-12 max-h-75vh overflow-y-auto">
+          <app-group-minute-detail [minute]="minute"></app-group-minute-detail>
+        </div>
+      }
+    </div>
+  </div>
+</div>

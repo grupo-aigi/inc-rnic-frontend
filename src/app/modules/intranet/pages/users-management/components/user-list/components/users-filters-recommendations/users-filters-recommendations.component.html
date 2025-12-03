@@ -1,0 +1,45 @@
+@if (recommendedOptions.length === 0) {
+  <div
+    class="text-center text-danger mb-1 w-100 mx-auto"
+    >
+    <small>{{ labels.noResults[lang] }}</small>
+  </div>
+} @else {
+  <div class="text-center text-warning mb-1 w-100 mx-auto">
+    <small>{{ labels.someResultsFiltered[lang] }}</small>
+  </div>
+}
+
+
+<ul class="recommendations-list">
+  @for (recommendedOption of recommendedOptions; track recommendedOption; let isLast = $last) {
+    <li
+      class="row d-flex align-items-center m-2"
+      >
+      <div class="col-lg-2">
+        @if (recommendedOption.image) {
+          <img
+            [src]="recommendedOption.image"
+            alt="User avatar"
+            class="avatar-md img-thumbnail rounded-circle"
+            style="height: 80px; width: 80px"
+            />
+        } @else {
+          <i
+            style="font-size: 50px; border-radius: 50%; padding: 15px"
+            class="bx bx-user rounded-circle w-100"
+          ></i>
+        }
+      </div>
+      <div class="col-lg-4" style="font-weight: 600">
+        {{ recommendedOption.name }}
+      </div>
+      <div class="col-lg-3" style="font-weight: 600">
+        {{ recommendedOption.identification }}
+      </div>
+      <div class="col-lg-3 text-end" style="font-weight: 600">
+        {{ recommendedOption.email }}
+      </div>
+    </li>
+  }
+</ul>

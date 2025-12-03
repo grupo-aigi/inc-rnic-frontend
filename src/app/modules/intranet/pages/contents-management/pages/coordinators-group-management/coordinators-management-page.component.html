@@ -1,0 +1,27 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li (click)="changeActiveTab(0)">{{ labels.listCoordinators[lang] }}</li>
+      <li (click)="changeActiveTab(1)">{{ labels.createCoordinator[lang] }}</li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-coordinators></app-list-coordinators>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-coordinator
+                (onCreate)="createNetworkParticipant($event)"
+              ></app-create-coordinator>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

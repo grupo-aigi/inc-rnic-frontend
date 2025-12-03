@@ -1,0 +1,497 @@
+<header class="header-area">
+  <div class="navbar-area navbar-area__visible-sm">
+    <div class="mobile-nav">
+      <div class="container-fluid">
+        <div class="mobile-menu">
+          <div class="logo">
+            <a routerLink="/">
+              @if (theme === 'DARK') {
+                <img
+                  width="120"
+                  height="40"
+                  src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                  alt="logo"
+                />
+              }
+              @if (theme === 'LIGHT') {
+                <img
+                  width="120"
+                  height="40"
+                  src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                  alt="logo"
+                />
+              }
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desktop-nav">
+      <div class="px-2 navbar-area__visible-lg">
+        <nav class="navbar navbar-expand-md navbar-light">
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav m-auto" style="position: relative">
+              <a class="navbar-brand__landing" routerLink="/">
+                @if (theme === 'DARK') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                    alt="logo"
+                  />
+                }
+
+                @if (theme === 'LIGHT') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                    alt="logo"
+                  />
+                }
+              </a>
+              <div class="navbar__menu">
+                <app-global-landing-search></app-global-landing-search>
+              </div>
+              <a1
+                style="position: absolute; right: -200px; top: 25px"
+                routerLink="/"
+              >
+                @if (theme === 'DARK') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-inc-LIGHT.svg"
+                    alt="logo"
+                  />
+                }
+
+                @if (theme === 'LIGHT') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-inc-DARK.png"
+                    alt="logo"
+                  />
+                }
+              </a1>
+
+              <li class="nav-item">
+                <a routerLink="/acerca-de" class="nav-link dynamic-font-size"
+                  >{{ labels.about[lang] }} <i class="bx bx-chevron-down"></i
+                ></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/acerca-de']"
+                      fragment="nosotros"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.us[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/acerca-de']"
+                      fragment="objetivo-general"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.generalObjective[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/acerca-de']"
+                      fragment="objetivos-especificos"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.specificObjectives[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/acerca-de']"
+                      fragment="mecanismo-coordinacion"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.coordinationMechanism[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/acerca-de']"
+                      fragment="comisiones"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.networkWorkingCommittees[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/lineamientos']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.networkGuidelines[lang] }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/misiones-transformativas']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.about.transformativeMissions[lang] }}</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/miembros-red" class="nav-link dynamic-font-size"
+                  >{{ labels.networkMembers[lang] }}
+                  <i class="bx bx-chevron-down"></i
+                ></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/miembros-red']"
+                      fragment="mapa"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{ labels.networkMembers.membersMap[lang] }}
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/miembros-red']"
+                      fragment="grupo-coordinador"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{
+                        labels.networkMembers.networkCoordinatingGroup[lang]
+                      }}</a
+                    >
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/miembros-red']"
+                      fragment="grupo-facilitador"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                      >{{
+                        labels.networkMembers.networkFacilitatingGroup[lang]
+                      }}</a
+                    >
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item navbar__medium-break-2">
+                <a routerLink="/eventos" class="nav-link dynamic-font-size">
+                  {{ labels.events[lang] }}
+                </a>
+              </li>
+
+              <li class="nav-item navbar__medium-break-2">
+                <a
+                  routerLink="/convocatorias"
+                  class="nav-link dynamic-font-size"
+                >
+                  {{ labels.convocations[lang] }}
+                </a>
+              </li>
+              <li
+                class="nav-item navbar__medium-break-1"
+                title="Punto Nacional de Contacto"
+              >
+                <a routerLink="/ncp" class="nav-link dynamic-font-size">
+                  {{ labels.ncp[lang] }}
+                </a>
+              </li>
+              <li class="nav-item" title="Publicaciones">
+                <a
+                  routerLink="/publicaciones"
+                  class="nav-link dynamic-font-size"
+                  >{{ labels.others[lang] }} <i class="bx bx-chevron-down"></i
+                ></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item navbar__medium-opposite-2">
+                    <a routerLink="/eventos" class="nav-link dynamic-font-size">
+                      {{ labels.events[lang] }}
+                    </a>
+                  </li>
+
+                  <li class="nav-item navbar__medium-opposite-2">
+                    <a
+                      routerLink="/convocatorias"
+                      class="nav-link dynamic-font-size"
+                    >
+                      {{ labels.convocations[lang] }}
+                    </a>
+                  </li>
+                  <li
+                    class="nav-item navbar__medium-opposite-1"
+                    title="Punto Nacional de Contacto"
+                  >
+                    <a routerLink="/ncp" class="nav-link dynamic-font-size">
+                      {{ labels.ncp[lang] }}
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/publicaciones']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      {{ labels.publications[lang] }}
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/memorias']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      {{ labels.memories[lang] }}
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/noticias']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      {{ labels.news[lang] }}
+                    </a>
+                  </li>
+
+                  <li class="nav-item">
+                    <a
+                      [routerLink]="['/ecosistema-cientifico']"
+                      class="nav-link dynamic-font-size"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{ exact: true }"
+                    >
+                      {{ labels.scientificEcosystem[lang] }}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="others-option">
+              <div #userOptionsRef class="get-quote">
+                <div class="navbar__language-select">
+                  <ul class="navbar__language-area">
+                    <li class="language-item-top">
+                      <div href="#" class="language-bar">
+                        <span>
+                          @if (lang === 'es') {
+                            <span>ES</span>
+                          }
+                        </span>
+
+                        <span>
+                          @if (lang === 'en') {
+                            <span>EN</span>
+                          }
+                        </span>
+                        <i class="bx bx-chevron-down"></i>
+                      </div>
+
+                      <ul class="language-item-bottom">
+                        @if (lang !== 'es') {
+                          <li class="language-item">
+                            <div
+                              (click)="handleChangeAppLanguage('es')"
+                              class="language-link"
+                              style="cursor: pointer"
+                            >
+                              <span>ES</span>
+                            </div>
+                          </li>
+                        }
+                        @if (lang !== 'en') {
+                          <li class="language-item">
+                            <div
+                              (click)="handleChangeAppLanguage('en')"
+                              class="language-link position-relative"
+                              style="cursor: pointer"
+                            >
+                              <span>EN</span>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+
+                <div
+                  (click)="handleOpenLoginPopup()"
+                  class="default-btn px-3 dynamic-font-size"
+                  style="cursor: pointer"
+                >
+                  {{ labels.loginButton[lang] }}
+                </div>
+
+                <div class="login-popup__wrapper">
+                  @if (displayUserOptionsPopup) {
+                    <app-auth-options-popup
+                      (onClosePopup)="handleClosePopup()"
+                    ></app-auth-options-popup>
+                  }
+                </div>
+              </div>
+
+              <div class="get-quote" style="margin-right: 10px">
+                <div
+                  (click)="handleStartRegisterProcess()"
+                  class="default-btn px-3 mx-0 dynamic-font-size"
+                  style="cursor: pointer"
+                >
+                  {{ labels.registerButton[lang] }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div
+      class="others-option-for-responsive navbar__medium-break-4"
+      (click)="handleToggleMenu()"
+    >
+      <div class="container">
+        <div class="dot-menu">
+          <div class="inner">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (displayMenu) {
+      <div class="navbar__medium-break-5">
+        <div class="dot-menu">
+          <div class="inner">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+          </div>
+        </div>
+
+        <div
+          class="option-inner px-2"
+          style="max-height: 100vh; overflow-y: auto"
+        >
+          <div
+            class="others-option pt-1 justify-content-between d-flex align-items-center"
+          >
+            <app-mobile-accessibility-menu></app-mobile-accessibility-menu>
+
+            <div class="get-quote">
+              <div class="navbar__language-select">
+                <ul class="navbar__language-area">
+                  <li class="language-item-top">
+                    <div href="#" class="language-bar">
+                      <span>
+                        @if (lang === 'es') {
+                          <span>ES</span>
+                        }
+                      </span>
+
+                      <span>
+                        @if (lang === 'en') {
+                          <span>EN</span>
+                        }
+                      </span>
+                      <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <ul class="language-item-bottom">
+                      @if (lang !== 'es') {
+                        <li class="language-item">
+                          <div
+                            (click)="handleChangeAppLanguage('es')"
+                            class="language-link"
+                            style="cursor: pointer"
+                          >
+                            <span>ES</span>
+                          </div>
+                        </li>
+                      }
+                      @if (lang !== 'en') {
+                        <li class="language-item">
+                          <div
+                            (click)="handleChangeAppLanguage('en')"
+                            class="language-link position-relative"
+                            style="cursor: pointer"
+                          >
+                            <span>EN</span>
+                          </div>
+                        </li>
+                      }
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <div
+                  (click)="handleStartRegisterProcess()"
+                  class="default-btn px-2"
+                  style="cursor: pointer"
+                >
+                  {{ labels.registerButton[lang] }}
+                </div>
+                <div
+                  (click)="handleOpenLoginPopup()"
+                  class="default-btn px-2"
+                  style="cursor: pointer; margin-left: 5px"
+                >
+                  Intranet
+                </div>
+              </div>
+
+              <div class="login-popup__wrapper">
+                @if (displayUserOptionsPopup) {
+                  <app-auth-options-popup (onClosePopup)="handleClosePopup()">
+                  </app-auth-options-popup>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="py-3">
+            <app-global-landing-search></app-global-landing-search>
+          </div>
+
+          <app-mobile-routes
+            (onNavigate)="handleToggleMenu()"
+          ></app-mobile-routes>
+        </div>
+      </div>
+    }
+  </div>
+</header>

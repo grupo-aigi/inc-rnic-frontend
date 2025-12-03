@@ -1,0 +1,53 @@
+<section class="blog-area ptb-0 users-search-filters">
+  <div class="users-filters-widget search">
+    <form autocomplete="off" class="search-form">
+      <input
+        id="projects-search-term"
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="filterCriteria.busqueda"
+        [placeholder]="labels.typeAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      <div class="position-relative chips-container">
+        @if (displaySearchOptions) {
+          <div>
+            <app-projects-filters-chips
+              [filterCriteria]="filterCriteria"
+              (onChange)="handleUpdateProjects()"
+            ></app-projects-filters-chips>
+          </div>
+        } @else {
+          <app-projects-filters-reset
+            (onReset)="handleResetFilters()"
+            [filterCriteria]="filterCriteria"
+            [displayResetFiltersButton]="displayResetFiltersButton"
+          ></app-projects-filters-reset>
+        }
+
+      </div>
+
+      <button
+        class="search-button"
+        type="button"
+        (click)="handleClickSearch($event)"
+        >
+        @if (loadingRecommendations) {
+          <div
+            class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+            role="status"
+            >
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        } @else {
+          <i [class]="filterCriteria.busqueda ? 'bx bx-x' : 'bx bx-search'"></i>
+        }
+      </button>
+    </form>
+  </div>
+</section>

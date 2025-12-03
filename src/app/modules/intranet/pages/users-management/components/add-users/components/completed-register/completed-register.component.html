@@ -1,0 +1,66 @@
+<div class="candidate-list-box card mt-4">
+  <div class="p-4 mx-2 card-body">
+    <div class="row">
+      <div class="alert alert-success mt-3 text-center" role="alert">
+        <b class="position-relative">
+          Registro completado exitosamente
+          <i
+            class="bx bx-check-circle position-absolute"
+            style="top: 2px; right: -20px"
+          ></i>
+        </b>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-between align-items-center py-2">
+      <div class="col-2">
+        <div class="candidate-list-images">
+          <i
+            style="font-size: 50px; border-radius: 50%; padding: 15px"
+            class="bx bx-user rounded-circle text-center w-100"
+          ></i>
+          <p class="text-center">Sin foto</p>
+        </div>
+      </div>
+
+      <div class="col-10">
+        <div class="candidate-list-content mt-3 mt-lg-0">
+          <h5 class="fs-19 mb-0">
+            <a class="primary-link" href="#">{{
+              registerInfo.userInfo!.name
+            }}</a>
+          </h5>
+          <ul class="list-inline mb-2 mt-1 text-muted d-flex flex-column">
+            <li class="list-inline-item">
+              <i class="bx bx-id-card"></i>
+              {{ registerInfo.userInfo!.identification }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-envelope"></i>
+              {{ registerInfo.userInfo!.email }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-phone"></i>
+              {{ registerInfo.userInfo!.phoneNumber }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-user-plus"></i>
+              {{ getFormattedDate(registerInfo.userInfo!.entryDate) }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-row flex-wrap">
+      @for (commission of registerInfo.userInfo!.commissions; track commission) {
+        <span
+          class="rounded-pill bg-info badge badge-primary m-2 p-2"
+          >{{ getCommissionLabel(commission) }}</span
+          >
+        }
+      </div>
+    </div>
+  </div>

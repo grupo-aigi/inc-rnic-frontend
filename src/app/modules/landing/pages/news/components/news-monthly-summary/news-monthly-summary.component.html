@@ -1,0 +1,37 @@
+<ul>
+  <li>
+    <div class="newsletter-year-title">
+      <span>{{ currentYearTimeline.year }}</span>
+    </div>
+  </li>
+
+  @for (month of currentYearTimeline.months; track month) {
+    <li>
+      @if (month.count > 0) {
+        <a
+          target="_blank"
+      [href]="
+        variant === 'PUBLIC'
+          ? '/noticias' + getSummaryLink(currentYearTimeline.year, month.id)
+          : '/intranet/noticias' +
+            getSummaryLink(currentYearTimeline.year, month.id)
+      "
+          ><i class="flaticon-right-arrow"></i>{{ month[lang]
+          }}<span>{{ month.count }}</span></a
+          >
+        }
+      </li>
+    }
+
+    <li class="my-2">
+      <a
+        data-bs-toggle="modal"
+        data-bs-target="#allNewsMonthlySummariesModal"
+        href="#"
+        class="read-more"
+        >{{ labels.seeAll[lang] }}</a
+        >
+      </li>
+    </ul>
+
+    <app-news-monthly-summaries-modal></app-news-monthly-summaries-modal>

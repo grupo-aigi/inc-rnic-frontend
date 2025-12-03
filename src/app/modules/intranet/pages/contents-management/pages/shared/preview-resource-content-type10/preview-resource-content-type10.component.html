@@ -1,0 +1,55 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #10</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    <div class="partner-area bg-color ptb-70">
+      <div class="container">
+        <div class="partner-slider">
+          <owl-carousel-o [options]="partnerSlidesOptions">
+            @for (bannerItem of resourceContent.bannerItems; track bannerItem) {
+              <ng-template carouselSlide>
+                <div class="partner-item">
+                  <a [href]="bannerItem.url" target="_blank">
+                    <img
+                      [src]="getImageUrlByName(bannerItem.image)"
+                      style="max-height: 200px !important; width: auto"
+                      alt="Banner item"
+                    />
+                  </a>
+                </div>
+              </ng-template>
+            }
+          </owl-carousel-o>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

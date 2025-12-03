@@ -1,0 +1,41 @@
+<ul>
+  @for (newsletter of newsletters; track newsletter) {
+    <li>
+      <div class="newsletter-year-title">
+        <span>{{ newsletter.year }}</span>
+      </div>
+      <ul class="px-3 py-1">
+        @for (month of newsletter.months; track month) {
+          <li>
+            <button
+              style="
+                background-color: transparent;
+                padding: 3px;
+                border: none;
+                cursor: pointer;
+              "
+              (click)="
+                downloadFile(month.filename, newsletter.year, month.month)
+              "
+            >
+              <i class="bx bx-news"></i>
+              {{ getMonthName(month.month) }}
+            </button>
+          </li>
+        }
+      </ul>
+    </li>
+  }
+</ul>
+
+<div style="margin-top: 10px">
+  <a
+    href="#"
+    data-bs-toggle="modal"
+    data-bs-target="#allNewslettersModal"
+    class="read-more"
+    >{{ labels.seeAll[lang] }}</a
+  >
+</div>
+
+<app-newsletter-list-modal></app-newsletter-list-modal>

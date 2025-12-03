@@ -1,0 +1,196 @@
+@if (loadingEvent) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    style="margin-top: 100px; margin-bottom: 200px"
+    >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2">{{ labels.loading[lang] }}...</p>
+  </div>
+} @else {
+  @if (convocationDetail) {
+    <div>
+      <div class="page-title-area bg-newsletter">
+        <div class="container">
+          <div class="page-title-content">
+            <h2>{{ convocationDetail.title }}</h2>
+            <ul>
+              <li>
+                @if (variant === 'PUBLIC') {
+                  <a routerLink="/">{{ labels.main[lang] }}</a>
+                } @else {
+                  <a routerLink="/intranet">{{ labels.main[lang] }}</a>
+                }
+              </li>
+              <li>
+                @if (variant === 'PUBLIC') {
+                  <a routerLink="/convocatorias">{{
+                    labels.convocations[lang]
+                  }}</a>
+                } @else {
+                  <a routerLink="/intranet/convocatorias">{{
+                    labels.convocations[lang]
+                  }}</a>
+                }
+              </li>
+              <li class="active">{{ convocationDetail.title }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="col-lg-7 col-md-8 mt-5 d-lg-block d-md-block d-sm-none mx-auto"
+          >
+          <div class="blog-details-content">
+            <app-current-convocation-summary
+              [convocationDetail]="convocationDetail"
+            ></app-current-convocation-summary>
+            <section class="car-insurance-area pt-100 pb-70">
+              @if (convocationDetail.resources.length > 0) {
+                <div class="container">
+                  @for (resource of convocationDetail.resources; track resource) {
+                    <div
+                      class="car-insurance-content"
+                      >
+                      <div>
+                        @switch (resource.resourceType) {
+                          @case ('CONTENT__TITLE_AND_PARAGRAPH') {
+                            <div>
+                              <app-resource-content-type1
+                                [content]="resource.content"
+                              ></app-resource-content-type1>
+                            </div>
+                          }
+                          @case ('CONTENT__TITLE_SUBTITLE_AND_PARAGRAPH') {
+                            <div
+                              >
+                              <app-resource-content-type2
+                                [content]="resource.content"
+                              ></app-resource-content-type2>
+                            </div>
+                          }
+                          @case ('CONTENT__TITLE_PARAGRAPHS_AND_IMAGES') {
+                            <div>
+                              <app-resource-content-type3
+                                [content]="resource.content"
+                                [target]="'convocations'"
+                              ></app-resource-content-type3>
+                            </div>
+                          }
+                          @case ('CONTENT__TITLE_PARAGRAPHS_AND_LIST_ITEMS') {
+                            <div
+                              >
+                              <app-resource-content-type4
+                                [content]="resource.content"
+                              ></app-resource-content-type4>
+                            </div>
+                          }
+                          @case ('CONTENT__TITLE_TOGGLE_ITEMS_AND_IMAGE') {
+                            <div
+                              >
+                              <app-resource-content-type5
+                                [content]="resource.content"
+                                [target]="'convocations'"
+                              ></app-resource-content-type5>
+                            </div>
+                          }
+                          @case (
+                            'CONTENT__TITLE_PARAGRAPHS_AND_SORTED_OR_UNSORTED_LIST'
+                            ) {
+                            <div
+                              >
+                              <app-resource-content-type6
+                                [content]="resource.content"
+                              ></app-resource-content-type6>
+                            </div>
+                          }
+                          @case (
+                            'CONTENT__QUOTES_FEEDBACKS_OR_REFERENCES_1'
+                            ) {
+                            <div
+                              >
+                              <app-resource-content-type7
+                                [content]="resource.content"
+                                [target]="'convocations'"
+                              ></app-resource-content-type7>
+                            </div>
+                          }
+                          @case (
+                            'CONTENT__QUOTES_FEEDBACKS_OR_REFERENCES_2'
+                            ) {
+                            <div
+                              >
+                              <app-resource-content-type8
+                                [content]="resource.content"
+                                target="convocations"
+                              ></app-resource-content-type8>
+                            </div>
+                          }
+                          @case ('CONTENT__QUOTE_AND_AUTHOR') {
+                            <div>
+                              <app-resource-content-type9
+                                [content]="resource.content"
+                              ></app-resource-content-type9>
+                            </div>
+                          }
+                          @case ('CONTENT__DYNAMIC_BANNER') {
+                            <div>
+                              <app-resource-content-type10
+                                [target]="'convocations'"
+                                [content]="resource.content"
+                              ></app-resource-content-type10>
+                            </div>
+                          }
+                          @case ('CONTENT__VIDEO_AND_REFERENCES') {
+                            <div>
+                              <app-resource-content-type11
+                                [content]="resource.content"
+                              ></app-resource-content-type11>
+                            </div>
+                          }
+                          @case ('CONTENT__MAP') {
+                            <div>
+                              <app-resource-content-type12
+                                [content]="resource.content"
+                              ></app-resource-content-type12>
+                            </div>
+                          }
+                          @case ('CONTENT__FILES') {
+                            <div>
+                              <app-resource-content-type13
+                                [content]="resource.content"
+                              ></app-resource-content-type13>
+                            </div>
+                          }
+                          @case ('CONTENT__LINK') {
+                            <div>
+                              <app-resource-content-type14
+                                [content]="resource.content"
+                              ></app-resource-content-type14>
+                            </div>
+                          }
+                          @default {
+                            <div>
+                              {{ labels.resourceTypeNotFound[lang] }}
+                            </div>
+                          }
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+              } @else {
+                <div class="container text-center alert alert-info">
+                  <p>{{ labels.noResourcesAvailable[lang] }}</p>
+                </div>
+              }
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+

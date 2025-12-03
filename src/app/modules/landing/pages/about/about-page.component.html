@@ -1,0 +1,341 @@
+<div class="page-title-area bg-about">
+  <div class="container">
+    <div class="page-title-content">
+      <h2 class="dynamic-font-size">{{ labels.about[lang] }}</h2>
+      <ul>
+        <li>
+          <a routerLink="/" class="dynamic-font-size">{{
+            labels.main[lang]
+          }}</a>
+        </li>
+        <li class="active dynamic-font-size">{{ labels.about[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="welcome-area dynamic-font-size">
+  <div class="container">
+    <div class="pb-5" style="padding-top: 150px" id="nosotros">
+      <h2 class="dynamic-font-size">{{ labels.aboutRNIC[lang] }}</h2>
+      <p style="text-align: justify">
+        <b class="dynamic-font-size">{{ labels.aboutRNIC.whoAreWe[lang] }}:</b>
+        {{ labels.aboutRNIC.description[lang] }}
+      </p>
+    </div>
+
+    <div class="welcome-bg ptb-100">
+      <div class="welcome-content" id="objetivo-general">
+        <h2 class="dynamic-font-size" style="padding-top: 150px">
+          {{ labels.generalObjective.title[lang] }}
+        </h2>
+        <p
+          class="some-bold py-5 dynamic-font-size"
+          style="font-size: 1.2em; font-family: sans-serif"
+          >
+          {{ labels.generalObjective.description[lang] }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="why-choose-us-area position-relative bg-color my-5">
+  <div
+    class="position-absolute visually-hidden"
+    style="top: -150px"
+    id="objetivos-especificos"
+    >
+    Hidden Reference
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="choose-us-content">
+          <h2 class="dynamic-font-size">
+            {{ labels.specificObjectives.title[lang] }}
+          </h2>
+          <ul>
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item1[lang] }}
+            </li>
+
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item2[lang] }}
+            </li>
+
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item3[lang] }}
+            </li>
+
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item4[lang] }}
+            </li>
+
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item5[lang] }}
+            </li>
+
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item6[lang] }}
+            </li>
+            <li class="dynamic-font-size">
+              <i class="flaticon-tick dynamic-font-size"></i>
+              {{ labels.specificObjectives.item7[lang] }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12 p-0">
+        <div class="why-choose-slider-content">
+          <div class="why-choose-us-slider">
+            <owl-carousel-o [options]="sliderOptions">
+              <ng-template carouselSlide>
+                <div class="why-choose-us-img bg-1"></div>
+              </ng-template>
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-title">
+      <span
+        id="mecanismo-coordinacion"
+        class="services-area"
+        class="dynamic-font-size"
+        style="padding-top: 150px"
+        >
+        {{ labels.workTeam.title[lang] }}
+      </span>
+      <h2 class="dynamic-font-size">
+        {{ labels.workTeam.subtitle[lang] }}
+      </h2>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 col-md-12 offset-lg-2">
+        <div class="single-services-box">
+          <i class="flaticon-user"></i>
+          <h3 class="dynamic-font-size">
+            {{ labels.coordinatorFunctions.title[lang] }}
+          </h3>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 text-start">
+              <div class="my-1">
+                <span class="dynamic-font-size"
+                  ><small>&#8226; </small
+                  >{{ labels.coordinatorFunctions.item1[lang] }}</span
+                  >
+                </div>
+
+                <div class="my-1">
+                  <span class="dynamic-font-size"
+                    ><small>&#8226; </small
+                    >{{ labels.coordinatorFunctions.item2[lang] }}</span
+                    >
+                  </div>
+
+                  <div class="my-1">
+                    <span class="dynamic-font-size"
+                      ><small>&#8226; </small
+                      >{{ labels.coordinatorFunctions.item3[lang] }}</span
+                      >
+                    </div>
+
+                    <div class="my-1">
+                      <span class="dynamic-font-size"
+                        ><small>&#8226; </small
+                        >{{ labels.coordinatorFunctions.item4[lang] }}</span
+                        >
+                      </div>
+
+                      <div class="my-1">
+                        <span class="dynamic-font-size"
+                          ><small>&#8226; </small
+                          >{{ labels.coordinatorFunctions.item5[lang] }}</span
+                          >
+                        </div>
+
+                        <div class="my-1">
+                          <span class="dynamic-font-size"
+                            ><small>&#8226; </small
+                            >{{ labels.coordinatorFunctions.item6[lang] }}</span
+                            >
+                          </div>
+                          <div class="my-1">
+                            <span class="dynamic-font-size"
+                              ><small>&#8226; </small>
+                              {{ labels.coordinatorFunctions.item7[lang] }}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 text-start">
+                          <div class="my-1">
+                            <span class="dynamic-font-size"
+                              ><small>&#8226; </small
+                              >{{ labels.coordinatorFunctions.item8[lang] }}</span
+                              >
+                            </div>
+
+                            <div class="my-1">
+                              <span class="dynamic-font-size"
+                                ><small>&#8226; </small
+                                >{{ labels.coordinatorFunctions.item9[lang] }}
+                              </span>
+                            </div>
+
+                            <div class="my-1">
+                              <span class="dynamic-font-size"
+                                ><small>&#8226; </small
+                                >{{ labels.coordinatorFunctions.item10[lang] }}
+                              </span>
+                            </div>
+
+                            <div class="my-1">
+                              <span class="dynamic-font-size"
+                                ><small>&#8226; </small>
+                                {{ labels.coordinatorFunctions.item11[lang] }}
+                              </span>
+                            </div>
+
+                            <div class="my-1">
+                              <span class="dynamic-font-size"
+                                ><small>&#8226; </small
+                                >{{ labels.coordinatorFunctions.item12[lang] }}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- <a routerLink="/business-insurance" class="read-more"
+                        >Más información</a
+                        > -->
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="section-title">
+                    <h2 id="comisiones" class="dynamic-font-size" style="padding-top: 150px">
+                      {{ labels.workingCommittees.title[lang] }}
+                    </h2>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                      <div class="single-services-box">
+                        <i class="flaticon-life-insurance-1"></i>
+                        <h3 class="dynamic-font-size">
+                          {{ labels.workingCommittees.item1.title[lang] }}
+                        </h3>
+                        <p class="dynamic-font-size">
+                          {{ labels.workingCommittees.item1.description[lang] }}
+                        </p>
+
+                        <a
+            (click)="
+              handleSetActiveCommission(
+                labels.workingCommittees.item1.commission
+              )
+            "
+                          class="read-more dynamic-font-size"
+                          style="cursor: pointer"
+                          >
+                          {{ labels.workingCommittees.item1.moreInfo[lang] }}
+                        </a>
+                        <button
+                          #openClosePopup
+                          class="d-none dynamic-font-size"
+                          data-bs-toggle="modal"
+                          data-bs-target="#commissionDetailModal"
+                          >
+                          open-close
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                      <div class="single-services-box">
+                        <i class="flaticon-trustworthy"></i>
+                        <h3 class="dynamic-font-size">
+                          {{ labels.workingCommittees.item2.title[lang] }}
+                        </h3>
+                        <p class="dynamic-font-size">
+                          {{ labels.workingCommittees.item2.description[lang] }}
+                        </p>
+
+                        <a
+            (click)="
+              handleSetActiveCommission(
+                labels.workingCommittees.item2.commission
+              )
+            "
+                          class="read-more dynamic-font-size"
+                          style="cursor: pointer"
+                          >
+                          {{ labels.workingCommittees.item2.moreInfo[lang] }}
+                        </a>
+                        <button
+                          #openClosePopup
+                          class="d-none"
+                          data-bs-toggle="modal"
+                          data-bs-target="#commissionDetailModal"
+                          >
+                          open-close
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6">
+                      <div class="single-services-box">
+                        <i class="flaticon-insurance"></i>
+                        <h3 class="dynamic-font-size">
+                          {{ labels.workingCommittees.item3.title[lang] }}
+                        </h3>
+                        <p class="dynamic-font-size">
+                          {{ labels.workingCommittees.item3.description[lang] }}
+                        </p>
+
+                        <a
+            (click)="
+              handleSetActiveCommission(
+                labels.workingCommittees.item3.commission
+              )
+            "
+                          class="read-more"
+                          style="cursor: pointer"
+                          >
+                          {{ labels.workingCommittees.item3.moreInfo[lang] }}
+                        </a>
+                        <button
+                          #openClosePopup
+                          class="d-none dynamic-font-size"
+                          data-bs-toggle="modal"
+                          data-bs-target="#commissionDetailModal"
+                          >
+                          open-close
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              @if (activeCommission) {
+                <div>
+                  <app-commission-detail-modal
+                    [commission]="activeCommission"
+                  ></app-commission-detail-modal>
+                </div>
+              }

@@ -1,0 +1,134 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="container mx-auto pt-3 get-quote-form"
+  style="border: 1px solid lightgray"
+  >
+  <div class="container mx-auto row">
+    <h5 class="my-3">{{ labels.addArchiveToPublication[lang] }}</h5>
+    <div class="col-lg-6 col-sm-12">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#input-publication-archive-image"
+        class="btn default-btn"
+        >
+        {{ labels.addImage[lang] }}
+      </button>
+      @if (isFieldInvalid('imageName')) {
+        <small class="input-label__invalid">
+          {{ labels.imageError[lang] }}
+        </small>
+      }
+      @if (this.formGroup.get('imageName')?.value) {
+        <div>
+          <img [src]="imageUrl" width="100%" alt="Image" />
+        </div>
+      }
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+      <label
+        for="fileInput_4"
+        class="custom-file-button"
+        style="width: 100%; margin: 0px"
+        >
+        <input
+          type="file"
+          id="fileInput_4"
+          (change)="onFileChange($event)"
+          accept="application/pdf"
+          class="file-input"
+          />
+        <p class="text-center" style="font-weight: bolder">
+          {{
+          uploadedPdf
+          ? labels.changePdfFile[lang]
+          : labels.uploadPdfFile[lang]
+          }}
+        </p>
+      </label>
+
+      @if (uploadedPdf) {
+        <div>
+          <div style="height: 50vh; margin-top: 30px">
+            <iframe
+              name="archive-pdf-frame"
+              id="archive-pdf-frame"
+              [src]="uploadedPdf"
+              width="100%"
+              height="100%"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="col-lg-12 col-sm-12 mt-3">
+      <div class="form-group">
+        <input
+          type="text"
+          name="title"
+          formControlName="title"
+          class="form-control"
+          [placeholder]="labels.title.placeholder[lang]"
+          />
+        @if (isFieldInvalid('title')) {
+          <small class="input-label__invalid">
+            {{ labels.title.errorMsg[lang] }}
+          </small>
+        }
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="description"
+          formControlName="description"
+          class="form-control"
+          [placeholder]="labels.description.placeholder[lang]"
+          style="resize: vertical; min-height: 200px; max-height: 400px"
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+          <small
+            class="input-label__invalid"
+            >
+            {{ labels.description.errorMsg[lang] }}
+          </small>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="row pb-3">
+    <div class="col-lg-8 col-sm-12 d-flex mx-auto">
+      <button type="submit" class="btn default-btn success-button m-1">
+        {{ labels.addArchive[lang] }}
+      </button>
+
+      <button
+        (click)="handleCleanFields($event)"
+        type="button"
+        class="btn default-btn clean-button m-1"
+        >
+        {{ labels.cleanFields[lang] }}
+      </button>
+
+      <button
+        (click)="handleCancelCreate()"
+        type="button"
+        class="btn default-btn bg-danger m-1"
+        >
+        {{ labels.cancel[lang] }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<app-upload-or-reuse-image
+  modalFor="input-publication-archive-image"
+  elementType="publications"
+  (onSubmit)="handleSetPublicationArchiveImage($event)"
+></app-upload-or-reuse-image>

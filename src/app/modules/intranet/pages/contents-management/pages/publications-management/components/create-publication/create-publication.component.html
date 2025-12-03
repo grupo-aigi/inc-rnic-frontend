@@ -1,0 +1,201 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="container pt-3 get-quote-form"
+  >
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#input-announcement-image"
+        class="btn default-btn"
+        >
+        {{ labels.addImage[lang] }}
+      </button>
+    </div>
+
+    @if (isFieldInvalid('imageName')) {
+      <small class="input-label__invalid">
+        {{ labels.imageError[lang] }}
+      </small>
+    }
+
+    @if (publicationToEdit) {
+      <div class="row">
+        <div class="col-lg-6 col-sm-12 mx-auto mb-5">
+          <h4 class="text-center">{{ labels.currentPhoto[lang] }}</h4>
+          <img
+            [src]="getImageUrlByName(publicationToEdit!.imageName)"
+            width="100%"
+            alt="Image"
+            />
+        </div>
+        @if (this.formGroup.get('imageName')?.value) {
+          <div
+            class="col-lg-6 col-sm-12 mx-auto mb-5"
+            >
+            <h4 class="text-center">{{ labels.newPhoto[lang] }}</h4>
+            <img
+              [src]="this.formGroup.get('imageName')?.value"
+              width="100%"
+              alt="Image"
+              />
+          </div>
+        }
+      </div>
+    } @else {
+      @if (this.formGroup.get('imageName')?.value) {
+        <div
+          class="col-lg-6 col-sm-12 mx-auto mb-5"
+          >
+          <img
+            [src]="getImageUrlByName(this.formGroup.get('imageName')?.value)"
+            width="100%"
+            alt="Image"
+            />
+        </div>
+      }
+    }
+
+
+    <div class="col-lg-12 col-sm-12" style="margin-top: -35px">
+      <label
+        for="fileInput_3"
+        class="custom-file-button"
+        style="width: 100%; margin: 0px; margin-top: 20px"
+        >
+        <input
+          type="file"
+          id="fileInput_3"
+          (change)="onFileSelected($event)"
+          accept="application/pdf"
+          class="file-input"
+          />
+        <p class="text-center">
+          {{
+          uploadedPdf
+          ? labels.changePdfFile[lang]
+          : labels.uploadAPdfFile[lang]
+          }}
+        </p>
+      </label>
+    </div>
+
+    @if (uploadedPdf) {
+      <div class="my-4">
+        <div style="height: 100vh">
+          <iframe
+            id="publication-pdf-frame"
+            [src]="uploadedPdf"
+            width="100%"
+            height="100%"
+            frameborder="0"
+          ></iframe>
+        </div>
+      </div>
+    }
+
+    <div class="col-lg-12 col-sm-12 mt-3">
+      <div class="form-group">
+        <input
+          type="text"
+          name="title"
+          formControlName="title"
+          class="form-control"
+          [placeholder]="labels.title.placeholder[lang]"
+          />
+        @if (isFieldInvalid('title')) {
+          <small class="input-label__invalid">{{
+            labels.title.errorMsg[lang]
+          }}</small>
+        }
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="description"
+          formControlName="description"
+          class="form-control"
+          [placeholder]="labels.description.placeholder[lang]"
+          style="resize: vertical; min-height: 200px; max-height: 400px"
+        ></textarea>
+        @if (isFieldInvalid('description')) {
+          <small
+            class="input-label__invalid"
+            >{{ labels.description.errorMsg[lang] }}</small
+            >
+          }
+        </div>
+      </div>
+
+      @if (creatingArchive) {
+        <div class="col-12">
+          <app-create-archive
+            (onCreate)="handleAddArchive($event)"
+            (onCancel)="handleCancelCreateArchive()"
+          ></app-create-archive>
+        </div>
+      } @else {
+        <button
+          (click)="handleCreateNewArchive()"
+          type="button"
+          class="default-btn w-auto mx-auto"
+          >
+          {{ labels.addPublicationFile[lang] }}
+        </button>
+      }
+
+
+      @if (archives.length === 0) {
+        <div
+          class="alert alert-primary text-center mt-5"
+          role="alert"
+          >
+          {{ labels.noFilesInPublication[lang] }}
+        </div>
+      } @else {
+        <div class="my-2">
+          @for (archive of archives; track archive) {
+            <div>
+              <app-intranet-archive-item
+                [archive]="archive"
+              ></app-intranet-archive-item>
+            </div>
+          }
+        </div>
+      }
+
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-sm-12 d-flex m-auto">
+        <button type="submit" class="btn default-btn success-button m-1">
+          {{ publicationToEdit ? labels.update[lang] : labels.publish[lang] }}
+        </button>
+        <button
+          (click)="handleCleanFields($event)"
+          type="button"
+          class="btn default-btn clean-button m-1"
+          >
+          {{ labels.cleanFields[lang] }}
+        </button>
+        @if (publicationToEdit) {
+          <button
+            (click)="handleCancelUpdate($event)"
+            type="button"
+            >
+            {{ labels.cancelUpdate[lang] }}
+          </button>
+        }
+      </div>
+    </div>
+  </form>
+
+  <app-upload-or-reuse-image
+    modalFor="input-announcement-image"
+    elementType="publications"
+    (onSubmit)="handleSetPublicationImage($event)"
+  ></app-upload-or-reuse-image>

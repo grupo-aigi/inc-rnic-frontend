@@ -1,0 +1,134 @@
+<footer class="footer-area position-relative" style="background-color: #12bec8">
+  <div class="container">
+    <div
+      class="footer-card position-relative bg-light"
+      style="
+        top: -80px;
+        padding: 30px;
+        border-radius: 8px;
+        outline: 1px solid lightgray;
+      "
+    >
+      <div class="row">
+        <div class="col-lg-9 col-md-12">
+          <div class="single-footer-widget">
+            <h4>{{ labels.rnic[lang] }}</h4>
+
+            <p>{{ labels.headquarters[lang] }}</p>
+
+            <ul class="ddress list-unstyled">
+              <li>
+                <span style="display: flex"
+                  >{{ labels.address[lang] }}:
+                  <span style="margin-left: 2px">
+                    Calle 1 # 9 -85 Bogotá DC, Colombia Bogotá DC, Colombia
+                  </span></span
+                >
+              </li>
+
+              <li>
+                <span style="display: flex"
+                  >{{ labels.postalCode[lang] }}:
+                  <span style="margin-left: 2px"> 111511-110411001 </span></span
+                >
+              </li>
+
+              <li>
+                <span style="display: flex"
+                  >{{ labels.openingHours[lang] }}:
+                  <span style="margin-left: 2px">
+                    {{ labels.openingHoursValue[lang] }}
+                  </span></span
+                >
+              </li>
+
+              <li>
+                <span style="display: flex"
+                  >{{ labels.email[lang] }}:
+                  <a
+                    style="margin-left: 2px"
+                    href="mailto:redcancer@cancer.gov.co"
+                    >redcancer&#64;cancer.gov.co</a
+                  >
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="single-footer-widget pt-2">
+            <ul class="social-icon">
+              <li>
+                <a
+                  href="https://www.instagram.com/incancerologia/"
+                  target="_blank"
+                  ><i class="fa-brands fa-instagram"></i
+                ></a>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/@incancerologia"
+                  target="_blank"
+                  ><i class="fa-brands fa-youtube"></i
+                ></a>
+              </li>
+              <li>
+                <!-- <a href="#" target="_blank"><i class="bx bxl-twitter"></i></a> -->
+                <a href="https://x.com/INCancerologia" target="_blank">
+                  <i class="fa-brands fa-x-twitter"></i>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/company/instituto-nacional-de-cancerolog%C3%ADa-e.s.e./"
+                  target="_blank"
+                  ><i class="fa-brands fa-linkedin"></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-12">
+          <div
+            class="single-footer-widget align-content-end d-flex flex-column align-items-end pt-2"
+          >
+            <a
+              href="https://www.cancer.gov.co"
+              target="_blank"
+              class="logo w-75"
+            >
+              @if (theme === 'LIGHT') {
+                <img
+                  src="/img/logos-inc-y-rnic/logo-inc-DARK.png"
+                  alt="Image"
+                />
+              }
+
+              @if (theme === 'DARK') {
+                <img
+                  src="/img/logos-inc-y-rnic/logo-inc-LIGHT.svg"
+                  alt="Image"
+                  width="100%"
+                />
+              }
+            </a>
+
+            <div class="d-flex justify-content-center mt-3">
+              <div>
+                <img
+                  style="height: 100px; margin: 5px"
+                  src="/img/footer/Acreditacion_img.png"
+                  alt="Image"
+                />
+                <img
+                  style="height: 100px; margin: 5px"
+                  src="/img/footer/Icontec_img.png"
+                  alt="Image"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

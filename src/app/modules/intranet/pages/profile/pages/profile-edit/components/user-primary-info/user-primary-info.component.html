@@ -1,0 +1,94 @@
+<div class="roew">
+  <div class="col-12 col-sm-auto mb-0">
+    <div class="mx-auto" style="width: 140px">
+      @if (!this.authService.userAvatar) {
+        <div
+          class="d-flex justify-content-center align-items-center rounded-lg"
+        style="
+          height: 140px;
+          background-color: rgb(233, 236, 239);
+          position: relative;
+        "
+          >
+          <span style="color: rgb(166, 168, 170); font: bold 8pt Arial">
+            {{ labels.squarePhoto[lang] }}
+          </span>
+          <div class="mt-2 position-absolute" style="bottom: -50px">
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#input-user-profile-image"
+              class="default-btn p-3 mt-2 position-relative"
+              type="button"
+              >
+              <i class="bx bx-camera position-relative" style="top: 2px"></i>
+              <span class="m-1">
+                {{ labels.changePhoto[lang] }}
+              </span>
+            </button>
+          </div>
+        </div>
+      }
+
+      @if (this.authService.userAvatar) {
+        <div
+          class="d-flex mt-5 flex-column align-items-center"
+          style="height: 200px"
+          >
+          <img
+            [src]="this.authService.userAvatar"
+            alt="Admin"
+            class="rounded-3"
+            width="300"
+            />
+          <div class="mt-2">
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#input-user-profile-image"
+              class="default-btn p-3 mt-2 position-relative"
+              type="button"
+              >
+              <i class="bx bx-camera position-relative" style="top: 2px"></i>
+              <span class="m-1">
+                {{ labels.changePhoto[lang] }}
+              </span>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div
+    class="col mt-5 d-flex flex-column flex-sm-row justify-content-between mb-3"
+    >
+    <div class="text-sm-left mb-2 mb-sm-0">
+      <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">
+        {{ userInfo.name }}
+      </h4>
+
+      <div class="d-flex flex-column">
+        @for (role of userInfo.roles; track role) {
+          <h6
+            class="text-secondary mb-1 text-left"
+            >
+            {{ role[lang] }}
+            @if (role.role === activeRole && userInfo.roles.length > 1) {
+              <i
+                class="bx bx-check"
+              ></i>
+            }
+          </h6>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-upload-or-reuse-image
+  modalFor="input-user-profile-image"
+  elementType="profiles"
+  [privateImages]="true"
+  (onSubmit)="handleSetProfileImage($event)"
+></app-upload-or-reuse-image>

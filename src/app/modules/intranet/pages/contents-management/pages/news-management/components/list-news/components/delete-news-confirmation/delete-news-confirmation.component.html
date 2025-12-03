@@ -1,0 +1,68 @@
+<div
+  class="modal fade w-100"
+  id="deleteNewsModal"
+  tabindex="-1"
+  aria-labelledby="deleteNewsModal"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ title[lang] }}
+        </h5>
+
+        <button
+          #closeModalBtn
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- ------------------------ -->
+        <p class="my-3" id="exampleModalLabel">
+          {{ labels.beforeProceeding[lang] }}: {{ valueToType }}
+        </p>
+        <form>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="title"
+                  [(ngModel)]="actualValue"
+                  class="form-control"
+                  [placeholder]="valueToType"
+                  />
+                @if (showError) {
+                  <small class="input-label__invalid"
+                    >El valor ingresado es inválido</small
+                    >
+                  }
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- ------------------------ -->
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            (click)="handleConfirmDelete($event)"
+            class="btn btn-danger"
+            >
+            Eliminar
+          </button>
+          <button
+            type="button"
+            class="btn btn-info text-white"
+            data-bs-dismiss="modal"
+            >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>

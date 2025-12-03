@@ -1,0 +1,23 @@
+<div class="partner-area bg-color ptb-70">
+  <div class="container">
+    <div class="partner-slider">
+      <owl-carousel-o [options]="partnerSlidesOptions">
+        @for (bannerItem of content.bannerItems; track bannerItem) {
+          <ng-template
+            carouselSlide
+            >
+            <div class="partner-item">
+              <a [href]="bannerItem.url" target="_blank">
+                <img
+                  [src]="getImageUrlByName(bannerItem.image)"
+                  style="max-height: 200px !important; width: auto"
+                  alt="Banner item"
+                  />
+              </a>
+            </div>
+          </ng-template>
+        }
+      </owl-carousel-o>
+    </div>
+  </div>
+</div>

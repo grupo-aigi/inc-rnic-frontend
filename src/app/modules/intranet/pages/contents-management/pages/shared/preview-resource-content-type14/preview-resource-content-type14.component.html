@@ -1,0 +1,40 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #16</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    <p>
+      {{ labels.alert[lang] }}
+    </p>
+    <a [href]="resourceContent.url" target="_blank">
+      {{ resourceContent.text }}
+    </a>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'button-disabled': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'button-disabled': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

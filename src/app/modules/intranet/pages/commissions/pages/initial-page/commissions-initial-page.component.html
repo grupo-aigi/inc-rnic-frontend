@@ -1,0 +1,26 @@
+<section class="services-area">
+  <h3 class="pt-5 text-center" style="margin-top: 30px">
+    {{ labels.selectCommissionToProceed[lang] }}
+  </h3>
+
+  <div class="container">
+    <div class="row mt-3 justify-content-center">
+      @for (directLink of directLinks; track directLink) {
+        <a
+          class="col-lg-4 col-md-6 pointer certificate_card_link"
+          [id]="directLink.id"
+          style="margin-top: 70px"
+          [routerLink]="'/' + directLink.route"
+          >
+          <div
+            class="single-services-box bg-white h-100"
+            style="border-radius: 5px; padding-top: 70px"
+            >
+            <!-- <i [class]="directLink.icon"></i> -->
+            <h3>{{ directLink.label[lang] }}</h3>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

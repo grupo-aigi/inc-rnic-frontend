@@ -1,0 +1,22 @@
+<section class="services-area">
+  <div class="container">
+    <div class="section-title pt-5">
+      <span class="dynamic-font-size">{{ labels.contentManagement[lang] }}</span>
+    </div>
+
+    <div class="row">
+      @for (directLink of directLinks; track directLink) {
+        <a
+          class="col-lg-4 col-md-6 pointer content_mgmt_link dynamic-font-size"
+          [id]="directLink.id"
+          [routerLink]="'/' + directLink.route"
+          >
+          <div class="single-services-box bg-white dynamic-font-size" style="border-radius: 5px">
+            <i [class]="directLink.icon"></i>
+            <h3 class="dynamic-font-size">{{ directLink.label[lang] }}</h3>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

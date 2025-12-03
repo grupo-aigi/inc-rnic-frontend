@@ -1,0 +1,31 @@
+<div class="sidebar-area-medium">
+  <ul class="navbar-nav" style="position: relative">
+    @for (option of sidebarOptions; track $index) {
+      <li>
+        <div>
+          <a
+            [routerLink]="option.route"
+            class="nav-link w-100 d-flex align-items-center"
+          >
+            <i
+              [class]="option.icon"
+              class="sidebar_item"
+              [id]="option.id"
+              style="font-size: 25px"
+              [title]="option.label[lang]"
+            ></i>
+
+            @if (option.other) {
+              <span
+                class="badge rounded-pill text-bg-primary"
+                style="margin-left: 5px"
+              >
+                {{ option.other.badge }}
+              </span>
+            }
+          </a>
+        </div>
+      </li>
+    }
+  </ul>
+</div>

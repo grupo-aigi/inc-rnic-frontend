@@ -1,0 +1,59 @@
+<section class="blog-area ptb-0 users-search-filters">
+  <div class="users-filters-widget search">
+    <form autocomplete="off" class="search-form">
+      <input
+        id="users-search-term"
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.typeAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      <div class="position-relative chips-container">
+        @if (displaySearchOptions) {
+          <div>
+            <app-users-filters-chips
+              [filterCriteria]="filterCriteria"
+              (onChange)="handleUpdateUsers()"
+            ></app-users-filters-chips>
+            <div class="search-options">
+              <app-users-filters-recommendations
+                [recommendedOptions]="recommendedOptions"
+                >
+              </app-users-filters-recommendations>
+            </div>
+          </div>
+        } @else {
+          <app-users-filters-reset
+            (onReset)="handleResetFilters()"
+            [filterCriteria]="filterCriteria"
+            [displayResetFiltersButton]="displayResetFiltersButton"
+          ></app-users-filters-reset>
+        }
+
+      </div>
+
+      <button
+        class="search-button"
+        type="button"
+        (click)="handleClickSearch($event)"
+        >
+        @if (loadingRecommendations) {
+          <div
+            class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+            role="status"
+            >
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        } @else {
+          <i [class]="searchTerm ? 'bx bx-x' : 'bx bx-search'"></i>
+        }
+      </button>
+    </form>
+  </div>
+</section>

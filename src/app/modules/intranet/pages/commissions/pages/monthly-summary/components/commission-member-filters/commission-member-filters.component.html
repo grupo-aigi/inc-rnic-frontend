@@ -1,0 +1,18 @@
+<form class="d-flex flex-row justify-content-between w-50" role="search">
+  <input
+    class="form-control me-2"
+    type="search"
+    (click)="handleClickOnSearch($event)"
+    placeholder="{{ labels.searchOn[lang] }} {{ month[lang] | titlecase }}, {{
+      year
+    }}"
+    aria-label="Search"
+  />
+  <button
+    class="btn btn-outline-success"
+    type="button"
+    (click)="handleSearch($event)"
+  >
+    {{ labels.search[lang] }}
+  </button>
+</form>

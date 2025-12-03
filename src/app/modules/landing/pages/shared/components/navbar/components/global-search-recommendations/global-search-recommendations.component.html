@@ -1,0 +1,26 @@
+<div class="search-options">
+  <ul class="w-100">
+    @for (recommendation of recommendations; track recommendation.type) {
+      <li class="py-0 my-0">
+        @for (record of recommendation.records; track record) {
+          <a
+            class="row gy-4 py-3 recommendation-item"
+            style="border-bottom: 1px solid rgb(73, 250, 241)"
+            [href]="[record.url]"
+            target="_blank"
+            [title]="trim(record.description || '', 100)"
+            >
+            <a target="_blank" [href]="[record.url]">
+              Principal <small> >> </small>
+              {{ getRecommendationType(recommendation.type, lang) }}
+              <small> >> </small> {{ record.title }}</a
+              >
+              <span class="col-12 text-start" style="font-weight: 600">
+                {{ record.title }}
+              </span>
+            </a>
+          }
+        </li>
+      }
+    </ul>
+  </div>

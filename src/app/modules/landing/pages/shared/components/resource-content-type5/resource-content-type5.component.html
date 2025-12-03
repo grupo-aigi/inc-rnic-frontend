@@ -1,0 +1,44 @@
+<div class="content step-6">
+  <h3>{{ content.title }}</h3>
+  @for (paragraph of content.paragraphs; track paragraph) {
+    <p>
+      {{ paragraph }}
+    </p>
+  }
+  <div class="row align-items-sm-start">
+    <div class="col-lg-6 col-md-12">
+      <div class="faq-content">
+        <div class="faq-accordion mb-used">
+          <ul class="accordion">
+            @for (item of content.items; track item; let i = $index) {
+              <li
+                class="accordion-item"
+                >
+                <a
+                  class="accordion-title"
+                  [ngClass]="{ active: isItemActive(i) }"
+                  style="cursor: pointer"
+                  (click)="handleToggleItem(i)"
+                  >
+                  <i class="bx bx-plus"></i>
+                  {{ item.title }}
+                </a>
+                @if (isItemActive(i)) {
+                  <p>{{ item.content }}</p>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    @if (content.imageName) {
+      <div class="col-lg-6 col-md-12">
+        <div class="faq-img-three">
+          <img [src]="getImageUrlByName(content.imageName)" alt="Image" />
+        </div>
+      </div>
+    }
+  </div>
+</div>

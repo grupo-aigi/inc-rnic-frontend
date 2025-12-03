@@ -1,0 +1,21 @@
+<section class="services-area">
+  <div class="container">
+    <div class="row mt-5 justify-content-center">
+      @for (directLink of directLinks; track directLink) {
+        <a
+          class="col-lg-4 col-md-6 pointer certificate_card_link"
+          [id]="directLink.id"
+          style="margin-top: 70px"
+          [routerLink]="'/' + directLink.route"
+          >
+          <div
+            class="single-services-box bg-white"
+            style="border-radius: 5px; padding: 50px 0px"
+            >
+            <h3>{{ directLink.label[lang] }}</h3>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>

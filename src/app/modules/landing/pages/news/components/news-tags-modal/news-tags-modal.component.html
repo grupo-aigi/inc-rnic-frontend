@@ -1,0 +1,110 @@
+<div
+  class="modal fade w-100"
+  id="allNewsTagsModal"
+  tabindex="-1"
+  aria-labelledby="allNewsTagsModal"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="allNewsTagsModal">
+          {{ labels.title[lang] }}
+        </h5>
+
+        <button
+          #closeModalBtn
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="title"
+                  (keyup)="handleSearchByTerm($event)"
+                  [(ngModel)]="search"
+                  class="form-control"
+                  [placeholder]="labels.startTyping[lang]"
+                  />
+                @if (showError) {
+                  <small class="input-label__invalid"
+                    >{{labels.invalidInputValue[lang]}}</small
+                    >
+                  }
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <small>
+            @if (
+              search !== '' && !loadingSummaries && newsTagsSummaries.length > 0
+              ) {
+              <span
+                class="my-1"
+                style="font-weight: 800"
+                >
+                {{ newsTagsSummaries.length }}
+                {{
+                newsTagsSummaries.length > 1
+                ? labels.foundTags[lang]
+                : labels.foundTag[lang]
+                }}
+                {{ labels.accordingCurrentFilters[lang] }}
+              </span>
+            }
+          </small>
+          <ul class="mt-2">
+            @for (category of newsTagsSummaries; track category) {
+              <li>
+                <a
+              [routerLink]="'/noticias?categoriaId=' + category.id"
+              target="_blank"
+              class="row mx-1 py-2"
+            >
+              <span class="col-10">
+                <a>#{{ category.name }}</a>
+              </span>
+              <span class="col-2 text-end">
+                {{ category.count }}
+                {{
+                  category.count > 1
+                    ? labels.newsPlural[lang]
+                    : labels.newsSingular[lang]
+                }}
+              </span>
+            </a>
+          </li>
+}
+        </ul>
+        <div class="d-flex justify-content-center mt-2">
+          @if (!endOfList) {
+<button
+           
+            class="btn btn-info text-white"
+            (click)="handleLoadMore($event)"
+          >
+            {{ labels.loadMore[lang] }}
+          </button>
+}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-info text-white"
+          data-bs-dismiss="modal"
+        >
+          {{ labels.close[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<i class="bx bx-news"></i>
+{{ getMonthName(month.month) }}
+
+<div>
+  <span> {{ labels.createdAt[lang] }} {{ formatDate(month.createdAt) }} </span>
+</div>
+
+<div class="mb-3">
+  @if (showPdf) {
+    <button
+      class="btn default-btn bg-danger p-2 mt-1"
+      (click)="handleHidePdf($event)"
+      >
+      {{ labels.hidePdf[lang] }}
+      <i class="bx bx-hide"></i>
+    </button>
+  } @else {
+    <button
+      (click)="handleShowPdf($event, month.filename, month.month)"
+      class="btn default-btn p-2 mt-1"
+      >
+      {{ labels.showPdf[lang] }}
+      <i class="bx bx-show"></i>
+    </button>
+  }
+
+</div>
+
+@if (loadingDocument && loadingMonth === month.month) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    >
+    <div class="spinner-border m-2" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2">{{ labels.loadingDocument[lang] }}...</p>
+  </div>
+} @else {
+  @if (pdfUrl) {
+    <div
+      style="height: 90vh; margin-top: 20px; margin-bottom: 20px"
+      >
+      <!-- <button
+      (click)="handleHidePdf($event)"
+      class="btn default-btn bg-danger p-2 mb-2"
+      >
+      {{ labels.hidePdf[lang] }} <i class="bx bx-x"></i>
+    </button> -->
+    <iframe
+      id="pdfFrame"
+      [src]="pdfUrl"
+      width="100%"
+      height="100%"
+      frameborder="0"
+    ></iframe>
+  </div>
+}
+}
+

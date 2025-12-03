@@ -1,0 +1,247 @@
+<div
+  class="user-card-box mt-4"
+  [style]="{
+    'background-color': !userInfo.active ? 'rgb(251, 227, 227)' : 'unset',
+  }"
+>
+  <div class="p-4 mx-2 card-body rounded-2" style="border: 1px solid lightgray">
+    <div class="row d-flex justify-content-between align-items-center py-2">
+      <div class="col-lg-2 col-md-6 col-sm-12">
+        <div class="candidate-list-images">
+          @if (userAvatar) {
+            <img
+              [src]="userAvatar"
+              alt="User avatar"
+              class="avatar-md img-thumbnail rounded-circle w-100 h-auto"
+            />
+          } @else {
+            <i
+              style="font-size: 50px; border-radius: 50%; padding: 15px"
+              class="bx bx-user rounded-circle text-center w-100"
+            ></i>
+            <p class="text-center">{{ labels.noPhoto[lang] }}</p>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+        <div class="candidate-list-content mt-3 mt-lg-0">
+          <h5 class="fs-19 mb-0">
+            <a class="primary-link" href="#">{{ userInfo.name }}</a>
+            <div>
+              @if (!userInfo.active) {
+                <span
+                  class="rounded-pill bg-danger badge badge-primary p-2 my-2 position-relative"
+                >
+                  {{ labels.deletedAccount[lang] }}
+                  <i
+                    class="bx bxs-user-x position-relative"
+                    style="top: 1px"
+                  ></i>
+                </span>
+              }
+            </div>
+
+            <div>
+              @if (userInfo.blockedStatus) {
+                <span
+                  class="rounded-pill bg-danger badge badge-primary p-2 my-2 position-relative"
+                >
+                  Bloqueado
+                  {{
+                    userInfo.blockedStatus.until
+                      ? 'hasta el'
+                      : 'indefinidamente'
+                  }}
+                  {{ userInfo.blockedStatus.until | date: 'dd/MM/yyyy' }}
+                  <i
+                    class="bx bxs-user-x position-relative"
+                    style="top: 1px"
+                  ></i>
+                </span>
+              }
+            </div>
+          </h5>
+          <ul class="list-inline mb-2 mt-1 text-muted d-flex flex-column">
+            <li class="list-inline-item">
+              <i class="bx bx-id-card"></i>
+              {{ userInfo.identification }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-envelope"></i>
+              {{ userInfo.email }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-phone"></i>
+              {{ userInfo.phoneNumber }}
+            </li>
+
+            <li class="list-inline-item">
+              <i class="bx bx-user-plus"></i>
+              {{ getFormattedDate(userInfo.createdAt) }}
+            </li>
+          </ul>
+
+          <p class="mt-1">{{ labels.userRoles[lang] }}:</p>
+          <div class="d-flex flex-column" style="margin-top: -20px">
+            @for (
+              grantedAuthority of userInfo.grantedAuthorities;
+              track grantedAuthority
+            ) {
+              <small class="text-muted" style="font-weight: 600">{{
+                getRoleLabel(grantedAuthority.authority)
+              }}</small>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-12 mx-auto">
+        <div class="p-0">
+          <p style="text-align: justify">
+            {{
+              profileInfo?.description
+                ? profileInfo?.description
+                : labels.noDescription[lang]
+            }}
+          </p>
+          <!-- --------------- -->
+          <div class="card mt-3">
+            <ul class="list-group list-group-flush">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+              >
+                <h6
+                  class="mb-0 d-flex flex-row justify-content-start align-items-center"
+                >
+                  <i
+                    class="bx bxl-linkedin-square"
+                    style="font-size: 30px; color: #0a66c2"
+                  ></i>
+                  <span style="margin-left: 2px">LinkedIn</span>
+                </h6>
+                @if (profileInfo?.userSocialMedia?.linkedin) {
+                  <a
+                    [href]="
+                      'https://www.linkedin.com/in/' +
+                      profileInfo?.userSocialMedia?.linkedin
+                    "
+                    target="_blank"
+                    class="text-secondary"
+                    >{{ profileInfo?.userSocialMedia?.linkedin }}</a
+                  >
+                } @else {
+                  <span class="text-secondary">{{
+                    labels.noLinkedinProfile[lang]
+                  }}</span>
+                }
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+              >
+                <h6
+                  class="mb-0 mb-0 d-flex flex-row justify-content-start align-items-center"
+                >
+                  <img
+                    src="/img/social/orcid.svg"
+                    style="width: 25px; margin-left: 2px"
+                    alt=""
+                  />
+                  <span style="margin-left: 5px">ORCID</span>
+                </h6>
+                @if (profileInfo?.userSocialMedia?.orcid) {
+                  <a
+                    [href]="
+                      'https://orcid.org/' + profileInfo?.userSocialMedia?.orcid
+                    "
+                    target="_blank"
+                    class="text-secondary"
+                    >{{ profileInfo?.userSocialMedia?.orcid }}</a
+                  >
+                } @else {
+                  <span class="text-secondary">{{
+                    labels.noOrcidProfile[lang]
+                  }}</span>
+                }
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+              >
+                <h6
+                  class="mb-0 mb-0 d-flex flex-row justify-content-start align-items-center"
+                >
+                  <img
+                    src="/img/social/scopus.ico"
+                    style="width: 25px; margin-left: 2px; border-radius: 50%"
+                    alt=""
+                  />
+
+                  <span style="margin-left: 5px">Scopus</span>
+                </h6>
+
+                @if (profileInfo?.userSocialMedia?.scopus) {
+                  <a
+                    [href]="
+                      'https://www.scopus.com/' +
+                      profileInfo?.userSocialMedia?.scopus
+                    "
+                    target="_blank"
+                    class="text-secondary"
+                    >{{ profileInfo?.userSocialMedia?.scopus }}</a
+                  >
+                } @else {
+                  <span class="text-secondary">{{
+                    labels.noScopusProfile[lang]
+                  }}</span>
+                }
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      @if (!isRegistered) {
+        <div class="mt-4">
+          <app-upload-documents-buttons
+            [userId]="userInfo.id"
+            [active]="userInfo.active"
+          ></app-upload-documents-buttons>
+        </div>
+      }
+    </div>
+
+    @if (!isRegistered) {
+      <div class="row mt-4">
+        <div class="col-lg-2 col-md-12 mx-auto">
+          <button
+            type="button"
+            [disabled]="!userInfo.active"
+            class="btn btn-danger bg-info border-0 w-100"
+            (click)="handleToggleDetail()"
+          >
+            <b>{{ labels.manage[lang] }}</b
+            ><i class="bx bxs-contact m-1"></i>
+          </button>
+        </div>
+      </div>
+    } @else {
+      <div class="alert alert-info text-center mt-4" role="alert">
+        <b>{{ labels.registeredUserAlert[lang] }}</b>
+      </div>
+    }
+
+    <ng-template #registeredUserAlert>
+      <div class="alert alert-info text-center mt-4" role="alert">
+        <b>{{ labels.registeredUserAlert[lang] }}</b>
+      </div>
+    </ng-template>
+  </div>
+  @if (showDetail && userInfo.active) {
+    <div>
+      <hr />
+      <app-user-card-detail [userInfo]="userInfo"></app-user-card-detail>
+    </div>
+  }
+</div>

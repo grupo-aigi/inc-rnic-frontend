@@ -1,0 +1,72 @@
+<span>
+  <b>{{ labels.keepInMind[lang] }}: </b> {{ labels.log[lang] }}.
+</span>
+
+@if (activityLogs.length > 0) {
+  <div
+    class="container activity-log__main-container"
+    >
+    <div class="my-2"></div>
+    @for (log of activityLogs; track log) {
+      <div
+    class="activity-log__alert mt-2 alert-{{
+      getIconColorByType(log.type)
+    }} activity-log__alert-white rounded"
+        >
+        <div class="icon bg-{{ getIconColorByType(log.type) }}">
+          <i [class]="getIconByType(log.type)"></i>
+        </div>
+        <strong>{{ getLogValue(log.type, 'title') }}</strong>
+        {{ getLogValue(log.type, 'description') }}
+        @if (log.type === 'COMMISSIONS_CHANGED') {
+          <div>
+            <div class="my-2">
+              @if (getCommissionsList(log.description).length > 0) {
+                @for (commission of getCommissionsList(log.description); track commission) {
+                  <div>
+                    <i class="bx bx-group"></i> {{ commission }}
+                  </div>
+                }
+              } @else {
+                <div class="alert alert-info" role="alert">
+                  <b>{{ labels.noCommissions[lang] }}</b>
+                </div>
+              }
+            </div>
+          </div>
+        }
+        <div class="my-2 d-flex justify-content-end">
+          <small>{{ log.createdAt | date: 'dd/MM/yyyy HH:mm' }}</small>
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div class="alert alert-info mt-3 text-center" role="alert">
+    <b>{{ labels.noActivityFound[lang] }}</b>
+  </div>
+}
+
+@if (totalItems > 0) {
+  <p class="my-2">
+    {{ labels.found[lang] }}{{ totalItems }} {{ labels.registers[lang] }}
+    {{ activityLogs.length }} {{ labels.actually[lang] }}.
+  </p>
+}
+
+<div class="d-flex justify-content-center">
+  <button
+    [disabled]="totalItems === activityLogs.length"
+    (click)="loadMoreLogs()"
+    class="btn btn-success mx-auto mt-2"
+    title="Cargar más"
+    >
+    <i class="bx bxs-chevrons-down position-relative" style="top: 2px"></i>
+  </button>
+</div>
+
+<ng-template #noActivityFound>
+  <div class="alert alert-info mt-3 text-center" role="alert">
+    <b>{{ labels.noActivityFound[lang] }}</b>
+  </div>
+</ng-template>

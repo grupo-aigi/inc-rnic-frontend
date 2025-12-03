@@ -1,0 +1,15 @@
+.vscode/
+
+node_modules/
+dist/
+.git/
+
+inc-rnic-frontend-volume/
+
+.editorconfig
+.eslintrc.js
+.gitignore
+.prettierrc
+
+README.md
+angular/cache/

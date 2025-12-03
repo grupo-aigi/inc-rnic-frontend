@@ -1,0 +1,66 @@
+<div
+  class="modal fade w-100"
+  id="allNewslettersModal"
+  tabindex="-1"
+  aria-labelledby="allNewslettersModal"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="allNewslettersModal">
+          {{ labels.title[lang] }}
+        </h5>
+
+        <button
+          #closeModalBtn
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <ul>
+          @for (newsletter of newsletters; track newsletter) {
+            <li>
+              <div class="newsletter-year-title">
+                <span>{{ newsletter.year }}</span>
+              </div>
+              <ul class="px-3 py-1">
+                @for (month of newsletter.months; track month) {
+                  <li>
+                    <button
+                  style="
+                    background-color: transparent;
+                    padding: 3px;
+                    border: none;
+                    cursor: pointer;
+                  "
+                  (click)="
+                    downloadFile(month.filename, newsletter.year, month.month)
+                  "
+                      >
+                      <i class="bx bx-news"></i>
+                      {{ getMonthName(month.month) }}
+                    </button>
+                  </li>
+                }
+              </ul>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-info text-white"
+          data-bs-dismiss="modal"
+          >
+          {{labels.close[lang]}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

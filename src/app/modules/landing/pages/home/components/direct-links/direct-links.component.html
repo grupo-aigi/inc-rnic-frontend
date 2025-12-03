@@ -1,0 +1,98 @@
+<section class="services-area">
+  <div class="container">
+    <div class="section-title dynamic-font-size">
+      <span class="dynamic-font-size">{{ labels.linksOfInterest[lang] }}</span>
+      <!-- <h2>Enlaces de interés</h2> -->
+    </div>
+
+    <div class="row dynamic-font-size">
+      @for (directLink of directLinks; track directLink) {
+        <a
+          class="col-lg-4 col-md-6 pointer dynamic-font-size"
+          [routerLink]="directLink.url"
+          >
+          <div class="single-services-box bg-white dynamic-font-size" style="border-radius: 5px">
+            <i [class]="directLink.icon"></i>
+            <h3 class="dynamic-font-size">{{ directLink.title[lang] }}</h3>
+            <p class="dynamic-font-size">
+              {{ directLink.description[lang] }}
+            </p>
+          </div>
+        </a>
+      }
+
+      <!-- <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-life-insurance-1"></i>
+        <h3>Life Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-home-insurance"></i>
+        <h3>Home Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-insurance"></i>
+        <h3>Business Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-property-insurance"></i>
+        <h3>Property Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-travel-insurance"></i>
+        <h3>Travel Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+      <div class="single-services-box">
+        <i class="flaticon-car-insurance"></i>
+        <h3>Auto Insurance</h3>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore.
+        </p>
+        <a routerLink="/business-insurance" class="read-more">Read More</a>
+      </div>
+    </div> -->
+  </div>
+</div>
+</section>
+<!-- End Services Area -->

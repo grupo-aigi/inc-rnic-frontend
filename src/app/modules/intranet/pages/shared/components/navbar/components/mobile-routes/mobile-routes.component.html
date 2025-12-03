@@ -1,0 +1,60 @@
+<nav class="container" style="margin-bottom: 100px">
+  @for (option of sidebarOptions; track $index) {
+    @if (option.display) {
+      @if (!option.children || option.children.length === 0) {
+        <section class="d-md-block d-sm-block">
+          <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+            <a
+              (click)="handleCloseTopBar()"
+              [routerLink]="option.route"
+              class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+            >
+              <span>{{ option.label[lang] }}</span>
+            </a>
+          </div>
+        </section>
+      } @else if (option.open) {
+        <section (click)="handleToggle(option)" class="d-md-block d-sm-block">
+          <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+            <span
+              class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+            >
+              <a (click)="handleCloseTopBar()" [routerLink]="[option.route]">
+                <span>{{ labels.contentsManagement[lang] }}</span>
+              </a>
+              <i class="bx bx-chevron-down p-2"></i>
+            </span>
+
+            @for (child of option.children; track $index) {
+              <div
+                class="container mt-1 mb-1 dynamic-font-size"
+                style="cursor: pointer"
+              >
+                <a
+                  (click)="handleCloseTopBar()"
+                  [routerLink]="[child.route]"
+                  class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+                >
+                  <span>{{ child.label[lang] }}</span>
+                </a>
+              </div>
+            }
+          </div>
+        </section>
+      } @else {
+        <section (click)="handleToggle(option)" class="d-md-block d-sm-block">
+          <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+            <span
+              class="d-flex fw-medium justify-content-between align-items-center p-3 bg-secondary-color"
+            >
+              <a (click)="handleCloseTopBar()" [routerLink]="option.route">
+                <span>{{ option.label[lang] }}</span>
+              </a>
+              <i class="bx bx-chevron-up p-2"></i>
+            </span>
+          </div>
+        </section>
+      }
+    }
+  }
+</nav>

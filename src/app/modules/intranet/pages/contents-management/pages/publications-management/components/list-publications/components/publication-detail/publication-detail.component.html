@@ -1,0 +1,99 @@
+@if (errorPublicationDetail) {
+  <div>
+    <div class="container">
+      <div class="alert alert-danger my-5" role="alert">
+        {{ labels.errorLoading[lang] }}
+      </div>
+    </div>
+  </div>
+} @else {
+  <article class="mx-5" style="margin-top: 50px; background-color: #269498">
+    <div class="row p-5">
+      <div class="col-3">
+        <img
+          style="cursor: pointer"
+          [src]="publicationImageUrl || '/img/image500x810.png'"
+          width="300px"
+          alt="Image"
+          />
+      </div>
+      <div class="col-9 pt-4">
+        <h6 style="font-weight: lighter">
+          <span style="font-weight: bold">Publicado:</span> 20-01-2024
+        </h6>
+        <div>
+          <a
+            [href]="attachmentUrl"
+            target="_blank"
+            class="default-btn mt-3 position-relative rounded-pill px-4"
+            style="cursor: pointer"
+            >
+            Descargar PDF
+            <i
+              class="bx bx-cloud-download"
+              style="font-size: 1.2rem; position: relative; top: 3px"
+            ></i>
+          </a>
+        </div>
+        <div>
+          <button
+            (click)="handleFetchSummaryPdf()"
+            class="default-btn mt-3 position-relative rounded-pill px-4 bg-info"
+            style="cursor: pointer"
+            >
+            Leer en línea
+            <i
+              class="bx bx-show"
+              style="font-size: 1.2rem; position: relative; top: 3px"
+            ></i>
+          </button>
+        </div>
+      </div>
+      @if (errorDocument) {
+        <div>
+          <div class="container mt-5">
+            <div class="alert alert-danger" role="alert">
+              Error al cargar el documento
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+    @if (displaySummaryPdf) {
+      <div class="row">
+        <div class="col-lg-1 col-md-12 col-sm-12">
+          <button
+            (click)="hideDocument()"
+            class="default-btn bg-danger px-3 mx-3 my-3 w-100"
+            >
+            Ocultar <i class="bx bx-hide"></i>
+          </button>
+        </div>
+        <div class="col-12">
+          <div style="height: 100vh">
+            <iframe
+              id="pdfFrame"
+              [src]="summaryPdf"
+              width="100%"
+              height="100%"
+              frameborder="0"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    }
+  </article>
+  @if (publicationDetail) {
+    <div>
+      <article class="mx-5" style="margin-top: 100px">
+        @for (archive of publicationDetail.archives; track archive) {
+          <div>
+            <hr />
+            <app-archive-item [archive]="archive"></app-archive-item>
+          </div>
+        }
+      </article>
+    </div>
+  }
+}
+

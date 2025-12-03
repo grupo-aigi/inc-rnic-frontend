@@ -1,0 +1,18 @@
+<section class="section pt-5 pb-5">
+  <div class="container">
+    <!-- ----------------------- -->
+    <app-projects-filters
+      (onFiltersChange)="handleUpdateProjects($event)"
+    ></app-projects-filters>
+
+    <div class="row">
+      <div class="col-lg-12 mx-auto">
+        @for (project of projects; track project) {
+          <div class="col-lg-12 mx-auto">
+            <app-project-card [project]="project"></app-project-card>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

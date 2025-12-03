@@ -1,0 +1,78 @@
+<div
+  class="modal fade"
+  id="lockUserUntilModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          A continuación, Selecciona una fecha (Opcional)
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- ------------------------ -->
+        <form [formGroup]="formGroup" autocomplete="off" class="get-quote-form">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <label for="select-1"
+                  >Fecha hasta la cual el usuario estará bloqueado
+                  (Opcional)</label
+                  >
+                  <input
+                    formControlName="until"
+                    type="date"
+                    class="form-control mt-1"
+                    id="Email-1"
+                    />
+                  @if (isFieldInvalid('until')) {
+                    <small
+                      class="input-label__invalid"
+                      >
+                      Errrorrr
+                    </small>
+                  }
+                  <p class="alert alert-info mt-3 text-center" role="alert">
+                    <b>Tenga en cuenta:</b> Si no se especifica una fecha, el
+                    usuario será bloqueado indefinidamente, hasta que manualmente
+                    sea desbloqueado. Por el contrario si se especifica una fecha,
+                    automáticamente éste será desbloqueado.
+                  </p>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </form>
+          <!-- ------------------------ -->
+
+          <div class="modal-footer">
+            <button
+              #closeBtn
+              type="button"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              >
+              close
+            </button>
+
+            <button
+              (click)="handleSubmit()"
+              type="button"
+              class="btn btn-success"
+              >
+              Aceptar y bloquear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

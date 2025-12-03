@@ -1,0 +1,81 @@
+<div class="row">
+  <section class="col-lg-10 col-md-8 col-sm-12">
+    @if (filterCriteria.busqueda) {
+      <div
+        class="gap-1 py-2 px-2 d-flex flex-row align-items-center justify-content-start"
+        >
+        <div>{{ labels.searchTerm[lang] }}:</div>
+        <div class="d-flex flex-row flex-wrap gap-1">
+          <div
+            class="rounded-pill badge badge-primary p-0 position-relative recommendation-chip"
+            style="background-color: green"
+            >
+            <button
+              type="button"
+              class="recommendation-chip p-2 px-3 bg-transparent text-white"
+              style="font-weight: 800"
+              >
+              {{ filterCriteria.busqueda }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+
+    @if (filterCriteria.linea) {
+      <div
+        class="gap-1 px-2 d-flex flex-row align-items-center justify-content-start"
+        >
+        <div>{{ labels.researchLine[lang] }}:</div>
+        <div class="d-flex flex-row flex-wrap gap-1">
+          <div
+            class="rounded-pill badge badge-primary p-0 position-relative recommendation-chip"
+            style="background-color: green"
+            >
+            <button
+              type="button"
+              class="recommendation-chip p-2 bg-transparent text-white"
+              style="font-weight: 800"
+              >
+              {{
+              getResearchLineName(filterCriteria.linea) | replaceUnderscores
+              }}
+            </button>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div
+        class="gap-1 px-2 d-flex flex-row align-items-center justify-content-start"
+        >
+        <div>{{ labels.researchLine[lang] }}:</div>
+        <div class="d-flex flex-row flex-wrap gap-1">
+          <div
+            class="rounded-pill badge badge-primary p-0 position-relative recommendation-chip"
+            style="background-color: green"
+            >
+            <div
+              class="recommendation-chip p-2 bg-transparent text-white"
+              style="font-weight: 800"
+              >
+              {{ labels.allResearchLines[lang] }}
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </section>
+
+  <div class="col-lg-2 col-md-4 col-sm-12 justify-content-start">
+    @if (displayResetFiltersButton) {
+      <button
+        (click)="handleResetFilters($event)"
+        type="button"
+        style="height: fit-content"
+        class="btn btn-danger w-100 text-white p-2"
+        >
+        {{ labels.reset[lang] }}
+      </button>
+    }
+  </div>
+</div>

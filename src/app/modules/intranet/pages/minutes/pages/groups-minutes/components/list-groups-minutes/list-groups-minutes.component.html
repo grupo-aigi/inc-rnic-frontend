@@ -1,0 +1,41 @@
+<section class="section pt-5 pb-5">
+  <div class="container">
+    <div id="top"></div>
+    <app-group-minutes-filter
+      (onFiltersChange)="handleUpdateMinutes($event)"
+    ></app-group-minutes-filter>
+
+    <div class="row">
+      <div class="col-12 mb-0">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          [showNoResults]="false"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+
+      <div class="col-lg-12 mx-auto">
+        @for (minute of minutes; track minute) {
+          <div class="col-lg-12 mx-auto">
+            <app-group-minute-card [minute]="minute"></app-group-minute-card>
+          </div>
+        }
+      </div>
+
+      <div class="col-12 mb-5">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+    </div>
+  </div>
+</section>

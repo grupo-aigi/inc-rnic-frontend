@@ -1,0 +1,222 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="get-quote-form"
+>
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <input
+          type="text"
+          name="title"
+          formControlName="title"
+          class="form-control"
+          [placeholder]="labels.title.placeholder[lang]"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="paragraph"
+          formControlName="paragraph"
+          class="form-control"
+          [placeholder]="labels.paragraphContent.placeholder[lang]"
+          style="resize: vertical; min-height: 200px; max-height: 400px"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+      <button
+        type="button"
+        (click)="handleAddParagraph()"
+        class="btn default-btn"
+      >
+        {{
+          paragraphEditMode
+            ? labels.updateParagraph[lang]
+            : labels.addParagraph[lang]
+        }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (paragraph of paragraphs; track paragraph; let i = $index) {
+      <div class="col-lg-12 col-sm-12 m-1 p-1">
+        <span>{{ labels.paragraphNro[lang] }} #{{ i + 1 }}</span>
+        <div class="card">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 p-3">
+              <span>{{ paragraph }}</span>
+            </div>
+            <div class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-info m-2 text-white"
+                (click)="handleEditParagraph(i)"
+              >
+                {{ labels.edit[lang] }}
+              </button>
+              <button
+                (click)="handleDeleteParagraph(i)"
+                type="button"
+                class="btn btn-danger m-2"
+              >
+                {{ labels.delete[lang] }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="row">
+    <h4>{{ labels.quoteList[lang] }}</h4>
+
+    <div class="container">
+      @if (quotes.length === 0) {
+        <div class="alert alert-info text-center">
+          {{ labels.noQuotes[lang] }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <input
+          type="text"
+          name="quoteAuthor"
+          formControlName="quoteAuthor"
+          class="form-control"
+          [placeholder]="labels.author.placeholder[lang]"
+        />
+      </div>
+    </div>
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <input
+          type="text"
+          name="quoteRole"
+          formControlName="quoteRole"
+          class="form-control"
+          [placeholder]="labels.role.placeholder[lang]"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="quoteContent"
+          formControlName="quoteContent"
+          class="form-control"
+          [placeholder]="labels.quoteContent.placeholder[lang]"
+          style="resize: vertical; min-height: 100px; max-height: 300px"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="row">
+      @if (currentImage) {
+        <div class="col-lg-6 col-sm-12 mx-auto m-3">
+          <img
+            [src]="getImageUrlByName(currentImage)"
+            class="image-list"
+            style="border: 2px solid #12bec8; border-radius: 5px"
+            [alt]="target + labels.quoteNro[lang]"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="row">
+      <p>
+        <b>{{ labels.recommendation.tittle[lang] }}:</b>
+        {{ labels.recommendation.content[lang] }}
+      </p>
+      <div class="col-lg-3 col-sm-12">
+        <button
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#input-event-resource7-image"
+          class="btn default-btn"
+        >
+          {{ currentImage ? labels.changeImage[lang] : labels.addImage[lang] }}
+        </button>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+      <button type="button" (click)="handleAddQuote()" class="btn default-btn">
+        {{ quoteEditMode ? labels.updateQuote[lang] : labels.addQuote[lang] }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (quote of quotes; track quote; let i = $index) {
+      <div class="col-lg-12 col-sm-12 m-1 p-1">
+        <span>{{ labels.quoteNro[lang] }} #{{ i + 1 }}</span>
+        <div class="card">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 p-3">
+              <h5>"{{ quote.content }}"</h5>
+              <p>
+                {{ labels.author.placeholder[lang] }}(a): {{ quote.author }}
+              </p>
+              <small
+                >{{ labels.role.placeholder[lang] }}: {{ quote.role }}</small
+              >
+            </div>
+            <div class="col-lg-12 col-sm-12 p-3">
+              <img
+                [src]="getImageUrlByName(quote.imageName)"
+                style="border: 2px solid #12bec8; border-radius: 5px"
+                [alt]="target + labels.author.placeholder[lang]"
+              />
+            </div>
+            <div class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-info m-2 text-white"
+                (click)="handleEditQuote(i)"
+              >
+                {{ labels.edit[lang] }}
+              </button>
+              <button
+                (click)="handleDeleteQuote(i)"
+                type="button"
+                class="btn btn-danger m-2"
+              >
+                {{ labels.delete[lang] }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 d-flex m-auto">
+      <button type="submit" class="btn default-btn success-button m-1">
+        {{ labels.addResource[lang] }}
+      </button>
+      <button type="reset" class="btn default-btn clean-button m-1">
+        {{ labels.restoreChanges[lang] }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<app-upload-or-reuse-image
+  modalFor="input-event-resource7-image"
+  [elementType]="target"
+  (onSubmit)="handleAddEventImage($event)"
+></app-upload-or-reuse-image>

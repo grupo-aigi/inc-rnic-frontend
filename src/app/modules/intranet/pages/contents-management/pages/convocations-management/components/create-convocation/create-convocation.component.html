@@ -1,0 +1,211 @@
+<section class="get-quote-area pt-3">
+  <div class="container">
+    <div class="tab get-quote-tab">
+      <ul
+        class="create-news_content-tabs tabs mb-2"
+        (click)="handleClickOnTab()"
+        >
+        <li (click)="changeActiveTab(0)">{{ labels.type0[lang] }}</li>
+        @if (!baseInfo) {
+          <span></span>
+        } @else {
+          <li (click)="changeActiveTab(1)">{{ labels.type1[lang] }}</li>
+          <li (click)="changeActiveTab(2)">{{ labels.type2[lang] }}</li>
+          <li (click)="changeActiveTab(3)">{{ labels.type3[lang] }}</li>
+          <li (click)="changeActiveTab(4)">{{ labels.type4[lang] }}</li>
+          <li (click)="changeActiveTab(5)">{{ labels.type5[lang] }}</li>
+          <li (click)="changeActiveTab(6)">{{ labels.type6[lang] }}</li>
+          <li (click)="changeActiveTab(7)">{{ labels.type7[lang] }}</li>
+          <li (click)="changeActiveTab(8)">{{ labels.type8[lang] }}</li>
+          <li (click)="changeActiveTab(9)">{{ labels.type9[lang] }}</li>
+          <li (click)="changeActiveTab(10)">{{ labels.type10[lang] }}</li>
+          <li (click)="changeActiveTab(11)">{{ labels.type11[lang] }}</li>
+          <li (click)="changeActiveTab(12)">{{ labels.type12[lang] }}</li>
+          <li (click)="changeActiveTab(13)">{{ labels.type13[lang] }}</li>
+          <li (click)="changeActiveTab(14)">{{ labels.type14[lang] }}</li>
+        }
+      </ul>
+
+      <div class="tab_content">
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-create-convocation-base-info
+                [baseInfo]="baseInfo"
+                (onSubmit)="handleSetBaseInfo($event)"
+              ></app-create-convocation-base-info>
+            </div>
+          }
+
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-resource-content-type1
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type1>
+            </div>
+          }
+
+          @case (2) {
+            <div class="tabs_item">
+              <app-create-resource-content-type2
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type2>
+            </div>
+          }
+
+          @case (3) {
+            <div class="tabs_item">
+              <app-create-resource-content-type3
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type3>
+            </div>
+          }
+
+          @case (4) {
+            <div class="tabs_item">
+              <app-create-resource-content-type4
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type4>
+            </div>
+          }
+
+          @case (5) {
+            <div class="tabs_item">
+              <app-create-resource-content-type5
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type5>
+            </div>
+          }
+
+          @case (6) {
+            <div class="tabs_item">
+              <app-create-resource-content-type6
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type6>
+            </div>
+          }
+
+          @case (7) {
+            <div class="tabs_item">
+              <app-create-resource-content-type7
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type7>
+            </div>
+          }
+
+          @case (8) {
+            <div class="tabs_item">
+              <app-create-resource-content-type8
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type8>
+            </div>
+          }
+
+          @case (9) {
+            <div class="tabs_item">
+              <app-create-resource-content-type9
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type9>
+            </div>
+          }
+
+          @case (10) {
+            <div class="tabs_item">
+              <app-create-resource-content-type10
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type10>
+            </div>
+          }
+
+          @case (11) {
+            <div class="tabs_item">
+              <app-create-resource-content-type11
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type11>
+            </div>
+          }
+
+          @case (12) {
+            <div class="tabs_item">
+              <app-create-resource-content-type12
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type12>
+            </div>
+          }
+
+          @case (13) {
+            <div class="tabs_item">
+              <app-create-resource-content-type13
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type13>
+            </div>
+          }
+
+          @case (14) {
+            <div class="tabs_item">
+              <app-create-resource-content-type14
+                [target]="'convocations'"
+                (onSubmit)="handleAddResource($event)"
+              ></app-create-resource-content-type14>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="get-quote-area pt-3">
+  <div class="container">
+    @if (baseInfo) {
+      <div>
+        <app-create-convocation-current-resources
+          [baseInfo]="baseInfo"
+          [currentResources]="resources"
+          (onMoveUp)="handleMoveUp($event)"
+          (onMoveDown)="handleMoveDown($event)"
+        ></app-create-convocation-current-resources>
+      </div>
+    }
+  </div>
+</section>
+
+<div class="row mt-5">
+  <div class="col-lg-12 col-sm-12 d-flex justify-content-center">
+    <button
+      [disabled]="!baseInfo"
+      type="button"
+      (click)="handlePublishConvocation()"
+      class="btn default-btn m-1"
+      >
+      {{
+      convocationUrlNameToEdit
+      ? labels.confirmUpdate[lang]
+      : labels.publish[lang]
+      }}
+    </button>
+
+    @if (convocationUrlNameToEdit) {
+      <button
+        type="button"
+        (click)="handleCancelUpdate()"
+        class="btn default-btn bg-danger m-1"
+        >
+        {{ labels.cancelUpdate[lang] }}
+      </button>
+    }
+  </div>
+</div>

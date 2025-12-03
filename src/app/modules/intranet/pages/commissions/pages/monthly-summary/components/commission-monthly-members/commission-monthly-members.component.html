@@ -1,0 +1,34 @@
+@for (monthlySummary of filteredCommissionMonthlyMembers; track monthlySummary) {
+  <nav
+    class="row navbar bg-body-tertiary mt-1 mx-2"
+    >
+    <div
+      class="container-fluid py-2 col-12"
+      style="border: 1px solid lightgray; cursor: pointer"
+      (click)="handleToggleMonth(monthlySummary.month)"
+      >
+      <a class="navbar-brand" style="width: 10%"
+        >{{ getMonthLabel(monthlySummary.month) | titlecase }} -
+        <small style="font-size: 0.9rem"
+          >{{ monthlySummary.usersInfo.length }}
+          {{ monthlySummary.usersInfo.length ? 'Miembros' : 'Miembro' }}
+        </small></a
+        >
+        @if (isMonthActive(monthlySummary.month)) {
+          <i
+            class="bx bxs-up-arrow"
+          ></i>
+        } @else {
+          <i class="bx bxs-down-arrow"></i>
+        }
+      </div>
+      @if (isMonthActive(monthlySummary.month)) {
+        <div class="col-12 mx-auto">
+          <app-commission-member-list
+            [monthlySummary]="monthlySummary"
+            [activeSearch$]="activeSearch$"
+          ></app-commission-member-list>
+        </div>
+      }
+    </nav>
+  }

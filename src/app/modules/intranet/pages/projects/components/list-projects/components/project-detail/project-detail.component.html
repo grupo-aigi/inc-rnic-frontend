@@ -1,0 +1,202 @@
+<hr />
+
+<article class="row">
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <section>
+      <p class="mb-0 mt-2" style="font-weight: bolder">
+        {{ labels.justification[lang] }}:
+      </p>
+
+      <div class="d-flex flex-row justify-content-start align-items-start">
+        <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+        <p>{{ project.generalComponents.justification }}</p>
+      </div>
+    </section>
+
+    <section>
+      <p class="mb-0 mt-2" style="font-weight: bolder">
+        {{ labels.researchQuestion[lang] }}:
+      </p>
+
+      <div class="d-flex flex-row justify-content-start align-items-start">
+        <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+        <i>{{ project.generalComponents.researchQuestion }}</i>
+      </div>
+    </section>
+
+    <h5 class="my-2" style="font-weight: bolder">
+      {{ labels.objectives[lang] }}
+    </h5>
+
+    <section>
+      <p class="mb-0 mt-2" style="font-weight: bolder">
+        {{ labels.generalObjective[lang] }}:
+      </p>
+
+      <div class="d-flex flex-row justify-content-start align-items-start">
+        <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+        <span
+          style="
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold',
+              sans-serif;
+          "
+          >{{ project.generalComponents.generalObjective }}</span
+          >
+        </div>
+      </section>
+
+      <section>
+        <p class="mb-1 mt-2" style="font-weight: bolder">
+          {{ labels.specificObjectives[lang] }}:
+        </p>
+
+        @for (
+          specificObjective of project.generalComponents.specificObjectives
+          ; track
+          specificObjective) {
+          <div
+            class="d-flex flex-row justify-content-start align-items-start my-0 py-0"
+            >
+            <i class="bx bx-checkbox-checked pt-1"></i>
+            <p
+          style="
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold',
+              sans-serif;
+          "
+              >
+              {{ specificObjective }}
+            </p>
+          </div>
+        }
+      </section>
+
+      <section>
+        <p class="mb-0 mt-2" style="font-weight: bolder">
+          {{ labels.studyDesign[lang] }}:
+        </p>
+
+        <div class="d-flex flex-row justify-content-start align-items-start">
+          <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+          <p>{{ project.generalComponents.studyDesign }}</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <section>
+        <p class="mb-0 mt-2" style="font-weight: bolder">
+          {{ labels.methodology[lang] }}:
+        </p>
+
+        <div class="d-flex flex-row justify-content-start align-items-start">
+          <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+          <p>{{ project.generalComponents.methodology }}</p>
+        </div>
+      </section>
+
+      <section>
+        <p class="mb-0 mt-2" style="font-weight: bolder">
+          {{ labels.researcherAntecedents[lang] }}:
+        </p>
+
+        <div class="d-flex flex-row justify-content-start align-items-start">
+          <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+          <ul>
+            @for (
+              antecedent of project.generalComponents.researchersAntecedents
+              ; track
+              antecedent) {
+              <li
+                >
+                {{ antecedent }}
+              </li>
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <p class="mb-0 mt-2" style="font-weight: bolder">
+          {{ labels.collaborationNecessities[lang] }}:
+        </p>
+
+        <div class="d-flex flex-row justify-content-start align-items-start">
+          <!-- <i class="bx bxs-star pt-1 mx-1"></i> -->
+          <ol>
+            @for (
+              requirement of project.generalComponents
+              .collaborationRequirements
+              ; track
+              requirement) {
+              <li
+                >
+                {{ requirement }}
+              </li>
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section>
+        <p class="mb-0 mt-2" style="font-weight: bolder">
+          {{ labels.responseCriteria[lang] }}:
+        </p>
+
+        <div>
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.orientedToDiscoveries[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.orientedToDiscoveries ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.relevance[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.relevance ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.appropriateness[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.appropriateness ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.probabilityOfSuccess[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.probabilityOfSuccess ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.replicableResults[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.replicableResults ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+
+          <div style="padding-left: 10px">
+            <p style="margin-right: 3px">
+              {{ labels.impact[lang] }}:
+              <span style="font-weight: bolder">
+                {{ project.responseCriteria.impact ? 'SI' : 'NO' }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>

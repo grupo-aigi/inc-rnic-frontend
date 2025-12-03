@@ -1,0 +1,31 @@
+<div class="widget-sidebar">
+  <div class="sidebar-widget search">
+    <app-current-news-search></app-current-news-search>
+  </div>
+
+  <div class="sidebar-widget categories">
+    <h3>{{ labels.categories[lang] }}</h3>
+
+    <app-news-category-list></app-news-category-list>
+  </div>
+
+  <div class="sidebar-widget recent-post">
+    <h3 class="widget-title">{{ labels.relatedNews[lang] }}</h3>
+
+    <app-related-news-list
+      [relatedNewsUrlNames]="newsDetail.relatedNews!"
+    ></app-related-news-list>
+  </div>
+
+  <div class="sidebar-widget recent-post">
+    <h3 class="widget-title">{{ labels.latestNews[lang] }}</h3>
+
+    <app-recent-news-list></app-recent-news-list>
+  </div>
+
+  <div class="sidebar-widget tags mb-0">
+    <h3>{{ labels.tags[lang] }}</h3>
+
+    <app-news-tag-list></app-news-tag-list>
+  </div>
+</div>

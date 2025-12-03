@@ -1,0 +1,728 @@
+<section class="get-quote-area pt-100 pb-70">
+  <div class="container">
+    <div class="section-title minutes-section-title grid">
+      <span class="col-lg-8 col-md-12 mx-auto my-4 dynamic-font-size">{{
+        labels.pageTitle[lang]
+      }}</span>
+    </div>
+
+    <form
+      [formGroup]="formGroup"
+      autocomplete="off"
+      (ngSubmit)="handleSubmit()"
+      class="get-quote-form dynamic-font-size"
+      >
+      <div class="row">
+        <div class="col-lg-12 col-sm-12">
+          <div class="form-group">
+            <label for="" class="dynamic-font-size">{{ labels.generalTitle.placeholder[lang] }}</label>
+            <input
+              type="text"
+              formControlName="generalTitle"
+              [ngClass]="{
+                'inline-text-input__invalid': isFieldInvalid(
+                  'generalDescription',
+                  'generalTitle'
+                )
+              }"
+              class="form-control"
+              id="generalTitle"
+              />
+            @if (isFieldInvalid('generalDescription', 'generalTitle')) {
+              <small
+                class="input-label__invalid"
+                >{{ labels.generalTitle.error[lang] }}</small
+                >
+              }
+            </div>
+          </div>
+
+          <!-- -------------- -->
+          <div class="col-lg-12 col-sm-12 mt-4 dynamic-font-size">
+            <hr />
+            <p class="dynamic-font-size">
+              {{ labels.missions.placeholder[lang] }}
+              <small class="dynamic-font-size"> ({{ labels.missions.selectMultiple[lang] }})</small>
+            </p>
+          </div>
+
+          <div class="col-lg-12 col-sm-12 mt-1">
+            <div class="row">
+              <div class="col-12">
+                @for (mission of missions; track mission) {
+                  <div class="form-check " >
+                    <input
+                      [checked]="isMissionSelected(mission.id)"
+                      (click)="handleToggleMission(mission.id)"
+                      class="form-check-input"
+                      type="checkbox"
+                      name="mission-radio"
+                      [id]="'mission-' + mission.id"
+                      [value]="'mission-' + mission.name[lang]"
+                      />
+                    <label class="form-check-label" for="mission-{{ mission.id }}">
+                      {{ mission.name[lang] }}
+                    </label>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+          <!-- -------------- -->
+          <div class="col-lg-12 col-sm-12 mt-4">
+            <hr />
+            <p>
+              {{ labels.researchLine.placeholder[lang] }}
+              <small> ({{ labels.researchLine.selectOne[lang] }})</small>
+            </p>
+          </div>
+
+          <div class="col-lg-12 col-sm-12 mt-1">
+            <div class="row">
+              <div class="col-12">
+                @for (researchLine of researchLines; track researchLine) {
+                  <div
+                    class="form-check"
+                    >
+                    <input
+                      formControlName="researchLineId"
+                      class="form-check-input"
+                      type="radio"
+                  [ngClass]="{
+                    'inline-text-input__invalid': isFieldInvalid(
+                      'generalDescription',
+                      'researchLine'
+                    )
+                  }"
+                      [id]="'research-line-' + researchLine.id"
+                      [value]="researchLine.id"
+                      />
+                    <label [for]="'research-line-' + researchLine.id">
+                      {{ researchLine.name[lang] }}
+                    </label>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <fieldset formGroupName="generalDescription">
+            <div class="col-lg-12 col-sm-12 mt-3">
+              <div class="form-group">
+                <label for="select-1">{{
+                  labels.researcherName.placeholder[lang]
+                }}</label>
+                <input
+                  formControlName="researcherName"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalDescription',
+                    'researcherName'
+                  )
+                }"
+                  type="text"
+                  class="form-control"
+                  id="researcher-name"
+                  />
+                @if (isFieldInvalid('generalDescription', 'researcherName')) {
+                  <small
+                    class="input-label__invalid"
+                    >
+                    {{ labels.researcherName.error[lang] }}
+                  </small>
+                }
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <label for="select-1">{{
+                  labels.researcherInstitution.placeholder[lang]
+                }}</label>
+                <input
+                  formControlName="researcherInstitution"
+                  type="text"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalDescription',
+                    'researcherInstitution'
+                  )
+                }"
+                  class="form-control"
+                  id="researcher-institution"
+                  />
+                @if (
+                  isFieldInvalid('generalDescription', 'researcherInstitution')
+                  ) {
+                  <small
+                    class="input-label__invalid"
+                    >
+                    {{ labels.researcherInstitution.error[lang] }}
+                  </small>
+                }
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <label for="select-1">{{
+                  labels.researcherEmail.placeholder[lang]
+                }}</label>
+                <input
+                  formControlName="researcherEmail"
+                  type="email"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalDescription',
+                    'researcherEmail'
+                  )
+                }"
+                  class="form-control"
+                  id="researcher-email"
+                  />
+                @if (isFieldInvalid('generalDescription', 'researcherEmail')) {
+                  <small
+                    class="input-label__invalid"
+                    >
+                    {{ labels.researcherEmail.error[lang] }}
+                  </small>
+                }
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <label for="select-1">{{
+                  labels.researcherPhone.placeholder[lang]
+                }}</label>
+                <input
+                  formControlName="researcherPhone"
+                  type="text"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalDescription',
+                    'researcherPhone'
+                  )
+                }"
+                  class="form-control"
+                  id="researcher-phone"
+                  />
+                @if (isFieldInvalid('generalDescription', 'researcherPhone')) {
+                  <small
+                    class="input-label__invalid"
+                    >
+                    {{ labels.researcherPhone.error[lang] }}
+                  </small>
+                }
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="col-12 mt-1">
+            <p>
+              {{ labels.projectType.placeholder[lang] }}
+              <small> ({{ labels.projectType.selectOne[lang] }})</small>
+            </p>
+
+            <div class="row mb-3">
+              <div class="col-12">
+                @for (projectType of projectTypes; track projectType) {
+                  <div class="form-check">
+                    <input
+                      formControlName="projectTypeId"
+                      class="form-check-input"
+                      type="radio"
+                      [id]="'projectType-' + projectType.id"
+                      [value]="projectType.id"
+                      />
+                    <label
+                      class="form-check-label"
+                      for="projectType-{{ projectType.id }}"
+                      >
+                      {{ projectType.name[lang] }}
+                    </label>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <fieldset formGroupName="generalComponents">
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <label for="">{{ labels.problem.label[lang] }}</label>
+                <textarea
+                  name="problem"
+                  formControlName="problem"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'problem'
+                  )
+                }"
+                  class="form-control"
+                  style="resize: vertical; min-height: 200px; max-height: 400px"
+                ></textarea>
+                @if (isFieldInvalid('generalComponents', 'problem')) {
+                  <small
+                    class="input-label__invalid"
+                    >{{ labels.problem.error[lang] }}</small
+                    >
+                  }
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12">
+                <div class="form-group">
+                  <label for="">{{ labels.justification.label[lang] }}</label>
+                  <textarea
+                    name="justification"
+                    formControlName="justification"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'justification'
+                  )
+                }"
+                    class="form-control"
+                    style="resize: vertical; min-height: 200px; max-height: 400px"
+                  ></textarea>
+                  @if (isFieldInvalid('generalComponents', 'justification')) {
+                    <small
+                      class="input-label__invalid"
+                      >{{ labels.justification.error[lang] }}</small
+                      >
+                    }
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12">
+                  <div class="form-group">
+                    <label for="">{{ labels.researchQuestion.label[lang] }}</label>
+                    <textarea
+                      name="researchQuestion"
+                      formControlName="researchQuestion"
+                      class="form-control"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'researchQuestion'
+                  )
+                }"
+                      style="resize: vertical; min-height: 200px; max-height: 400px"
+                    ></textarea>
+                    @if (isFieldInvalid('generalComponents', 'researchQuestion')) {
+                      <small
+                        class="input-label__invalid"
+                        >{{ labels.researchQuestion.error[lang] }}</small
+                        >
+                      }
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12 col-sm-12">
+                    <div class="form-group">
+                      <label for="">{{ labels.generalObjective.label[lang] }}</label>
+                      <textarea
+                        name="generalObjective"
+                        formControlName="generalObjective"
+                        class="form-control"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'generalObjective'
+                  )
+                }"
+                        style="resize: vertical; min-height: 200px; max-height: 400px"
+                      ></textarea>
+                      @if (isFieldInvalid('generalComponents', 'generalObjective')) {
+                        <small
+                          class="input-label__invalid"
+                          >{{ labels.generalObjective.error[lang] }}</small
+                          >
+                        }
+                      </div>
+                    </div>
+
+                    <!-- ------------- -->
+                    <div class="row">
+                      <div class="col-lg-12 col-sm-12">
+                        <div class="form-group">
+                          <label for="">{{ labels.specificObjective.label[lang] }}</label>
+                          <textarea
+                            name="specificObjective"
+                            formControlName="specificObjective"
+                            class="form-control"
+                  [ngClass]="{
+                    'inline-text-input__invalid': isFieldInvalid(
+                      'generalComponents',
+                      'specificObjective'
+                    )
+                  }"
+                            style="resize: vertical; min-height: 200px; max-height: 400px"
+                          ></textarea>
+                          @if (
+                            isFieldInvalid('generalComponents', 'specificObjective')
+                            ) {
+                            <small
+                              class="input-label__invalid"
+                              >{{ labels.specificObjective.error[lang] }}</small
+                              >
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                          <button
+                            type="button"
+                            (click)="handleAddSpecificObjective()"
+                            class="btn default-btn"
+                            >
+                            {{
+                            specificObjectiveEditMode
+                            ? labels.updateSpecificObjective[lang]
+                            : labels.addSpecificObjective[lang]
+                            }}
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        @for (
+                          specificObjective of specificObjectives; track
+                          specificObjective; let i = $index) {
+                          <div
+                            class="col-lg-12 col-sm-12 m-1 p-1"
+                            >
+                            <span>{{ labels.specificObjectiveNro[lang] }} #{{ i + 1 }}</span>
+                            <div class="card">
+                              <div class="row">
+                                <div class="col-lg-12 col-sm-12 p-3">
+                                  <span>{{ specificObjective }}</span>
+                                </div>
+                                <div
+                                  class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+                                  >
+                                  <button
+                                    type="button"
+                                    class="btn btn-info m-2 text-white"
+                                    (click)="handleEditSpecificObjective(i)"
+                                    >
+                                    {{ labels.updateSpecificObjective[lang] }}
+                                  </button>
+                                  <button
+                                    type="button"
+                                    (click)="handleDeleteSpecificObjective(i)"
+                                    class="btn btn-danger m-2"
+                                    >
+                                    {{ labels.deleteSpecificObjective[lang] }}
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                      <!-- ------------- -->
+
+                      <div class="col-lg-12 col-sm-12 mt-4">
+                        <div class="form-group">
+                          <label for="">{{ labels.studyDesign.label[lang] }}</label>
+                          <textarea
+                            name="studyDesign"
+                            formControlName="studyDesign"
+                            class="form-control"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'studyDesign'
+                  )
+                }"
+                            style="resize: vertical; min-height: 200px; max-height: 400px"
+                          ></textarea>
+                          @if (isFieldInvalid('generalComponents', 'studyDesign')) {
+                            <small
+                              class="input-label__invalid"
+                              >{{ labels.studyDesign.error[lang] }}</small
+                              >
+                            }
+                          </div>
+                        </div>
+
+                        <div class="col-lg-12 col-sm-12">
+                          <div class="form-group">
+                            <label for="">{{ labels.methodology.label[lang] }}</label>
+                            <textarea
+                              name="methodology"
+                              formControlName="methodology"
+                              class="form-control"
+                [ngClass]="{
+                  'inline-text-input__invalid': isFieldInvalid(
+                    'generalComponents',
+                    'methodology'
+                  )
+                }"
+                              style="resize: vertical; min-height: 200px; max-height: 400px"
+                            ></textarea>
+                            @if (isFieldInvalid('generalComponents', 'methodology')) {
+                              <small
+                                class="input-label__invalid"
+                                >{{ labels.methodology.error[lang] }}</small
+                                >
+                              }
+                            </div>
+                          </div>
+
+                          <!-- ----------------------- -->
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-group">
+                                <label for="">{{
+                                  labels.researcherAntecedent.label[lang]
+                                }}</label>
+                                <textarea
+                                  formControlName="researchersAntecedent"
+                                  class="form-control"
+                  [ngClass]="{
+                    'inline-text-input__invalid': isFieldInvalid(
+                      'generalComponents',
+                      'researcherAntecedent'
+                    )
+                  }"
+                                  style="resize: vertical; min-height: 200px; max-height: 400px"
+                                ></textarea>
+                                @if (
+                                  isFieldInvalid('generalComponents', 'researcherAntecedent')
+                                  ) {
+                                  <small
+                                    class="input-label__invalid"
+                                    >{{ labels.researcherAntecedent.error[lang] }}</small
+                                    >
+                                  }
+                                </div>
+                              </div>
+
+                              <div class="col-lg-4 col-md-12">
+                                <button
+                                  type="button"
+                                  (click)="handleAddResearcherAntecedent()"
+                                  class="btn default-btn"
+                                  >
+                                  {{
+                                  researcherAntecedentEditMode
+                                  ? labels.updateResearcherAntecedent[lang]
+                                  : labels.addResearcherAntecedent[lang]
+                                  }}
+                                </button>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              @for (
+                                researcherAntecedent of researchersAntecedents; track
+                                researcherAntecedent; let i = $index) {
+                                <div
+                                  class="col-lg-12 col-sm-12 m-1 p-1"
+                                  >
+                                  <span
+                                    >{{ labels.researcherAntecedentNro[lang] }} #{{ i + 1 }}</span
+                                    >
+                                    <div class="card">
+                                      <div class="row">
+                                        <div class="col-lg-12 col-sm-12 p-3">
+                                          <span>{{ researcherAntecedent }}</span>
+                                        </div>
+                                        <div
+                                          class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+                                          >
+                                          <button
+                                            type="button"
+                                            class="btn btn-info m-2 text-white"
+                                            (click)="handleEditResearcherAntecedent(i)"
+                                            >
+                                            {{ labels.updateResearcherAntecedent[lang] }}
+                                          </button>
+                                          <button
+                                            type="button"
+                                            (click)="handleDeleteResearcherAntecedent(i)"
+                                            class="btn btn-danger m-2"
+                                            >
+                                            {{ labels.deleteResearcherAntecedent[lang] }}
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                }
+                              </div>
+
+                              <!-- ----------------------- -->
+                              <div class="row pt-3">
+                                <div class="col-12">
+                                  <div class="form-group">
+                                    <label for="">{{
+                                      labels.collaborationRequirement.label[lang]
+                                    }}</label>
+                                    <textarea
+                                      name="collaborationRequirement"
+                                      formControlName="collaborationRequirement"
+                                      class="form-control"
+                  [ngClass]="{
+                    'inline-text-input__invalid': isFieldInvalid(
+                      'generalComponents',
+                      'collaborationRequirement'
+                    )
+                  }"
+                                      style="resize: vertical; min-height: 200px; max-height: 400px"
+                                    ></textarea>
+                                    @if (
+                                      isFieldInvalid(
+                                      'generalComponents',
+                                      'collaborationRequirement'
+                                      )
+                                      ) {
+                                      <small
+                                        class="input-label__invalid"
+                                        >{{ labels.collaborationRequirement.error[lang] }}</small
+                                        >
+                                      }
+                                    </div>
+                                  </div>
+
+                                  <div class="col-lg-4 col-md-12">
+                                    <button
+                                      type="button"
+                                      (click)="handleAddCollaborationRequirement()"
+                                      class="btn default-btn"
+                                      >
+                                      {{
+                                      collaborationRequirementEditMode
+                                      ? labels.updateCollaborationRequirement[lang]
+                                      : labels.addCollaborationRequirement[lang]
+                                      }}
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <div class="row">
+                                  @for (
+                                    collaborationRequirement of collaborationRequirements; track
+                                    collaborationRequirement; let i = $index) {
+                                    <div
+                                      class="col-lg-12 col-sm-12 m-1 p-1"
+                                      >
+                                      <span
+                                        >{{ labels.collaborationRequirementNro[lang] }} #{{
+                                        i + 1
+                                        }}</span
+                                        >
+                                        <div class="card">
+                                          <div class="row">
+                                            <div class="col-lg-12 col-sm-12 p-3">
+                                              <span>{{ collaborationRequirement }}</span>
+                                            </div>
+                                            <div
+                                              class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+                                              >
+                                              <button
+                                                type="button"
+                                                class="btn btn-info m-2 text-white"
+                                                (click)="handleEditCollaborationRequirement(i)"
+                                                >
+                                                {{ labels.updateCollaborationRequirement[lang] }}
+                                              </button>
+                                              <button
+                                                type="button"
+                                                (click)="handleDeleteCollaborationRequirement(i)"
+                                                class="btn btn-danger m-2"
+                                                >
+                                                {{ labels.deleteCollaborationRequirement[lang] }}
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    }
+                                  </div>
+                                  <!-- ----------------------- -->
+                                </fieldset>
+
+                                <fieldset formGroupName="responseCriteria">
+                                  <table class="w-100" style="border: 1px solid black">
+                                    <thead>
+                                      <tr>
+                                        <th class="p-3">
+                                          <b>Criterios de la propuesta</b>
+                                          <br />
+                                          <p>
+                                            Considere si su propuesta cumple los siguientes criterios
+                                          </p>
+                                        </th>
+                                      </tr>
+                                    </thead>
+
+                                    <tbody>
+                                      <tr>
+                                        <td class="project-table-header">Criterios</td>
+                                        <td class="project-table-header">SI</td>
+                                        <td class="project-table-header">NO</td>
+                                      </tr>
+
+                                      @for (criteria of criteriaList; track criteria; let i = $index) {
+                                        <tr
+                                          class="border-1"
+                                          >
+                                          <td class="border-1 p-2">
+                                            {{ i + 1 }}. {{ criteria.name[lang] }}
+                                            @if (isCriteriaInvalid(i + 1)) {
+                                              <small
+                                                class="input-label__invalid"
+                                                >Por favor revise este criterio</small
+                                                >
+                                              }
+                                            </td>
+                                            <td class="border-1 position-relative">
+                                              <input
+                                                [checked]="isCriteriaSelected(criteria.id) === true"
+                                                (click)="handleToggleCriteria(criteria.id, true)"
+                                                class="project-checkbox-table"
+                                                type="checkbox"
+                                                name="criteria-radio"
+                                                [id]="'criteria-' + criteria.id"
+                                                [value]="'criteria-' + criteria.name[lang]"
+                                                />
+                                            </td>
+                                            <td class="position-relative">
+                                              <input
+                                                [checked]="isCriteriaSelected(criteria.id) === false"
+                                                (click)="handleToggleCriteria(criteria.id, false)"
+                                                class="project-checkbox-table"
+                                                type="checkbox"
+                                                name="criteria-radio"
+                                                [id]="'criteria-' + criteria.id"
+                                                [value]="'criteria-' + criteria.name[lang]"
+                                                />
+                                            </td>
+                                          </tr>
+                                        }
+                                      </tbody>
+                                    </table>
+                                  </fieldset>
+
+                                  <div class="row container mt-5 d-flex justify-content-center">
+                                    <div class="col-lg-3 col-sm-6">
+                                      <button class="edit-minute-btn" type="submit">
+                                        {{ labels.submit[lang] }}
+                                      </button>
+                                    </div>
+
+                                    <div class="col-lg-3 col-sm-6">
+                                      <button class="edit-minute-btn clean-fields" type="reset">
+                                        {{ labels.clearFields[lang] }}
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </section>

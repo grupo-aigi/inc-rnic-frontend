@@ -1,0 +1,43 @@
+<div class="my-3 mx-3">
+  <input
+    class="form-control me-2"
+    (keyup)="handleSearch($event)"
+    placeholder="{{ labels.searchByName[lang] }}"
+    />
+</div>
+
+@for (memberInfo of filteredMembersInfo; track memberInfo) {
+  <div>
+    <div class="candidate-list-box card my-1 mx-3">
+      <div class="card-body">
+        <div class="row align-items-center">
+          <div class="col-lg-1 col-md-3 col-sm-6">
+            @if (memberInfo.browserUrl) {
+              <div
+                class="candidate-list-images"
+                >
+                <img
+                  [src]="memberInfo.browserUrl"
+                  alt=""
+                  class="avatar-md img-thumbnail rounded-circle"
+                  />
+              </div>
+            } @else {
+              <i
+                style="font-size: 50px; border-radius: 50%; padding: 15px"
+                class="bx bx-user rounded-circle text-center w-100"
+              ></i>
+            }
+          </div>
+          <div class="col-lg-9">
+            <div class="candidate-list-content">
+              <h5 class="fs-19 mb-0">
+                {{ memberInfo.name }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

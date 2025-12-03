@@ -1,0 +1,39 @@
+@if (this.authService.authLoading) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    [ngClass]="{
+      'bg-light': currentTheme === 'LIGHT',
+      'bg-dark': currentTheme === 'DARK',
+    }"
+    style="height: 100vh"
+  >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2 dynamic-font-size">Cargando...</p>
+  </div>
+} @else {
+  <app-navbar></app-navbar>
+  <app-accessibility-panel></app-accessibility-panel>
+
+  <app-intranet-sidebar></app-intranet-sidebar>
+
+  <main
+    [ngStyle]="{ 'margin-left': sidebarWidth }"
+    class="intranet__main-content"
+  >
+    <router-outlet></router-outlet>
+  </main>
+
+  <div
+    class="navbar__medium-break-6"
+    style="margin-top: 200px"
+    [ngStyle]="{ 'margin-left': sidebarWidth }"
+  >
+    <app-footer></app-footer>
+  </div>
+
+  <div class="navbar__medium-break-5" style="margin-top: 200px">
+    <app-footer></app-footer>
+  </div>
+}

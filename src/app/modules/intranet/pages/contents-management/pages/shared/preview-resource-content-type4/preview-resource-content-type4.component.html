@@ -1,0 +1,67 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #4</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    @if (resourceContent.title) {
+      <h3>{{ resourceContent.title }}</h3>
+    }
+
+    @for (paragraph of resourceContent.paragraphs; track paragraph) {
+      <p>
+        {{ paragraph }}
+      </p>
+    }
+
+    <section class="car-insurance-area">
+      <div class="car-insurance-content">
+        <div class="content step-5">
+          <div class="row">
+            <div class="col-lg-6 col-md-12">
+              @for (item1 of itemsList1; track item1) {
+                <ul>
+                  <li><i class="flaticon-tick"></i>{{ item1 }}</li>
+                </ul>
+              }
+            </div>
+
+            <div class="col-lg-6 col-md-12">
+              @for (item2 of itemsList2; track item2) {
+                <ul>
+                  <li><i class="flaticon-tick"></i>{{ item2 }}</li>
+                </ul>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

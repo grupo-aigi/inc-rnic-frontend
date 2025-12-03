@@ -1,0 +1,219 @@
+const labels = {
+  title: {
+    error: {
+      es: 'El título ingresado es inválido',
+      en: 'The entered title is invalid',
+    },
+    placeholder: {
+      es: 'Título de la convocatoria',
+      en: 'Convocation title',
+    },
+  },
+  description: {
+    error: {
+      es: 'La descripción ingresada es inválida',
+      en: 'The entered description is invalid',
+    },
+    placeholder: {
+      es: 'Descripción (Visible en la tarjeta de la convocatoria)',
+      en: 'Description (Visible in the convocation card)',
+    },
+  },
+  budget: {
+    error: {
+      es: 'El presupuesto ingresado es inválido',
+      en: 'The entered budget is invalid',
+    },
+    placeholder: {
+      en: 'Budget in COP (Colombian Pesos)',
+      es: 'Presupuesto en COP (Pesos Colombianos)',
+    },
+  },
+  startDate: {
+    error: {
+      es: 'La fecha de inicio debe estar en el futuro',
+      en: 'The start date must be in the future',
+    },
+    placeholder: {
+      es: 'Fecha de inicio',
+      en: 'Start date',
+    },
+  },
+  endDate: {
+    error: {
+      es: 'La fecha de fin debe estar en el futuro y posterior a la fecha de inicio',
+      en: 'The end date must be in the future and after the start date',
+    },
+    placeholder: {
+      es: 'Fecha de fin',
+      en: 'End date',
+    },
+  },
+  convocationScope: {
+    error: {
+      es: 'El alcance ingresado es inválido',
+      en: 'The entered scope is invalid',
+    },
+    label: {
+      es: 'Alcance de la convocatoria',
+      en: 'Convocation scope',
+    },
+    types: {
+      national: {
+        es: 'Nacional',
+        en: 'National',
+      },
+      international: {
+        es: 'Internacional',
+        en: 'International',
+      },
+    },
+  },
+
+  category: {
+    label: {
+      es: 'Categoría',
+      en: 'Category',
+    },
+    selectOne: {
+      es: '(Selecciona una)',
+      en: '(Select one)',
+    },
+    newCategory: {
+      es: 'Agregar nueva categoría',
+      en: 'Add new category',
+    },
+    editTitle: {
+      es: 'Editar categoría',
+      en: 'Edit category',
+    },
+    editPlaceholder: {
+      es: 'Nuevo nombre de la categoría',
+      en: 'New category name',
+    },
+    invalidName: {
+      es: 'La categoría ingresada es inválida',
+      en: 'The entered category is invalid',
+    },
+    mustSelectOne: {
+      es: 'Debes seleccionar una categoría',
+      en: 'You must select a category',
+    },
+    selectedCategory: {
+      es: 'Categoría seleccionada',
+      en: 'Selected category',
+    },
+  },
+  tags: {
+    label: {
+      es: 'Etiquetas',
+      en: 'Tags',
+    },
+    selectMultiple: {
+      es: '(Selecciona múltiples)',
+      en: '(Select multiple)',
+    },
+    newTag: {
+      es: 'Agregar nueva etiqueta',
+      en: 'Add new tag',
+    },
+    editTitle: {
+      es: 'Editar etiqueta',
+      en: 'Edit tag',
+    },
+    editPlaceholder: {
+      es: 'Nuevo nombre de la etiqueta',
+      en: 'New tag name',
+    },
+    invalidName: {
+      es: 'La etiqueta ingresada es inválida',
+      en: 'The entered tag is invalid',
+    },
+    selectedTags: {
+      es: 'Etiquetas seleccionadas',
+      en: 'Selected tags',
+    },
+  },
+  image: {
+    error: {
+      es: 'La foto de la convocatoria es inválida',
+      en: "The convocation's photo is invalid",
+    },
+  },
+  buttons: {
+    confirm: {
+      es: 'Confirmar',
+      en: 'Confirm',
+    },
+    cancel: {
+      es: 'Cancelar',
+      en: 'Cancel',
+    },
+    addImage: {
+      es: 'Agregar imagen',
+      en: 'Add image',
+    },
+    continue: {
+      es: 'Continuar',
+      en: 'Continue',
+    },
+    clearFields: {
+      es: 'Limpiar campos',
+      en: 'Clear fields',
+    },
+  },
+  categoryCreated: {
+    title: {
+      es: 'Categoría creada exitosamente',
+      en: 'Category created successfully',
+    },
+    description: {
+      es: 'La categoría se usará automáticamente en el convocatoria que será creando',
+      en: 'The category will be automatically used in the convocation that will be created',
+    },
+  },
+  tagCreated: {
+    title: {
+      es: 'Etiqueta creada exitosamente',
+      en: 'Tag created successfully',
+    },
+    description: {
+      es: 'La etiqueta se usará automáticamente en el convocatoria que será creando',
+      en: 'The tag will be automatically used in the convocation that will be created',
+    },
+  },
+  categoryUpdatedSuccessfully: {
+    es: 'Categoría actualizada exitosamente',
+    en: 'Category updated successfully',
+  },
+  errorCreatingCategory: {
+    es: 'Error al crear la etiqueta, intenta con otro nombre',
+    en: 'Error creating the tag, try with another name',
+  },
+  errorUpdatingCategory: {
+    es: 'Error al actualizar la etiqueta, intenta con otro nombre',
+    en: 'Error updating the tag, try with another name',
+  },
+  errorCreatingTag: {
+    es: 'Error al crear la etiqueta, intenta con otro nombre',
+    en: 'Error creating the tag, try with another name',
+  },
+  errorUpdatingTag: {
+    es: 'Error al editar la etiqueta, intenta con otro nombre',
+    en: 'Error editing the tag, try with another name',
+  },
+  formHasErrors: {
+    es: 'El formulario contiene errores',
+    en: 'The form contains errors',
+  },
+  tagCreatedSuccessfully: {
+    es: 'Etiqueta creada exitosamente',
+    en: 'Tag created successfully',
+  },
+  tagUpdatedSuccessfully: {
+    es: 'Etiqueta creada exitosamente',
+    en: 'Tag created successfully',
+  },
+};
+
+export default labels;

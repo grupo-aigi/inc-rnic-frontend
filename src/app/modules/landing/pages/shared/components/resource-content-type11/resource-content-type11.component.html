@@ -1,0 +1,18 @@
+<div class="why-choose-us-area why-choose-us-area-two mt-5">
+  <div class="container">
+    <youtube-player
+      [videoId]="getYoutubeLinkId(content.youtubeLink)"
+      [startSeconds]="0"
+    ></youtube-player>
+
+    <div class="source">
+      <h6>{{ content.title }}</h6>
+      @for (paragraph of content.paragraphs; track paragraph) {
+        <p>
+          {{ paragraph }}
+        </p>
+      }
+      <i>{{ content.source }}</i>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+@for (image of imagesUrls; track $index) {
+  <img
+    (click)="handleSelectExistingImage($index)"
+    [src]="image.url"
+    class="upload-image-list"
+    [ngClass]="{
+      'upload-image-selected': $index === selectedExistingImageIndex,
+    }"
+    [alt]="elementType + 'img'"
+  />
+}

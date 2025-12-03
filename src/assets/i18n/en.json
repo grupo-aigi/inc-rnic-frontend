@@ -1,0 +1,6 @@
+{
+  "errorLogin": "Invalid email or password",
+  "errorRefreshAuth": "Error refreshing session",
+  "errorUserAvatar": "Error fetching user avatar",
+  "noUserAllowed": "You don't have enough permissions to access this route"
+}

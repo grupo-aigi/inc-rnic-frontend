@@ -1,0 +1,213 @@
+@if (currentResources.length > 0 || baseInfo) {
+  <section class="claims-area pt-5 pb-70">
+    <hr />
+    <div class="container">
+      <div class="claims-content">
+        <div class="content step-1">
+          <h2 id="convocation-summary__location">
+            {{ labels.currentResources[lang] }}
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div>
+        <div class="mt-5 mb-5">
+          <app-preview-convocation-base-info
+            [baseInfo]="baseInfo"
+          ></app-preview-convocation-base-info>
+        </div>
+      </div>
+      @for (
+        currentResource of currentResources;
+        track currentResource;
+        let i = $index;
+        let isFirst = $first;
+        let isLast = $last
+      ) {
+        <div>
+          <div>
+            @switch (currentResource.TYPE) {
+              @case ('CONTENT__TITLE_AND_PARAGRAPH') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type1
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type1>
+                </div>
+              }
+              @case ('CONTENT__TITLE_SUBTITLE_AND_PARAGRAPH') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type2
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type2>
+                </div>
+              }
+              @case ('CONTENT__TITLE_PARAGRAPHS_AND_IMAGES') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type3
+                    [resource]="currentResource"
+                    target="convocations"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type3>
+                </div>
+              }
+              @case ('CONTENT__TITLE_PARAGRAPHS_AND_LIST_ITEMS') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type4
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type4>
+                </div>
+              }
+              @case ('CONTENT__TITLE_TOGGLE_ITEMS_AND_IMAGE') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type5
+                    [resource]="currentResource"
+                    target="convocations"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type5>
+                </div>
+              }
+              @case ('CONTENT__TITLE_PARAGRAPHS_AND_SORTED_OR_UNSORTED_LIST') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type6
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type6>
+                </div>
+              }
+              @case ('CONTENT__QUOTES_FEEDBACKS_OR_REFERENCES_1') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type7
+                    [resource]="currentResource"
+                    target="convocations"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type7>
+                </div>
+              }
+              @case ('CONTENT__QUOTES_FEEDBACKS_OR_REFERENCES_2') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type8
+                    [resource]="currentResource"
+                    target="convocations"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type8>
+                </div>
+              }
+              @case ('CONTENT__QUOTE_AND_AUTHOR') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type9
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type9>
+                </div>
+              }
+              @case ('CONTENT__DYNAMIC_BANNER') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type10
+                    target="convocations"
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type10>
+                </div>
+              }
+              @case ('CONTENT__VIDEO_AND_REFERENCES') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type11
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type11>
+                </div>
+              }
+              @case ('CONTENT__MAP') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type12
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type12>
+                </div>
+              }
+              @case ('CONTENT__FILES') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type13
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type13>
+                </div>
+              }
+              @case ('CONTENT__LINK') {
+                <div class="mt-5 mb-5">
+                  <app-preview-resource-content-type14
+                    [resource]="currentResource"
+                    [isFirst]="isFirst"
+                    [isLast]="isLast"
+                    (onMoveUp)="moveUp(i)"
+                    (onMoveDown)="moveDown(i)"
+                    (onDelete)="handleDeleteResource(i)"
+                  ></app-preview-resource-content-type14>
+                </div>
+              }
+              @default {
+                <div>{{ labels.resourceTypeNotFound[lang] }}</div>
+              }
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+}

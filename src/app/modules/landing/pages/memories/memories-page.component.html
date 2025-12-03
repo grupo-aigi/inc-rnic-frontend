@@ -1,0 +1,80 @@
+<div class="page-title-area bg-events">
+  <div class="container">
+    <div class="page-title-content">
+      <h2 class="dynamic-font-size">{{ labels.memories[lang] }}</h2>
+      <ul>
+        <li>
+          @if (variant === 'PUBLIC') {
+            <a class="dynamic-font-size" routerLink="/">
+              {{ labels.main[lang] }}
+            </a>
+          } @else {
+            <a routerLink="/intranet" class="dynamic-font-size">
+              {{ labels.main[lang] }}
+            </a>
+          }
+        </li>
+        <li class="active dynamic-font-size">{{ labels.memories[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="blog-areaetes" style="padding-bottom: 150px">
+  <div class="container mt-5">
+    <!-- Do not delete -->
+    <div id="top"></div>
+
+    <app-memories-filters
+      (onFiltersChange)="updateMemoryFilters($event)"
+    ></app-memories-filters>
+  </div>
+
+  <div class="container">
+    @if (loadingMemories) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingMemories[lang] }}...</p>
+      </div>
+    } @else {
+      @if (memoryPosters.length > 0) {
+        <div class="row gx-5 gy-3">
+          @for (memoryPoster of memoryPosters; track memoryPoster.id) {
+            <div
+              class="col-lg-6 col-md-12 col-sm-12"
+              [ngClass]="{
+                'col-lg-12 col-md-12 col-sm-12':
+                  memoryPoster.id! === activeMemory?.id,
+              }"
+            >
+              <app-memory-item
+                [memoryPoster]="memoryPoster"
+                [activeMemory]="activeMemory"
+                (onActive)="handleSetActiveMemory($event)"
+              ></app-memory-item>
+            </div>
+          }
+
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+          >
+          </app-complete-pagination>
+        </div>
+      } @else {
+        <div
+          class="alert container alert-warning text-center dynamic-font-size"
+          style="margin: 100px auto"
+          role="alert"
+        >
+          {{ labels.noMemories[lang] }}
+        </div>
+      }
+    }
+  </div>
+</section>

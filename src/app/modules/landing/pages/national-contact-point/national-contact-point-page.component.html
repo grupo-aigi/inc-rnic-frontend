@@ -1,0 +1,104 @@
+<div class="page-title-area bg-partners">
+  <div class="container">
+    <div class="page-title-content">
+      <h2 class="dynamic-font-size">{{ labels.ncpFull[lang] }}</h2>
+      <ul>
+        <li>
+          <a routerLink="/" class="dynamic-font-size">{{ labels.main[lang] }}</a>
+        </li>
+        <li class="active dynamic-font-size">{{ labels.healthCluster[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+@if (loading) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    style="height: 50vh"
+    >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2 dynamic-font-size">{{ labels.loadingNCP[lang] }}</p>
+  </div>
+} @else {
+  @if (ncpInfo) {
+    <div style="padding-bottom: 150px">
+      <div class="container">
+        <p class="last-update dynamic-font-size">
+          {{ labels.lastUpdate[lang] }}:
+          {{ getLastUpdatedAt(ncpInfo.updatedAt, lang) }}
+        </p>
+      </div>
+      <div class="w-75 mx-auto mt-4 d-flex flex-row justify-content-center">
+        <img style="max-height: 100vh" [src]="ncpImage" alt="" />
+      </div>
+      <div class="container my-5">
+        <div class="section-title" id="mapa">
+          <span class="top-title dynamic-font-size">{{ labels.ncp[lang] }}</span>
+          <h2 class="dynamic-font-size">
+            {{ ncpInfo.title }}
+          </h2>
+        </div>
+      </div>
+      <div class="container my-5">
+        <div class="section-subtitle">
+          <h4 class="title my-3 text-center dynamic-font-size">
+            {{ ncpInfo.subtitle }}
+          </h4>
+        </div>
+        <div class="d-flex justify-content-center">
+          <youtube-player
+            [videoId]="ncpInfo.videoUrl"
+            [startSeconds]="0"
+          ></youtube-player>
+        </div>
+      </div>
+      <div class="container my-5">
+        @for (paragraph of ncpInfo.paragraphs; track paragraph) {
+          <p
+            class="my-3 dynamic-font-size"
+            style="text-align: justify"
+            >
+            {{ paragraph }}
+          </p>
+        }
+      </div>
+      <div class="container my-5">
+        <div class="my-2">
+          <b class="dynamic-font-size">{{labels.mail[lang]}}: </b>
+          <a target="_blank" [href]="'mailto:' + ncpInfo.email" class="dynamic-font-size">
+            {{ ncpInfo.email }}
+          </a>
+        </div>
+        @for (link of ncpInfo.links; track link) {
+          <div class="my-1">
+            <b class="dynamic-font-size">{{ link.description }}: </b>
+            <a target="_blank" [href]="link.url" class="dynamic-font-size">
+              {{ link.url }}
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div
+      class="alert container alert-warning text-center"
+      style="margin: 100px auto"
+      role="alert"
+      >
+      {{ labels.noNCP[lang] }}
+    </div>
+  }
+  <ng-template #noNCP>
+    <div
+      class="alert container alert-warning text-center"
+      style="margin: 100px auto"
+      role="alert"
+      >
+      {{ labels.noNCP[lang] }}
+    </div>
+  </ng-template>
+}
+

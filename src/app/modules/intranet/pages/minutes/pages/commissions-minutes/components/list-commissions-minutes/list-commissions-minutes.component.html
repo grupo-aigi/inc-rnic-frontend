@@ -1,0 +1,61 @@
+<section class="section pt-5 pb-5">
+  <div class="container">
+    <div id="top"></div>
+    <app-commission-minutes-filter
+      (onFiltersChange)="handleUpdateMinutes($event)"
+    ></app-commission-minutes-filter>
+
+    <div class="row my-2">
+      @for (commission of commissions; track commission) {
+        <div
+          class="col-lg-4 col-md-4 col-sm-12 minute-card-container"
+          >
+          <div class="job-left mb-1 d-flex flex-column align-items-center">
+            <div
+              class="minute-card-img p-4 rounded-circle mr-md-4 mb-md-0 mt-2 mx-auto mx-md-0 d-md-none d-lg-flex"
+              [ngStyle]="{ 'background-color': commission?.logo?.color }"
+              >
+              {{ commission?.logo?.label }}
+            </div>
+            <p class="text-center fw-bold">{{ commission.label[lang] }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-0">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          [showNoResults]="false"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+
+      <div class="col-lg-12 mx-auto">
+        @for (minute of minutes; track minute) {
+          <div class="col-lg-12 mx-auto">
+            <app-commission-minute-card
+              [minute]="minute"
+            ></app-commission-minute-card>
+          </div>
+        }
+      </div>
+
+      <div class="col-12 mb-5">
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+    </div>
+  </div>
+</section>

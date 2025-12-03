@@ -1,0 +1,46 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li (click)="changeActiveTab(0)">
+        {{ labels.myLinking[lang] }}
+      </li>
+      <li *ngIf="isLinked" (click)="changeActiveTab(1)">
+        {{ labels.linkingCertificate[lang] }}
+      </li>
+      <li *ngIf="isLinked" (click)="changeActiveTab(2)">
+        {{ labels.approvalLetter[lang] }}
+      </li>
+      <li *ngIf="isLinked" (click)="changeActiveTab(3)">
+        {{ labels.netCard[lang] }}
+      </li>
+    </ul>
+
+    <div class="mb-5">
+      <div [ngSwitch]="activeTabIndex">
+        <div>
+          <div *ngSwitchCase="0" class="tabs_item">
+            <app-my-linking></app-my-linking>
+          </div>
+        </div>
+
+        <div *ngIf="isLinked">
+          <div *ngSwitchCase="1" class="tabs_item">
+            <app-linking-certificate></app-linking-certificate>
+          </div>
+        </div>
+
+        <div *ngIf="isLinked">
+          <div *ngSwitchCase="2" class="tabs_item">
+            <app-approval-letter></app-approval-letter>
+          </div>
+        </div>
+
+        <div *ngIf="isLinked">
+          <div *ngSwitchCase="3" class="tabs_item">
+            <app-net-carnet></app-net-carnet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

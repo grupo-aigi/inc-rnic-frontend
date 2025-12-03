@@ -1,0 +1,33 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li (click)="changeActiveTab(0)" #allNewsTab>
+        {{ labels.listNews[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">
+        {{ newsToEdit ? labels.editNews[lang] : labels.createNews[lang] }}
+      </li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-news (onEditNews)="handleEditNews($event)"></app-list-news>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-news
+                [newsUrlNameToEdit]="newsToEdit?.urlName"
+                (onSubmit)="submitNews($event)"
+                (onCancelUpdate)="handleCancelUpdate()"
+              ></app-create-news>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,62 @@
+<div class="content step-5">
+  <h3>{{ content.title }}</h3>
+  @for (paragraph of content.paragraphs; track paragraph) {
+    <p>
+      {{ paragraph }}
+    </p>
+  }
+  <div class="row">
+    <div class="col-lg-6 col-md-12">
+      @for (item1 of itemsList1; track item1) {
+        <ul>
+          <li><i class="flaticon-tick"></i>{{ item1 }}</li>
+        </ul>
+      }
+    </div>
+
+    <div class="col-lg-6 col-md-12">
+      @for (item2 of itemsList2; track item2) {
+        <ul>
+          <li><i class="flaticon-tick"></i>{{ item2 }}</li>
+        </ul>
+      }
+    </div>
+  </div>
+  <!-- <div class="row">
+  <div class="col-lg-6 col-md-6">
+    <ul>
+      <li><i class="flaticon-tick"></i> Item #1</li>
+      <li><i class="flaticon-tick"></i> Item #2</li>
+      <li><i class="flaticon-tick"></i> Item #3</li>
+    </ul>
+  </div>
+
+  <div class="col-lg-6 col-md-6">
+    <ul>
+      <li><i class="flaticon-tick"></i> Item #4</li>
+      <li><i class="flaticon-tick"></i> Item #5</li>
+      <li><i class="flaticon-tick"></i> Item #6</li>
+    </ul>
+  </div>
+</div> -->
+</div>
+
+<!-- <section class="car-insurance-area">
+<div class="car-insurance-content">
+  <div class="content step-5">
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <ul *ngFor="let item1 of itemsList1">
+          <li><i class="flaticon-tick"></i>{{ item1 }}</li>
+        </ul>
+      </div>
+
+      <div class="col-lg-6 col-md-12">
+        <ul *ngFor="let item2 of itemsList2">
+          <li><i class="flaticon-tick"></i>{{ item2 }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</section> -->

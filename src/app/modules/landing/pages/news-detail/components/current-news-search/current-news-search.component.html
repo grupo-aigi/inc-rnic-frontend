@@ -1,0 +1,81 @@
+<section class="blog-area ptb-0">
+  <div class="current-news__sidebar-widget search">
+    <form class="" autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.typeAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+
+      @if (recommendedOptions.length > 0 && displaySearchOptions) {
+        <div
+          style="padding-left: 20px; padding-right: 20px; position: relative"
+          >
+          <div class="search-options">
+            <ul>
+              @for (
+                recommendedOption of recommendedOptions; track
+                recommendedOption; let isLast = $last) {
+                <li
+                  >
+                  <!-- (click)="handleSelectOption(recommendedOption.urlName)" -->
+                  <a
+                [routerLink]="
+                  variant === 'PUBLIC'
+                    ? '/noticias/' + recommendedOption.urlName
+                    : '/intranet/noticias/' + recommendedOption.urlName
+                "
+                    class="option-item row recommendation-item"
+                    >
+                    <span class="col-12" style="font-weight: 600">{{
+                      recommendedOption.title
+                    }}</span>
+                    <div class="col-12 mt-1">
+                      <span
+                    style="
+                      background-color: rgb(48, 182, 235);
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                      color: white;
+                    "
+                        >
+                        {{ wordToHexColor(recommendedOption.category.name) }}
+                      </span>
+                      <p class="col-12 text-end">
+                        <i class="flaticon-calendar" style="margin: 0px 5px"></i
+                          >{{ formatNewsDate(recommendedOption.updatedAt) }}
+                        </p>
+                      </div>
+                    </a>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+
+        <button
+          class="search-button"
+          type="button"
+          (click)="handleClickSearch($event)"
+          >
+          @if (loadingRecommendations) {
+            <div
+              class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+              role="status"
+              >
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          } @else {
+            <i [class]="searchTerm ? 'bx bx-x' : 'bx bx-search'"></i>
+          }
+        </button>
+      </form>
+    </div>
+  </section>

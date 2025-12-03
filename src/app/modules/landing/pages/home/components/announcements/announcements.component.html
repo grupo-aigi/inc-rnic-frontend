@@ -1,0 +1,106 @@
+@if (loadingAnnouncements) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center dynamic-font-size"
+    style="height: 100vh"
+    >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2 dynamic-font-size">{{ labels.loadingNetworkInfo[lang] }}</p>
+  </div>
+} @else {
+  <section class="testimonials-area bg-color dynamic-font-size">
+    <owl-carousel-o [options]="announcementsSliderOptions">
+      @for (announcement of announcements; track announcement) {
+        <ng-template carouselSlide>
+          <div class="announcement-image__banner-container">
+            <img
+            [src]="
+              getImageUrlByName(announcement.imageName) ||
+              '/img/image500x810.png'
+            "
+            style="
+              border-radius: 0px;
+              padding: 10px;
+              object-fit: cover;
+              width: 100%;
+              height: auto;
+              max-height: calc(100vh - 100px);
+              z-index: -1;
+            "
+              alt=""
+              />
+            <div
+              class="position-absolute w-100 d-flex justify-content-center dynamic-font-size"
+              style="z-index: 10000; bottom: 5px"
+              >
+              <div class="details d-flex flex-column justify-content-center">
+                <button
+                  type="button"
+                  class="default-btn my-3 dynamic-font-size"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  (click)="setActiveAnnouncement(announcement.id!)"
+                  >
+                  {{ labels.seeDetails[lang] }}...
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="testimonials-item mb-2 dynamic-font-size text-center ">
+            {{ labels.issuedBy[lang] }}:
+            <h3 class="dynamic-font-size">{{ announcement.issuedBy }}</h3>
+            <span class="dynamic-font-size">{{
+              formatAnnouncementDate(announcement.createdAt.getTime())
+            }}</span>
+          </div>
+        </ng-template>
+      }
+    </owl-carousel-o>
+  </section>
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+    >
+    <div class="modal-dialog dynamic-font-size">
+      @if (activeAnnouncement) {
+        <div class="modal-content dynamic-font-size">
+          <!-- Aquí va el contenido del formulario -->
+          <div class="modal-header">
+            <h5 class="modal-title dynamic-font-size" id="exampleModalLabel">
+              {{ labels.announcementDetail.title[lang] }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close dynamic-font-size"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body dynamic-font-size">
+            <h3>{{ activeAnnouncement.title }}.</h3>
+            @for (paragraph of activeAnnouncement.paragraphs; track paragraph) {
+              <p>
+                {{ paragraph }}
+              </p>
+            }
+          </div>
+          <div class="modal-footer dynamic-font-size">
+            <button
+              #closeUploadPDFButton
+              type="button"
+              class="btn btn-danger dynamic-font-size"
+              data-bs-dismiss="modal"
+              >
+              {{ labels.announcementDetail.closeBtn[lang] }}
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+}
+

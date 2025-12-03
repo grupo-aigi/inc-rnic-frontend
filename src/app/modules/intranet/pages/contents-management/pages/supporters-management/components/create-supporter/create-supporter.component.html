@@ -1,0 +1,67 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="container pt-3 get-quote-form"
+>
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#input-sopporter-image"
+        class="btn default-btn"
+      >
+        {{ labels.uploadImage[lang] }}
+      </button>
+    </div>
+
+    @if (isFieldInvalid('imageName')) {
+      <small class="input-label__invalid">
+        {{ labels.invalidImage[lang] }}
+      </small>
+    }
+
+    @if (this.formGroup.get('imageName')?.value) {
+      <div class="col-lg-6 col-sm-12 mx-auto mb-2">
+        <img [src]="imageUrl" width="100%" alt="Image" />
+      </div>
+    }
+
+    <div class="col-lg-12 col-sm-12 mt-3">
+      <div class="form-group">
+        <input
+          type="text"
+          name="url"
+          formControlName="url"
+          class="form-control"
+          [placeholder]="labels.websiteUrl.placeholder[lang]"
+        />
+        @if (isFieldInvalid('url')) {
+          <small class="input-label__invalid">
+            {{ labels.websiteUrl.error[lang] }}
+          </small>
+        }
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12 d-flex m-auto">
+      <button type="submit" class="btn default-btn success-button m-1">
+        {{ labels.add[lang] }}
+      </button>
+      <button
+        (click)="handleCleanFields($event)"
+        type="button"
+        class="btn default-btn clean-button m-1"
+      >
+        {{ labels.cleanFields[lang] }}
+      </button>
+    </div>
+  </div>
+</form>
+
+<app-upload-or-reuse-image
+  modalFor="input-sopporter-image"
+  elementType="supporters"
+  (onSubmit)="handleSetSupporterImage($event)"
+></app-upload-or-reuse-image>

@@ -1,0 +1,31 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li #listProjectsLI (click)="changeActiveTab(0)">
+        {{ labels.listProjects[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">
+        {{ labels.createProject[lang] }}
+      </li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-projects></app-list-projects>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-project
+                (onCreate)="createProject($event)"
+              ></app-create-project>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

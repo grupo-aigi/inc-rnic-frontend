@@ -1,0 +1,39 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li (click)="changeActiveTab(0)" #allConvocationsTab>
+        {{ labels.listConvocations[lang] }}
+      </li>
+      <li (click)="changeActiveTab(1)">
+        {{
+        convocationToEdit
+        ? labels.editConvocation[lang]
+        : labels.createConvocation[lang]
+        }}
+      </li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-list-convocations
+                (onEditConvocation)="handleEditConvocation($event)"
+              ></app-list-convocations>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-create-convocation
+                [convocationUrlNameToEdit]="convocationToEdit?.urlName"
+                (onSubmit)="submitConvocation($event)"
+                (onCancelUpdate)="handleCancelUpdate()"
+              ></app-create-convocation>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,61 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #3</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    @if (resourceContent.title) {
+      <h3>{{ resourceContent.title }}</h3>
+    }
+
+    @for (paragraph of resourceContent.paragraphs; track paragraph) {
+      <p>
+        {{ paragraph }}
+      </p>
+    }
+
+    <div class="row">
+      @for (image of resourceContent.images; track image) {
+        <div class="col-lg-6 col-sm-12">
+          <img
+            [src]="getImageUrlByName(image)"
+            style="
+              width: 100%;
+              height: auto;
+              display: block;
+              margin: auto auto;
+              padding: 10px;
+            "
+            [alt]="getImageUrlByName(image)"
+          />
+        </div>
+      }
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

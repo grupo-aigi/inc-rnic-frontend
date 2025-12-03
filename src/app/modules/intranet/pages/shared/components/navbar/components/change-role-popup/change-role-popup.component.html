@@ -1,0 +1,23 @@
+<section
+  class="user-area-style"
+  style="right: 50%; left: 50%; transform: translate(-50%, 0%)"
+  >
+  <div>
+    <div class="mb-50">
+      @for (role of userInfo?.roles; track role) {
+        <div>
+          <button
+            class="default-btn w-100"
+            style="border-radius: 0px; text-align: start"
+            (click)="handleChangeActiveRole(role.role)"
+            >
+            {{ role[lang] }}
+            @if (isTheActiveRole(role.role)) {
+              <i class="bx bx-check"></i>
+            }
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</section>

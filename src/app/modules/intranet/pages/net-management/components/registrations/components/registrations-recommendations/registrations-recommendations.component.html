@@ -1,0 +1,59 @@
+<ul class="retirement-list__recommendations">
+  @for (recommendedOption of recommendedOptions; track recommendedOption; let isLast = $last) {
+    <li>
+      <a
+        class="option-item row d-flex flex-row justify-content-between align-items-center recommendation-item"
+        >
+        <span class="col-lg-4" style="font-weight: 600">
+          {{ recommendedOption.name }}
+        </span>
+        <span class="col-lg-3" style="font-weight: 600">
+          {{ recommendedOption.email }}
+        </span>
+        <span class="col-lg-2" style="font-weight: 600">
+          {{ formatDate(recommendedOption.createdAt) }}
+        </span>
+        <span
+          class="col-lg-3 d-flex justify-content-end"
+          style="font-weight: 600"
+          >
+          <span
+            class="rounded-pill badge badge-primary p-2 position-relative"
+            style="padding-right: 30px !important"
+          [ngStyle]="{
+            'background-color': recommendedOption.accountNonLocked
+              ? 'green'
+              : 'red'
+          }"
+            >
+            <div
+              type="button"
+              class="section-chip bg-transparent text-white"
+              style="font-weight: 800"
+              >
+              {{
+              recommendedOption.accountNonLocked
+              ? labels.pending[lang]
+              : labels.blocked[lang]
+              }}
+              <i
+              [class]="
+                recommendedOption.accountNonLocked
+                  ? 'bx bx-time'
+                  : 'bx bx-block'
+              "
+              style="
+                font-size: 1.2rem;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                cursor: pointer;
+              "
+              ></i>
+            </div>
+          </span>
+        </span>
+      </a>
+    </li>
+  }
+</ul>

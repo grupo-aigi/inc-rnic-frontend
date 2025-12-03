@@ -1,0 +1,127 @@
+<div
+  (click)="handleToggleShowAssistants()"
+  class="mb-4"
+  style="cursor: pointer"
+  >
+  <div
+    class="d-flex justify-content-between align-items-center px-3 bg-secondary-color"
+    >
+    <div class="approvers-section-title">
+      <h3 class="title">{{ labels.assistants[lang] }}</h3>
+    </div>
+
+    @if (showAssistantsList) {
+      <i class="bx bx-chevron-up"></i>
+    } @else {
+      <i class="bx bx-chevron-down"></i>
+    }
+  </div>
+</div>
+
+@if (showAssistantsList) {
+  <div class="container row m-auto">
+    @if (loadingAssistants) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ 'Cargando' }}...</p>
+      </div>
+    } @else {
+      @if (pagination.totalElements === 1) {
+        <small>
+          {{ labels.foundOne[lang] }}{{ pagination.totalElements }}
+          {{ labels.approver[lang] }}.
+        </small>
+      }
+      @if (pagination.totalElements > 1) {
+        <small>
+          {{ labels.foundMulti[lang] }} {{ pagination.totalElements }}
+          {{ labels.approversLower[lang] }}.
+        </small>
+      }
+
+      <div class="approvers-list">
+        @for (assistantInfo of assistants; track assistantInfo) {
+          <div
+            class="col-lg-12 col-sm-12 mb-3"
+            >
+            <div class="candidate-list-box container card">
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div class="col-lg-3 col-md-4 col-sm-4">
+                    @if (assistantInfo.browserUrl) {
+                      <div
+                        class="candidate-list-images"
+                        >
+                        <img
+                          [src]="assistantInfo.browserUrl"
+                          alt=""
+                          class="avatar-md img-thumbnail rounded-circle"
+                          />
+                      </div>
+                    } @else {
+                      <i
+                        style="font-size: 50px; border-radius: 50%; padding: 15px"
+                        class="bx bx-user rounded-circle text-center w-100"
+                      ></i>
+                    }
+                  </div>
+                  <div class="col-lg-9 col-md-8 col-sm-8">
+                    <div class="candidate-list-content position-relative">
+                      <h5 class="fs-19 mb-0">
+                        <a class="primary-link" href="#">
+                          {{ assistantInfo.assistant.name }}
+                        </a>
+                      </h5>
+                      @if (assistantInfo.attended) {
+                        <span
+                          class="rounded-pill bg-success badge badge-primary position-relative m-1"
+                          >
+                          <span class="position-relative p-1">
+                            {{ labels.attended[lang] }}
+                          </span>
+                          <i
+                            class="bx bx-user-pin position-relative"
+                            style="top: 1px"
+                          ></i>
+                        </span>
+                      } @else {
+                        <span
+                          class="rounded-pill bg-danger badge badge-primary position-relative m-1"
+                          >
+                          <span class="position-relative p-1">
+                            {{ labels.notAttended[lang] }}</span
+                            >
+                            <i
+                              class="bx bx-user-x position-relative"
+                              style="top: 1px"
+                            ></i>
+                          </span>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (assistants.length === 0) {
+          <div class="alert alert-info mt-1 text-center" role="alert">
+            <b>{{ labels.noAssistantsFound[lang] }}</b>
+          </div>
+        } @else {
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+            >
+          </app-complete-pagination>
+        }
+      }
+    </div>
+  }

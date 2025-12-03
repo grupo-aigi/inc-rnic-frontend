@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-lg-6 col-md-4 d-lg-block d-md-block d-sm-none">
+    <img [src]="getImageUrlByName(newsDetail.imageName)" alt="Image" />
+  </div>
+
+  <div class="col-lg-6 col-md-8 d-lg-block d-md-block d-sm-none">
+    <div class="news-card__container">
+      <ul class="admin">
+        <li>
+          <i class="bx bx-user-circle"></i>
+          {{ newsDetail.author }}
+        </li>
+        <li class="float">
+          <i class="bx bx-calendar-alt"></i>
+          {{ formatDate(newsDetail.updatedAt) }}
+        </li>
+      </ul>
+
+      <p style="text-align: justify">
+        {{ newsDetail.description }}
+      </p>
+    </div>
+  </div>
+
+  <div class="col-11 mx-auto">
+    <hr />
+  </div>
+</div>

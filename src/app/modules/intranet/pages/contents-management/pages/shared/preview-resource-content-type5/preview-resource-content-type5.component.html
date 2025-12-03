@@ -1,0 +1,77 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #5</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    @if (resourceContent.title) {
+      <h3>{{ resourceContent.title }}</h3>
+    }
+
+    @for (paragraph of resourceContent.paragraphs; track paragraph) {
+      <p>
+        {{ paragraph }}
+      </p>
+    }
+
+    <div class="content step-6">
+      <div class="row align-items-sm-start">
+        <div class="col-lg-6 col-md-12">
+          <div class="faq-content">
+            <div class="faq-accordion mb-used">
+              <ul class="accordion">
+                @for (item of resourceContent.items; track item) {
+                  <li class="accordion-item">
+                    <a class="accordion-title">
+                      <i class="bx bx-plus"></i>
+                      {{ item.title }}
+                    </a>
+                    <div class="accordion-content">
+                      <p>
+                        {{ item.content }}
+                      </p>
+                    </div>
+                  </li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        @if (resourceContent.imageName) {
+          <div class="col-lg-6 col-md-12">
+            <div class="faq-img-three">
+              <img
+                [src]="getImageUrlByName(resourceContent.imageName)"
+                alt="Image"
+              />
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button type="button" class="btn btn-danger m-1">
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

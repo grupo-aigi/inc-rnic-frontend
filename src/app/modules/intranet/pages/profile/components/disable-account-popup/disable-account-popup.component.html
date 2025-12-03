@@ -1,0 +1,121 @@
+<div
+  class="modal fade"
+  id="deactivateAccountModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          {{ labels.formTitle[lang] }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="pad-all bord-btm text-thin">
+          {{ labels.deactivationType[lang] }}
+        </h5>
+        <p>{{ labels.deactivationTypeSelect[lang] }}:</p>
+        <form
+          [formGroup]="formGroup"
+          id="demo-pym-faq"
+          class="panel-group accordion"
+          >
+          <div>
+            <input
+              type="radio"
+              formControlName="disableType"
+              id="disableTemporally"
+              value="TEMPORAL"
+              name="disableType"
+              />
+            <label for="disableTemporally" class="m-1">{{
+              labels.temporarilyDeactivation[lang]
+            }}</label>
+          </div>
+
+          <div>
+            <input
+              type="radio"
+              formControlName="disableType"
+              id="disableDefinitely"
+              value="DEFINITIVO"
+              name="disableType"
+              />
+            <label for="disableDefinitely" class="m-1">{{
+              labels.permanentlyDeactivation[lang]
+            }}</label>
+          </div>
+        </form>
+
+        @if (formGroup.get('disableType')?.value === 'TEMPORAL') {
+          <div
+            class="m-1"
+            >
+            <div
+              class="card card-body"
+              style="background-color: rgb(247, 218, 218)"
+              >
+              <b>{{ labels.pleaseNote[lang] }}: </b>
+              <p>
+                {{ labels.pleaseNoteText.paragraph1Part1[lang] }}
+                <b> {{ labels.pleaseNoteText.paragraph1Part2Temporal[lang] }} </b>
+                {{ labels.pleaseNoteText.paragraph1Part3[lang] }}
+                <br />
+                {{ labels.pleaseNoteText.paragraph2[lang] }}
+              </p>
+            </div>
+          </div>
+        }
+
+        @if (formGroup.get('disableType')?.value === 'DEFINITIVO') {
+          <div
+            class="m-1"
+            >
+            <div
+              class="card card-body"
+              style="background-color: rgb(247, 218, 218)"
+              >
+              <b>{{ labels.pleaseNote[lang] }}: </b>
+              <p>
+                {{ labels.pleaseNoteText.paragraph1Part1[lang] }}
+                <b>
+                  {{ labels.pleaseNoteText.paragraph1Part2Permanently[lang] }}
+                </b>
+                {{ labels.pleaseNoteText.paragraph1Part3[lang] }}
+                <br />
+                {{ labels.pleaseNoteText.paragraph2[lang] }}
+              </p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="modal-footer">
+        <button
+          #closeDeactivateAccountModal
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          >
+          {{ labels.cancel[lang] }}
+        </button>
+        <button
+          type="button"
+          (click)="handleSubmit()"
+          [disabled]="!formGroup.get('disableType')?.value"
+          class="btn btn-success"
+          >
+          {{ labels.accept[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

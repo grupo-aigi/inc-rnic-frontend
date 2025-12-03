@@ -1,0 +1,108 @@
+@if (!loading && error) {
+  <div
+    class="alert alert-danger text-center border-0"
+    role="alert"
+    >
+    <b>{{ labels.error[lang] }}</b>
+  </div>
+}
+
+@if (loading) {
+  <div
+    class="d-flex flex-column align-items-center justify-content-center"
+    >
+    <div class="spinner-border m-5" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2">{{ labels.loading[lang] }}...</p>
+  </div>
+}
+
+@if (!hasLoadedPDFs) {
+  <div class="row">
+    <div class="col-10 mx-auto my-2 mt-3">
+      <p class="alert alert-info mt-3 text-center" role="alert">
+        {{ labels.uploadAlert[lang] }}
+      </p>
+      <p></p>
+    </div>
+  </div>
+}
+
+<div class="d-flex justify-content-center mt-4">
+  <label for="fileInput_pdf" class="custom-pdf-file-button m-1">
+    <input
+      type="file"
+      (click)="handleClickOnPDFButton($event)"
+      multiple
+      accept="application/pdf"
+      (change)="onFilesSelected($event)"
+      id="fileInput_pdf"
+      class="file-input"
+      style="font-weight: 600"
+      />
+    {{ labels.buttons.uploadMultiplePdf[lang] }}
+  </label>
+
+  @if (hasLoadedPDFs) {
+    <label
+      for="fileInput_pdf__alt"
+      class="custom-pdf-file-button m-1 bg-danger"
+      >
+      <input
+        (click)="handleDeleteAllRegisters()"
+        id="fileInput_pdf__alt"
+        class="file-input"
+        style="font-weight: 600"
+        />
+      {{ labels.buttons.deleteRecords[lang] }}
+    </label>
+  }
+</div>
+
+<div class="container">
+  @for (register of registers; track register) {
+    <div>
+      @if (!register.completed) {
+        <div>
+          <app-user-input-form
+            [forceValidate]="forceValidate"
+            [registerInfo]="register"
+            (onDelete)="handleDeleteRegister($event)"
+            (onSubmit)="handleSubmitRegister($event)"
+          ></app-user-input-form>
+        </div>
+      } @else {
+        <app-completed-register
+          [registerInfo]="register"
+        ></app-completed-register>
+      }
+      <ng-template #completed>
+        <app-completed-register
+          [registerInfo]="register"
+        ></app-completed-register>
+      </ng-template>
+    </div>
+  }
+
+  @if (hasLoadedPDFs && registers.length > 1) {
+    <div class="row mt-3">
+      <hr />
+      <div class="col-lg-10 col-sm-12 mx-auto">
+        <p class="text-center">
+          {{ labels.sendAllMessage[lang] }}
+        </p>
+      </div>
+      <div class="col-lg-3 col-sm-12 mx-auto">
+        <button
+          type="button"
+          (click)="handleSubmitAllRegisters()"
+          class="default-btn w-100 bg-success"
+          style="margin: 10px"
+          >
+          {{ labels.buttons.sendAll[lang] }}
+        </button>
+      </div>
+    </div>
+  }
+</div>

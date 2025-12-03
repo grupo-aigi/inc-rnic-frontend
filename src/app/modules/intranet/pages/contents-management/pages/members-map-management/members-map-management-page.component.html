@@ -1,0 +1,25 @@
+<section class="pt-2">
+  <div class="tab get-quote-tab">
+    <ul class="tabs">
+      <li (click)="changeActiveTab(0)">{{ labels.national[lang] }}</li>
+      <li (click)="changeActiveTab(1)">{{ labels.international[lang] }}</li>
+    </ul>
+
+    <div class="mb-5">
+      <div>
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-national-partners-management></app-national-partners-management>
+            </div>
+          }
+          @case (1) {
+            <div class="tabs_item">
+              <app-international-partners-management></app-international-partners-management>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>

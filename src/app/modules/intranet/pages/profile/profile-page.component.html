@@ -1,0 +1,362 @@
+<div class="container mt-100">
+  <div class="row gx-4">
+    <div class="col-lg-4 col-md-12 col-sm-12 mb-3">
+      <div class="card">
+        <div class="profile-card-body position-relative">
+          <div class="d-flex flex-column align-items-center text-center">
+            @if (this.authService.userAvatar) {
+              <img
+                [src]="this.authService.userAvatar"
+                alt="Admin"
+                class="rounded-circle"
+                width="150"
+              />
+            } @else {
+              <i
+                style="
+                  font-size: 50px;
+                  border-radius: 50%;
+                  border: 1px solid lightgray;
+                  padding: 25px;
+                "
+                class="bx bx-user"
+              ></i>
+            }
+
+            <div class="mt-4">
+              <h4>{{ userInfo.name }}</h4>
+              <div class="d-flex flex-column">
+                @for (role of userInfo.roles; track role) {
+                  <h6 class="text-secondary mb-1 text-left">
+                    {{ role[lang] }}
+                    @if (
+                      role.role === activeRole && userInfo.roles.length > 1
+                    ) {
+                      <i class="bx bx-check m-1 position-absolute"></i>
+                    }
+                  </h6>
+                }
+              </div>
+
+              <div
+                class="rounded-pill bg-danger badge badge-primary p-2 position-relative"
+                style="padding-right: 30px !important"
+              >
+                @if (pendingToRetire) {
+                  <span
+                    type="button"
+                    class="section-chip text-white"
+                    style="font-weight: 800"
+                  >
+                    {{ labels.pendingToRetire[lang] }}
+                    <i
+                      class="bx bx-time"
+                      style="
+                        font-size: 1.2rem;
+                        position: absolute;
+                        top: 5px;
+                        right: 5px;
+                        cursor: pointer;
+                      "
+                    ></i>
+                  </span>
+                }
+              </div>
+
+              <div class="pt-2 position-relative">
+                <small>
+                  <h6>
+                    <i
+                      class="{{
+                        userInfo.displayPolicies.showDescription
+                          ? 'bx bxs-show'
+                          : 'bx bxs-hide'
+                      }} position-relative"
+                      style="font-size: 20px; top: 4px; left: 0px"
+                    ></i>
+                    {{ labels.briefDescription[lang] }}:
+                  </h6>
+                </small>
+              </div>
+              <p class="mb-1">
+                @if (userInfo.description) {
+                  {{ userInfo.description }}
+                } @else {
+                  <p class="text-secondary my-3">
+                    {{ labels.notSpecified[lang] }}
+                  </p>
+                }
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-3">
+        <ul class="list-group list-group-flush">
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+          >
+            <h6
+              class="mb-0 d-flex flex-row justify-content-start align-items-center"
+            >
+              <i
+                class="{{
+                  userInfo.displayPolicies.showLinkedin
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-relative"
+                style="font-size: 20px; top: 1px; left: -5px"
+              ></i>
+              <i
+                class="bx bxl-linkedin-square"
+                style="font-size: 30px; color: #0a66c2"
+              ></i>
+              <span style="margin-left: 2px">LinkedIn</span>
+            </h6>
+            @if (userInfo.linkedin) {
+              <div class="w-100 mt-2">
+                <a
+                  [href]="userInfo.linkedin"
+                  target="_blank"
+                  class="external-link"
+                  style="margin-top: 10px"
+                >
+                  <i class="bx bx-link-external"></i>
+                  {{ userInfo.linkedin }}
+                </a>
+              </div>
+            } @else {
+              <span class="text-secondary">{{
+                labels.notSpecified[lang]
+              }}</span>
+            }
+          </li>
+
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+          >
+            <h6
+              class="mb-0 mb-0 d-flex flex-row justify-content-start align-items-center"
+            >
+              <i
+                class="{{
+                  userInfo.displayPolicies.showOrcid
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-relative"
+                style="font-size: 20px; top: 1px; left: -5px"
+              ></i>
+              <img
+                src="/img/social/orcid.svg"
+                style="width: 25px; margin-left: 2px"
+                alt=""
+              />
+              <span style="margin-left: 5px">ORCID</span>
+            </h6>
+            @if (userInfo.orcid) {
+              <div class="w-100 mt-2">
+                <a
+                  [href]="userInfo.orcid"
+                  target="_blank"
+                  class="external-link"
+                  style="margin-left: 5px; margin-top: 10px"
+                >
+                  <i class="bx bx-link-external"></i>
+                  {{ userInfo.orcid }}
+                </a>
+              </div>
+            } @else {
+              <span class="text-secondary">{{
+                labels.notSpecified[lang]
+              }}</span>
+            }
+          </li>
+
+          <li
+            class="list-group-item d-flex justify-content-between align-items-center flex-wrap pt-3 pb-3"
+          >
+            <h6
+              class="mb-0 mb-0 d-flex flex-row justify-content-start align-items-center"
+            >
+              <i
+                class="{{
+                  userInfo.displayPolicies.showScopus
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-relative"
+                style="font-size: 20px; top: 1px; left: -5px"
+              ></i>
+              <img
+                src="/img/social/scopus.ico"
+                style="width: 25px; margin-left: 2px; border-radius: 50%"
+                alt=""
+              />
+
+              <span style="margin-left: 5px">Scopus</span>
+            </h6>
+            @if (userInfo.scopus) {
+              <div class="w-100 mt-2">
+                <a
+                  [href]="userInfo.scopus"
+                  target="_blank"
+                  style="margin-left: 5px; margin-top: 10px"
+                  class="external-link"
+                >
+                  <i class="bx bx-link-external"></i>
+
+                  {{ userInfo.scopus }}
+                </a>
+              </div>
+            } @else {
+              <span class="text-secondary">{{
+                labels.notSpecified[lang]
+              }}</span>
+            }
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-12 col-sm-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-4 position-relative">
+              <i
+                class="bx bxs-show position-absolute"
+                style="font-size: 20px"
+              ></i>
+              <h6 class="mb-0" style="margin-left: 22px">
+                {{ labels.fullName[lang] }}
+              </h6>
+            </div>
+            <div class="col-sm-8 text-secondary">{{ userInfo.name }}</div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-4 position-relative">
+              <i
+                class="{{
+                  userInfo.displayPolicies.showEmail
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-absolute"
+                style="font-size: 20px"
+              ></i>
+              <h6 class="mb-0" style="margin-left: 22px">
+                {{ labels.email[lang] }}
+              </h6>
+            </div>
+            <div class="col-sm-8 text-secondary">{{ userInfo.email }}</div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-4 position-relative">
+              <i
+                class="{{
+                  userInfo.displayPolicies.showIdentification
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-absolute"
+                style="font-size: 20px"
+              ></i>
+              <h6 class="mb-0" style="margin-left: 22px">
+                {{ labels.identification[lang] }}
+              </h6>
+            </div>
+            <div class="col-sm-8 text-secondary">
+              {{ userInfo.identification }}
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-4 position-relative">
+              <i
+                class="{{
+                  userInfo.displayPolicies.showPhone
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-absolute"
+                style="font-size: 20px"
+              ></i>
+              <h6 class="mb-0" style="margin-left: 22px">
+                {{ labels.phone[lang] }}
+              </h6>
+            </div>
+            <div class="col-sm-8 text-secondary">
+              {{ userInfo.phoneNumber }}
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="row">
+            <div class="col-sm-4 position-relative">
+              <i
+                class="{{
+                  userInfo.displayPolicies.showCommissions
+                    ? 'bx bxs-show'
+                    : 'bx bxs-hide'
+                }} position-absolute"
+                style="font-size: 20px"
+              ></i>
+              <h6 class="mb-0" style="margin-left: 22px">
+                {{ labels.commissions[lang] }}
+              </h6>
+            </div>
+            <div class="col-sm-8 text-secondary">
+              <ul class="list-unstyled">
+                @for (commission of commissions; track commission) {
+                  <li><i class="bx bx-group"></i> {{ commission }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <app-activity-log></app-activity-log>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-center">
+    <div>
+      <a
+        routerLink="/intranet/perfil/editar"
+        routerLinkActive="router-link-active"
+        class="btn btn-primary mx-2 px-4"
+      >
+        <b>{{ labels.editButton[lang] }}</b>
+        <i class="bx bxs-edit m-1"></i>
+      </a>
+
+      @if (!isAdmin()) {
+        <button
+          data-bs-toggle="modal"
+          data-bs-target="#deactivateAccountModal"
+          type="button"
+          [disabled]="pendingToRetire"
+          class="btn btn-danger px-4"
+        >
+          <b>{{ labels.disableButton[lang] }}</b>
+          <i class="bx bxs-user-x m-1"></i>
+        </button>
+      }
+    </div>
+  </div>
+</div>
+
+<app-disable-account-popup
+  (onSelectDisableType)="proceedToDisableFormat($event)"
+></app-disable-account-popup>

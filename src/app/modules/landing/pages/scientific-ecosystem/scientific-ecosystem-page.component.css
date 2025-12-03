@@ -1,0 +1,36 @@
+.custom-hr {
+  border: none; /* quita la línea predeterminada */
+  height: 5px; /* grosor */
+  background-color: white; /* color del bloque */
+  border-radius: 3px; /* opcional */
+}
+
+/* Estilos para la sección de características */
+.list-unstyled li {
+  position: relative;
+  padding-left: 0;
+  text-align: justify;
+}
+
+.list-unstyled li strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Animación opcional para el SVG del ciclo */
+@keyframes rotate-cycle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cycle-animation:hover {
+  animation: rotate-cycle 3s linear infinite;
+}
+
+.border-start-characteristics {
+  border-left: 3px solid #12bec8; /* Cambia #007bff al color que desees */
+}

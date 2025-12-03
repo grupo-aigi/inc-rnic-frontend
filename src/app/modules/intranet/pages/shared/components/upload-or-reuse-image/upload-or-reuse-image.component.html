@@ -1,0 +1,142 @@
+<div
+  class="modal fade"
+  [id]="modalFor"
+  tabindex="-1"
+  aria-labelledby="modalFor"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog modal-xl" style="position: relative !important">
+    <div class="modal-content" style="max-height: 85vh; overflow-y: auto">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Formulario para cargar nueva imágen
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <div
+          style="display: flex; flex-direction: row; justify-content: center"
+          >
+          <label for="fileInput_pdf" class="custom-pdf-file-button">
+            <input
+              type="file"
+              (change)="onImageFileSelected($event)"
+              accept="image/*"
+              id="fileInput_pdf"
+              class="file-input"
+              style="font-weight: 600"
+              />
+            Subir una nueva imágen
+          </label>
+        </div>
+        @if (uploadedImage) {
+          <div class="mt-2">
+            <p>
+              Archivo subido: <b>{{ uploadedImage.name }}</b>
+            </p>
+            <div class="row">
+              <div class="col-lg-6 col-md-12 mx-auto">
+                <img
+                  [src]="uploadedImageBrowserUrl"
+                  class="upload-image-selected"
+                  alt=""
+                  />
+              </div>
+            </div>
+          </div>
+        }
+
+        <p class="my-4">Ó bien puedes reutilizar una imágen existente</p>
+
+        @if (privateImages && allImages.length > 0) {
+          <div class="alert alert-success text-center mt-5" role="alert">
+            <i class="bx bx-bulb px-1"></i>
+            <span class="fw-bold">Importante: </span> Estas imágenes son
+            privadas y solo tú puedes verlas.
+          </div>
+        }
+
+        <h5>
+          {{
+          allImages.length > 0
+          ? 'Lista completa de imágenes (Selecciona una)'
+          : 'No tienes imágenes aún'
+          }}
+        </h5>
+
+        @if (privateImages) {
+          <app-private-images-list
+            [images]="allImages"
+            (onImageSelected)="handleSelectExistingImage($event)"
+          ></app-private-images-list>
+        } @else {
+          @for (image of allImages; track $index) {
+            <img
+              (click)="handleSelectExistingImage($index)"
+              [src]="getImageUrlByName(image)"
+              class="upload-image-list"
+              [ngClass]="{
+                'upload-image-selected': $index === selectedExistingImageIndex,
+              }"
+              [alt]="elementType + 'img'"
+              />
+          }
+        }
+      </div>
+
+      @if (noMoreImagesFound) {
+        <div class="alert container text-center alert-info" role="alert">
+          No hay más imágenes para mostrar
+        </div>
+      } @else {
+        @if (allImages.length > 0) {
+          <button
+            (click)="handleLoadMoreImages()"
+            class="btn default-btn w-25 mx-auto"
+          style="
+            min-width: 150px;
+            margin-bottom: 10px;
+            font-weight: 200;
+            padding-bottom: 30px !important;
+          "
+            >
+            Cargar más...
+          </button>
+        }
+      }
+
+      <div
+        class="modal-footer position-sticky bottom-0"
+        style="z-index: 100000; background-color: aliceblue"
+        >
+        <button
+          type="button"
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          #closeButton
+          >
+          Cerrar
+        </button>
+        @if (uploadedImage || selectedExistingImageBrowserUrl) {
+          <div>
+            <button
+              type="button"
+              (click)="handleSubmit()"
+              class="btn btn-success"
+              >
+              {{ uploadedImage ? 'Usar nueva imágen' : '' }}
+              {{ selectedExistingImageBrowserUrl ? 'Usar imágen existente' : '' }}
+            </button>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

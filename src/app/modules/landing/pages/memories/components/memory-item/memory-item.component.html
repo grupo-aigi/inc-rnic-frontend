@@ -1,0 +1,45 @@
+<div class="memory__container row">
+  <div
+    class="col-lg-6"
+    [ngClass]="{ 'col-lg-12': memoryPoster.id! !== activeMemory?.id }"
+  >
+    <div class="memory__header">
+      <h3 class="memory__title">{{ memoryPoster.title }}</h3>
+      <hr />
+    </div>
+
+    <div class="memory__detail-btn">
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <a
+          (click)="handleToggleActiveMemory(memoryPoster.id!)"
+          class="read-more dynamic-font-size"
+          style="cursor: pointer"
+        >
+          {{
+            memoryPoster.id! === activeMemory?.id
+              ? labels.hideDetails[lang]
+              : labels.showDetails[lang]
+          }}
+        </a>
+      </div>
+    </div>
+
+    <div class="memory__video">
+      <youtube-player
+        width="400"
+        [videoId]="memoryPoster.youtubeVideoId"
+        [startSeconds]="0"
+      ></youtube-player>
+    </div>
+  </div>
+
+  @if (activeMemory?.id === memoryPoster.id) {
+    <div class="memory-detail__container col-lg-6">
+      @for (paragraph of memoryPoster.paragraphs; track $index) {
+        <p class="dynamic-font-size" style="text-align: justify">
+          {{ paragraph }}
+        </p>
+      }
+    </div>
+  }
+</div>

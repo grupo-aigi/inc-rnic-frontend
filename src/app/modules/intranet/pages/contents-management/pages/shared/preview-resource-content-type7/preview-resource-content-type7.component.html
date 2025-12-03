@@ -1,0 +1,69 @@
+<section class="card">
+  <div class="card-header">
+    <h2>{{ labels.resourceType[lang] }} #7</h2>
+  </div>
+  <div class="card-body content step-2 p-2">
+    <section class="testimonials-area testimonials-area-three pt-100 pb-70">
+      <div class="container">
+        <div class="section-title w-100">
+          <h3>{{ resourceContent.title }}</h3>
+        </div>
+        @for (paragraph of resourceContent.paragraphs; track paragraph) {
+          <p class="w-100 px-1 pb-3">
+            {{ paragraph }}
+          </p>
+        }
+
+        <div class="testimonials">
+          <div class="testimonials-slider-three">
+            <owl-carousel-o [options]="testimonialsSliderOptions">
+              @for (quote of resourceContent.quotes; track quote) {
+                <ng-template carouselSlide>
+                  <div class="testimonials-item">
+                    <img
+                      style="height: 100px; width: 100px"
+                      [src]="getImageUrlByName(quote.imageName)"
+                      [alt]="target + ' Image'"
+                    />
+                    <p>
+                      “{{ quote.content }}”<i class="flaticon-right-quote"></i>
+                    </p>
+                    <h3>{{ quote.author }}</h3>
+                    <span>{{ quote.role }}</span>
+                  </div>
+                </ng-template>
+              }
+            </owl-carousel-o>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="card-footer">
+      <div class="d-flex justify-content-end">
+        <button
+          [disabled]="isFirst"
+          (click)="moveUp()"
+          [ngClass]="{ 'disable-button': isFirst }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-up-arrow"></i>
+        </button>
+        <button
+          [disabled]="isLast"
+          (click)="moveDown()"
+          [ngClass]="{ 'disable-button': isLast }"
+          class="btn btn-info m-1 text-white"
+        >
+          <i class="bx bx-down-arrow"></i>
+        </button>
+        <button
+          class="btn btn-danger m-1"
+          (click)="handleDeleteResource($event)"
+        >
+          {{ labels.delete[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

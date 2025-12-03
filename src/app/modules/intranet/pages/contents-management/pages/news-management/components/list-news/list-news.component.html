@@ -1,0 +1,129 @@
+<section class="blog-area ptb-70">
+  <div class="container">
+    <!-- Do not delete -->
+    <div id="top"></div>
+
+    <app-news-filter
+      (onFiltersChange)="updateNewsFilters($event)"
+    ></app-news-filter>
+
+    @if (loadingPosters) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingNews[lang] }}...</p>
+      </div>
+    } @else {
+      @if (newsPosters.length > 0) {
+        <div class="row">
+          @for (newsPoster of newsPosters; track newsPoster) {
+            <div class="col-lg-4 col-md-6">
+              <div class="single-blog-post">
+                <div class="blog-img" style="position: relative">
+                  <a
+                    target="_blank"
+                    [href]="'/intranet/noticias/' + newsPoster.urlName"
+                  >
+                    <img
+                      [src]="
+                        getImageUrlByName(newsPoster.imageName) ||
+                        '/img/blog/blog-10.jpg'
+                      "
+                      alt="Image"
+                    />
+                  </a>
+                </div>
+                <div class="blog-content">
+                  <span
+                    class="rounded-pill badge badge-primary p-2 event-category"
+                    [ngStyle]="{
+                      'background-color': wordToHexColor(
+                        newsPoster.category.name
+                      ),
+                    }"
+                  >
+                    {{ newsPoster.category.name }}
+                  </span>
+                  <ul style="margin-top: -10px">
+                    <li>
+                      <i class="flaticon-calendar"></i
+                      >{{ formatDate(newsPoster.createdAt) }}
+                    </li>
+                  </ul>
+                  <ul style="margin-top: -20px">
+                    <li>
+                      <i class="flaticon-user"></i>Author:
+                      {{ newsPoster.author ? newsPoster.author : 'Anónimo' }}
+                    </li>
+                  </ul>
+                  <h3 style="margin-top: -15px">
+                    <a
+                      target="_blank"
+                      [href]="'/intranet/noticias/' + newsPoster.urlName"
+                      >{{ newsPoster.title }}</a
+                    >
+                  </h3>
+                  <p [title]="newsPoster.description">
+                    {{ trimNewsDescription(newsPoster.description) }}
+                  </p>
+                  <div class="d-flex justify-content-evenly">
+                    <button
+                      (click)="handleEditNews(newsPoster)"
+                      class="btn default-btn bg-info"
+                    >
+                      {{ labels.edit[lang] }}
+                    </button>
+                    <button
+                      class="btn default-btn bg-danger"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteNewsModal"
+                      (click)="handleSetNewsPosterToDelete(newsPoster)"
+                    >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+          >
+          </app-complete-pagination>
+        </div>
+      } @else {
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+        >
+          {{ labels.noNews[lang] }}
+        </div>
+      }
+      <ng-template #noNews>
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+        >
+          {{ labels.noNews[lang] }}
+        </div>
+      </ng-template>
+    }
+  </div>
+</section>
+
+@if (newsPosterToDelete) {
+  <div>
+    <app-delete-news-confirmation
+      [title]="labels.deleteNewsConfirmation"
+      [valueToType]="newsPosterToDelete.title"
+      (onConfirm)="handleConfirmDelete(newsPosterToDelete.id!)"
+    ></app-delete-news-confirmation>
+  </div>
+}

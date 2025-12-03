@@ -1,0 +1,121 @@
+<section class="team-area">
+  <div class="container">
+    <div class="section-title" style="margin-bottom: 5px">
+      <h3 class="mb-4 mt-5">{{ labels.coordinatingGroup[lang] }}</h3>
+    </div>
+
+    @if (!loading && coordinators.length === 0) {
+      <div>
+        <div class="alert alert-primary text-center" role="alert">
+          {{ labels.noCoordinators[lang] }}
+        </div>
+      </div>
+    }
+
+    @if (!loading) {
+      <div class="team-slider mb-5">
+        <owl-carousel-o [options]="teamSlidesOptions">
+          @for (coordinator of coordinators; track coordinator) {
+            <ng-template carouselSlide>
+              <div class="single-team">
+                <div class="team-img">
+                  <img
+                [src]="
+                  coordinator.imageName
+                    ? getImageUrlByName(coordinator.imageName)
+                    : getPhotoByGender(coordinator.gender)
+                "
+                    alt="Image"
+                style="
+                  border-bottom-left-radius: 5px;
+                  border-bottom-right-radius: 5px;
+                "
+                    />
+                  @if (coordinator.displayContact) {
+                    <ul class="team-link">
+                      <li
+                  [style]="{
+                    display: coordinator.contact.linkedin ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="coordinator.contact.linkedin" target="_blank"
+                          ><i
+                          class="bx bxl-linkedin"
+                          style="border-radius: 50%; transition: none !important"
+                          ></i
+                        ></a>
+                      </li>
+                      <li
+                  [style]="{
+                    display: coordinator.contact.orcid ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="coordinator.contact.orcid" target="_blank">
+                          <img
+                            src="/img/social/orcid.svg"
+                            style="border-radius: 50%"
+                            alt=""
+                            />
+                        </a>
+                      </li>
+                      <li
+                  [style]="{
+                    display: coordinator.contact.scopus ? 'block' : 'none',
+                  }"
+                        >
+                        <a [href]="coordinator.contact.scopus" target="_blank">
+                          <img
+                            src="/img/social/scopus.ico"
+                            style="border-radius: 50%"
+                            alt=""
+                            />
+                        </a>
+                      </li>
+                    </ul>
+                  }
+                </div>
+                <div class="team-content">
+                  <h3>{{ coordinator.name }}</h3>
+                  @if (coordinator.roles.length > 0) {
+                    <span class="text-start">
+                      <ul style="height: 100px; overflow-y: auto">
+                        @for (role of coordinator.roles; track role) {
+                          <li>{{ role }}</li>
+                        }
+                      </ul>
+                    </span>
+                  }
+                </div>
+                <div class="d-flex justify-content-evenly mt-4">
+                  <a
+                    [routerLink]="['editar/' + coordinator.id]"
+                    class="btn default-btn bg-info"
+                    >
+                    {{ labels.editButton[lang] }}
+                  </a>
+                  <button
+                    class="btn default-btn bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteCoordinatorModal"
+                    (click)="handleSetActiveCoordinator(coordinator)"
+                    >
+                    {{ labels.deleteButton[lang] }}
+                  </button>
+                </div>
+              </div>
+            </ng-template>
+          }
+        </owl-carousel-o>
+        @if (activeCoordinator) {
+          <div>
+            <app-delete-coordinator-confirmation
+              [title]="labels.deleteCoordinatorConfirmation"
+              [valueToType]="activeCoordinator.name"
+              (onConfirm)="handleConfirmDelete(activeCoordinator.id!)"
+            ></app-delete-coordinator-confirmation>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

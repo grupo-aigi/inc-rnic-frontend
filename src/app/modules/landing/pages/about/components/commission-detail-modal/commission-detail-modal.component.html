@@ -1,0 +1,125 @@
+<div
+  class="modal fade w-100"
+  id="commissionDetailModal"
+  tabindex="-1"
+  aria-labelledby="commissionDetailModal"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title dynamic-font-size" id="exampleModalLabel">
+          {{ getCommissionInformation(commission).topTitle[lang] }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close dynamic-font-size"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body dynamic-font-size">
+        <!-- ------------------------ -->
+        <div class="px-2">
+          <h3 class="dynamic-font-size">
+            {{ getCommissionInformation(commission).title[lang] }}
+          </h3>
+
+          <small class="mb-3 dynamic-font-size">
+            {{
+              getFormattedDate(getCommissionInformation(commission).lastEdit)
+            }}
+          </small>
+
+          <p class="dynamic-font-size">
+            {{ getCommissionInformation(commission).description[lang] }}
+          </p>
+
+          <p class="dynamic-font-size">
+            Contáctanos:
+            <a
+              class="dynamic-font-size"
+              [href]="'mailto:' + getCommissionInformation(commission).email"
+              >{{ getCommissionInformation(commission).email }}</a
+            >
+          </p>
+
+          <h5 class="dynamic-font-size">
+            {{
+              getCommissionInformation(commission).representativesTitle[lang]
+            }}
+          </h5>
+
+          <ul>
+            @for (
+              representative of getCommissionInformation(commission)
+                .representatives;
+              track representative
+            ) {
+              <li class="my-2 dynamic-font-size">
+                {{ representative.name }} -
+                {{ representative.occupation[lang] }}
+              </li>
+            }
+          </ul>
+
+          <h5 class="dynamic-font-size">
+            {{ getCommissionInformation(commission).facilitatorsTitle[lang] }}
+          </h5>
+
+          <ul class="dynamic-font-size">
+            @for (
+              facilitator of getCommissionInformation(commission).facilitators;
+              track facilitator
+            ) {
+              <li class="my-2 dynamic-font-size">
+                {{ facilitator.name }} - {{ facilitator.occupation[lang] }}
+              </li>
+            }
+          </ul>
+
+          <h5 class="dynamic-font-size">
+            {{ getCommissionInformation(commission).mainActivitiesTitle[lang] }}
+          </h5>
+
+          @if (getCommissionInformation(commission).enumMainActivities) {
+            <ol class="dynamic-font-size">
+              @for (
+                mainActivity of getCommissionInformation(commission)
+                  .mainActivities;
+                track mainActivity
+              ) {
+                <li class="my-2 dynamic-font-size">
+                  {{ mainActivity[lang] }}
+                </li>
+              }
+            </ol>
+          } @else {
+            <ul>
+              @for (
+                mainActivity of getCommissionInformation(commission)
+                  .mainActivities;
+                track mainActivity
+              ) {
+                <li class="my-2 dynamic-font-size">
+                  {{ mainActivity[lang] }}
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+        <!-- ------------------------ -->
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-danger dynamic-font-size"
+          data-bs-dismiss="modal"
+        >
+          {{ getCommissionInformation(commission).closeBtn[lang] }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

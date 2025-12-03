@@ -1,0 +1,25 @@
+<div class="container">
+  <hr />
+  <ul class="tags">
+    <li>
+      <span>{{ labels.tags[lang] }}:</span>
+    </li>
+    @if (tags.length === 0) {
+      <li>
+        <span>{{ labels.noTags[lang] }}</span>
+      </li>
+    } @else {
+      @for (tag of tags; track $index) {
+        <li>
+          <a
+            class="my-1"
+            [href]="'/eventos?etiquetaId=' + tag.id"
+            target="_blank"
+          >
+            #{{ tag.name }}
+          </a>
+        </li>
+      }
+    }
+  </ul>
+</div>

@@ -1,0 +1,251 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="container pt-3 get-quote-form"
+  >
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <button
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#input-facilitator-image"
+        class="btn default-btn"
+        >
+        {{ labels.addPhoto[lang] }}
+      </button>
+    </div>
+
+    @if (!this.formGroup.get('uploadedImage')?.value) {
+      <small
+        class="col-12 position-relative"
+        style="margin-top: -20px"
+        >{{ labels.noGenderAlert[lang] }}</small
+        >
+      }
+
+      @if (isFieldInvalid('uploadedImage') || isFieldInvalid('imageName')) {
+        <small
+          class="input-label__invalid"
+          >{{ labels.photoErrorMsg[lang] }}</small
+          >
+        }
+
+        @if (this.formGroup.get('uploadedImage')?.value) {
+          <div
+            class="col-12 mx-auto mb-2"
+            >
+            <div class="row">
+              <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                <img [src]="imageUrl" width="100%" alt="Image" />
+              </div>
+            </div>
+          </div>
+        }
+
+        <div class="col-lg-6 col-sm-12 mt-3">
+          <div class="form-group">
+            <input
+              type="text"
+              name="fullName"
+              formControlName="fullName"
+              class="form-control"
+              [placeholder]="labels.fullName.placeholder[lang]"
+              />
+            @if (isFieldInvalid('fullName')) {
+              <small
+                class="input-label__invalid"
+                >{{ labels.fullName.errorMsg[lang] }}</small
+                >
+              }
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-12 mt-3">
+            <div>
+              <select
+                #genderSelect
+                class="w-100"
+          style="
+            height: 50px;
+            padding: 10px;
+            border: 1px solid lightgray;
+            background-color: transparent !important;
+          "
+                >
+                <option value="" disabled selected>
+                  {{ labels.selectGender.first[lang] }}
+                </option>
+                <option value="M">{{ labels.selectGender.male[lang] }}</option>
+                <option value="F">{{ labels.selectGender.female[lang] }}</option>
+                <option value="O">{{ labels.selectGender.other[lang] }}</option>
+              </select>
+              @if (isFieldInvalid('gender')) {
+                <small class="input-label__invalid">
+                  {{ labels.gender.errorMsg[lang] }}
+                </small>
+              }
+            </div>
+          </div>
+
+          <div class="col-lg-12 col-sm-12">
+            <hr />
+            <span>{{ labels.contactLinks[lang] }}</span>
+          </div>
+
+          <div
+            class="col-lg-12 col-sm-12 mt-3"
+            style="max-height: 200px; overflow-y: auto"
+            >
+            <div class="form-check">
+              <input
+                (click)="showContactVisibility()"
+                class="form-check-input"
+                checked
+                type="radio"
+                name="contact-visibility-radio"
+                id="contact-visibility-radio-true"
+                />
+              <label class="form-check-label" for="contact-visibility-radio-true">
+                {{ labels.showContact[lang] }}
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                (click)="hideContactVisibility()"
+                class="form-check-input"
+                type="radio"
+                name="contact-visibility-radio"
+                id="contact-visibility-radio-false"
+                />
+              <label class="form-check-label" for="contact-visibility-radio-false">
+                {{ labels.hideContact[lang] }}
+              </label>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-sm-12 mt-3">
+            <div class="form-group">
+              <input
+                type="text"
+                name="linkedIn"
+                formControlName="linkedIn"
+                class="form-control"
+                [placeholder]="labels.linkedin.placeholder[lang]"
+                />
+              @if (isFieldInvalid('linkedIn')) {
+                <small
+                  class="input-label__invalid"
+                  >{{ labels.linkedin.errorMsg[lang] }}</small
+                  >
+                }
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 mt-3">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="orcid"
+                  formControlName="orcid"
+                  class="form-control"
+                  [placeholder]="labels.orcid.placeholder[lang]"
+                  />
+                @if (isFieldInvalid('orcid')) {
+                  <small class="input-label__invalid">{{
+                    labels.orcid.errorMsg[lang]
+                  }}</small>
+                }
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 mt-3">
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="scopus"
+                  formControlName="scopus"
+                  class="form-control"
+                  [placeholder]="labels.scopus.placeholder[lang]"
+                  />
+                @if (isFieldInvalid('scopus')) {
+                  <small class="input-label__invalid">
+                    {{ labels.scopus.errorMsg[lang] }}</small
+                    >
+                  }
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12">
+                <div class="form-group">
+                  <textarea
+                    name="role"
+                    formControlName="role"
+                    class="form-control"
+                    [placeholder]="labels.role.placeholder[lang]"
+                    style="resize: vertical; min-height: 50px; max-height: 100px"
+                  ></textarea>
+                  @if (isFieldInvalid('role')) {
+                    <small class="input-label__invalid">
+                      {{ labels.role.errorMsg[lang] }}</small
+                      >
+                    }
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12">
+                  <button type="button" (click)="handleAddRole()" class="btn default-btn">
+                    {{ editMode ? labels.updateRole[lang] : labels.addRole[lang] }}
+                  </button>
+                </div>
+              </div>
+
+              <div class="row">
+                @for (role of roles; track role; let i = $index) {
+                  <div
+                    class="col-lg-12 col-sm-12 m-1 p-1"
+                    >
+                    <span>{{ labels.roleNro[lang] }} {{ i + 1 }}</span>
+                    <div class="row">
+                      <div class="col-lg-12 col-sm-12 p-3" style="border: 1px solid darkgray">
+                        <button
+                          type="button"
+                          class="btn btn-info m-2 text-white"
+                          (click)="handleEditRole(i)"
+                          >
+                          {{ labels.editButton[lang] }}
+                        </button>
+                        <button
+                          type="button"
+                          (click)="handleDeleteRole(i)"
+                          class="btn btn-danger m-2"
+                          >
+                          {{ labels.deleteButton[lang] }}
+                        </button>
+                        <span class="ml-5">{{ role }}</span>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-sm-12 d-flex m-auto">
+                  <button type="submit" class="btn default-btn success-button m-1">
+                    {{ labels.createFacilitator[lang] }}
+                  </button>
+                  <button
+                    (click)="handleCleanFields($event)"
+                    type="button"
+                    class="btn default-btn clean-button m-1"
+                    >
+                    {{ labels.cleanFields[lang] }}
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <app-upload-or-reuse-image
+              modalFor="input-facilitator-image"
+              elementType="groups"
+              (onSubmit)="handleSetFacilitatorImage($event)"
+            ></app-upload-or-reuse-image>

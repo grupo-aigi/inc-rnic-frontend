@@ -1,0 +1,101 @@
+<section class="blog-areaetes" style="padding-bottom: 150px">
+  <div class="container mt-5">
+    <!-- Do not delete -->
+    <div id="top"></div>
+
+    <app-memories-filters
+      (onFiltersChange)="updateMemoryFilters($event)"
+    ></app-memories-filters>
+  </div>
+
+  <div class="container">
+    @if (loadingMemories) {
+      <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingMemories[lang] }}...</p>
+      </div>
+    } @else {
+      @if (memoryPosters.length > 0) {
+        <div
+          class="row gx-5 gy-3"
+          >
+          @for (memoryPoster of memoryPosters; track memoryPoster.id) {
+            <div
+              class="col-lg-6 col-md-12 col-sm-12"
+            [ngClass]="{
+              'col-lg-12 col-md-12 col-sm-12':
+                memoryPoster.id! === activeMemory?.id,
+            }"
+              >
+              <app-memory-item
+                [memoryPoster]="memoryPoster"
+                [activeMemory]="activeMemory"
+                (onActive)="setActiveMemory($event)"
+              ></app-memory-item>
+              <div class="col-10 mx-auto">
+                <div class="d-flex flex-row justify-content-evenly">
+                  <div
+                    (click)="handleEditMemory(memoryPoster)"
+                    routerLinkActive="router-link-active"
+                    style="cursor: pointer"
+                    class="default-btn m-1 mb-3 w-100"
+                    >
+                    {{ labels.edit[lang] }} <i class="bx bx-edit"></i>
+                  </div>
+                  <button
+                    class="default-btn mb-3 m-1 w-100 bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteMemoryModal"
+                    (click)="handleSetMemoryToDelete(memoryPoster)"
+                    >
+                    {{ labels.delete[lang] }} <i class="bx bx-trash"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+            >
+          </app-complete-pagination>
+        </div>
+      } @else {
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+          >
+          {{ labels.noMemories[lang] }}
+        </div>
+      }
+      <ng-template #noMemories>
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+          >
+          {{ labels.noMemories[lang] }}
+        </div>
+      </ng-template>
+    }
+
+  </div>
+</section>
+
+@if (memoryToDelete) {
+  <div>
+    <app-delete-memory-confirmation
+      [title]="labels.deleteMemoryConfirmation"
+      [valueToType]="memoryToDelete.title"
+      (onConfirm)="handleConfirmDelete(memoryToDelete.id!)"
+    ></app-delete-memory-confirmation>
+  </div>
+}

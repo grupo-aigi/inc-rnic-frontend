@@ -1,0 +1,44 @@
+<section class="section pt-5 pb-5">
+  <div class="container">
+    <app-registrations-filters
+      (onFiltersChange)="handleUpdateFilters($event)"
+    ></app-registrations-filters>
+
+    <app-complete-pagination
+      [totalElements]="pagination.totalElements"
+      [pageSize]="pagination.pageSize"
+      [currentPage]="pagination.currentPage"
+      [showTotalRecords]="true"
+      (onPageChange)="handleGoToPage($event)"
+      >
+    </app-complete-pagination>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="candidate-list">
+          @for (registration of registrations; track registration) {
+            <div>
+              <app-registration-item
+                [registration]="registration"
+                (onLinkingConfirmed)="handleLinkingConfirmed(registration)"
+              ></app-registration-item>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if (registrations.length > 0) {
+      <div>
+        <app-complete-pagination
+          [totalElements]="pagination.totalElements"
+          [pageSize]="pagination.pageSize"
+          [currentPage]="pagination.currentPage"
+          [showTotalRecords]="true"
+          (onPageChange)="handleGoToPage($event)"
+          >
+        </app-complete-pagination>
+      </div>
+    }
+  </div>
+</section>

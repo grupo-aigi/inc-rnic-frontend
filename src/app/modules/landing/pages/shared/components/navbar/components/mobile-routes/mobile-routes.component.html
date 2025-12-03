@@ -1,0 +1,293 @@
+<nav class="container" style="margin-bottom: 100px">
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <span
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <a (click)="handleCloseTopBar()" [routerLink]="['/acerca-de']">
+          <span>{{ labels.about[lang] }}</span>
+        </a>
+        @if (activeSection === 'ABOUT') {
+          <i
+            (click)="handleSetActiveSection('ABOUT')"
+            class="bx bx-chevron-up p-2"
+          ></i>
+        } @else {
+          <i
+            (click)="handleSetActiveSection('ABOUT')"
+            class="bx bx-chevron-down p-2"
+          ></i>
+        }
+      </span>
+
+      @if (activeSection === 'ABOUT') {
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/acerca-de"
+            fragment="nosotros"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.us[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/acerca-de"
+            fragment="objetivo-general"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.generalObjective[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/acerca-de"
+            fragment="objetivos-especificos"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.specificObjectives[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="acerca-de"
+            fragment="mecanismo-coordinacion"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.coordinationMechanism[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/acerca-de"
+            fragment="comisiones"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.networkWorkingCommittees[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            [routerLink]="['/lineamientos']"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.networkGuidelines[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            [routerLink]="['/misiones-transformativas']"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.about.transformativeMissions[lang] }}</span>
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <span
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <a (click)="handleCloseTopBar()" [routerLink]="['/miembros-red']">
+          <span>{{ labels.networkMembers[lang] }}</span>
+        </a>
+
+        @if (activeSection === 'MEMBERS') {
+          <i
+            (click)="handleSetActiveSection('MEMBERS')"
+            class="bx bx-chevron-up p-2"
+          ></i>
+        } @else {
+          <i
+            (click)="handleSetActiveSection('MEMBERS')"
+            class="bx bx-chevron-down p-2"
+          ></i>
+        }
+      </span>
+
+      @if (activeSection === 'MEMBERS') {
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/miembros-red"
+            fragment="mapa"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.networkMembers.membersMap[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/miembros-red"
+            fragment="grupo-coordinador"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>
+              {{ labels.networkMembers.networkCoordinatingGroup[lang] }}
+            </span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            routerLink="/miembros-red"
+            fragment="grupo-facilitador"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>
+              {{ labels.networkMembers.networkFacilitatingGroup[lang] }}
+            </span>
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <a
+        (click)="handleCloseTopBar()"
+        [routerLink]="['/eventos']"
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <span>{{ labels.events[lang] }}</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <a
+        (click)="handleCloseTopBar()"
+        [routerLink]="['/convocatorias']"
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <span>{{ labels.convocations[lang] }}</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <a
+        (click)="handleCloseTopBar()"
+        [routerLink]="['/ncp']"
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <span>{{ labels.ncp[lang] }}</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <div
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <span>{{ labels.others[lang] }}</span>
+
+        @if (activeSection === 'OTHERS') {
+          <i
+            (click)="handleSetActiveSection('OTHERS')"
+            class="bx bx-chevron-up p-2"
+          ></i>
+        } @else {
+          <i
+            (click)="handleSetActiveSection('OTHERS')"
+            class="bx bx-chevron-down p-2"
+          ></i>
+        }
+      </div>
+
+      @if (activeSection === 'OTHERS') {
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            [routerLink]="['/publicaciones']"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.publications[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            [routerLink]="['/memorias']"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.memories[lang] }}</span>
+          </a>
+        </div>
+
+        <div
+          class="container mt-1 mb-1 dynamic-font-size"
+          style="cursor: pointer"
+        >
+          <a
+            (click)="handleCloseTopBar()"
+            [routerLink]="['/noticias']"
+            class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+          >
+            <span>{{ labels.news[lang] }}</span>
+          </a>
+        </div>
+      }
+    </div>
+  </section>
+</nav>

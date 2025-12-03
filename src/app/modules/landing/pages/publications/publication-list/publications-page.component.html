@@ -1,0 +1,100 @@
+<div class="page-title-area bg-events">
+  <div class="container">
+    <div class="page-title-content">
+      <h2 class="dynamic-font-size">{{ labels.publications[lang] }}</h2>
+      <ul>
+        <li>
+          @if (variant === 'PUBLIC') {
+            <a routerLink="/">{{ labels.main[lang] }}</a>
+          } @else {
+            <a routerLink="/intranet">{{ labels.main[lang] }}</a>
+          }
+        </li>
+        <li class="active">{{ labels.publications[lang] }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="blog-areaetes" style="padding-bottom: 150px">
+  <div class="container mt-5">
+    <!-- Do not delete -->
+    <div id="top"></div>
+
+    <app-publication-filters
+      (onFiltersChange)="updatePublicationFilters($event)"
+    ></app-publication-filters>
+  </div>
+
+  <div class="container">
+    @if (loadingPublications) {
+      <div
+        class="d-flex flex-column align-items-center justify-content-center"
+        >
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">{{ labels.loadingPublications[lang] }}...</p>
+      </div>
+    } @else {
+      <div class="row">
+        <div class="col-12 dynamic-font-size">
+          <app-complete-pagination
+            [showNoResults]="false"
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+            >
+          </app-complete-pagination>
+        </div>
+      </div>
+      @if (publicationPosters.length > 0) {
+        <div
+          class="row"
+          >
+          @for (
+            publication of publicationPosters; track
+            publication; let i = $index; let first = $first) {
+            <div
+              class="col-lg-12 col-md-12 col-sm-12"
+              >
+              <app-publication-item
+                [first]="first"
+                [variant]="variant"
+                [publication]="publication"
+              ></app-publication-item>
+            </div>
+          }
+          <app-complete-pagination
+            [totalElements]="pagination.totalElements"
+            [pageSize]="pagination.pageSize"
+            [currentPage]="pagination.currentPage"
+            [showTotalRecords]="true"
+            (onPageChange)="handleGoToPage($event)"
+            >
+          </app-complete-pagination>
+        </div>
+      } @else {
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+          >
+          {{ labels.noPublications[lang] }}
+        </div>
+      }
+      <ng-template #noPublications>
+        <div
+          class="alert container alert-warning text-center"
+          style="margin: 100px auto"
+          role="alert"
+          >
+          {{ labels.noPublications[lang] }}
+        </div>
+      </ng-template>
+    }
+
+  </div>
+</section>

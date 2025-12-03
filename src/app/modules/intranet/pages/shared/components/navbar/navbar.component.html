@@ -1,0 +1,390 @@
+<header class="header-area">
+  <div class="navbar-area navbar-area__visible-sm">
+    <div class="mobile-nav">
+      <div class="container-fluid">
+        <div class="mobile-menu">
+          <div class="logo">
+            <a routerLink="/">
+              @if (theme === 'DARK') {
+                <img
+                  width="120"
+                  height="40"
+                  src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                  alt="logo"
+                />
+              } @else if (theme === 'LIGHT') {
+                <img
+                  width="120"
+                  height="40"
+                  src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                  alt="logo"
+                />
+              }
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="desktop-nav">
+      <div
+        class="user-actions__menu-button navbar__medium-break-6"
+        (click)="handleToggleSidebarType()"
+      >
+        <i class="bx bx-menu"></i>
+      </div>
+
+      <div class="px-2 navbar-area__visible-lg">
+        <nav class="navbar navbar-expand-md navbar-light">
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav w-75" style="height: 80px">
+              <a class="navbar-brand__landing" routerLink="/">
+                @if (theme === 'DARK') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-rnic-LIGHT.svg"
+                    alt="logo"
+                  />
+                } @else if (theme === 'LIGHT') {
+                  <img
+                    style="width: 160px !important"
+                    src="/img/logos-inc-y-rnic/logo-rnic-DARK.png"
+                    alt="logo"
+                  />
+                }
+              </a>
+
+              <div
+                class="search-box navbar__medium-break-6 search-box__intranet"
+              >
+                <app-global-search></app-global-search>
+              </div>
+            </ul>
+
+            <div class="others-option d-flex navbar__medium-break-6">
+              <div
+                class="roles-section position-relative w-100"
+                style="text-align: center"
+              >
+                <p>
+                  <b style="font-size: 16px">{{ userInfo?.name }}</b>
+                </p>
+                @if (userInfo!.roles.length > 1) {
+                  <div #changeRole>
+                    <button
+                      class="change-role__button"
+                      (click)="handleToggleChangeRolePopup()"
+                    >
+                      {{ activeRole![lang] }}
+                      {{ displayChangeRolePopup ? '▲' : '▼' }}
+                    </button>
+                    <div class="login-popup__wrapper">
+                      @if (displayChangeRolePopup) {
+                        <app-change-role-popup
+                          (onChangeRole)="handleToggleChangeRolePopup()"
+                        ></app-change-role-popup>
+                      }
+                    </div>
+                  </div>
+                } @else {
+                  <p
+                    style="
+                      position: absolute;
+                      top: 25px;
+                      width: 100%;
+                      text-align: center;
+                      margin: auto;
+                    "
+                  >
+                    {{ activeRole![lang] }}
+                  </p>
+                }
+              </div>
+
+              <div #userOptionsRef class="get-quote">
+                <div class="navbar__language-select">
+                  <ul
+                    class="navbar__language-area navbar__language-area-intranet"
+                  >
+                    <li class="language-item-top">
+                      <div href="#" class="language-bar">
+                        <span>
+                          @if (lang === 'es') {
+                            <span>ES</span>
+                          }
+                        </span>
+
+                        <span>
+                          @if (lang === 'en') {
+                            <span>EN</span>
+                          }
+                        </span>
+                        <i class="bx bx-chevron-down"></i>
+                      </div>
+
+                      <ul class="language-item-bottom">
+                        @if (lang !== 'es') {
+                          <li class="language-item">
+                            <div
+                              (click)="handleChangeAppLanguage('es')"
+                              class="language-link"
+                              style="cursor: pointer"
+                            >
+                              <span>ES</span>
+                            </div>
+                          </li>
+                        }
+
+                        @if (lang !== 'en') {
+                          <li class="language-item">
+                            <div
+                              (click)="handleChangeAppLanguage('en')"
+                              class="language-link position-relative"
+                              style="cursor: pointer"
+                            >
+                              <span>EN</span>
+                            </div>
+                          </li>
+                        }
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div #logoutRef class="user-actions__photo">
+                <div (click)="handleOpenLoginPopup()">
+                  <div
+                    *ngIf="
+                      !loadingUserInfo && this.authService.userAvatar;
+                      else defaultAvatar
+                    "
+                  >
+                    <img
+                      [src]="this.authService.userAvatar"
+                      alt="user avatar"
+                      style="
+                        cursor: pointer;
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        padding: 0px;
+                        margin-right: 40px;
+                        margin-top: 10px;
+                      "
+                    />
+                  </div>
+                  <ng-template #defaultAvatar>
+                    <i
+                      class="bx bx-user display-6 p-2 mt-2 rounded-circle"
+                      style="
+                        cursor: pointer;
+                        background-color: transparent;
+                        border: 1px solid lightgray;
+                      "
+                    ></i>
+                  </ng-template>
+                </div>
+
+                <div class="login-popup__wrapper">
+                  @if (displayUserOptionsPopup) {
+                    <app-user-options-popup></app-user-options-popup>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div
+      class="others-option-for-responsive others-option__intranet navbar__medium-break-4"
+      (click)="handleToggleMenu()"
+    >
+      <div class="container">
+        <div class="dot-menu">
+          <div class="inner">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    @if (displayMenu) {
+      <div class="navbar__medium-break-5">
+        <div class="dot-menu">
+          <div class="inner">
+            <div class="circle circle-one"></div>
+            <div class="circle circle-two"></div>
+            <div class="circle circle-three"></div>
+          </div>
+        </div>
+
+        <div
+          class="px-3"
+          style="max-height: 100vh; overflow-x: hidden; overflow-y: auto"
+        >
+          <div
+            class="others-option pt-1 justify-content-between d-flex align-items-center"
+          >
+            <app-mobile-accessibility-menu></app-mobile-accessibility-menu>
+
+            <div class="get-quote">
+              <div
+                class="navbar__language-select navbar__language-select-intranet"
+              >
+                <ul
+                  class="navbar__language-area navbar__language-area-intranet"
+                >
+                  <li class="language-item-top">
+                    <div href="#" class="language-bar">
+                      <span>
+                        <span *ngIf="lang === 'es'">ES</span>
+                      </span>
+
+                      <span>
+                        <span *ngIf="lang === 'en'">EN</span>
+                      </span>
+                      <i class="bx bx-chevron-down"></i>
+                    </div>
+
+                    <ul class="language-item-bottom">
+                      <li class="language-item" *ngIf="lang !== 'es'">
+                        <div
+                          (click)="handleChangeAppLanguage('es')"
+                          class="language-link"
+                          style="cursor: pointer"
+                        >
+                          <span>ES</span>
+                        </div>
+                      </li>
+                      <li class="language-item" *ngIf="lang !== 'en'">
+                        <div
+                          (click)="handleChangeAppLanguage('en')"
+                          class="language-link position-relative"
+                          style="cursor: pointer"
+                        >
+                          <span>EN</span>
+                        </div>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+
+              <div #logoutMobileRef class="user-actions__photo">
+                <div
+                  (click)="handleOpenLoginPopup()"
+                  style="
+                    background-color: rgb(236, 234, 234);
+                    position: relative;
+                    cursor: pointer;
+                    top: 5px;
+                    width: 50px;
+                    height: 50px;
+                    right: -40px;
+                    z-index: 1000;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+                    font-size: 20px;
+                  "
+                >
+                  <div
+                    *ngIf="
+                      !loadingUserInfo && this.authService.userAvatar;
+                      else defaultAvatar
+                    "
+                  >
+                    <img
+                      [src]="this.authService.userAvatar"
+                      alt="user avatar"
+                      style="
+                        cursor: pointer;
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background-color: transparent;
+                        padding: 0px;
+                      "
+                    />
+                  </div>
+
+                  <ng-template #defaultAvatar>
+                    <i
+                      class="bx bx-user display-6 p-2 mt-2 rounded-circle"
+                      style="
+                        cursor: pointer;
+                        background-color: white;
+                        border: 1px solid lightgray;
+                      "
+                    ></i>
+                  </ng-template>
+                </div>
+
+                <div class="login-popup__wrapper">
+                  @if (displayUserOptionsPopup) {
+                    <app-user-options-popup></app-user-options-popup>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="roles-section position-relative w-100"
+            style="text-align: center"
+          >
+            <p>
+              <b style="font-size: 16px">{{ userInfo?.name }}</b>
+            </p>
+            @if (userInfo!.roles.length > 1) {
+              <div #changeRoleMobile>
+                <button
+                  class="change-role__button"
+                  (click)="handleToggleChangeRolePopup()"
+                >
+                  {{ activeRole![lang] }}
+                  {{ displayChangeRolePopup ? '▲' : '▼' }}
+                </button>
+                <div class="login-popup__wrapper">
+                  @if (displayChangeRolePopup) {
+                    <app-change-role-popup
+                      (onChangeRole)="handleToggleChangeRolePopup()"
+                    ></app-change-role-popup>
+                  }
+                </div>
+              </div>
+            } @else {
+              <p
+                style="
+                  position: absolute;
+                  top: 25px;
+                  width: 100%;
+                  text-align: center;
+                  margin: auto;
+                "
+              >
+                {{ activeRole![lang] }}
+              </p>
+            }
+          </div>
+
+          <div class="py-3">
+            <app-global-search></app-global-search>
+          </div>
+
+          <app-intranet-mobile-routes
+            (onNavigate)="handleToggleMenu()"
+          ></app-intranet-mobile-routes>
+        </div>
+      </div>
+    }
+  </div>
+</header>

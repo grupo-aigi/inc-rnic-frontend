@@ -1,0 +1,6 @@
+{
+  "errorLogin": "Correo o contraseña incorrectos",
+  "errorRefreshAuth": "Error al refrescar la sesion",
+  "errorUserAvatar": "Error al obtener la imagen de perfil",
+  "noUserAllowed": "No tienes permisos para acceder a esta ruta"
+}

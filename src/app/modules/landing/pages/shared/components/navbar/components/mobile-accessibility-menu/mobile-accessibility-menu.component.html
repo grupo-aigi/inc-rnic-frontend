@@ -1,0 +1,46 @@
+<div class="navbar__contact-us">
+  <div class="navbar__accessibility-panel-mobile">
+    <div
+      (click)="handleIncrementFontSize()"
+      [ngClass]="{ 'change-font-size__disabled': fontScale === 7 }"
+      class="accessibility-item accessibility-item-first"
+      >
+      A&nbsp;+
+    </div>
+
+    <div
+      [ngClass]="{ 'change-font-size__disabled': fontScale === 1 }"
+      (click)="handleDecrementFontSize()"
+      class="accessibility-item"
+      >
+      A&nbsp;-
+    </div>
+
+    <div (click)="toggleTheme()" class="accessibility-item">
+      @if (theme === 'LIGHT') {
+        <i class="bx bx-moon"></i>
+      }
+      @if (theme === 'DARK') {
+        <i class="bx bx-sun"></i>
+      }
+    </div>
+
+    <div class="accessibility-item">
+      <a
+        href="https://convertic.gov.co/641/w3-propertyvalue-15339.html"
+        target="_blank"
+        >
+        <i class="bx bxs-megaphone"></i>
+      </a>
+    </div>
+
+    <div class="accessibility-item accessibility-item-last">
+      <a
+        href="https://centroderelevo.gov.co/632/w3-channel.html"
+        target="_blank"
+        >
+        <i class="bx bx-braille"></i>
+      </a>
+    </div>
+  </div>
+</div>

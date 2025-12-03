@@ -1,0 +1,42 @@
+<section class="card">
+  <div class="card-header">
+    <h2>
+      {{ labels.title[lang] }}
+    </h2>
+  </div>
+  <div class="card-body content step-2 p-3">
+    <h4>
+      <b>{{ labels.titlePlaceholder[lang] }}:</b> {{ baseInfo.title }}
+    </h4>
+
+    <p>
+      <b>{{ labels.description[lang] }}:</b> {{ baseInfo.description }}
+    </p>
+    <p>
+      <b>{{ labels.category[lang] }}:</b> {{ baseInfo.category.name }}
+    </p>
+
+    <div>
+      @for (tag of baseInfo.tags; track tag) {
+        <span class="rounded-pill bg-info badge badge-primary m-2 p-2"
+          >#{{ tag.name }}</span
+        >
+      }
+    </div>
+
+    <p>
+      <b>{{ labels.author[lang] }}:</b> {{ baseInfo.author }}
+    </p>
+
+    <p>
+      <b>{{ labels.pubDate[lang] }}</b>
+      : <b>{{ formatDate(baseInfo.date) }}</b>
+    </p>
+
+    <img
+      [src]="imageUrl"
+      style="width: 100%; height: auto; display: block; margin: auto auto"
+      alt="News image"
+    />
+  </div>
+</section>

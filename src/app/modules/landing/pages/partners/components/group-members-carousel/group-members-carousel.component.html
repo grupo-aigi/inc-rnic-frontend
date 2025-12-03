@@ -1,0 +1,110 @@
+<section class="team-area">
+  <div
+    class="section-title"
+    style="margin-bottom: 5px; padding-top: 150px"
+    [id]="group === 'COORDINATOR' ? 'grupo-coordinador' : 'grupo-facilitador'"
+    >
+    <h2 class="mb-4">
+      {{
+      group === 'COORDINATOR'
+      ? labels.networkCoordinatingGroup[lang]
+      : labels.networkFacilitatingGroup[lang]
+      }}
+    </h2>
+  </div>
+  <div class="container">
+    @if (!loadingMembers) {
+      <div class="team-slider mb-5">
+        @if (members.length === 0) {
+          <div class="alert alert-info text-center my-2">
+            <p>
+              {{
+              group === 'COORDINATOR'
+              ? labels.noCoordinators[lang]
+              : labels.noFacilitators[lang]
+              }}
+            </p>
+          </div>
+          <p role="alert" style="text-align: center; margin: 20px auto"></p>
+        } @else {
+          <owl-carousel-o [options]="teamSlidesOptions">
+            @for (member of members; track member) {
+              <ng-template carouselSlide>
+                <div class="single-team">
+                  <div class="team-img">
+                    <img
+                  [src]="
+                    member.imageName
+                      ? getImageUrlByName(member.imageName)
+                      : getPhotoByGender(member.gender)
+                  "
+                      alt="Image"
+                  style="
+                    border-bottom-left-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                  "
+                      />
+                    @if (member.displayContact) {
+                      <ul class="team-link">
+                        <li
+                    [style]="{
+                      display: member.contact.linkedin ? 'block' : 'none',
+                    }"
+                          >
+                          <a [href]="member.contact.linkedin" target="_blank"
+                            ><i
+                            class="bx bxl-linkedin"
+                            style="border-radius: 50%; transition: none !important"
+                            ></i
+                          ></a>
+                        </li>
+                        <li
+                    [style]="{
+                      display: member.contact.orcid ? 'block' : 'none',
+                    }"
+                          >
+                          <a [href]="member.contact.orcid" target="_blank">
+                            <img
+                              src="/img/social/orcid.svg"
+                              style="border-radius: 50%"
+                              alt=""
+                              />
+                          </a>
+                        </li>
+                        <li
+                    [style]="{
+                      display: member.contact.scopus ? 'block' : 'none',
+                    }"
+                          >
+                          <a [href]="member.contact.scopus" target="_blank">
+                            <img
+                              src="/img/social/scopus.ico"
+                              style="border-radius: 50%"
+                              alt=""
+                              />
+                          </a>
+                        </li>
+                      </ul>
+                    }
+                  </div>
+                  <div class="team-content">
+                    <h3>{{ member.name }}</h3>
+                    @if (member.roles.length > 0) {
+                      <span class="text-start">
+                        <ul style="height: 100px; overflow-y: auto">
+                          @for (role of member.roles; track role) {
+                            <li>{{ role }}</li>
+                          }
+                        </ul>
+                      </span>
+                    }
+                  </div>
+                </div>
+              </ng-template>
+            }
+          </owl-carousel-o>
+        }
+      </div>
+    }
+  </div>
+</section>

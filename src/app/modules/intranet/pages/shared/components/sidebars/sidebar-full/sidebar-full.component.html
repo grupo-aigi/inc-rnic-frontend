@@ -1,0 +1,68 @@
+<div class="sidebar-area-full">
+  <ul class="navbar-nav" style="position: relative; margin-bottom: 50px">
+    @for (option of sidebarOptions; track $index) {
+      <li class="dynamic-font-size">
+        @if (option.display) {
+          <div>
+            <a
+              [routerLink]="option.route"
+              class="nav-link w-100 d-flex align-items-center"
+              >
+              <i [class]="option.icon" style="font-size: 25px"></i>
+
+              <p class="dynamic-font-size">{{ option.label[lang] }}</p>
+
+              @if (option.other) {
+                <span
+                  class="badge rounded-pill text-bg-primary"
+                  style="margin-left: 5px"
+                  >
+                  {{ option.other.badge }}
+                </span>
+              }
+            </a>
+
+            @if (!option.children) {
+              <i (click)="handleToggle(option)"></i>
+            }
+
+            @if (option.children && option.children.length > 0) {
+              <i
+                (click)="handleToggle(option)"
+                class="dropdown-icon"
+                [class]="option.open ? 'bx bx-chevron-up' : 'bx bx-chevron-down'"
+                >
+              </i>
+            }
+          </div>
+        }
+
+        @if (
+          option.display &&
+          option.children &&
+          option.children.length > 0 &&
+          option.open
+          ) {
+          <ul>
+            @for (child of option.children; track child) {
+              <li class="nav-item">
+                <a
+                  [routerLink]="child.route"
+                  class="nav-link w-100 d-flex align-items-center"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  >
+                  <i
+                    [class]="child.icon"
+                    style="font-size: 25px; margin-right: 5px"
+                  ></i>
+                  <p class="dynamic-font-size">{{ child.label[lang] }}</p>
+                </a>
+              </li>
+            }
+          </ul>
+        }
+      </li>
+    }
+  </ul>
+</div>

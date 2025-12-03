@@ -1,0 +1,107 @@
+<section class="blog-area p-3">
+  <div class="sidebar-widget news-sidebar-widget search pb-4">
+    <form autocomplete="off" class="search-form">
+      <input
+        autocomplete="off"
+        class="form-control"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        [placeholder]="labels.searchAndHitEnter[lang]"
+        type="text"
+        (blur)="handleCloseSearchOptions($event)"
+        (keyup)="handleSearchByTerm($event)"
+        (click)="handleOpenOptions($event)"
+        />
+      @if (
+        recommendedOptions.length > 0 && displaySearchOptions) {
+        <div
+          style="padding-left: 20px; padding-right: 20px; position: relative"
+          >
+          <div class="search-options">
+            <ul>
+              @for (
+                recommendedOption of recommendedOptions; track
+                recommendedOption; let isLast = $last) {
+                <li
+                  >
+                  <a
+                    [href]="'/publicaciones/' + recommendedOption.urlName"
+                    class="option-item row d-flex flex-row justify-content-between align-items-center recommendation-item"
+                    >
+                    <span class="col-lg-5" style="font-weight: 600">{{
+                      recommendedOption.title
+                    }}</span>
+                    <div
+                      class="col-lg-7 row d-flex flex-row justify-content-end align-items-center flex-wrap"
+                      >
+                      <span
+                        class="col-sm-5 col-lg-3"
+                    style="
+                      width: fit-content;
+                      padding: 5px 10px;
+                      border-radius: 5px;
+                      color: white;
+                    "
+                        >
+                        {{ recommendedOption.title }}
+                      </span>
+                      <p class="col-sm-7 col-lg-9 text-end">
+                        <i class="flaticon-calendar" style="margin: 0px 5px"></i>
+                        <span>
+                          {{ labels.createdAt[lang] }}:
+                          {{ formatDate(recommendedOption.createdAt) }}
+                        </span>
+                      </p>
+                    </div>
+                  </a>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      } @else {
+        @if (!loadingRecommendations && displaySearchOptions) {
+          <div
+            style="position: absolute; bottom: -12px; background-color: red"
+            class=""
+            >
+            <span class="bg-warning px-3 w-100 py-3" style="font-weight: 600">
+              {{ labels.noRecommendationsFound[lang] }}
+            </span>
+          </div>
+        }
+      }
+
+      <ng-template #noRecommendationsFound>
+        @if (!loadingRecommendations && displaySearchOptions) {
+          <div
+            style="position: absolute; bottom: -12px; background-color: red"
+            class=""
+            >
+            <span class="bg-warning px-3 w-100 py-3" style="font-weight: 600">
+              {{ labels.noRecommendationsFound[lang] }}
+            </span>
+          </div>
+        }
+      </ng-template>
+
+      <button
+        class="search-button"
+        type="button"
+        (click)="handleClearSearch($event)"
+        >
+        @if (loadingRecommendations) {
+          <div
+            class="spinner-border text-primary d-flex flex-column justify-content-center align-items-center align-content-center m-auto"
+            role="status"
+            (click)="handleClickSearch($event)"
+            >
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        } @else {
+          <i [class]="searchTerm ? 'bx bx-x' : 'bx bx-search'"></i>
+        }
+      </button>
+    </form>
+  </div>
+</section>

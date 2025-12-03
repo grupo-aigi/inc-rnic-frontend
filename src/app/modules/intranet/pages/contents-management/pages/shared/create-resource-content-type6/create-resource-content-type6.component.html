@@ -1,0 +1,169 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="get-quote-form"
+>
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <input
+          type="text"
+          name="title"
+          formControlName="title"
+          class="form-control"
+          [placeholder]="labels.title.placeholder[lang]"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="paragraph"
+          formControlName="paragraph"
+          class="form-control"
+          [placeholder]="labels.paragraphContent.placeholder[lang]"
+          style="resize: vertical; min-height: 200px; max-height: 400px"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+      <button
+        type="button"
+        (click)="handleAddParagraph()"
+        class="btn default-btn"
+      >
+        {{
+          paragraphEditMode
+            ? labels.updateParagraph[lang]
+            : labels.addParagraph[lang]
+        }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (paragraph of paragraphs; track paragraph; let i = $index) {
+      <div class="col-lg-12 col-sm-12 m-1 p-1">
+        <span>{{ labels.paragraphNro[lang] }} #{{ i + 1 }}</span>
+        <div class="card">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 p-3">
+              <span>{{ paragraph }}</span>
+            </div>
+            <div class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-info m-2 text-white"
+                (click)="handleEditParagraph(i)"
+              >
+                {{ labels.edit[lang] }}
+              </button>
+              <button
+                (click)="handleDeleteParagraph(i)"
+                type="button"
+                class="btn btn-danger m-2"
+              >
+                {{ labels.delete[lang] }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <hr />
+  <p>{{ labels.listType[lang] }}</p>
+
+  <div class="row">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        (change)="handleSelectListType('ordered')"
+        name="flexRadioDefault"
+        id="flexRadioDefault1"
+        checked
+      />
+      <label class="form-check-label" for="flexRadioDefault1">
+        {{ labels.sorted[lang] }}
+      </label>
+    </div>
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        (change)="handleSelectListType('unordered')"
+        name="flexRadioDefault"
+        id="flexRadioDefault2"
+      />
+      <label class="form-check-label" for="flexRadioDefault2">
+        {{ labels.unsorted[lang] }}
+      </label>
+    </div>
+  </div>
+
+  <div class="row pt-3">
+    <div class="col-lg-12 col-sm-12">
+      <div class="form-group">
+        <textarea
+          name="item"
+          formControlName="item"
+          class="form-control"
+          [placeholder]="labels.itemContent.placeholder[lang]"
+          style="resize: vertical; min-height: 10px; max-height: 200px"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-12">
+      <button type="button" (click)="handleAddItem()" class="btn default-btn">
+        {{ paragraphEditMode ? labels.updateItem[lang] : labels.addItem[lang] }}
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    @for (item of items; track item; let i = $index) {
+      <div class="col-lg-12 col-sm-12 m-1 p-1">
+        <span>{{ labels.itemNro[lang] }} #{{ i + 1 }}</span>
+        <div class="card">
+          <div class="row">
+            <div class="col-lg-12 col-sm-12 p-3">
+              <span>{{ item }}</span>
+            </div>
+            <div class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center">
+              <button
+                type="button"
+                class="btn btn-info m-2 text-white"
+                (click)="handleEditItem(i)"
+              >
+                {{ labels.edit[lang] }}
+              </button>
+              <button
+                (click)="handleRemoveItem(i)"
+                type="button"
+                class="btn btn-danger m-2"
+              >
+                {{ labels.delete[lang] }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 d-flex m-auto">
+      <button type="submit" class="btn default-btn success-button m-1">
+        {{ labels.addResource[lang] }}
+      </button>
+      <button type="reset" class="btn default-btn clean-button m-1">
+        {{ labels.restoreChanges[lang] }}
+      </button>
+    </div>
+  </div>
+</form>

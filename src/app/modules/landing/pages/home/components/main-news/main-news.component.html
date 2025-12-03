@@ -1,0 +1,123 @@
+<div class="main-news-section container">
+  <div class="section-title">
+    <span class="top-title dynamic-font-size">{{ labels.mainNews[lang] }}</span>
+    <h2 class="dynamic-font-size">{{ labels.mostRecentNews[lang] }}</h2>
+  </div>
+
+  @if (loadingNews) {
+    <div class="d-flex flex-column align-items-center justify-content-center">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="my-2 dynamic-font-size">{{ labels.loadingNews[lang] }}</p>
+    </div>
+  } @else {
+    @if (newsPosters.length > 0) {
+      <div class="row">
+        @for (newsPoster of newsPosters; track newsPoster) {
+          <div class="col-lg-4 col-md-6">
+            <div class="single-blog-post">
+              <div class="blog-img">
+                <a
+                  target="_blank"
+                  [routerLink]="'/noticias/' + newsPoster.urlName"
+                >
+                  <img
+                    style="width: 100%"
+                    [src]="
+                      getImageUrlByName(newsPoster.imageName) ||
+                      '/img/blog/blog-7.jpg'
+                    "
+                    alt="Image"
+                  />
+                </a>
+              </div>
+              <div class="blog-content position-relative dynamic-font-size">
+                <span
+                  class="rounded-pill badge badge-primary news-category dynamic-font-size"
+                  [ngStyle]="{
+                    'background-color': wordToHexColor(
+                      newsPoster.category.name
+                    ),
+                  }"
+                >
+                  {{ newsPoster.category.name }}
+                </span>
+                <ul>
+                  <li>
+                    <i class="bx bx-user dynamic-font-size"></i>
+                    <span class="dynamic-font-size" [title]="newsPoster.author"
+                      >{{ newsPoster.author }}
+                    </span>
+                  </li>
+                  <li>
+                    <i class="bx bx-calendar dynamic-font-size"></i
+                    >{{ formatNewsDate(newsPoster.updatedAt) }}
+                  </li>
+                </ul>
+                <h3>
+                  <a
+                    class="dynamic-font-size"
+                    target="_blank"
+                    [routerLink]="'/noticias/' + newsPoster.urlName"
+                    >{{ newsPoster.title }}</a
+                  >
+                </h3>
+                <p
+                  class="dynamic-font-size"
+                  [title]="newsPoster.description"
+                  style="text-align: justify"
+                >
+                  {{ trim(newsPoster.description, 200) }}
+                </p>
+                <a
+                  target="_blank"
+                  [routerLink]="'/noticias/' + newsPoster.urlName"
+                  class="read-more dynamic-font-size"
+                  >{{ labels.readCompleteNews[lang] }}</a
+                >
+              </div>
+            </div>
+          </div>
+        }
+        <div class="col-lg-12 col-md-12 dynamic-font-size">
+          <div class="pagination-area">
+            <a
+              [routerLink]="['/noticias']"
+              class="default-btn m-auto dynamic-font-size"
+              type="submit"
+              >{{ labels.viewAll[lang] }}...</a
+            >
+          </div>
+        </div>
+      </div>
+    } @else {
+      <p
+        class="alert text-center"
+        style="
+          border: 1px solid #12bec8;
+          color: white;
+          font-weight: 800;
+          background-color: #82dee5;
+        "
+        role="alert"
+      >
+        {{ labels.noNews[lang] }}
+      </p>
+    }
+    <ng-template #noNews>
+      <p
+        class="alert text-center"
+        style="
+          border: 1px solid #12bec8;
+          color: white;
+          font-weight: 800;
+          background-color: #82dee5;
+        "
+        role="alert"
+      >
+        {{ labels.noNews[lang] }}
+      </p>
+    </ng-template>
+  }
+</div>

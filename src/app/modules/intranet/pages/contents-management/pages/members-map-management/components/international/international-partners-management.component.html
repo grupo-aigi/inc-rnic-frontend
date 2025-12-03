@@ -1,0 +1,250 @@
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleAddMembersDistribution()"
+  class="container pt-3 get-quote-form"
+  >
+  <div class="row pt-3">
+    <span>{{ labels.addInstitution[lang] }}</span>
+
+    <div class="col-lg-3 col-sm-12 mt-3">
+      <div class="form-group position-relative">
+        <input
+          type="text"
+          autocomplete="off"
+          name="country"
+          [(ngModel)]="searchTerm"
+          (keyup)="handleSearchByTerm($event)"
+          (click)="handleOpenOptions($event)"
+          formControlName="country"
+          class="form-control"
+          [placeholder]="labels.typeCountry[lang]"
+          [ngClass]="{
+            'inline-text-input__invalid': isFieldInvalid('country'),
+          }"
+          />
+        @if (isFieldInvalid('country')) {
+          <small class="input-label__invalid">
+            {{ labels.invalidCountry[lang] }}
+          </small>
+        }
+
+        @if (recommendedOptions.length > 0 && displaySearchOptions) {
+          <div
+            style="position: absolute; width: 100%; z-index: 1000000"
+            >
+            <div class="search-options" style="background-color: #8ed3ee">
+              @for (
+                recommendedOption of recommendedOptions; track
+                recommendedOption; let isLast = $last) {
+                <div
+                  class="w-100 p-1"
+                  >
+                  <div
+                    (click)="handleSelectCountry(recommendedOption, $event)"
+                    class="w-100 p-3 recommendation-item"
+                style="
+                  font-weight: 600;
+                  width: 100%;
+                  background-color: #90e0ef;
+                  cursor: pointer;
+                  margin-bottom: 2px;
+                  color: white;
+                "
+                    >
+                    {{ recommendedOption }}
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-sm-12 mt-3">
+      <div class="form-group">
+        <input
+          type="text"
+          name="institution"
+          formControlName="institution"
+          class="form-control"
+          [placeholder]="labels.institutionName[lang]"
+          [ngClass]="{
+            'inline-text-input__invalid': isFieldInvalid('institution'),
+          }"
+          />
+        @if (isFieldInvalid('institution')) {
+          <small
+            class="input-label__invalid"
+            >{{ labels.invalidInstitution[lang] }}</small
+            >
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-sm-12 mt-3">
+        <div class="form-group">
+          <input
+            type="number"
+            min="0"
+            name="count"
+            formControlName="count"
+            class="form-control"
+            [placeholder]="labels.membersCount[lang]"
+          [ngClass]="{
+            'inline-text-input__invalid': isFieldInvalid('count'),
+          }"
+            />
+          @if (isFieldInvalid('count')) {
+            <small class="input-label__invalid">{{
+              labels.membersCountInvalid[lang]
+            }}</small>
+          }
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-sm-12 mt-3">
+        <button type="submit" class="btn default-btn">
+          {{ labels.add[lang] }}
+        </button>
+      </div>
+    </div>
+
+    @if (
+      internationalMembersDistributions.length > 0) {
+      <span
+        class="pt-5"
+        >{{ labels.listOfInstitutions[lang] }}</span
+        >
+      } @else {
+        <div class="alert alert-primary text-center mt-5" role="alert">
+          {{ labels.noMembers[lang] }}
+        </div>
+      }
+
+
+      <div class="row">
+        @for (country of filteredMembersDistributions; track country) {
+          <div
+            class="col-lg-12 col-sm-12"
+      style="
+        background-color: #f1fbfc;
+        padding: 20px 10px 0px 10px;
+        margin-top: 15px;
+      "
+            >
+            <div class="d-flex justify-content-between">
+              <h3 style="font-weight: 300; margin-left: 15px">
+                {{ country.content.name }}
+              </h3>
+              <p style="font-weight: 300; margin-right: 15px">
+                {{ getCountryMembersCount(country.content.institutions) }}
+                {{
+                getCountryMembersCount(country.content.institutions) === 1
+                ? 'Miembro'
+                : 'Miembros'
+                }}
+              </p>
+            </div>
+            @for (institution of country.content.institutions; track institution; let i = $index) {
+              <div
+                class="row"
+                style="border: 1px solid lightgray; padding: 15px; margin: 10px 0"
+                >
+                <div class="col-lg-8 col-sm-12">
+                  <h5 style="font-weight: 600">{{ institution.name }}</h5>
+                  @if (lang === 'es') {
+                    <p>
+                      {{ institution.count }}
+                      {{ institution.count === 1 ? 'Miembro' : 'Miembros' }}
+                    </p>
+                  } @else {
+                    {{ institution.count }}
+                    {{ institution.count === 1 ? 'Member' : 'Members' }}
+                  }
+                </div>
+                @if (
+                  countryRecordIdToEdit !== country.id ||
+                  i !== institutionIndexToEdit) {
+                  <div
+                    class="col-lg-4 col-sm-12 d-flex"
+                    >
+                    <button
+                      type="button"
+                      class="btn default-btn m-1"
+                      (click)="handleEditInstitution(country.id!, i)"
+                      >
+                      {{ labels.edit[lang] }}
+                    </button>
+                    <button
+                      (click)="handleDeleteInstitution(country.id!, i)"
+                      type="button"
+                      class="btn default-btn m-1 bg-danger"
+                      >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                } @else {
+                  <form
+                    [formGroup]="editFormGroup"
+                    (ngSubmit)="handleConfirmEditInstitution()"
+                    class="container pt-3 get-quote-form position-relative"
+                    >
+                    <div
+                      class="col-lg-4 col-sm-12 d-flex position-absolute"
+                      style="top: -50px; right: 10px"
+                      >
+                      <button type="submit" class="btn default-btn m-1">
+                        {{ labels.confirm[lang] }}
+                      </button>
+                      <button
+                        class="btn default-btn m-1"
+                        type="button"
+                        (click)="handleCancelEditInstitution()"
+                        >
+                        {{ labels.cancel[lang] }}
+                      </button>
+                    </div>
+                    <div class="row pt-3">
+                      <div class="col-lg-6 col-sm-12 mt-3">
+                        <div class="form-group">
+                          <input
+                            type="text"
+                            name="editInstitution"
+                            formControlName="editInstitution"
+                            class="form-control"
+                            [placeholder]="labels.institutionName[lang]"
+                            />
+                          @if (isFieldInvalid('editInstitution')) {
+                            <small
+                              class="input-label__invalid"
+                              >{{ labels.invalidInstitution[lang] }}</small
+                              >
+                            }
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 mt-3">
+                          <div class="form-group">
+                            <input
+                              type="number"
+                              min="0"
+                              name="editCount"
+                              formControlName="editCount"
+                              class="form-control"
+                              [placeholder]="labels.membersCount[lang]"
+                              />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  }
+                  <div class="col-lg-12 col-sm-12">
+                    <!-- ---------------------------------- -->
+                    <!-- ---------------------------------- -->
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </form>

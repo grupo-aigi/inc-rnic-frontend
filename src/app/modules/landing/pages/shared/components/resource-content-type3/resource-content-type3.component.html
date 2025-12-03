@@ -1,0 +1,16 @@
+<div class="content step-4">
+  <h3>{{ content.title }}</h3>
+  <p>
+    {{ content.paragraphs }}
+  </p>
+
+  <div class="row">
+    @for (image of content.images; track image) {
+      <div class="col-lg-6 col-md-6">
+        <div class="car-insurance-img-2">
+          <img [src]="getImageUrlByName(image)" [alt]="target + 'Image'" />
+        </div>
+      </div>
+    }
+  </div>
+</div>
