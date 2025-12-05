@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rnic-frontend-service
+  namespace: production
+  labels:
+    app: rnic-frontend
+spec:
+  selector:
+    app: rnic-frontend
+  ports:
+    - name: rnic-frontend
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP

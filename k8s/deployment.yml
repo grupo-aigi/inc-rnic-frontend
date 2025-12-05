@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rnic-frontend
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: rnic-frontend
+  template:
+    metadata:
+      labels:
+        app: rnic-frontend
+    spec:
+      imagePullSecrets:
+        - name: cancerologia-dockerhub-secret
+      containers:
+        - name: rnic-frontend
+          image: cancerologiadevteam/rnic-frontend:1.0.0
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "128m"
+          ports:
+            - containerPort: 80
+
