@@ -16,7 +16,7 @@ spec:
         - name: cancerologia-dockerhub-secret
       containers:
         - name: rnic-frontend
-          image: cancerologiadevteam/rnic-frontend:1.0.0
+          image: cancerologiadevteam/rnic-frontend:1.0.1
           resources:
             limits:
               memory: "256Mi"
