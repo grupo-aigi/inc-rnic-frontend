@@ -1,0 +1,167 @@
+<section class="get-quote-area pt-3">
+  <div class="container">
+    <div class="tab get-quote-tab">
+      <ul
+        class="create-news_content-tabs tabs mb-2"
+        (click)="handleClickOnTab()"
+      >
+        <li (click)="changeActiveTab(0)">{{ labels.type0[lang] }}</li>
+        @if (!baseInfo) {
+          <span></span>
+        } @else {
+          <li (click)="changeActiveTab(1)">{{ labels.aboutUs[lang] }}</li>
+          <li (click)="changeActiveTab(2)">
+            {{ labels.generalObjective[lang] }}
+          </li>
+          <li (click)="changeActiveTab(3)">
+            {{ labels.specificObjectives[lang] }}
+          </li>
+          <li (click)="changeActiveTab(4)">{{ labels.roadmap[lang] }}</li>
+          <li (click)="changeActiveTab(5)">{{ labels.guidelines[lang] }}</li>
+          <li (click)="changeActiveTab(6)">
+            {{ labels.howToParticipate[lang] }}
+          </li>
+          <li (click)="changeActiveTab(7)">{{ labels.members[lang] }}</li>
+          <li (click)="changeActiveTab(8)">{{ labels.projects[lang] }}</li>
+          <li (click)="changeActiveTab(9)">
+            {{ labels.events[lang] }}
+          </li>
+          <li (click)="changeActiveTab(10)">{{ labels.contact[lang] }}</li>
+        }
+      </ul>
+
+      <div class="tab_content">
+        @switch (activeTabIndex) {
+          @case (0) {
+            <div class="tabs_item">
+              <app-create-scientific-ecosystem-base-info
+                [baseInfo]="baseInfo"
+                (onSubmit)="handleSetBaseInfo($event)"
+              ></app-create-scientific-ecosystem-base-info>
+            </div>
+          }
+
+          @case (1) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-about-us
+                (onSubmit)="handleUpdateAboutUs($event)"
+              ></app-set-scientific-ecosystem-about-us>
+            </div>
+          }
+
+          @case (2) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-general-objective
+                (onSubmit)="handleUpdateGeneralObjective($event)"
+              ></app-set-scientific-ecosystem-general-objective>
+            </div>
+          }
+
+          @case (3) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-specific-objectives
+                (onSubmit)="handleUpdateSpecificObjectives($event)"
+              ></app-set-scientific-ecosystem-specific-objectives>
+            </div>
+          }
+
+          @case (4) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-roadmap
+                (onSubmit)="handleUpdateRoadmap($event)"
+              ></app-set-scientific-ecosystem-roadmap>
+            </div>
+          }
+
+          @case (5) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-guidelines
+                (onSubmit)="handleUpdateGuidelines($event)"
+              ></app-set-scientific-ecosystem-guidelines>
+            </div>
+          }
+
+          @case (6) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-how-to-participate
+                (onSubmit)="handleUpdateHowToParticipate($event)"
+              ></app-set-scientific-ecosystem-how-to-participate>
+            </div>
+          }
+
+          @case (7) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-members
+                (onSubmit)="handleUpdateMembers($event)"
+              ></app-set-scientific-ecosystem-members>
+            </div>
+          }
+
+          @case (8) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-projects
+                (onSubmit)="handleUpdateProjects($event)"
+              ></app-set-scientific-ecosystem-projects>
+            </div>
+          }
+
+          @case (9) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-events
+                (onSubmit)="handleUpdateEvents($event)"
+              ></app-set-scientific-ecosystem-events>
+            </div>
+          }
+
+          @case (10) {
+            <div class="tabs_item">
+              <app-set-scientific-ecosystem-contact
+                (onSubmit)="handleUpdateContact($event)"
+              ></app-set-scientific-ecosystem-contact>
+            </div>
+          }
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="get-quote-area pt-3">
+  <div class="container">
+    @if (baseInfo) {
+      <div>
+        <!-- <app-create-event-current-resources
+          [baseInfo]="baseInfo"
+          [currentResources]="resources"
+          (onMoveUp)="handleMoveUp($event)"
+          (onMoveDown)="handleMoveDown($event)"
+        ></app-create-event-current-resources> -->
+      </div>
+    }
+  </div>
+</section>
+
+<div class="row mt-5">
+  <div class="col-lg-12 col-sm-12 d-flex justify-content-center">
+    <button
+      [disabled]="!baseInfo"
+      type="button"
+      (click)="handlePublishScientificEcosystem()"
+      class="btn default-btn m-1"
+    >
+      {{
+        eventUrlNameToEdit ? labels.confirmUpdate[lang] : labels.publish[lang]
+      }}
+    </button>
+
+    @if (eventUrlNameToEdit) {
+      <button
+        type="button"
+        (click)="handleCancelUpdate()"
+        class="btn default-btn bg-danger m-1"
+      >
+        {{ labels.cancelUpdate[lang] }}
+      </button>
+    }
+  </div>
+</div>

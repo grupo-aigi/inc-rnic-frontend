@@ -220,10 +220,9 @@
                   {{ labels.ncp[lang] }}
                 </a>
               </li>
-              <li class="nav-item" title="Publicaciones">
-                <a
-                  routerLink="/publicaciones"
-                  class="nav-link dynamic-font-size"
+
+              <li class="nav-item" title="Otros">
+                <a routerLink="#" class="nav-link dynamic-font-size"
                   >{{ labels.others[lang] }} <i class="bx bx-chevron-down"></i
                 ></a>
                 <ul class="dropdown-menu">
@@ -281,17 +280,16 @@
                       {{ labels.news[lang] }}
                     </a>
                   </li>
+                </ul>
+              </li>
 
-                  <li class="nav-item">
-                    <a
-                      [routerLink]="['/ecosistema-cientifico']"
-                      class="nav-link dynamic-font-size"
-                      routerLinkActive="active"
-                      [routerLinkActiveOptions]="{ exact: true }"
-                    >
-                      {{ labels.scientificEcosystem[lang] }}
-                    </a>
-                  </li>
+              <li class="nav-item" title="Ecosystem">
+                <a routerLink="#" class="nav-link dynamic-font-size"
+                  >{{ labels.ecosystem[lang] }}
+                  <i class="bx bx-chevron-down"></i
+                ></a>
+                <ul class="dropdown-menu">
+                  <app-scientific-ecosystem-menu-items></app-scientific-ecosystem-menu-items>
                 </ul>
               </li>
             </ul>

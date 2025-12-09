@@ -8,234 +8,256 @@
             labels.main[lang]
           }}</a>
         </li>
-        <li class="active dynamic-font-size">Hola mundo</li>
+        <li>
+          <a routerLink="/ecosistema" class="dynamic-font-size">{{
+            labels.ecosystem[lang]
+          }}</a>
+        </li>
+        <li class="active dynamic-font-size">Ecosistema 1</li>
       </ul>
     </div>
   </div>
 </div>
 
-<div class="d-flex justify-content-center my-5">
-  <img
-    src="/img/logos-inc-y-rnic/logo-inc-rnic-lg.png"
-    class="w-25"
-    alt="logo-inc-rnic-lg"
-  />
-</div>
+<div class="m-0 p-0">
+  <app-scientific-ecosystem-sidebar></app-scientific-ecosystem-sidebar>
 
-<div style="background-color: #12bec8" class="mt-4">
-  <div class="container">
-    <div class="footer-card dynamic-font-size" style="border-radius: 8px">
-      <div class="row">
-        <div class="col-lg-12 col-md-12 dynamic-font-size">
-          <div
-            class="single-footer-widget dynamic-font-size pt-5"
-            style="padding-bottom: 100px"
-          >
-            <h2 class="text-white text-center pt-5 pb-3">
-              Ecosistema científico en alianza para la investigación, desarrollo
-              e innovación de un programa de tamización y detección temprana de
-              cáncer de colorrectal en Colombia
-            </h2>
-            <hr class="w-25 mx-auto my-4 custom-hr" />
+  <div style="margin-left: 300px; overflow-x: hidden" class="dynamic-font-size">
+    <div class="mt-1">
+      <app-scientific-ecosystem-sections [sections]="ecosystemData.sections">
+      </app-scientific-ecosystem-sections>
+    </div>
+    <div class="d-flex justify-content-center my-5">
+      <img
+        src="/img/logos-inc-y-rnic/logo-inc-rnic-lg.png"
+        class="w-25"
+        alt="logo-inc-rnic-lg"
+      />
+    </div>
+
+    <div style="background-color: #12bec8" class="mt-4">
+      <div class="footer-card dynamic-font-size" style="border-radius: 8px">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 dynamic-font-size">
+            <div
+              class="single-footer-widget dynamic-font-size pt-5"
+              style="padding-bottom: 100px"
+            >
+              <h2 class="text-white text-center pt-5 pb-3">
+                Ecosistema científico en alianza para la investigación,
+                desarrollo e innovación de un programa de tamización y detección
+                temprana de cáncer de colorrectal en Colombia
+              </h2>
+              <hr class="w-25 mx-auto my-4 custom-hr" />
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container my-5 py-5">
-  <div class="row">
-    <div class="col-lg-12">
-      <h2
-        class="dynamic-font-size mb-5 display-3"
-        style="color: #12bec8; font-weight: bold"
-      >
-        Características esenciales del ecosistema científico para CCR
-      </h2>
+    <div class="container my-5 py-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2
+            class="dynamic-font-size mb-5 display-3"
+            style="color: #12bec8; font-weight: bold"
+          >
+            Características esenciales del ecosistema científico para CCR
+          </h2>
 
-      <div class="row align-items-start">
-        <div class="col-lg-2 col-md-3 text-center mb-4 mb-md-0">
-          <img
-            src="/img/landing/scientific-ecosystem/logo-characterisitcs.png"
-            style="width: 120px; height: 120px; margin: 0 auto"
-          />
-        </div>
+          <div class="row align-items-start">
+            <div class="col-lg-2 col-md-3 text-center mb-4 mb-md-0">
+              <img
+                src="/img/landing/scientific-ecosystem/logo-characterisitcs.png"
+                style="width: 120px; height: 120px; margin: 0 auto"
+              />
+            </div>
 
-        <div class="col-lg-10 col-md-9 border-start-characteristics ps-5">
-          <ul class="list-unstyled dynamic-font-size" style="line-height: 2">
-            <li class="mb-4">
-              <strong>Defensa del papel clave del estado</strong> y de sus
-              agencias, con la responsabilidad de impulsar una
-              <strong>misión para el control integral del cáncer</strong>, y las
-              posibles soluciones basadas en la inclusión y el diálogo
-              sociopolítico.
-            </li>
-
-            <li class="mb-4">
-              Énfasis en el
-              <strong
-                >cambio de la direccionalidad y transformación del sistema
-                socio-técnico</strong
+            <div class="col-lg-10 col-md-9 border-start-characteristics ps-5">
+              <ul
+                class="list-unstyled dynamic-font-size"
+                style="line-height: 2"
               >
-              a través de enfoques multi/transdisciplinarios y participación
-              multisectorial.
-            </li>
+                <li class="mb-4">
+                  <strong>Defensa del papel clave del estado</strong> y de sus
+                  agencias, con la responsabilidad de impulsar una
+                  <strong>misión para el control integral del cáncer</strong>, y
+                  las posibles soluciones basadas en la inclusión y el diálogo
+                  sociopolítico.
+                </li>
 
-            <li class="mb-4">
-              Coordinación en la
-              <strong
-                >formulación e identificación de posibles vías
-                innovadoras</strong
-              >
-              de intervención del problema que justifica el programa,
-              reconociendo la necesaria coordinación horizontal entre dominios
-              de políticas y coordinación vertical en diferentes ámbitos
-              regionales y territoriales.
-            </li>
+                <li class="mb-4">
+                  Énfasis en el
+                  <strong
+                    >cambio de la direccionalidad y transformación del sistema
+                    socio-técnico</strong
+                  >
+                  a través de enfoques multi/transdisciplinarios y participación
+                  multisectorial.
+                </li>
 
-            <li class="mb-4">
-              <strong
-                >Capacidad para acceder o movilizar un espectro de instrumentos
-                de políticas</strong
-              >
-              y eventualmente crear nuevos instrumentos, reconociendo que las
-              misiones pueden involucrar tanto el desarrollo, como la
-              implementación de prácticas y tecnologías "nuevas" y la
-              eliminación gradual de las antiguas".
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+                <li class="mb-4">
+                  Coordinación en la
+                  <strong
+                    >formulación e identificación de posibles vías
+                    innovadoras</strong
+                  >
+                  de intervención del problema que justifica el programa,
+                  reconociendo la necesaria coordinación horizontal entre
+                  dominios de políticas y coordinación vertical en diferentes
+                  ámbitos regionales y territoriales.
+                </li>
 
-<div class="container my-5 py-5">
-  <div class="row">
-    <div class="col-lg-12 text-center">
-      <div class="mb-4">
-        <img
-          src="/img/landing/scientific-ecosystem/logo-general-objective.png"
-          alt="Objetivo Icono"
-          style="width: 100px; height: 100px"
-        />
-      </div>
-      <h2
-        class="dynamic-font-size mb-5 display-3"
-        style="color: #12bec8; font-weight: bold"
-      >
-        Objetivo general
-      </h2>
-
-      <div class="dynamic-font-size fs-6">
-        <p>
-          <strong>Desarrollar un ecosistema científico</strong> para el control
-          del CCR,
-          <strong
-            >que contribuya a la generación de conocimiento, investigación,
-            desarrollo e innovación</strong
-          >, a través de la implementación de un programa organizado de
-          tamización en población de alto riesgo de morir por CCR, que
-          contribuya con el desarrollo de políticas públicas sostenibles en el
-          marco del SGSS en Colombia, 2023-2026
-        </p>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="container my-5 py-5">
-  <div class="row">
-    <div class="col-lg-12">
-      <h2
-        class="dynamic-font-size mb-5 display-3"
-        style="color: #12bec8; font-weight: bold"
-      >
-        Objetivos específicos
-      </h2>
-
-      <div class="row align-items-start">
-        <div class="col-lg-2 col-md-3 text-center mb-4 mb-md-0">
-          <img
-            src="/img/landing/scientific-ecosystem/logo-specific-objectives.png"
-            style="width: 120px; margin: 0 auto"
-          />
-        </div>
-
-        <div class="col-lg-10 col-md-9 border-start-characteristics ps-5">
-          <ul class="list-unstyled dynamic-font-size" style="line-height: 2">
-            <li class="mb-4">
-              <strong>Monitorizar la conexión</strong> y la coordinación de los
-              actores del ecosistema a través del seguimiento de los proyectos
-              formulados.
-            </li>
-
-            <li class="mb-4">
-              <strong>Consolidar la comunicación</strong> e información de los
-              actores del ecosistema mediante el diseño e implementación de una
-              plataforma interactiva para los actores del ecosistema científico
-              y usuarios interesados.
-            </li>
-
-            <li class="mb-4">
-              <strong>Promover el aprendizaje y la capacidad reflexiva</strong>
-              de los integrantes del ecosistema científico mediante encuentros
-              académicos, así como el análisis de la información primaria y
-              secundarias generada en el marco del desarrollo de los proyectos
-              de investigación de CCR.
-            </li>
-
-            <li class="mb-4">
-              <strong>Contribuir con la formulación de políticas</strong>
-              públicas, planes, programas y normatividad relacionada con el
-              control del CCR para promover la implementación de nuevas
-              prácticas y tecnologías.
-            </li>
-
-            <li class="mb-4">
-              <strong
-                >Contribuir con la generación de competencias técnicas</strong
-              >
-              para el desarrollo del talento humano relacionado con el control
-              del CCR en Colombia.
-            </li>
-          </ul>
+                <li class="mb-4">
+                  <strong
+                    >Capacidad para acceder o movilizar un espectro de
+                    instrumentos de políticas</strong
+                  >
+                  y eventualmente crear nuevos instrumentos, reconociendo que
+                  las misiones pueden involucrar tanto el desarrollo, como la
+                  implementación de prácticas y tecnologías "nuevas" y la
+                  eliminación gradual de las antiguas".
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container my-5 py-5 text-center">
-  <div class="row">
-    <div class="col-lg-12">
-      <h2
-        class="dynamic-font-size mb-5 display-3"
-        style="color: #12bec8; font-weight: bold"
-      >
-        Desafíos y misiones para el control integral del cáncer colorrectal
-      </h2>
-      <div class="">
-        <img
-          class="w-100 h-auto"
-          src="/img/landing/scientific-ecosystem/challenges.png"
-          alt="challenges"
-        />
+    <div class="container my-5 py-5">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <div class="mb-4">
+            <img
+              src="/img/landing/scientific-ecosystem/logo-general-objective.png"
+              alt="Objetivo Icono"
+              style="width: 100px; height: 100px"
+            />
+          </div>
+          <h2
+            class="dynamic-font-size mb-5 display-3"
+            style="color: #12bec8; font-weight: bold"
+          >
+            Objetivo general
+          </h2>
+
+          <div class="dynamic-font-size fs-6">
+            <p>
+              <strong>Desarrollar un ecosistema científico</strong> para el
+              control del CCR,
+              <strong
+                >que contribuya a la generación de conocimiento, investigación,
+                desarrollo e innovación</strong
+              >, a través de la implementación de un programa organizado de
+              tamización en población de alto riesgo de morir por CCR, que
+              contribuya con el desarrollo de políticas públicas sostenibles en
+              el marco del SGSS en Colombia, 2023-2026
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="container my-5 text-center">
-  <div class="row justify-content-center">
-    <div class="col-lg-10">
-      <div class="">
-        <img
-          class="w-100 h-auto"
-          src="/img/landing/scientific-ecosystem/atom-graph.png"
-          alt="challenges"
-        />
+    <div class="container my-5 py-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2
+            class="dynamic-font-size mb-5 display-3"
+            style="color: #12bec8; font-weight: bold"
+          >
+            Objetivos específicos
+          </h2>
+
+          <div class="row align-items-start">
+            <div class="col-lg-2 col-md-3 text-center mb-4 mb-md-0">
+              <img
+                src="/img/landing/scientific-ecosystem/logo-specific-objectives.png"
+                style="width: 120px; margin: 0 auto"
+              />
+            </div>
+
+            <div class="col-lg-10 col-md-9 border-start-characteristics ps-5">
+              <ul
+                class="list-unstyled dynamic-font-size"
+                style="line-height: 2"
+              >
+                <li class="mb-4">
+                  <strong>Monitorizar la conexión</strong> y la coordinación de
+                  los actores del ecosistema a través del seguimiento de los
+                  proyectos formulados.
+                </li>
+
+                <li class="mb-4">
+                  <strong>Consolidar la comunicación</strong> e información de
+                  los actores del ecosistema mediante el diseño e implementación
+                  de una plataforma interactiva para los actores del ecosistema
+                  científico y usuarios interesados.
+                </li>
+
+                <li class="mb-4">
+                  <strong
+                    >Promover el aprendizaje y la capacidad reflexiva</strong
+                  >
+                  de los integrantes del ecosistema científico mediante
+                  encuentros académicos, así como el análisis de la información
+                  primaria y secundarias generada en el marco del desarrollo de
+                  los proyectos de investigación de CCR.
+                </li>
+
+                <li class="mb-4">
+                  <strong>Contribuir con la formulación de políticas</strong>
+                  públicas, planes, programas y normatividad relacionada con el
+                  control del CCR para promover la implementación de nuevas
+                  prácticas y tecnologías.
+                </li>
+
+                <li class="mb-4">
+                  <strong
+                    >Contribuir con la generación de competencias
+                    técnicas</strong
+                  >
+                  para el desarrollo del talento humano relacionado con el
+                  control del CCR en Colombia.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-5 py-5 text-center">
+      <div class="row">
+        <div class="col-lg-12">
+          <h2
+            class="dynamic-font-size mb-5 display-3"
+            style="color: #12bec8; font-weight: bold"
+          >
+            Desafíos y misiones para el control integral del cáncer colorrectal
+          </h2>
+          <div class="">
+            <img
+              class="w-100 h-auto"
+              src="/img/landing/scientific-ecosystem/challenges.png"
+              alt="challenges"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container my-5 text-center">
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          <div class="">
+            <img
+              class="w-100 h-auto"
+              src="/img/landing/scientific-ecosystem/atom-graph.png"
+              alt="challenges"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

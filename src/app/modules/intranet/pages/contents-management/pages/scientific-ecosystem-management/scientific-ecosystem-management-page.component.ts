@@ -5,24 +5,28 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AnnouncementInfo } from '../../../../../../services/landing/announcements/announcement.interfaces';
 import { AnnouncementService } from '../../../../../../services/landing/announcements/announcement.service';
+import {
+  ScientificEcosystemCreateInfo,
+  ScientificEcosystemPoster,
+} from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
-import { CurrentScientificEcosystemComponent } from './components/display-scientific-ecosystem/current-scientific-ecosystem.component';
-import { ScientificEcosystemUpdateComponent } from './components/update-scientific-ecosystem/scientific-ecosystem-update.component';
+import { CreateScientificEcosystemComponent } from './components/create-scientific-ecosystem/create-scientific-ecosystem.component';
+import { ScientificEcosystemListComponent } from './components/scientific-ecosystem-list/scientific-ecosystem-list.component';
 import labels from './scientific-ecosystem-management.lang';
 
 @Component({
   standalone: true,
   templateUrl: './scientific-ecosystem-management-page.component.html',
   imports: [
-    CurrentScientificEcosystemComponent,
-    ScientificEcosystemUpdateComponent,
+    ScientificEcosystemListComponent,
+    CreateScientificEcosystemComponent,
   ],
 })
 export class ScientificEcosystemManagementPage {
   public activeTabIndex: number = 0;
-  @ViewChild('announcementsLI')
-  public announcementsLI!: ElementRef<HTMLLIElement>;
-
+  @ViewChild('scientificEcosystemsLI')
+  public scientificEcosystemsLI!: ElementRef<HTMLLIElement>;
+  public scientificEcosystemToEdit: ScientificEcosystemPoster | undefined;
   public constructor(
     private title: Title,
     private langService: LangService,
@@ -55,12 +59,21 @@ export class ScientificEcosystemManagementPage {
         this.toastService.success(
           labels.announcementCreatedSuccessfully[this.lang],
         );
-        this.announcementsLI.nativeElement.click();
+        this.scientificEcosystemsLI.nativeElement.click();
         this.activeTabIndex = 0;
       },
       error: (_err) => {
         this.toastService.error(labels.errorCreatingAnnouncement[this.lang]);
       },
     });
+  }
+
+  public submitScientificEcosystem(event: ScientificEcosystemCreateInfo) {}
+
+  public handleCancelUpdate() {
+    this.toastService.info(labels.updateCancelled[this.lang]);
+    this.scientificEcosystemToEdit = undefined;
+    this.changeActiveTab(0);
+    this.scientificEcosystemsLI.nativeElement.click();
   }
 }

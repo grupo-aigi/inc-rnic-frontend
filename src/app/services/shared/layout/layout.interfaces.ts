@@ -21,6 +21,11 @@ export interface SidebarOption {
   display: boolean;
 }
 
+export interface SimpleSidebarOption {
+  label: { es: string; en: string };
+  route: string;
+}
+
 export enum SidebarWidth {
   FULL = '300px',
   MEDIUM = '95px',

@@ -16,6 +16,7 @@ import { GlobalSearchComponent } from './components/global-search/global-search.
 import { MobileAccessibilityMenuComponent } from './components/mobile-accessibility-menu/mobile-accessibility-menu.component';
 import { MobileRoutesComponent } from './components/mobile-routes/mobile-routes.component';
 import labels from './navbar.lang';
+import { ScientificEcosystemMenuItemsComponent } from './components/scientific-ecosystem-menu-items/scientific-ecosystem-menu-items.component';
 
 @Component({
   standalone: true,
@@ -29,6 +30,7 @@ import labels from './navbar.lang';
     MobileRoutesComponent,
     AuthOptionsPopupComponent,
     MobileAccessibilityMenuComponent,
+    ScientificEcosystemMenuItemsComponent,
   ],
 })
 export class NavBarComponent implements OnInit {

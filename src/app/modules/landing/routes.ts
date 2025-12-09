@@ -50,7 +50,7 @@ const landingRoutes: Routes = [
         component: NationalContactPointPage,
       },
       {
-        path: 'ecosistema-cientifico',
+        path: 'ecosistema/:slug',
         component: ScientificEcosystemPage,
       },
       {

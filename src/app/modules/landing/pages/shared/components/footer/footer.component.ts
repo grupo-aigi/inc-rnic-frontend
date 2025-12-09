@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { isEnabled } from 'darkreader';
 
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
 import labels from './footer.lang';
-
 
 @Component({
   standalone: true,
@@ -13,6 +12,7 @@ import labels from './footer.lang';
   imports: [],
 })
 export class FooterComponent {
+  @Input() marginLeft = 0;
   public constructor(private langService: LangService) {}
 
   public get labels() {

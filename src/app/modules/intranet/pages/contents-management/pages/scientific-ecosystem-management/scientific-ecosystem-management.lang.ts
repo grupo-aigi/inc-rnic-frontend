@@ -1,15 +1,19 @@
 const labels = {
   pageTitle: {
-    en: 'Announcements Management | National Cancer Research Network',
-    es: 'Gestión de Comunicados | Red Nacional de Investigación en Cáncer',
+    en: 'Scientific Ecosystems Management | National Cancer Research Network',
+    es: 'Gestión de Ecosistemas Científicos | Red Nacional de Investigación en Cáncer',
   },
   currentScientificEcosystem: {
-    en: 'Current Scientific Ecosystem',
-    es: 'Ecosistema Científico Actual',
+    en: 'Current Ecosystems',
+    es: 'Ecosistemas Científicos Actuales',
   },
-  editScientificEcosystem: {
-    en: 'Edit Scientific Ecosystem',
-    es: 'Editar Ecosistema Científico',
+  updateCancelled: {
+    en: 'Update cancelled',
+    es: 'Actualización cancelada',
+  },
+  createScientificEcosystem: {
+    en: 'Create Scientific Ecosystem',
+    es: 'Crear Ecosistema Científico',
   },
   announcementCreatedSuccessfully: {
     es: 'Ecosistema Científico creado exitosamente',

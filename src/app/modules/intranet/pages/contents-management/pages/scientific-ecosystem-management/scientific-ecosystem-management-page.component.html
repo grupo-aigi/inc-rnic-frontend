@@ -1,25 +1,31 @@
 <section class="pt-2">
   <div class="tab get-quote-tab">
     <ul class="tabs">
-      <li #announcementsLI (click)="changeActiveTab(0)">
+      <li #scientificEcosystemsLI (click)="changeActiveTab(0)">
         {{ labels.currentScientificEcosystem[lang] }}
       </li>
       <li (click)="changeActiveTab(1)">
-        {{ labels.editScientificEcosystem[lang] }}
+        {{ labels.createScientificEcosystem[lang] }}
       </li>
     </ul>
 
     <div class="mb-5">
-      <div>
+      <div class="tab_content container">
         @switch (activeTabIndex) {
           @case (0) {
             <div class="tabs_item">
-              <app-current-scientific-ecosystem></app-current-scientific-ecosystem>
+              <app-scientific-ecosystem-list
+                variant="INTRANET"
+              ></app-scientific-ecosystem-list>
             </div>
           }
           @case (1) {
             <div class="tabs_item">
-              <app-scientific-ecosystem-update></app-scientific-ecosystem-update>
+              <app-create-scientific-ecosystem
+                [scientificEcosystemToEdit]="scientificEcosystemToEdit"
+                (onSubmit)="submitScientificEcosystem($event)"
+                (onCancelUpdate)="handleCancelUpdate()"
+              ></app-create-scientific-ecosystem>
             </div>
           }
         }

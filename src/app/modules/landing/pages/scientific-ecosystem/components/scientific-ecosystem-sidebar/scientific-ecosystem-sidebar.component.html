@@ -1,0 +1,16 @@
+<div class="scientific-ecosystem-sidebar">
+  <ul class="navbar-nav" style="position: relative; margin-bottom: 110px">
+    @for (option of sidebarOptions; track $index) {
+      <li class="dynamic-font-size">
+        <div>
+          <a
+            [routerLink]="option.route"
+            class="nav-link w-100 d-flex align-items-center"
+          >
+            <p class="dynamic-font-size">{{ option.label[lang] }}</p>
+          </a>
+        </div>
+      </li>
+    }
+  </ul>
+</div>

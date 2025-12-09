@@ -71,6 +71,10 @@ const labels = {
     en: 'Others',
     es: 'Otros',
   },
+  ecosystem: {
+    en: 'Ecosystems',
+    es: 'Ecosistemas',
+  },
   scientificEcosystem: {
     en: 'Scientific Ecosystem',
     es: 'Ecosistema Científico',

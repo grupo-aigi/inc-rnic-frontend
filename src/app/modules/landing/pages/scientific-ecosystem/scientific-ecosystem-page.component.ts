@@ -59,6 +59,61 @@ const sampleEcosystemData: ScientificEcosystemData = {
     thankYouMessage: 'Gracias por su atención',
     websiteUrl: 'www.cancer.gov.co',
   },
+  sections: [
+    {
+      id: '1',
+      title: { es: 'Nosotros', en: 'About us' },
+      content: { es: 'Contenido de la sección 1', en: 'Content of section 1' },
+    },
+    {
+      id: '2',
+      title: { es: 'Objetivo General', en: 'General Objective' },
+      content: { es: 'Contenido de la sección 2', en: 'Content of section 2' },
+    },
+    {
+      id: '3',
+      title: { es: 'Objetivos Específicos', en: 'Specific Objectives' },
+      content: { es: 'Contenido de la sección 3', en: 'Content of section 3' },
+    },
+    {
+      id: '4',
+      title: { es: 'Hoja de Ruta', en: 'Roadmap' },
+      content: { es: 'Contenido de la sección 4', en: 'Content of section 4' },
+    },
+    {
+      id: '5',
+      title: { es: 'Lineamientos', en: 'Guidelines' },
+      content: { es: 'Contenido de la sección 5', en: 'Content of section 5' },
+    },
+    {
+      id: '6',
+      title: { es: 'Cómo participar', en: 'How to Participate' },
+      content: { es: 'Contenido de la sección 6', en: 'Content of section 6' },
+    },
+    {
+      id: '7',
+      title: { es: 'Integrantes', en: 'Members' },
+      content: { es: 'Contenido de la sección 7', en: 'Content of section 7' },
+    },
+    {
+      id: '8',
+      title: { es: 'Proyectos', en: 'Projects' },
+      content: { es: 'Contenido de la sección 8', en: 'Content of section 8' },
+    },
+    {
+      id: '9',
+      title: { es: 'Eventos', en: 'Events' },
+      content: { es: 'Contenido de la sección 9', en: 'Content of section 9' },
+    },
+    {
+      id: '10',
+      title: { es: 'Contacto', en: 'Contact' },
+      content: {
+        es: 'Contenido de la sección 10',
+        en: 'Content of section 10',
+      },
+    },
+  ],
 };
 
 export interface ScientificEcosystemData {
@@ -95,6 +150,7 @@ export interface ScientificEcosystemData {
     thankYouMessage: string;
     websiteUrl: string;
   };
+  sections: ScientificEcosystemSection[];
 }
 
 export interface MissionItem {
@@ -113,8 +169,12 @@ const labels = {
     es: 'Ecosistema Científico',
   },
   main: {
-    es: 'Principal',
-    en: 'Main',
+    es: 'Inicio',
+    en: 'Home',
+  },
+  ecosystem: {
+    es: 'Ecosistema',
+    en: 'Ecosystem',
   },
   loading: {
     en: 'Loading...',
@@ -129,21 +189,28 @@ const labels = {
 export default labels;
 
 // scientific-ecosystem-page.component.ts
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of, sampleTime } from 'rxjs';
 
 import { LangService } from '../../../../services/shared/lang/lang.service';
+import { ScientificEcosystemSectionsComponent } from './components/scientific-ecosystem-sections/scientific-ecosystem-sections.component';
+import { ScientificEcosystemSidebarComponent } from './components/scientific-ecosystem-sidebar/scientific-ecosystem-sidebar.component';
+import { ScientificEcosystemSection } from '../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 
 @Component({
   standalone: true,
   selector: 'app-scientific-ecosystem-page',
   templateUrl: './scientific-ecosystem-page.component.html',
   styleUrls: ['./scientific-ecosystem-page.component.scss'],
-  imports: [CommonModule, RouterModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ScientificEcosystemSidebarComponent,
+    ScientificEcosystemSectionsComponent,
+  ],
 })
 export class ScientificEcosystemPage implements OnInit {
   public ecosystemData: ScientificEcosystemData = sampleEcosystemData;

@@ -1,0 +1,91 @@
+<!-- Start Blog Area -->
+<section class="blog-area ptb-70">
+  <div class="container">
+    @if (loadingScientificEcosystems) {
+      <div class="d-flex flex-column align-items-center justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="my-2">Cargando Ecosistemas Científicos...</p>
+      </div>
+    } @else {
+      <div class="row">
+        @for (
+          scientificEcosystem of scientificEcosystems;
+          track scientificEcosystem
+        ) {
+          <div class="col-lg-12 col-md-12">
+            <div class="single-blog-post">
+              <div class="blog-img" style="position: relative">
+                <a
+                  target="_blank"
+                  [routerLink]="
+                    variant === 'PUBLIC'
+                      ? '/ecosistemas/' + scientificEcosystem.urlName
+                      : '/intranet/ecosistemas/' + scientificEcosystem.urlName
+                  "
+                >
+                </a>
+              </div>
+              <div class="blog-content">
+                <h3>
+                  <a
+                    target="_blank"
+                    [routerLink]="
+                      variant === 'PUBLIC'
+                        ? '/ecosistemas/' + scientificEcosystem.urlName
+                        : '/intranet/ecosistemas/' + scientificEcosystem.urlName
+                    "
+                    >{{ scientificEcosystem.title }}</a
+                  >
+                </h3>
+                <div className="d-flex">
+                  <span class="ms-2">
+                    <i class="bx bx-calendar text-primary me-1"></i>Fecha de
+                    creación:
+                    {{ formatDate(scientificEcosystem.createdAt) }}
+                  </span>
+
+                  <span class="ms-2">
+                    <i class="bx bx-calendar text-primary me-1"></i>Fecha de
+                    actualización:
+                    {{ formatDate(scientificEcosystem.updatedAt) }}
+                  </span>
+                </div>
+
+                <div class="d-flex justify-content-end gap-2">
+                  <button
+                    (click)="handleEditScientificEcosystem(scientificEcosystem)"
+                    class="btn default-btn bg-info"
+                  >
+                    {{ labels.edit[lang] }}
+                  </button>
+                  <button
+                    class="btn default-btn bg-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteScientificEcosystemModal"
+                    (click)="
+                      handleSetScientificEcosystemToDelete(scientificEcosystem)
+                    "
+                  >
+                    {{ labels.delete[lang] }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
+
+@if (scientificEcosystemToDelete) {
+  <div>
+    <app-delete-scientific-ecosystem-confirmation
+      [title]="labels.deleteScientificEcosystemConfirmation"
+      [valueToType]="scientificEcosystemToDelete.title"
+      (onConfirm)="handleConfirmDelete(scientificEcosystemToDelete.id)"
+    ></app-delete-scientific-ecosystem-confirmation>
+  </div>
+}
