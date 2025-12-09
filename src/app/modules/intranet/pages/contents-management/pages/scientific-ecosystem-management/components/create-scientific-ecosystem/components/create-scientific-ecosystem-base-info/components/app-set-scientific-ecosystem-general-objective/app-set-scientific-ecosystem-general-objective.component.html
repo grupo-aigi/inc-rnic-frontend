@@ -1,1 +1,190 @@
-<h1>General objective</h1>
+<form
+  [formGroup]="formGroup"
+  (ngSubmit)="handleSubmit()"
+  class="get-quote-form"
+>
+  <section>
+    <div class="row pt-5">
+      <div class="col-lg-12 col-sm-12 position-relative">
+        <label for="description" class="position-absolute" style="top: -25px">
+          {{ labels.description.label[lang] }}
+        </label>
+
+        <div class="form-group">
+          <textarea
+            name="description"
+            formControlName="description"
+            class="form-control"
+            [placeholder]="labels.description.placeholder[lang]"
+            style="resize: vertical; min-height: 100px; max-height: 400px"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="col-lg-3 col-sm-12">
+        <button
+          type="button"
+          (click)="handleAddDescriptionParagraph()"
+          class="btn default-btn"
+        >
+          {{
+            editMode ? labels.updateParagraph[lang] : labels.addParagraph[lang]
+          }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      @for (
+        descriptionParagraph of descriptionParagraphs;
+        track descriptionParagraph;
+        let i = $index
+      ) {
+        <div class="col-lg-12 col-sm-12 m-1 p-1">
+          <span>{{ labels.paragraphNro[lang] }} #{{ i + 1 }}</span>
+          <div class="card">
+            <div class="row">
+              <div class="col-lg-12 col-sm-12 p-3">
+                <span>{{ descriptionParagraph }}</span>
+              </div>
+              <div
+                class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+              >
+                <button
+                  type="button"
+                  class="btn btn-info m-2 text-white"
+                  (click)="handleEditDescriptionParagraph(i)"
+                >
+                  {{ labels.edit[lang] }}
+                </button>
+                <button
+                  type="button"
+                  (click)="handleDeleteDescriptionParagraph(i)"
+                  class="btn btn-danger m-2"
+                >
+                  {{ labels.delete[lang] }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <hr />
+
+  <section>
+    <div class="row pt-5">
+      <div class="col-lg-12 col-sm-12 position-relative">
+        <label
+          for="generalObjective"
+          class="position-absolute"
+          style="top: -25px"
+        >
+          {{ labels.generalObjective.label[lang] }}
+        </label>
+
+        <div class="col-lg-12 col-sm-12">
+          <div class="form-group">
+            <input
+              type="text"
+              name="generalObjective"
+              formControlName="generalObjective"
+              class="form-control"
+              [placeholder]="labels.generalObjective.placeholder[lang]"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <section>
+    <div class="row pt-5">
+      <div class="col-lg-12 col-sm-12 position-relative">
+        <label
+          for="specificObjectives"
+          class="position-absolute"
+          style="top: -25px"
+        >
+          {{ labels.specificObjectives.label[lang] }}
+        </label>
+
+        <div class="form-group">
+          <textarea
+            name="specificObjectives"
+            formControlName="specificObjectives"
+            class="form-control"
+            [placeholder]="labels.specificObjectives.placeholder[lang]"
+            style="resize: vertical; min-height: 100px; max-height: 400px"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-8 col-sm-12">
+        <button
+          type="button"
+          (click)="handleAddSpecificObjectiveParagraph()"
+          class="btn default-btn btn-info w-100"
+        >
+          {{
+            editMode
+              ? labels.updateSpecificObjective[lang]
+              : labels.addSpecificObjective[lang]
+          }}
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      @for (
+        specificObjectivesParagraph of specificObjectivesParagraphs;
+        track specificObjectivesParagraph;
+        let i = $index
+      ) {
+        <div class="col-lg-12 col-sm-12 m-1 p-1">
+          <span>{{ labels.specificObjectiveNro[lang] }} #{{ i + 1 }}</span>
+          <div class="card">
+            <div class="row">
+              <div class="col-lg-12 col-sm-12 p-3">
+                <span>{{ specificObjectivesParagraph }}</span>
+              </div>
+              <div
+                class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+              >
+                <button
+                  type="button"
+                  class="btn btn-info m-2 text-white"
+                  (click)="handleEditSpecificObjectiveParagraph(i)"
+                >
+                  {{ labels.edit[lang] }}
+                </button>
+                <button
+                  type="button"
+                  (click)="handleDeleteSpecificObjectiveParagraph(i)"
+                  class="btn btn-danger m-2"
+                >
+                  {{ labels.delete[lang] }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 d-flex m-auto">
+      <button type="submit" class="btn default-btn success-button m-1">
+        {{ labels.confirmChanges[lang] }}
+      </button>
+      <button type="reset" class="btn default-btn clean-button m-1">
+        {{ labels.restoreChanges[lang] }}
+      </button>
+    </div>
+  </div>
+</form>

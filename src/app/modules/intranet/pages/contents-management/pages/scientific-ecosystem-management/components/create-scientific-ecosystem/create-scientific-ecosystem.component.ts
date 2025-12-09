@@ -26,6 +26,7 @@ import {
   ScientificEcosystemBaseInfoBody,
   ScientificEcosystemCreateInfo,
   ScientificEcosystemDetail,
+  ScientificEcosystemDetailAboutUs,
   ScientificEcosystemPoster,
 } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
@@ -129,13 +130,13 @@ export class CreateScientificEcosystemComponent implements OnInit {
     // });
   }
 
-  handleUpdateAboutUs($event: Event) {
+  handleUpdateAboutUs($event: ScientificEcosystemDetailAboutUs) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateGeneralObjective($event: Event) {
+  handleUpdateGeneralObjective($event: ScientificEcosystemDetailAboutUs) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateSpecificObjectives($event: Event) {
+  handleUpdateSpecificObjectives($event: ScientificEcosystemDetailAboutUs) {
     throw new Error('Method not implemented.');
   }
   handleUpdateRoadmap($event: Event) {

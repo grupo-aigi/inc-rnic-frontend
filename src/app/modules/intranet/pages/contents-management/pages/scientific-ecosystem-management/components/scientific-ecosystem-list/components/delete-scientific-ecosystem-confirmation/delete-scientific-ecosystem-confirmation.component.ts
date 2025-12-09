@@ -6,10 +6,11 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
 import { LangService } from '../../../../../../../../../../services/shared/lang/lang.service';
 import labels from './delete-scientific-ecosystem-confirmation.lang';
+
+import { FormsModule } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -36,8 +37,7 @@ export class DeleteScientificEcosystemConfirmationComponent {
     return this.langService.language;
   }
 
-  public handleConfirmDelete(event: MouseEvent) {
-    event.preventDefault();
+  public handleConfirmDelete() {
     if (this.actualValue === this.valueToType) {
       this.showError = false;
       this.onConfirm.emit();

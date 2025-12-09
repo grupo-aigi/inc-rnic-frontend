@@ -1,10 +1,10 @@
 <div
   class="modal fade w-100"
-  id="deleteEventModal"
+  id="deleteScientificEcosystemModal"
   tabindex="-1"
-  aria-labelledby="deleteEventModal"
+  aria-labelledby="deleteScientificEcosystemModal"
   aria-hidden="true"
-  >
+>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -35,34 +35,34 @@
                   [(ngModel)]="actualValue"
                   class="form-control"
                   [placeholder]="valueToType"
-                  />
+                />
                 @if (showError) {
                   <small class="inline-input__invalid"
                     >El valor ingresado es inválido</small
-                    >
-                  }
-                </div>
+                  >
+                }
               </div>
             </div>
-          </form>
-          <!-- ------------------------ -->
-        </div>
-        <div class="modal-footer">
-          <button
-            type="button"
-            (click)="handleConfirmDelete($event)"
-            class="btn btn-danger"
-            >
-            Eliminar
-          </button>
-          <button
-            type="button"
-            class="btn btn-info text-white"
-            data-bs-dismiss="modal"
-            >
-            Cancelar
-          </button>
-        </div>
+          </div>
+        </form>
+        <!-- ------------------------ -->
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          (click)="handleConfirmDelete()"
+          class="btn btn-danger"
+        >
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-info text-white"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>
+</div>
