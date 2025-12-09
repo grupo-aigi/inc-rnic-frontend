@@ -8,8 +8,11 @@ import {
   ScientificEcosystemCreateInfo,
   ScientificEcosystemDetail,
   ScientificEcosystemDetailAboutUs,
+  ScientificEcosystemDetailContact,
   ScientificEcosystemDetailGeneralObjective,
   ScientificEcosystemDetailGuidelines,
+  ScientificEcosystemDetailMembers,
+  ScientificEcosystemDetailProjects,
   ScientificEcosystemDetailRoadmap,
   ScientificEcosystemDetailSpecificObjectives,
   ScientificEcosystemPoster,
@@ -18,7 +21,6 @@ import { ScientificEcosystemService } from '../../../../../../../../services/lan
 import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
 import { SetScientificEcosystemAboutUsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-about-us/app-set-scientific-ecosystem-about-us.component';
 import { SetScientificEcosystemContactComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-contact/app-set-scientific-ecosystem-contact.component';
-import { SetScientificEcosystemEventsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-events/app-set-scientific-ecosystem-events.component';
 import { SetScientificEcosystemGeneralObjectiveComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-general-objective/app-set-scientific-ecosystem-general-objective.component';
 import { SetScientificEcosystemGuidelinesComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-guidelines/app-set-scientific-ecosystem-guidelines.component';
 import { SetScientificEcosystemHowToParticipateComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-how-to-participate/app-set-scientific-ecosystem-how-to-participate.component';
@@ -43,7 +45,6 @@ import labels from './create-scientific-ecosystem.lang';
     SetScientificEcosystemHowToParticipateComponent,
     SetScientificEcosystemMembersComponent,
     SetScientificEcosystemProjectsComponent,
-    SetScientificEcosystemEventsComponent,
     SetScientificEcosystemContactComponent,
   ],
 })
@@ -140,16 +141,13 @@ export class CreateScientificEcosystemComponent implements OnInit {
   handleUpdateHowToParticipate($event: Event) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateMembers($event: Event) {
+  handleUpdateMembers($event: ScientificEcosystemDetailMembers) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateProjects($event: Event) {
+  handleUpdateProjects($event: ScientificEcosystemDetailProjects) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateEvents($event: Event) {
-    throw new Error('Method not implemented.');
-  }
-  handleUpdateContact($event: Event) {
+  handleUpdateContact($event: ScientificEcosystemDetailContact) {
     throw new Error('Method not implemented.');
   }
 }

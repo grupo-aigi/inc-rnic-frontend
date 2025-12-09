@@ -1,1 +1,159 @@
-<p>Projects</p>
+<form [formGroup]="formGroup" class="get-quote-form">
+  <div class="row pt-3">
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group">
+        <label>Nombre del Proyecto</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          placeholder="Ingrese el nombre del proyecto"
+        />
+      </div>
+    </div>
+
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group">
+        <label>Autor</label>
+        <input
+          type="text"
+          formControlName="author"
+          class="form-control"
+          placeholder="Ingrese el autor del proyecto"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-lg-12">
+      <label>Objetivos</label>
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          [(ngModel)]="currentObjective"
+          [ngModelOptions]="{ standalone: true }"
+          class="form-control"
+          placeholder="Ingrese un objetivo"
+          (keyup.enter)="handleAddObjective()"
+        />
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="handleAddObjective()"
+        >
+          Agregar Objetivo
+        </button>
+      </div>
+
+      @if (objectives.length > 0) {
+        <ul class="list-group mb-3">
+          @for (
+            objective of objectives.controls;
+            track $index;
+            let i = $index
+          ) {
+            <li
+              class="list-group-item d-flex justify-content-between align-items-center"
+            >
+              {{ objective.value }}
+              <button
+                type="button"
+                class="btn btn-sm btn-danger"
+                (click)="handleRemoveObjective(i)"
+              >
+                <i class="bx bx-trash"></i>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <div class="col-lg-12">
+      <button
+        (click)="handleAddProject()"
+        type="button"
+        class="btn default-btn me-2"
+        [disabled]="formGroup.invalid || objectives.length === 0"
+      >
+        {{ editingIndex >= 0 ? 'Actualizar Proyecto' : 'Agregar Proyecto' }}
+      </button>
+
+      @if (editingIndex >= 0) {
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
+          Cancelar Edición
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <h4>Lista de Proyectos</h4>
+
+    <div class="container">
+      @if (members.length === 0) {
+        <div class="alert alert-info text-center">
+          No hay proyectos agregados
+        </div>
+      }
+    </div>
+
+    <div class="row mb-5">
+      @for (project of members; track $index; let i = $index) {
+        <div class="col-lg-6 col-sm-12 mb-3">
+          <div class="card" [class.border-primary]="editingIndex === i">
+            <div class="card-body">
+              <h5 class="card-title">{{ project.name }}</h5>
+              <p class="card-text">
+                <strong>Autor:</strong> {{ project.author }}
+              </p>
+              <p class="card-text">
+                <strong>Objetivos:</strong>
+              </p>
+              <ul>
+                @for (objective of project.objectives; track $index) {
+                  <li>{{ objective }}</li>
+                }
+              </ul>
+              <div class="d-flex gap-2">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-warning"
+                  (click)="handleEditProject(i)"
+                >
+                  <i class="bx bx-edit"></i> Editar
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-danger"
+                  (click)="handleDeleteProject(i)"
+                >
+                  <i class="bx bx-trash"></i> Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 d-flex m-auto">
+      <button
+        type="button"
+        (click)="handleSubmit()"
+        class="btn default-btn success-button m-1"
+        [disabled]="members.length === 0"
+      >
+        Guardar Proyectos
+      </button>
+      <button type="reset" class="btn default-btn clean-button m-1">
+        Limpiar Todo
+      </button>
+    </div>
+  </div>
+</form>

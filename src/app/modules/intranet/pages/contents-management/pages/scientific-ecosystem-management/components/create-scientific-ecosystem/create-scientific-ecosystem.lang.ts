@@ -14,12 +14,7 @@ const labels = {
   howToParticipate: { es: '[6] Cómo participar', en: '[6] How to Participate' },
   members: { es: '[7] Integrantes', en: '[7] Members' },
   projects: { es: '[8] Proyectos', en: '[8] Projects' },
-  events: {
-    es: '[9] Eventos',
-    en: '[9] Events',
-  },
-  contact: { es: '[10] Contacto', en: '[10] Contact' },
-
+  contact: { es: '[9] Contacto', en: '[9] Contact' },
   scientificEcosystemCreatedSuccessfully: {
     es: 'Ecosistema Científico creado exitosamente',
     en: 'Scientific Ecosystem created successfully',

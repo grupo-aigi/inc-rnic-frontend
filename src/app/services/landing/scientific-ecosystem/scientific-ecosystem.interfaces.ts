@@ -83,7 +83,6 @@ export type ScientificEcosystemDetailType =
   | ScientificEcosystemDetailHowToParticipate
   | ScientificEcosystemDetailMembers
   | ScientificEcosystemDetailProjects
-  | ScientificEcosystemDetailEvents
   | ScientificEcosystemDetailContact;
 
 export type ScientificEcosystemDetailResourceType =
@@ -95,7 +94,6 @@ export type ScientificEcosystemDetailResourceType =
   | 'SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE'
   | 'SCIENTIFIC_ECOSYSTEM__MEMBERS'
   | 'SCIENTIFIC_ECOSYSTEM__PROJECTS'
-  | 'SCIENTIFIC_ECOSYSTEM__EVENTS'
   | 'SCIENTIFIC_ECOSYSTEM__CONTACT';
 
 export interface ScientificEcosystemDetailAboutUs {
@@ -129,16 +127,17 @@ export interface ScientificEcosystemDetailHowToParticipate {
 
 export interface ScientificEcosystemDetailMembers {
   TYPE: ScientificEcosystemDetailResourceType;
+  title: string;
+  paragraphs: string[];
+  images: string[];
 }
 
 export interface ScientificEcosystemDetailProjects {
   TYPE: ScientificEcosystemDetailResourceType;
-}
-
-export interface ScientificEcosystemDetailEvents {
-  TYPE: ScientificEcosystemDetailResourceType;
+  members: { name: string; author: string; objectives: string[] }[];
 }
 
 export interface ScientificEcosystemDetailContact {
   TYPE: ScientificEcosystemDetailResourceType;
+  contacts: { name: string; role: string; email: string }[];
 }

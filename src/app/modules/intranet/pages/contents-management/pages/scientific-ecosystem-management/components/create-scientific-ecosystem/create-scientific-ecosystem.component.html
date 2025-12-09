@@ -23,10 +23,7 @@
           </li>
           <li (click)="changeActiveTab(7)">{{ labels.members[lang] }}</li>
           <li (click)="changeActiveTab(8)">{{ labels.projects[lang] }}</li>
-          <li (click)="changeActiveTab(9)">
-            {{ labels.events[lang] }}
-          </li>
-          <li (click)="changeActiveTab(10)">{{ labels.contact[lang] }}</li>
+          <li (click)="changeActiveTab(9)">{{ labels.contact[lang] }}</li>
         }
       </ul>
 
@@ -106,14 +103,6 @@
           }
 
           @case (9) {
-            <div class="tabs_item">
-              <app-set-scientific-ecosystem-events
-                (onSubmit)="handleUpdateEvents($event)"
-              ></app-set-scientific-ecosystem-events>
-            </div>
-          }
-
-          @case (10) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-contact
                 (onSubmit)="handleUpdateContact($event)"
