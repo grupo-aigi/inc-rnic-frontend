@@ -9,30 +9,6 @@ const labels = {
       en: 'Enter a brief description of the scientific ecosystem',
     },
   },
-  generalObjective: {
-    label: {
-      es: 'Objectivo General del Ecosistema Científico',
-      en: 'General Objective of the Scientific Ecosystem',
-    },
-    placeholder: {
-      es: 'Ingrese el objectivo general del ecosistema científico',
-      en: 'Enter the general objective of the scientific ecosystem',
-    },
-  },
-  specificObjectiveNro: {
-    es: 'Objectivo Específico',
-    en: 'Specific Objective',
-  },
-  specificObjectives: {
-    label: {
-      es: 'Objectivos Específicos del Ecosistema Científico',
-      en: 'Specific Objectives of the Scientific Ecosystem',
-    },
-    placeholder: {
-      es: 'Ingrese un objectivo general del ecosistema científico',
-      en: 'Enter a general objective of the scientific ecosystem',
-    },
-  },
   updateParagraph: {
     es: 'Actualizar párrafo',
     en: 'Update paragraph',
@@ -40,15 +16,6 @@ const labels = {
   addParagraph: {
     es: 'Agregar párrafo',
     en: 'Add paragraph',
-  },
-
-  updateSpecificObjective: {
-    es: 'Actualizar objectivo específico',
-    en: 'Update specific objective',
-  },
-  addSpecificObjective: {
-    es: 'Agregar objectivo específico',
-    en: 'Add specific objective',
   },
   paragraphNro: {
     es: 'Párrafo',

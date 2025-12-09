@@ -18,14 +18,11 @@ export class SetScientificEcosystemAboutUsComponent {
     new EventEmitter();
   public editMode: { paragraphIndex: number } | undefined = undefined;
   public descriptionParagraphs: string[] = [];
-  public specificObjectivesParagraphs: string[] = [];
 
   public formGroup: FormGroup =
     this.formBuilder.group<ScientificEcosystemDetailAboutUs>({
       TYPE: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
       description: [],
-      generalObjective: '',
-      specificObjectives: [],
     });
 
   public constructor(
@@ -59,23 +56,6 @@ export class SetScientificEcosystemAboutUsComponent {
     paragraphText.setValue('');
   }
 
-  public handleAddSpecificObjectiveParagraph() {
-    const paragraphText = this.formGroup.get('specificObjectives');
-    if (!paragraphText?.value) {
-      this.toastService.error('Debe ingresar texto en el campo de párrafo');
-      return;
-    }
-    if (this.editMode) {
-      this.specificObjectivesParagraphs[this.editMode.paragraphIndex] =
-        paragraphText.value;
-      this.editMode = undefined;
-      paragraphText.setValue('');
-      return;
-    }
-    this.specificObjectivesParagraphs.push(paragraphText.value);
-    paragraphText.setValue('');
-  }
-
   public handleDeleteDescriptionParagraph(indexToRemove: number) {
     this.descriptionParagraphs = this.descriptionParagraphs.filter(
       (_element, index) => index !== indexToRemove,
@@ -85,20 +65,6 @@ export class SetScientificEcosystemAboutUsComponent {
   public handleEditDescriptionParagraph(i: number) {
     this.editMode = { paragraphIndex: i };
     this.formGroup.get('description')?.setValue(this.descriptionParagraphs[i]);
-  }
-
-  public handleDeleteSpecificObjectiveParagraph(indexToRemove: number) {
-    this.specificObjectivesParagraphs =
-      this.specificObjectivesParagraphs.filter(
-        (_element, index) => index !== indexToRemove,
-      );
-  }
-
-  public handleEditSpecificObjectiveParagraph(i: number) {
-    this.editMode = { paragraphIndex: i };
-    this.formGroup
-      .get('specificObjectives')
-      ?.setValue(this.specificObjectivesParagraphs[i]);
   }
 
   public handleSubmit() {

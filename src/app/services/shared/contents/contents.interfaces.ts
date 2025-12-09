@@ -38,7 +38,11 @@ export type ContentResourceType =
   | 'CONTENT__FILES'
   | 'CONTENT__LINK';
 
-export type ContentTarget = 'events' | 'news' | 'convocations';
+export type ContentTarget =
+  | 'events'
+  | 'news'
+  | 'convocations'
+  | 'scientific-ecosystems';
 
 export interface ResourceContentType1 {
   TYPE: ContentResourceType;

@@ -118,7 +118,7 @@ export class ScientificEcosystemListComponent implements OnInit {
 
   public getImageByScientificEcosystemId(name: string) {
     return this.resourcesService.getImageUrlByName(
-      'scientificEcosystems',
+      'scientific-ecosystems',
       name,
     );
   }

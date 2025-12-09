@@ -25,7 +25,7 @@ export type ImageDirectory =
   | 'partners'
   | 'ncp'
   | 'profiles'
-  | 'scientificEcosystems';
+  | 'scientific-ecosystems';
 
 export const mimeTypes = [
   {

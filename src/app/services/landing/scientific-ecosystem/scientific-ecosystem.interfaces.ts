@@ -1,3 +1,5 @@
+import { ResourceContentFile } from '../../shared/contents/contents.interfaces';
+
 export interface ScientificEcosystemBaseInfo {
   id?: number;
   title: string;
@@ -99,24 +101,26 @@ export type ScientificEcosystemDetailResourceType =
 export interface ScientificEcosystemDetailAboutUs {
   TYPE: ScientificEcosystemDetailResourceType;
   description: string[];
-  generalObjective: string;
-  specificObjectives: string[];
 }
 
 export interface ScientificEcosystemDetailGeneralObjective {
   TYPE: ScientificEcosystemDetailResourceType;
+  generalObjective: string;
 }
 
 export interface ScientificEcosystemDetailSpecificObjectives {
   TYPE: ScientificEcosystemDetailResourceType;
+  specificObjectives: string[];
 }
 
 export interface ScientificEcosystemDetailRoadmap {
   TYPE: ScientificEcosystemDetailResourceType;
+  resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailGuidelines {
   TYPE: ScientificEcosystemDetailResourceType;
+  resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailHowToParticipate {

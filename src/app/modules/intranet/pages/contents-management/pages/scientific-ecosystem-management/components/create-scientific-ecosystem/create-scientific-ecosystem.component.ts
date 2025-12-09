@@ -3,43 +3,31 @@ import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { ResourceContent } from '../../../../../../../../services/shared/contents/contents.interfaces';
-import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
-import { CreateResourceContentType1Component } from '../../../shared/create-resource-content-type1/create-resource-content-type1.component';
-import { CreateResourceContentType10Component } from '../../../shared/create-resource-content-type10/create-resource-content-type10.component';
-import { CreateResourceContentType11Component } from '../../../shared/create-resource-content-type11/create-resource-content-type11.component';
-import { CreateResourceContentType12Component } from '../../../shared/create-resource-content-type12/create-resource-content-type12.component';
-import { CreateResourceContentType13Component } from '../../../shared/create-resource-content-type13/create-resource-content-type13.component';
-import { CreateResourceContentType14Component } from '../../../shared/create-resource-content-type14/create-resource-content-type14.component';
-import { CreateResourceContentType2Component } from '../../../shared/create-resource-content-type2/create-resource-content-type2.component';
-import { CreateResourceContentType3Component } from '../../../shared/create-resource-content-type3/create-resource-content-type3.component';
-import { CreateResourceContentType4Component } from '../../../shared/create-resource-content-type4/create-resource-content-type4.component';
-import { CreateResourceContentType5Component } from '../../../shared/create-resource-content-type5/create-resource-content-type5.component';
-import { CreateResourceContentType6Component } from '../../../shared/create-resource-content-type6/create-resource-content-type6.component';
-import { CreateResourceContentType7Component } from '../../../shared/create-resource-content-type7/create-resource-content-type7.component';
-import { CreateResourceContentType8Component } from '../../../shared/create-resource-content-type8/create-resource-content-type8.component';
-import { CreateResourceContentType9Component } from '../../../shared/create-resource-content-type9/create-resource-content-type9.component';
-import { CreateScientificEcosystemBaseInfoComponent } from './components/create-scientific-ecosystem-base-info/create-scientific-ecosystem-base-info.component';
-import labels from './create-scientific-ecosystem.lang';
 import {
   ScientificEcosystemBaseInfo,
-  ScientificEcosystemBaseInfoBody,
   ScientificEcosystemCreateInfo,
   ScientificEcosystemDetail,
   ScientificEcosystemDetailAboutUs,
+  ScientificEcosystemDetailGeneralObjective,
+  ScientificEcosystemDetailGuidelines,
+  ScientificEcosystemDetailRoadmap,
+  ScientificEcosystemDetailSpecificObjectives,
   ScientificEcosystemPoster,
 } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
+import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
 import { SetScientificEcosystemAboutUsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-about-us/app-set-scientific-ecosystem-about-us.component';
-import { SetScientificEcosystemGeneralObjectiveComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-general-objective/app-set-scientific-ecosystem-general-objective.component';
 import { SetScientificEcosystemContactComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-contact/app-set-scientific-ecosystem-contact.component';
+import { SetScientificEcosystemEventsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-events/app-set-scientific-ecosystem-events.component';
+import { SetScientificEcosystemGeneralObjectiveComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-general-objective/app-set-scientific-ecosystem-general-objective.component';
 import { SetScientificEcosystemGuidelinesComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-guidelines/app-set-scientific-ecosystem-guidelines.component';
 import { SetScientificEcosystemHowToParticipateComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-how-to-participate/app-set-scientific-ecosystem-how-to-participate.component';
 import { SetScientificEcosystemMembersComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-members/app-set-scientific-ecosystem-members.component';
 import { SetScientificEcosystemProjectsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-projects/app-set-scientific-ecosystem-projects.component';
 import { SetScientificEcosystemRoadmapComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-roadmap/app-set-scientific-ecosystem-roadmap.component';
 import { SetScientificEcosystemSpecificObjectivesComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-specific-objectives/app-set-scientific-ecosystem-specific-objectives.component';
-import { SetScientificEcosystemEventsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-events/app-set-scientific-ecosystem-events.component';
+import { CreateScientificEcosystemBaseInfoComponent } from './components/create-scientific-ecosystem-base-info/create-scientific-ecosystem-base-info.component';
+import labels from './create-scientific-ecosystem.lang';
 
 @Component({
   standalone: true,
@@ -133,16 +121,20 @@ export class CreateScientificEcosystemComponent implements OnInit {
   handleUpdateAboutUs($event: ScientificEcosystemDetailAboutUs) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateGeneralObjective($event: ScientificEcosystemDetailAboutUs) {
+  handleUpdateGeneralObjective(
+    $event: ScientificEcosystemDetailGeneralObjective,
+  ) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateSpecificObjectives($event: ScientificEcosystemDetailAboutUs) {
+  handleUpdateSpecificObjectives(
+    $event: ScientificEcosystemDetailSpecificObjectives,
+  ) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateRoadmap($event: Event) {
+  handleUpdateRoadmap($event: ScientificEcosystemDetailRoadmap) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateGuidelines($event: Event) {
+  handleUpdateGuidelines($event: ScientificEcosystemDetailGuidelines) {
     throw new Error('Method not implemented.');
   }
   handleUpdateHowToParticipate($event: Event) {

@@ -5,7 +5,10 @@ import { Title } from '@angular/platform-browser';
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
 import labels from './app-set-scientific-ecosystem-specific-objectives.lang';
 import { ToastrService } from 'ngx-toastr';
-import { ScientificEcosystemDetailAboutUs } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
+import {
+  ScientificEcosystemDetailAboutUs,
+  ScientificEcosystemDetailSpecificObjectives,
+} from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 
 @Component({
   standalone: true,
@@ -15,17 +18,15 @@ import { ScientificEcosystemDetailAboutUs } from '../../../../../../../../../../
   selector: 'app-set-scientific-ecosystem-specific-objectives',
 })
 export class SetScientificEcosystemSpecificObjectivesComponent {
-  @Output() public onSubmit: EventEmitter<ScientificEcosystemDetailAboutUs> =
+  @Output()
+  public onSubmit: EventEmitter<ScientificEcosystemDetailSpecificObjectives> =
     new EventEmitter();
   public editMode: { paragraphIndex: number } | undefined = undefined;
-  public descriptionParagraphs: string[] = [];
   public specificObjectivesParagraphs: string[] = [];
 
   public formGroup: FormGroup =
-    this.formBuilder.group<ScientificEcosystemDetailAboutUs>({
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
-      description: [],
-      generalObjective: '',
+    this.formBuilder.group<ScientificEcosystemDetailSpecificObjectives>({
+      TYPE: 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
       specificObjectives: [],
     });
 
@@ -43,23 +44,6 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
     return labels;
   }
 
-  public handleAddDescriptionParagraph() {
-    const paragraphText = this.formGroup.get('description');
-    if (!paragraphText?.value) {
-      this.toastService.error('Debe ingresar texto en el campo de párrafo');
-      return;
-    }
-    if (this.editMode) {
-      this.descriptionParagraphs[this.editMode.paragraphIndex] =
-        paragraphText.value;
-      this.editMode = undefined;
-      paragraphText.setValue('');
-      return;
-    }
-    this.descriptionParagraphs.push(paragraphText.value);
-    paragraphText.setValue('');
-  }
-
   public handleAddSpecificObjectiveParagraph() {
     const paragraphText = this.formGroup.get('specificObjectives');
     if (!paragraphText?.value) {
@@ -75,17 +59,6 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
     }
     this.specificObjectivesParagraphs.push(paragraphText.value);
     paragraphText.setValue('');
-  }
-
-  public handleDeleteDescriptionParagraph(indexToRemove: number) {
-    this.descriptionParagraphs = this.descriptionParagraphs.filter(
-      (_element, index) => index !== indexToRemove,
-    );
-  }
-
-  public handleEditDescriptionParagraph(i: number) {
-    this.editMode = { paragraphIndex: i };
-    this.formGroup.get('description')?.setValue(this.descriptionParagraphs[i]);
   }
 
   public handleDeleteSpecificObjectiveParagraph(indexToRemove: number) {
@@ -112,7 +85,6 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
     this.onSubmit.emit({
       ...this.formGroup.value,
     });
-    this.descriptionParagraphs = [];
     this.formGroup.reset();
   }
 }
