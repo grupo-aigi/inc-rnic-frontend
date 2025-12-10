@@ -131,6 +131,9 @@ const labels = {
     es: 'La imágen ingresada es inválida',
     en: 'The image entered is invalid',
   },
+  paragraphsSection: { es: 'Sección de texto', en: 'Text section' },
+  filesSection: { es: 'Sección de archivos', en: 'Files section' },
+  imagesSection: { es: 'Sección de imágenes', en: 'Images section' },
 };
 
 export default labels;
