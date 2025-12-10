@@ -12,6 +12,7 @@ import {
   ScientificEcosystemDetailContact,
   ScientificEcosystemDetailGeneralObjective,
   ScientificEcosystemDetailGuidelines,
+  ScientificEcosystemDetailHowToParticipate,
   ScientificEcosystemDetailMembers,
   ScientificEcosystemDetailProjects,
   ScientificEcosystemDetailRoadmap,
@@ -140,7 +141,10 @@ export class CreateScientificEcosystemComponent implements OnInit {
   handleUpdateGuidelines($event: ScientificEcosystemDetailGuidelines) {
     throw new Error('Method not implemented.');
   }
-  handleUpdateHowToParticipate($event: Event) {
+
+  handleUpdateHowToParticipate(
+    $event: ScientificEcosystemDetailHowToParticipate,
+  ) {
     throw new Error('Method not implemented.');
   }
   handleUpdateMembers($event: ScientificEcosystemDetailMembers) {
