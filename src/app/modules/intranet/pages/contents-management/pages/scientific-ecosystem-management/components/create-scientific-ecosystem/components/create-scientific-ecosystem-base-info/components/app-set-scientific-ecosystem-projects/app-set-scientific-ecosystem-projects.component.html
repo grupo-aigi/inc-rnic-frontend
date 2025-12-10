@@ -94,7 +94,7 @@
     <h4>Lista de Proyectos</h4>
 
     <div class="container">
-      @if (members.length === 0) {
+      @if (projects.length === 0) {
         <div class="alert alert-info text-center">
           No hay proyectos agregados
         </div>
@@ -102,7 +102,7 @@
     </div>
 
     <div class="row mb-5">
-      @for (project of members; track $index; let i = $index) {
+      @for (project of projects; track $index; let i = $index) {
         <div class="col-lg-6 col-sm-12 mb-3">
           <div class="card" [class.border-primary]="editingIndex === i">
             <div class="card-body">
@@ -147,7 +147,7 @@
         type="button"
         (click)="handleSubmit()"
         class="btn default-btn success-button m-1"
-        [disabled]="members.length === 0"
+        [disabled]="projects.length === 0"
       >
         Guardar Proyectos
       </button>

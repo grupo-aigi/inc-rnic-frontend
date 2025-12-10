@@ -8,7 +8,7 @@ import { ScientificEcosystemDetailGeneralObjective } from '../../../../../../../
   standalone: true,
   templateUrl: './scientific-ecosystem-general-objective.component.html',
   imports: [ReactiveFormsModule, JsonPipe],
-  selector: 'scientific-ecosystem-general-objective',
+  selector: 'app-scientific-ecosystem-general-objective',
 })
 export class ScientificEcosystemGeneralObjectiveComponent {
   @Input() section!: ScientificEcosystemDetailGeneralObjective;

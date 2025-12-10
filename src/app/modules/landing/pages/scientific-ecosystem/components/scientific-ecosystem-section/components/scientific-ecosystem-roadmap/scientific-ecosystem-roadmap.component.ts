@@ -8,7 +8,7 @@ import { ScientificEcosystemService } from '../../../../../../../../services/lan
 
 @Component({
   standalone: true,
-  selector: 'scientific-ecosystem-roadmap',
+  selector: 'app-scientific-ecosystem-roadmap',
   templateUrl: './scientific-ecosystem-roadmap.component.html',
   imports: [],
 })

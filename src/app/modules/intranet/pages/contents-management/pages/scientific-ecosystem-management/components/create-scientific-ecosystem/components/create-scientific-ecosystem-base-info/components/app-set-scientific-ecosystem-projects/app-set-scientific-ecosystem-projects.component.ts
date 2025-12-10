@@ -27,7 +27,7 @@ export class SetScientificEcosystemProjectsComponent {
   @Output() public onSubmit: EventEmitter<ScientificEcosystemDetailProjects> =
     new EventEmitter();
 
-  public members: ScientificEcosystemDetailProjects['members'] = [];
+  public projects: ScientificEcosystemDetailProjects['projects'] = [];
   public editingIndex: number = -1;
   public currentObjective: string = '';
 
@@ -85,7 +85,7 @@ export class SetScientificEcosystemProjectsComponent {
 
     if (this.editingIndex >= 0) {
       // Editar proyecto existente
-      this.members[this.editingIndex] = {
+      this.projects[this.editingIndex] = {
         author: author!,
         name: name!,
         objectives: objectivesArray,
@@ -94,7 +94,7 @@ export class SetScientificEcosystemProjectsComponent {
       this.editingIndex = -1;
     } else {
       // Agregar nuevo proyecto
-      this.members.push({
+      this.projects.push({
         author: author!,
         name: name!,
         objectives: objectivesArray,
@@ -107,7 +107,7 @@ export class SetScientificEcosystemProjectsComponent {
   }
 
   public handleEditProject(index: number) {
-    const project = this.members[index];
+    const project = this.projects[index];
     this.editingIndex = index;
 
     this.formGroup.patchValue({
@@ -125,7 +125,7 @@ export class SetScientificEcosystemProjectsComponent {
 
   public handleDeleteProject(index: number) {
     if (confirm('¿Está seguro de eliminar este proyecto?')) {
-      this.members.splice(index, 1);
+      this.projects.splice(index, 1);
       this.toastService.success('Proyecto eliminado');
 
       if (this.editingIndex === index) {
@@ -141,20 +141,20 @@ export class SetScientificEcosystemProjectsComponent {
   }
 
   public handleSubmit() {
-    if (this.members.length === 0) {
+    if (this.projects.length === 0) {
       this.toastService.error('Debe agregar al menos un proyecto');
       return;
     }
 
     const resourceInfo: ScientificEcosystemDetailProjects = {
-      members: this.members,
+      projects: this.projects,
       TYPE: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
     };
 
     this.onSubmit.emit(resourceInfo);
     this.formGroup.reset();
     this.objectives.clear();
-    this.members = [];
+    this.projects = [];
     this.editingIndex = -1;
   }
 }

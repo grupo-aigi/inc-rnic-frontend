@@ -6,7 +6,7 @@ import { ScientificEcosystemDetailProjects } from '../../../../../../../../servi
 
 @Component({
   standalone: true,
-  selector: 'scientific-ecosystem-projects',
+  selector: 'app-scientific-ecosystem-projects',
   templateUrl: './scientific-ecosystem-projects.component.html',
   imports: [ReactiveFormsModule, FormsModule, CommonModule],
 })

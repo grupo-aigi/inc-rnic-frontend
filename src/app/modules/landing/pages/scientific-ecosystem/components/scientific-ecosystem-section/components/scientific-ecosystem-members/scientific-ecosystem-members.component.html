@@ -1,0 +1,34 @@
+<div>
+  <h5>{{ section.title }}</h5>
+  @for (paragraph of section.paragraphs; track $index) {
+    <p>
+      {{ section.paragraphs }}
+    </p>
+  }
+
+  <!-- <div class="row">
+    @for (image of section.images; track image) {
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="car-insurance-img-2">
+          <img
+            [src]="getImageUrlByName(image)"
+            alt="scientific ecosystem image"
+          />
+          
+        </div>
+      </div>
+    }
+  </div> -->
+
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="d-flex justify-content-center">
+        <img
+          class="w-75 h-auto"
+          src="/img/landing/scientific-ecosystem/atom-graph.png"
+          alt="challenges"
+        />
+      </div>
+    </div>
+  </div>
+</div>

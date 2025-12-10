@@ -6,7 +6,7 @@ import { ScientificEcosystemDetailAboutUs } from '../../../../../../../../servic
 @Component({
   standalone: true,
   templateUrl: './scientific-ecosystem-about-us.component.html',
-  selector: 'scientific-ecosystem-about-us',
+  selector: 'app-scientific-ecosystem-about-us',
   imports: [ReactiveFormsModule],
 })
 export class ScientificEcosystemAboutUsComponent {

@@ -195,7 +195,7 @@ export interface ScientificEcosystemDetailMembers {
 
 export interface ScientificEcosystemDetailProjects {
   TYPE: ScientificEcosystemDetailResourceType;
-  members: { name: string; author: string; objectives: string[] }[];
+  projects: { name: string; author: string; objectives: string[] }[];
 }
 
 export interface ScientificEcosystemDetailContact {

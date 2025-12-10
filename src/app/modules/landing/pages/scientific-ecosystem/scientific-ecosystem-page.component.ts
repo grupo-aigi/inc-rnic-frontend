@@ -33,6 +33,77 @@ const sampleEcosystemData: ScientificEcosystemData = {
           originalFilename: 'some-file-name.pdf',
           size: 300000,
         },
+        {
+          filename: 'some-file-name2.pdf',
+          filetype: 'PDF',
+          originalFilename: 'some-file-name2.pdf',
+          size: 500000,
+        },
+      ],
+    },
+    {
+      TYPE: 'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
+      resources: [
+        {
+          filename: 'some-file-name.pdf',
+          filetype: 'PDF',
+          originalFilename: 'some-file-name.pdf',
+          size: 300000,
+        },
+        {
+          filename: 'some-file-name2.pdf',
+          filetype: 'PDF',
+          originalFilename: 'some-file-name2.pdf',
+          size: 500000,
+        },
+      ],
+    },
+    {
+      TYPE: 'SCIENTIFIC_ECOSYSTEM__MEMBERS',
+      title: 'Miembros del ecosistema',
+      paragraphs: [
+        'A continuación, se presentan los miembros de este ecosistema',
+      ],
+      images: [],
+    },
+    {
+      TYPE: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
+      projects: [
+        {
+          name: 'Proyecto 1',
+          author: 'Nombre del autor',
+          objectives: ['Objectivo 1', 'Objectivo 2'],
+        },
+        {
+          name: 'Proyecto 2',
+          author: 'Nombre del autor',
+          objectives: ['Objectivo 3', 'Objectivo 4'],
+        },
+        {
+          name: 'Proyecto 3',
+          author: 'Nombre del autor',
+          objectives: ['Objectivo 4', 'Objectivo 5'],
+        },
+      ],
+    },
+    {
+      TYPE: 'SCIENTIFIC_ECOSYSTEM__CONTACT',
+      contacts: [
+        {
+          name: 'Pedro Pérez',
+          role: 'Administrador',
+          email: 'pedro.perez@gmail.com',
+        },
+        {
+          name: 'Marina Pérez',
+          role: 'Investigadora',
+          email: 'marina.perez@gmail.com',
+        },
+        {
+          name: 'Mario Pérez',
+          role: 'Coordinador general',
+          email: 'mario.perez@gmail.com',
+        },
       ],
     },
   ],
