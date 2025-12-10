@@ -189,8 +189,15 @@ export class SidebarFullComponent implements OnInit {
           },
           {
             label: { es: 'Boletines', en: 'Newsletters ' },
-            icon: 'bx bxs-book-open',
+            icon: 'bx bxs-news',
             route: '/intranet/gestion-contenido/boletin-noticias',
+            open: false,
+            display: this.displayNavbarItem([Role.ROLE_SUPER_ADMIN]),
+          },
+          {
+            label: { es: 'Memorias', en: 'Memories' },
+            icon: 'bx bxs-book-open',
+            route: '/intranet/gestion-contenido/memorias',
             open: false,
             display: this.displayNavbarItem([Role.ROLE_SUPER_ADMIN]),
           },
