@@ -1,3 +1,24 @@
+import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
+
+import { ScientificEcosystemStateService } from '../../../../services/landing/scientific-ecosystem/scientific-ecosystem-state.service';
+import {
+  ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS,
+  SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
+  ScientificEcosystemData,
+  ScientificEcosystemDetailResourceType,
+  ScientificEcosystemDetailType,
+} from '../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
+import { LangService } from '../../../../services/shared/lang/lang.service';
+import { ScientificEcosystemSectionComponent } from './components/scientific-ecosystem-section/scientific-ecosystem-section.component';
+import { ScientificEcosystemSidebarComponent } from './components/scientific-ecosystem-sidebar/scientific-ecosystem-sidebar.component';
+import labels from './scientific-ecosystem.lang';
+
 const sampleEcosystemData: ScientificEcosystemData = {
   id: 1,
   title: 'Cáncer Colorrecal',
@@ -109,24 +130,6 @@ const sampleEcosystemData: ScientificEcosystemData = {
   ],
 };
 
-import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-
-import {
-  ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS,
-  SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
-  ScientificEcosystemData,
-  ScientificEcosystemDetailResourceType,
-  ScientificEcosystemDetailType,
-} from '../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
-import { LangService } from '../../../../services/shared/lang/lang.service';
-import { ScientificEcosystemSidebarComponent } from './components/scientific-ecosystem-sidebar/scientific-ecosystem-sidebar.component';
-import labels from './scientific-ecosystem.lang';
-import { ScientificEcosystemSectionComponent } from './components/scientific-ecosystem-section/scientific-ecosystem-section.component';
-
 @Component({
   standalone: true,
   selector: 'app-scientific-ecosystem-page',
@@ -139,32 +142,61 @@ import { ScientificEcosystemSectionComponent } from './components/scientific-eco
     ScientificEcosystemSectionComponent,
   ],
 })
-export class ScientificEcosystemPage implements OnInit {
+export class ScientificEcosystemPage implements OnInit, OnDestroy {
   public ecosystemData: ScientificEcosystemData = sampleEcosystemData;
   public isLoading = true;
   public hasError = false;
-  public activeSections: ScientificEcosystemDetailResourceType[] = [
-    'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
-    'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
-    'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
-  ];
+  public activeSections: ScientificEcosystemDetailResourceType[] = [];
 
   public ALL_SECTIONS = ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS;
   public SECTIONS_MAP = SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP;
+
+  private destroy$ = new Subject<void>();
 
   public constructor(
     private title: Title,
     private langService: LangService,
     private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router,
+    private stateService: ScientificEcosystemStateService,
   ) {}
 
   public ngOnInit(): void {
     this.title.setTitle(labels.pageTitle[this.lang]);
-    this.langService.language$.subscribe((lang) => {
-      this.title.setTitle(labels.pageTitle[lang]);
-      this.loadEcosystemData();
-    });
+
+    // Suscribirse a cambios de idioma
+    this.langService.language$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((lang) => {
+        this.title.setTitle(labels.pageTitle[lang]);
+      });
+
+    // Suscribirse a cambios de secciones activas desde el servicio
+    this.stateService.activeSections$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((sections) => {
+        this.activeSections = sections;
+      });
+
+    // Sincronizar con query params al iniciar
+    this.route.queryParams
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((params) => {
+        if (params['sections']) {
+          const sectionsFromUrl = params['sections'].split(
+            ',',
+          ) as ScientificEcosystemDetailResourceType[];
+          this.stateService.setActiveSections(sectionsFromUrl);
+        }
+      });
+
     this.loadEcosystemData();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private async loadEcosystemData() {
@@ -188,13 +220,31 @@ export class ScientificEcosystemPage implements OnInit {
   public handleToggleSection(
     sectionType: ScientificEcosystemDetailResourceType,
   ): void {
-    if (this.activeSections.includes(sectionType)) {
-      this.activeSections = this.activeSections.filter(
-        (type) => type !== sectionType,
-      );
-    } else {
-      this.activeSections.push(sectionType);
-    }
+    this.stateService.toggleSection(sectionType);
+    this.updateQueryParams();
+  }
+
+  public expandAll(): void {
+    this.stateService.expandAll(this.ALL_SECTIONS);
+    this.updateQueryParams();
+  }
+
+  public collapseAll(): void {
+    this.stateService.collapseAll();
+    this.updateQueryParams();
+  }
+
+  private updateQueryParams(): void {
+    const activeSections = this.stateService.getActiveSections();
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        sections: activeSections.length > 0 ? activeSections.join(',') : null,
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
+    });
   }
 
   public getSectionDetailType(
@@ -203,5 +253,22 @@ export class ScientificEcosystemPage implements OnInit {
     return this.ecosystemData.sections.find(
       (section) => section.TYPE === type,
     )!;
+  }
+
+  public scrollToSection(
+    sectionType: ScientificEcosystemDetailResourceType,
+  ): void {
+    // Abrir la sección si no está abierta
+    if (!this.activeSections.includes(sectionType)) {
+      this.handleToggleSection(sectionType);
+    }
+
+    // Esperar un momento para que se renderice la sección
+    setTimeout(() => {
+      const element = document.getElementById(sectionType);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }
 }

@@ -1,16 +1,25 @@
 <div class="scientific-ecosystem-sidebar">
   <ul class="navbar-nav" style="position: relative; margin-bottom: 110px">
     @for (option of sidebarOptions; track $index) {
-      <li class="dynamic-font-size">
-        <div>
-          <a
-            [routerLink]="option.route"
-            class="nav-link w-100 d-flex align-items-center"
-          >
-            <p class="dynamic-font-size">{{ option.label[lang] }}</p>
-          </a>
-        </div>
-      </li>
+      <div class="position-relative">
+        <div
+          class="status-indicator me-2 position-absolute"
+          style="top: 10px; right: 10px"
+          [class.active]="isSectionActive(option.sectionType)"
+        ></div>
+        <li class="dynamic-font-size sidebar-item">
+          <div class="d-flex align-items-center">
+            <a
+              href="#"
+              (click)="handleSectionClick(option.sectionType, $event)"
+              class="nav-link w-100 d-flex align-items-center"
+              [class.active-section]="isSectionActive(option.sectionType)"
+            >
+              <p class="dynamic-font-size mb-0">{{ option.label[lang] }}</p>
+            </a>
+          </div>
+        </li>
+      </div>
     }
   </ul>
 </div>

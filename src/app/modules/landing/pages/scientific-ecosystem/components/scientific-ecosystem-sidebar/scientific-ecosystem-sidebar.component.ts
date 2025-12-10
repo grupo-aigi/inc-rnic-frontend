@@ -1,76 +1,100 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   Router,
   RouterLink,
   RouterLinkActive,
   RouterModule,
 } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
+import { ScientificEcosystemDetailResourceType } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
-import {
-  SidebarOption,
-  SimpleSidebarOption,
-} from '../../../../../../services/shared/layout/layout.interfaces';
 import labels from './scientific-ecosystem-sidebar.lang';
+import { ScientificEcosystemStateService } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-state.service';
+
+interface EcosystemSidebarOption {
+  label: { es: string; en: string };
+  sectionType: ScientificEcosystemDetailResourceType;
+}
 
 @Component({
   standalone: true,
   selector: 'app-scientific-ecosystem-sidebar',
   templateUrl: './scientific-ecosystem-sidebar.component.html',
-  imports: [RouterLink, RouterModule, RouterLinkActive],
+  styleUrls: ['./scientific-ecosystem-sidebar.component.scss'],
+  imports: [CommonModule, RouterLink, RouterModule, RouterLinkActive],
 })
-export class ScientificEcosystemSidebarComponent implements OnInit {
-  public sidebarOptions: SimpleSidebarOption[] = [];
+export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
+  @Output() sectionClicked =
+    new EventEmitter<ScientificEcosystemDetailResourceType>();
+
+  public sidebarOptions: EcosystemSidebarOption[] = [];
+  public activeSections: ScientificEcosystemDetailResourceType[] = [];
+
+  private destroy$ = new Subject<void>();
+
   public constructor(
     private router: Router,
     private langService: LangService,
+    private stateService: ScientificEcosystemStateService,
   ) {}
 
   public ngOnInit(): void {
     this.setSidebarOptions();
+
+    // Suscribirse a cambios de secciones activas
+    this.stateService.activeSections$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((sections) => {
+        this.activeSections = sections;
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private setSidebarOptions(): void {
     this.sidebarOptions = [
       {
         label: { es: 'Nosotros', en: 'About us' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
       },
       {
         label: { es: 'Objetivo General', en: 'General Objective' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
       },
       {
         label: { es: 'Objetivos Específicos', en: 'Specific Objectives' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
       },
       {
         label: { es: 'Hoja de Ruta', en: 'Roadmap' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__ROADMAP',
       },
       {
         label: { es: 'Lineamientos', en: 'Guidelines' },
-        route: '#section',
-      },
-      {
-        label: { es: 'Cómo participar', en: 'How to Participate' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
       },
       {
         label: { es: 'Integrantes', en: 'Members' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__MEMBERS',
       },
       {
         label: { es: 'Proyectos', en: 'Projects' },
-        route: '#section',
-      },
-      {
-        label: { es: 'Eventos', en: 'Events' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
       },
       {
         label: { es: 'Contacto', en: 'Contact' },
-        route: '#section',
+        sectionType: 'SCIENTIFIC_ECOSYSTEM__CONTACT',
       },
     ];
   }
@@ -83,7 +107,17 @@ export class ScientificEcosystemSidebarComponent implements OnInit {
     return this.langService.language;
   }
 
-  public handleToggle(option: SidebarOption) {
-    option.open = !option.open;
+  public isSectionActive(
+    sectionType: ScientificEcosystemDetailResourceType,
+  ): boolean {
+    return this.activeSections.includes(sectionType);
+  }
+
+  public handleSectionClick(
+    sectionType: ScientificEcosystemDetailResourceType,
+    event: Event,
+  ): void {
+    event.preventDefault();
+    this.sectionClicked.emit(sectionType);
   }
 }
