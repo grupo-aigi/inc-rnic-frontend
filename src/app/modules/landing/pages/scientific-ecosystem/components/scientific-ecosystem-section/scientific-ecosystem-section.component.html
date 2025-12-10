@@ -2,63 +2,63 @@
   <div>Cargando...</div>
 } @else {
   @switch (section.TYPE) {
-    @case ('SCIENTIFIC_ECOSYSTEM__ABOUT_US') {
-      <div id="SCIENTIFIC_ECOSYSTEM__ABOUT_US" class="pt-5">
+    @case ('NOSOTROS') {
+      <div id="NOSOTROS" class="pt-5">
         <app-scientific-ecosystem-about-us
           [section]="parsedToAboutUs"
         ></app-scientific-ecosystem-about-us>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE') {
-      <div id="SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE" class="pt-5">
+    @case ('OBJ_GENERAL') {
+      <div id="OBJ_GENERAL" class="pt-5">
         <app-scientific-ecosystem-general-objective
           [section]="parsedToGeneralObjective"
         >
         </app-scientific-ecosystem-general-objective>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES') {
-      <div id="SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES" class="pt-5">
+    @case ('OBJ_ESPECIFICOS') {
+      <div id="OBJ_ESPECIFICOS" class="pt-5">
         <app-scientific-ecosystem-specific-objectives
           [section]="parsedToSpecificObjectives"
         >
         </app-scientific-ecosystem-specific-objectives>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__ROADMAP') {
-      <div id="SCIENTIFIC_ECOSYSTEM__ROADMAP" class="pt-5">
+    @case ('HOJA_RUTA') {
+      <div id="HOJA_RUTA" class="pt-5">
         <app-scientific-ecosystem-roadmap [section]="parsedToRoadmap">
         </app-scientific-ecosystem-roadmap>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__GUIDELINES') {
-      <div id="SCIENTIFIC_ECOSYSTEM__GUIDELINES" class="pt-5">
+    @case ('LINEAMIENTOS') {
+      <div id="LINEAMIENTOS" class="pt-5">
         <app-scientific-ecosystem-guidelines [section]="parsedToGuidelines">
         </app-scientific-ecosystem-guidelines>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE') {
-      <div id="SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE" class="pt-5">
+    @case ('COMO_PARTICIPAR') {
+      <div id="COMO_PARTICIPAR" class="pt-5">
         <app-scientific-ecosystem-how-to-participate
           [section]="parsedToHowToParticipate"
         >
         </app-scientific-ecosystem-how-to-participate>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__MEMBERS') {
-      <div id="SCIENTIFIC_ECOSYSTEM__MEMBERS" class="pt-5">
+    @case ('INTEGRANTES') {
+      <div id="INTEGRANTES" class="pt-5">
         <app-scientific-ecosystem-members [section]="parsedToMembers">
         </app-scientific-ecosystem-members>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__PROJECTS') {
-      <div id="SCIENTIFIC_ECOSYSTEM__PROJECTS" class="pt-5">
+    @case ('PROYECTOS') {
+      <div id="PROYECTOS" class="pt-5">
         <app-scientific-ecosystem-projects [section]="parsedToProjects">
         </app-scientific-ecosystem-projects>
       </div>
     }
-    @case ('SCIENTIFIC_ECOSYSTEM__CONTACT') {
-      <div id="SCIENTIFIC_ECOSYSTEM__CONTACT" class="pt-5">
+    @case ('CONTACTO') {
+      <div id="CONTACTO" class="pt-5">
         <app-scientific-ecosystem-contact [section]="parsedToContact">
         </app-scientific-ecosystem-contact>
       </div>

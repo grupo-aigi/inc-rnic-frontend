@@ -97,7 +97,7 @@ export class SetScientificEcosystemMembersComponent {
       title,
       paragraphs: this.paragraphs,
       images: this.resourceImages,
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__MEMBERS',
+      TYPE: 'INTEGRANTES',
     };
     this.onSubmit.emit(resourceInfo);
     this.formGroup.reset();

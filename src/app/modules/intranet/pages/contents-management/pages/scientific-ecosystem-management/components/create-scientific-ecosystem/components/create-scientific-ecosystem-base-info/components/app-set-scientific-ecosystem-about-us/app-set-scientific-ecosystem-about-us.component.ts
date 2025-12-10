@@ -21,7 +21,7 @@ export class SetScientificEcosystemAboutUsComponent {
 
   public formGroup: FormGroup =
     this.formBuilder.group<ScientificEcosystemDetailAboutUs>({
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
+      TYPE: 'NOSOTROS',
       description: [],
     });
 

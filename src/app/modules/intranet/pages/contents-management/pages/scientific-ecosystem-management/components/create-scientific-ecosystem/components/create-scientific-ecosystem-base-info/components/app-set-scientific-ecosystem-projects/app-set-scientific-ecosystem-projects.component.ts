@@ -148,7 +148,7 @@ export class SetScientificEcosystemProjectsComponent {
 
     const resourceInfo: ScientificEcosystemDetailProjects = {
       projects: this.projects,
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
+      TYPE: 'PROYECTOS',
     };
 
     this.onSubmit.emit(resourceInfo);

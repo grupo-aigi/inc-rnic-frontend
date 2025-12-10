@@ -26,7 +26,7 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
 
   public formGroup: FormGroup =
     this.formBuilder.group<ScientificEcosystemDetailSpecificObjectives>({
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
+      TYPE: 'OBJ_ESPECIFICOS',
       specificObjectives: [],
     });
 

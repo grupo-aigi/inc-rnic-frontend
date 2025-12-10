@@ -9,11 +9,7 @@ import { ScientificEcosystemDetailResourceType } from './scientific-ecosystem.in
 export class ScientificEcosystemStateService {
   private activeSectionsSubject = new BehaviorSubject<
     ScientificEcosystemDetailResourceType[]
-  >([
-    'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
-    'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
-    'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
-  ]);
+  >(['NOSOTROS', 'OBJ_GENERAL', 'OBJ_ESPECIFICOS']);
 
   public activeSections$: Observable<ScientificEcosystemDetailResourceType[]> =
     this.activeSectionsSubject.asObservable();

@@ -1,7 +1,6 @@
 @for (archive of section.resources; track $index) {
   <div class="container-fluid px-3 py-2 mb-3">
     <div class="d-flex align-items-center gap-3">
-      <!-- Icono del archivo -->
       <div class="flex-shrink-0">
         <img
           [src]="'/img/events/filetypes/' + archive.filetype + '.png'"
@@ -12,33 +11,29 @@
         />
       </div>
 
-      <!-- Información del archivo -->
       <div class="flex-grow-1">
         <h5 class="mb-2 fw-bold">{{ archive.filename }}</h5>
       </div>
 
-      <!-- Botones de acción -->
       <div class="d-flex gap-2 flex-shrink-0">
         <a [href]="attachmentUrl" class="btn btn-primary btn-sm">
           <i class="bx bx-cloud-download"></i> Descargar
         </a>
         <button
           (click)="handleFetchPdf(archive.filename)"
-          class="btn btn-info btn-sm"
+          class="btn btn-info btn-sm text-white"
         >
           <i class="bx bx-show"></i> Ver
         </button>
       </div>
     </div>
 
-    <!-- Mensaje de error -->
     @if (errorDocument) {
       <div class="alert alert-danger mt-3" role="alert">
         <i class="bx bx-error-circle"></i> Error al cargar el documento
       </div>
     }
 
-    <!-- Visor de PDF -->
     @if (displayPdfDocument && !errorDocument) {
       <div class="mt-3">
         <button (click)="hideDocument()" class="btn btn-danger btn-sm mb-2">

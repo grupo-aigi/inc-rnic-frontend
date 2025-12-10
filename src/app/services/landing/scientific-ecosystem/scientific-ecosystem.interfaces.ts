@@ -93,65 +93,65 @@ export type ScientificEcosystemDetailType =
   | ScientificEcosystemDetailContact;
 
 export type ScientificEcosystemDetailResourceType =
-  | 'SCIENTIFIC_ECOSYSTEM__ABOUT_US'
-  | 'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE'
-  | 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES'
-  | 'SCIENTIFIC_ECOSYSTEM__ROADMAP'
-  | 'SCIENTIFIC_ECOSYSTEM__GUIDELINES'
-  | 'SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE'
-  | 'SCIENTIFIC_ECOSYSTEM__MEMBERS'
-  | 'SCIENTIFIC_ECOSYSTEM__PROJECTS'
-  | 'SCIENTIFIC_ECOSYSTEM__CONTACT';
+  | 'NOSOTROS'
+  | 'OBJ_GENERAL'
+  | 'OBJ_ESPECIFICOS'
+  | 'HOJA_RUTA'
+  | 'LINEAMIENTOS'
+  | 'COMO_PARTICIPAR'
+  | 'INTEGRANTES'
+  | 'PROYECTOS'
+  | 'CONTACTO';
 
 export const ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS: ScientificEcosystemDetailResourceType[] =
   [
-    'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
-    'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
-    'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
-    'SCIENTIFIC_ECOSYSTEM__ROADMAP',
-    'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
-    'SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE',
-    'SCIENTIFIC_ECOSYSTEM__MEMBERS',
-    'SCIENTIFIC_ECOSYSTEM__PROJECTS',
-    'SCIENTIFIC_ECOSYSTEM__CONTACT',
+    'NOSOTROS',
+    'OBJ_GENERAL',
+    'OBJ_ESPECIFICOS',
+    'HOJA_RUTA',
+    'LINEAMIENTOS',
+    'COMO_PARTICIPAR',
+    'INTEGRANTES',
+    'PROYECTOS',
+    'CONTACTO',
   ];
 
 export const SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP: {
   [key in ScientificEcosystemDetailResourceType]: { es: string; en: string };
 } = {
-  SCIENTIFIC_ECOSYSTEM__ABOUT_US: {
+  NOSOTROS: {
     es: 'Nosotros',
     en: 'About Us',
   },
-  SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE: {
+  OBJ_GENERAL: {
     es: 'Objetivo General',
     en: 'General Objective',
   },
-  SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES: {
+  OBJ_ESPECIFICOS: {
     es: 'Objetivos Específicos',
     en: 'Specific Objectives',
   },
-  SCIENTIFIC_ECOSYSTEM__ROADMAP: {
+  HOJA_RUTA: {
     es: 'Hoja de Ruta',
     en: 'Roadmap',
   },
-  SCIENTIFIC_ECOSYSTEM__GUIDELINES: {
+  LINEAMIENTOS: {
     es: 'Lineamientos',
     en: 'Guidelines',
   },
-  SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE: {
+  COMO_PARTICIPAR: {
     es: 'Cómo Participar',
     en: 'How to Participate',
   },
-  SCIENTIFIC_ECOSYSTEM__MEMBERS: {
+  INTEGRANTES: {
     es: 'Miembros',
     en: 'Members',
   },
-  SCIENTIFIC_ECOSYSTEM__PROJECTS: {
+  PROYECTOS: {
     es: 'Proyectos',
     en: 'Projects',
   },
-  SCIENTIFIC_ECOSYSTEM__CONTACT: {
+  CONTACTO: {
     es: 'Contacto',
     en: 'Contact',
   },

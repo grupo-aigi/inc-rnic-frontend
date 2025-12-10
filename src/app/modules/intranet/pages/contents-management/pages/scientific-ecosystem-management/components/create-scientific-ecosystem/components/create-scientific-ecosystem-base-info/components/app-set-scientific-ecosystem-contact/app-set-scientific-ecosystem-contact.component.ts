@@ -116,7 +116,7 @@ export class SetScientificEcosystemContactComponent {
 
     const resourceInfo: ScientificEcosystemDetailContact = {
       contacts: this.contacts,
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__CONTACT',
+      TYPE: 'CONTACTO',
     };
 
     this.onSubmit.emit(resourceInfo);

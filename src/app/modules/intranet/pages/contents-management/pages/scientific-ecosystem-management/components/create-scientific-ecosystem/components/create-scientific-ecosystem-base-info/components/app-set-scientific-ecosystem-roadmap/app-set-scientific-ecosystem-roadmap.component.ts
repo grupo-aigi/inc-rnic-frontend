@@ -136,7 +136,7 @@ export class SetScientificEcosystemRoadmapComponent {
       return;
     }
     const resourceInfo: ScientificEcosystemDetailRoadmap = {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
+      TYPE: 'LINEAMIENTOS',
       resources: this.resourceFiles,
     };
 

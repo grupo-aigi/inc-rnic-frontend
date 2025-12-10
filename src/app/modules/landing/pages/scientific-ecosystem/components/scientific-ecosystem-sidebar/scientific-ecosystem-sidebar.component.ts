@@ -66,35 +66,35 @@ export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
     this.sidebarOptions = [
       {
         label: { es: 'Nosotros', en: 'About us' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
+        sectionType: 'NOSOTROS',
       },
       {
         label: { es: 'Objetivo General', en: 'General Objective' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
+        sectionType: 'OBJ_GENERAL',
       },
       {
         label: { es: 'Objetivos Específicos', en: 'Specific Objectives' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
+        sectionType: 'OBJ_ESPECIFICOS',
       },
       {
         label: { es: 'Hoja de Ruta', en: 'Roadmap' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__ROADMAP',
+        sectionType: 'HOJA_RUTA',
       },
       {
         label: { es: 'Lineamientos', en: 'Guidelines' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
+        sectionType: 'LINEAMIENTOS',
       },
       {
         label: { es: 'Integrantes', en: 'Members' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__MEMBERS',
+        sectionType: 'INTEGRANTES',
       },
       {
         label: { es: 'Proyectos', en: 'Projects' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
+        sectionType: 'PROYECTOS',
       },
       {
         label: { es: 'Contacto', en: 'Contact' },
-        sectionType: 'SCIENTIFIC_ECOSYSTEM__CONTACT',
+        sectionType: 'CONTACTO',
       },
     ];
   }

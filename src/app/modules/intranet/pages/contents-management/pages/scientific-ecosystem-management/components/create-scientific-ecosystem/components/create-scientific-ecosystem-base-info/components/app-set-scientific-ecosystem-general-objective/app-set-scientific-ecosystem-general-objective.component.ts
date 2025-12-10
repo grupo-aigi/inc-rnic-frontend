@@ -22,7 +22,7 @@ export class SetScientificEcosystemGeneralObjectiveComponent {
 
   public formGroup: FormGroup =
     this.formBuilder.group<ScientificEcosystemDetailGeneralObjective>({
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
+      TYPE: 'OBJ_GENERAL',
       generalObjective: '',
     });
 

@@ -25,18 +25,18 @@ const sampleEcosystemData: ScientificEcosystemData = {
   urlName: 'cancer-colorrectal',
   sections: [
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
+      TYPE: 'NOSOTROS',
       description: [
         'El cáncer colorrectal (CCR) es una de las neoplasias malignas más comunes en todo el mundo y una de las principales causas de muerte por cáncer. En los últimos años, la incidencia y mortalidad del CCR han aumentado significativamente en muchos países, lo que subraya la importancia de abordar este problema de salud pública de manera integral.',
       ],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
+      TYPE: 'OBJ_GENERAL',
       generalObjective:
         'El objetivo general de este ecosistema científico es fomentar la colaboración interdisciplinaria entre investigadores, profesionales de la salud, pacientes y otras partes interesadas para avanzar en la comprensión, prevención, diagnóstico y tratamiento del cáncer colorrectal.',
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
+      TYPE: 'OBJ_ESPECIFICOS',
       specificObjectives: [
         'Promover la investigación básica y clínica sobre los mecanismos moleculares y genéticos del CCR.',
         'Desarrollar y validar nuevas estrategias de detección temprana y diagnóstico del CCR.',
@@ -46,7 +46,7 @@ const sampleEcosystemData: ScientificEcosystemData = {
       ],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__ROADMAP',
+      TYPE: 'HOJA_RUTA',
       resources: [
         {
           filename: 'some-file-name.pdf',
@@ -63,7 +63,7 @@ const sampleEcosystemData: ScientificEcosystemData = {
       ],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
+      TYPE: 'LINEAMIENTOS',
       resources: [
         {
           filename: 'some-file-name.pdf',
@@ -80,7 +80,7 @@ const sampleEcosystemData: ScientificEcosystemData = {
       ],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__MEMBERS',
+      TYPE: 'INTEGRANTES',
       title: 'Miembros del ecosistema',
       paragraphs: [
         'A continuación, se presentan los miembros de este ecosistema',
@@ -88,7 +88,7 @@ const sampleEcosystemData: ScientificEcosystemData = {
       images: [],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__PROJECTS',
+      TYPE: 'PROYECTOS',
       projects: [
         {
           name: 'Proyecto 1',
@@ -108,7 +108,7 @@ const sampleEcosystemData: ScientificEcosystemData = {
       ],
     },
     {
-      TYPE: 'SCIENTIFIC_ECOSYSTEM__CONTACT',
+      TYPE: 'CONTACTO',
       contacts: [
         {
           name: 'Pedro Pérez',
