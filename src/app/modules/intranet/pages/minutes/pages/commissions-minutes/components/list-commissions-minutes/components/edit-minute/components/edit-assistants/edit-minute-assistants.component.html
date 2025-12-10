@@ -4,9 +4,7 @@
 
 <div class="container row m-auto">
   @if (loadingAssistants) {
-    <div
-      class="d-flex flex-column align-items-center justify-content-center"
-      >
+    <div class="d-flex flex-column align-items-center justify-content-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -16,14 +14,14 @@
     <!-- ---------------------------- -->
     <section class="get-quote-area pt-4">
       <div class="container">
-        <div class="get-quote-form">
+        <div>
           <div class="row position-relative">
             <div class="col-lg-12 col-sm-12">
               <form
                 [formGroup]="formGroup"
                 autocomplete="off"
                 class="form-group"
-                >
+              >
                 <input
                   type="text"
                   autocomplete="off"
@@ -34,32 +32,29 @@
                   (click)="handleOpenOptions($event)"
                   class="form-control"
                   id="user-search-input"
-                  />
+                />
               </form>
             </div>
             @if (displaySearchOptions) {
-              <div
-                id="user-search-options"
-                class="position-relative col-12"
-                >
+              <div id="user-search-options" class="position-relative col-12">
                 <div class="minute-recommended-option__container">
                   @for (recommendation of recommendedUsers; track $index) {
                     <div
                       id="user-search-options"
                       class="mx-3 mx-auto col-12 py-3 px-2"
                       (click)="handleSetActiveUserId(recommendation.id)"
-                      >
+                    >
                       <p id="user-search-options">{{ recommendation.name }}</p>
                     </div>
                     @if (
                       recommendation.id === formGroup.get('activeUserId')?.value
-                      ) {
+                    ) {
                       <div class="overflow-x-hidden p-2">
                         <p>{{ labels.didAttend[lang] }}</p>
                         <div
                           id="user-search-options"
                           class="row w-100 form-check form-check-inline"
-                          >
+                        >
                           <div class="row col-12 pb-2">
                             <div class="col-6">
                               <input
@@ -69,12 +64,12 @@
                                 (change)="handleAttendedChange($event)"
                                 id="attended-yes"
                                 value="yes"
-                                />
+                              />
                               <label
                                 class="form-check-label"
                                 id="attended-yes"
                                 for="attended-yes"
-                                >
+                              >
                                 {{ labels.yes[lang] }}
                               </label>
                             </div>
@@ -88,12 +83,12 @@
                                 id="attended-no"
                                 value="no"
                                 formControlName="attended"
-                                />
+                              />
                               <label
                                 class="form-check-label"
                                 id="attended-no"
                                 for="attended-no"
-                                >
+                              >
                                 {{ labels.no[lang] }}
                               </label>
                             </div>
@@ -103,7 +98,7 @@
                               <button
                                 class="default-btn w-100 bg-success"
                                 (click)="handleAddAssistant()"
-                                >
+                              >
                                 {{ labels.add[lang] }}
                               </button>
                             </div>
@@ -112,7 +107,7 @@
                                 id="user-search-options"
                                 class="default-btn bg-danger"
                                 (click)="handleResetActiveUser()"
-                                >
+                              >
                                 {{ labels.close[lang] }}
                               </button>
                             </div>
@@ -130,22 +125,18 @@
     </section>
     <div class="approvers-list">
       @for (assistantInfo of assistants; track assistantInfo) {
-        <div
-          class="col-lg-12 col-sm-12 mb-3"
-          >
+        <div class="col-lg-12 col-sm-12 mb-3">
           <div class="candidate-list-box container card">
             <div class="card-body">
               <div class="row align-items-center">
                 <div class="col-lg-3 col-md-4 col-sm-4">
                   @if (assistantInfo.browserUrl) {
-                    <div
-                      class="candidate-list-images"
-                      >
+                    <div class="candidate-list-images">
                       <img
                         [src]="assistantInfo.browserUrl"
                         alt=""
                         class="avatar-md img-thumbnail rounded-circle"
-                        />
+                      />
                     </div>
                   } @else {
                     <i
@@ -164,7 +155,7 @@
                     @if (assistantInfo.attended) {
                       <span
                         class="rounded-pill bg-success badge badge-primary position-relative m-1"
-                        >
+                      >
                         <span class="position-relative p-1">
                           {{ labels.assisted[lang] }}
                         </span>
@@ -176,7 +167,7 @@
                     } @else {
                       <span
                         class="rounded-pill bg-danger badge badge-primary position-relative m-1"
-                        >
+                      >
                         <span class="position-relative p-1"
                           >{{ labels.notAssisted[lang] }}
                         </span>
@@ -190,12 +181,12 @@
                 </div>
                 <div
                   class="col-lg-2 col-md-2 d-flex flex-row justify-content-end align-items-center"
-                  >
+                >
                   <button
                     class="btn btn-danger"
                     type="button"
                     (click)="handleDeleteAssistant(assistantInfo.assistant.id)"
-                    >
+                  >
                     {{ labels.delete[lang] }}
                   </button>
                 </div>
@@ -216,9 +207,8 @@
         [currentPage]="pagination.currentPage"
         [showTotalRecords]="true"
         (onPageChange)="handleGoToPage($event)"
-        >
+      >
       </app-complete-pagination>
     }
   }
-
 </div>

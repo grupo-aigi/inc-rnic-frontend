@@ -10,7 +10,7 @@
             width="100px"
             class="image-list"
             [title]="registerInfo.file.name"
-            />
+          />
 
           <div style="margin-left: 20px">
             <div class="d-flex flex-row">
@@ -51,157 +51,143 @@
         <div class="tab get-quote-tab">
           <div class="tab_content">
             <div class="tabs_item">
-              <form
-                [formGroup]="formGroup"
-                (ngSubmit)="handleSubmit()"
-                class="get-quote-form"
-                >
+              <form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
                 <div class="row">
                   <div class="col-lg-12 col-sm-12">
                     <span class="from-title"
                       >{{ labels.personalInformation[lang] }}:</span
-                      >
+                    >
+                  </div>
+                  <div class="col-lg-12 col-sm-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        [placeholder]="labels.fullName.placeholder[lang]"
+                        class="form-control"
+                        id="First-Name-1"
+                        name="name"
+                        formControlName="name"
+                      />
+                      @if (isFieldInvalid('name')) {
+                        <small class="input-label__invalid">
+                          {{ labels.fullName.error[lang] }}
+                        </small>
+                      }
                     </div>
-                    <div class="col-lg-12 col-sm-6">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          [placeholder]="labels.fullName.placeholder[lang]"
-                          class="form-control"
-                          id="First-Name-1"
-                          name="name"
-                          formControlName="name"
-                          />
-                        @if (isFieldInvalid('name')) {
-                          <small
-                            class="input-label__invalid"
-                            >
-                            {{ labels.fullName.error[lang] }}
-                          </small>
-                        }
-                      </div>
+                  </div>
+                  <div class="col-lg-12 col-sm-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="labels.identification.placeholder[lang]"
+                        formControlName="identification"
+                      />
+                      @if (isFieldInvalid('identification')) {
+                        <small class="input-label__invalid">
+                          {{ labels.identification.error[lang] }}
+                        </small>
+                      }
                     </div>
-                    <div class="col-lg-12 col-sm-6">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          [placeholder]="labels.identification.placeholder[lang]"
-                          formControlName="identification"
-                          />
-                        @if (isFieldInvalid('identification')) {
-                          <small
-                            class="input-label__invalid"
-                            >
-                            {{ labels.identification.error[lang] }}
-                          </small>
-                        }
-                      </div>
+                  </div>
+                  <div class="col-lg-12 col-sm-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        [placeholder]="labels.email.placeholder[lang]"
+                        formControlName="email"
+                      />
+                      @if (isFieldInvalid('email')) {
+                        <small class="input-label__invalid">
+                          {{ labels.email.error[lang] }}
+                        </small>
+                      }
                     </div>
-                    <div class="col-lg-12 col-sm-6">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          [placeholder]="labels.email.placeholder[lang]"
-                          formControlName="email"
-                          />
-                        @if (isFieldInvalid('email')) {
-                          <small
-                            class="input-label__invalid"
-                            >
-                            {{ labels.email.error[lang] }}
-                          </small>
-                        }
-                      </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="phoneNumber"
+                        [placeholder]="labels.phoneNumber.placeholder[lang]"
+                      />
+                      @if (isFieldInvalid('phoneNumber')) {
+                        <small class="input-label__invalid">
+                          {{ labels.phoneNumber.error[lang] }}
+                        </small>
+                      }
                     </div>
-                    <div class="col-lg-6 col-sm-6">
-                      <div class="form-group">
-                        <input
-                          type="text"
-                          class="form-control"
-                          formControlName="phoneNumber"
-                          [placeholder]="labels.phoneNumber.placeholder[lang]"
-                          />
-                        @if (isFieldInvalid('phoneNumber')) {
-                          <small
-                            class="input-label__invalid"
-                            >
-                            {{ labels.phoneNumber.error[lang] }}
-                          </small>
-                        }
-                      </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <div class="form-group">
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="entryDate"
+                        [title]="labels.entryDate.placeholder[lang]"
+                      />
+                      @if (isFieldInvalid('entryDate')) {
+                        <small class="input-label__invalid">
+                          {{ labels.entryDate.error[lang] }}
+                        </small>
+                      }
                     </div>
-                    <div class="col-lg-6 col-sm-6">
-                      <div class="form-group">
-                        <input
-                          type="date"
-                          class="form-control"
-                          formControlName="entryDate"
-                          [title]="labels.entryDate.placeholder[lang]"
-                          />
-                        @if (isFieldInvalid('entryDate')) {
-                          <small
-                            class="input-label__invalid"
-                            >
-                            {{ labels.entryDate.error[lang] }}
-                          </small>
-                        }
-                      </div>
+                  </div>
+                  <div class="col-lg-12 col-sm-6">
+                    <span class="from-title"
+                      >{{ labels.commissions.placeholder[lang] }}:</span
+                    >
+                    <div class="form-group">
+                      @for (commission of commissions; track commission) {
+                        <div>
+                          <label>
+                            <input
+                              type="checkbox"
+                              [value]="commission.value"
+                              (change)="handleToggleCommission($event)"
+                            />
+                            {{ commission.label[lang] }}
+                          </label>
+                        </div>
+                      }
                     </div>
-                    <div class="col-lg-12 col-sm-6">
-                      <span class="from-title"
-                        >{{ labels.commissions.placeholder[lang] }}:</span
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="row">
+                      <div class="col-lg-6 mx-auto">
+                        <button
+                          type="submit"
+                          class="default-btn bg-success"
+                          style="margin: 10px"
                         >
-                        <div class="form-group">
-                          @for (commission of commissions; track commission) {
-                            <div>
-                              <label>
-                                <input
-                                  type="checkbox"
-                                  [value]="commission.value"
-                                  (change)="handleToggleCommission($event)"
-                                  />
-                                {{ commission.label[lang] }}
-                              </label>
-                            </div>
-                          }
-                        </div>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="row">
-                          <div class="col-lg-6 mx-auto">
-                            <button
-                              type="submit"
-                              class="default-btn bg-success"
-                              style="margin: 10px"
-                              >
-                              {{ labels.buttons.register[lang] }}
-                            </button>
-                            <button
-                              type="reset"
-                              class="default-btn bg-info"
-                              style="margin: 10px"
-                              >
-                              {{ labels.buttons.clearFields[lang] }}
-                            </button>
-                            <button
-                              type="button"
-                              class="default-btn bg-danger"
-                              style="margin: 10px"
-                              (click)="handleDeleteRegister()"
-                              >
-                              {{ labels.buttons.deleteRecord[lang] }}
-                            </button>
-                          </div>
-                        </div>
+                          {{ labels.buttons.register[lang] }}
+                        </button>
+                        <button
+                          type="reset"
+                          class="default-btn bg-info"
+                          style="margin: 10px"
+                        >
+                          {{ labels.buttons.clearFields[lang] }}
+                        </button>
+                        <button
+                          type="button"
+                          class="default-btn bg-danger"
+                          style="margin: 10px"
+                          (click)="handleDeleteRegister()"
+                        >
+                          {{ labels.buttons.deleteRecord[lang] }}
+                        </button>
                       </div>
                     </div>
-                  </form>
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
           </div>
         </div>
-      }
+      </div>
     </div>
+  }
+</div>

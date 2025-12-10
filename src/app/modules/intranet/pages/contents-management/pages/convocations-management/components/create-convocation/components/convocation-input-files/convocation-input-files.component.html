@@ -1,4 +1,4 @@
-<form class="get-quote-form">
+<form>
   <div class="row pt-3">
     <div class="col-lg-4 col-md-12">
       <div class="form-group" style="height: 50px">
@@ -21,18 +21,18 @@
         for="fileInput_3"
         class="custom-file-button w-100 text-center"
         style="height: 50px; font-weight: 800"
-        >
+      >
         <input
           type="file"
           formControlName="signature"
           id="fileInput_3"
           (change)="onFileSelected($event)"
           class="file-input"
-          />
+        />
         <span class="mt-2">{{
           currUploadedFile
-          ? labels.changeDocument[lang]
-          : labels.selectDocument[lang]
+            ? labels.changeDocument[lang]
+            : labels.selectDocument[lang]
         }}</span>
       </label>
     </div>
@@ -44,7 +44,7 @@
           [disabled]="!currUploadedFile"
           type="button"
           (click)="handleAddFile()"
-          >
+        >
           {{ labels.addFile[lang] }}
         </button>
       </div>
@@ -64,9 +64,7 @@
 
     <div class="container">
       @if (convocationFiles.length === 0) {
-        <div
-          class="alert alert-info text-center"
-          >
+        <div class="alert alert-info text-center">
           {{ labels.noFilesUploaded[lang] }}
         </div>
       }
@@ -74,19 +72,19 @@
 
     <div class="row mb-5">
       @for (file of convocationFiles; track file; let i = $index) {
-        <div
-          class="col-lg-3 col-sm-12 position-relative"
-          >
+        <div class="col-lg-3 col-sm-12 position-relative">
           <img
-          [src]="
-            '/img/events/filetypes/' + getFileExtension(file.filename) + '.png'
-          "
+            [src]="
+              '/img/events/filetypes/' +
+              getFileExtension(file.filename) +
+              '.png'
+            "
             [alt]="file.name"
             alt="Image"
             width="100px"
             class="image-list"
             [title]="file.name"
-            />
+          />
           <div class="mb-5 mt-2">
             <b class="mt-2">Archivo #{{ i + 1 }}</b>
             <p>{{ file.name }}</p>
@@ -94,7 +92,7 @@
               type="button"
               class="btn btn-danger"
               (click)="handleDeleteFile(i)"
-              >
+            >
               {{ labels.deleteFile[lang] }}
             </button>
           </div>
