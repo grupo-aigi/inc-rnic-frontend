@@ -2539,3 +2539,14 @@
     padding: 0;
   }
 }
+
+@media (max-width: 1200px) {
+  .scientific-ecosystem-sidebar {
+    display: none;
+  }
+
+  .scientific-ecosystem-main-container,
+  #landing-footer {
+    margin-left: 0px !important;
+  }
+}

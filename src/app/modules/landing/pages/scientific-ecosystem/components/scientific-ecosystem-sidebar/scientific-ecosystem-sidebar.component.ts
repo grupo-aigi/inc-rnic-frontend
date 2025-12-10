@@ -14,7 +14,11 @@ import {
 } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
-import { ScientificEcosystemDetailResourceType } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
+import {
+  ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS,
+  SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
+  ScientificEcosystemDetailResourceType,
+} from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
 import labels from './scientific-ecosystem-sidebar.lang';
 import { ScientificEcosystemStateService } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-state.service';
@@ -61,50 +65,13 @@ export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
   private setSidebarOptions(): void {
-    this.sidebarOptions = [
-      {
-        label: { es: 'Nosotros', en: 'About us' },
-        sectionType: 'NOSOTROS',
-      },
-      {
-        label: { es: 'Objetivo General', en: 'General Objective' },
-        sectionType: 'OBJ_GENERAL',
-      },
-      {
-        label: { es: 'Objetivos Específicos', en: 'Specific Objectives' },
-        sectionType: 'OBJ_ESPECIFICOS',
-      },
-      {
-        label: { es: 'Hoja de Ruta', en: 'Roadmap' },
-        sectionType: 'HOJA_RUTA',
-      },
-      {
-        label: { es: 'Lineamientos', en: 'Guidelines' },
-        sectionType: 'LINEAMIENTOS',
-      },
-      {
-        label: { es: 'Integrantes', en: 'Members' },
-        sectionType: 'INTEGRANTES',
-      },
-      {
-        label: { es: 'Proyectos', en: 'Projects' },
-        sectionType: 'PROYECTOS',
-      },
-      {
-        label: { es: 'Eventos', en: 'Events' },
-        sectionType: 'EVENTOS',
-      },
-      {
-        label: { es: 'Noticias', en: 'News' },
-        sectionType: 'NOTICIAS',
-      },
-      {
-        label: { es: 'Contacto', en: 'Contact' },
-        sectionType: 'CONTACTO',
-      },
-    ];
+    this.sidebarOptions = ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS.map(
+      (sectionType) => ({
+        sectionType,
+        label: SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP[sectionType],
+      }),
+    );
   }
 
   public get labels() {
