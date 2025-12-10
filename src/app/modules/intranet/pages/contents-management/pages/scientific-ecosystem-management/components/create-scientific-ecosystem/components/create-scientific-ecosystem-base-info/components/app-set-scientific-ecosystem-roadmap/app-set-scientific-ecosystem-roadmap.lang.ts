@@ -3,6 +3,16 @@ const labels = {
     es: 'Selecciona un tipo de archivo',
     en: 'Select a file type',
   },
+  paragraphs: {
+    label: {
+      es: 'Párrafo',
+      en: 'Paragraph',
+    },
+    placeholder: {
+      es: 'Ingresa el contenido del párrafo',
+      en: 'Enter the paragraph content',
+    },
+  },
   plainText: {
     es: 'Texto plano',
     en: 'Plain text',
@@ -70,6 +80,56 @@ const labels = {
   restoreChanges: {
     es: 'Restaurar cambios',
     en: 'Restore changes',
+  },
+  editParagraph: {
+    es: 'Editar párrafo',
+    en: 'Edit paragraph',
+  },
+  updateParagraph: {
+    es: 'Actualizar párrafo',
+    en: 'Update paragraph',
+  },
+  addParagraph: {
+    es: 'Agregar párrafo',
+    en: 'Add paragraph',
+  },
+  deleteParagraph: {
+    es: 'Eliminar párrafo',
+    en: 'Delete paragraph',
+  },
+  paragraphNro: {
+    es: 'Párrafo',
+    en: 'Paragraph',
+  },
+  paragraphContent: {
+    placeholder: {
+      es: 'Contenido del párrafo',
+      en: 'Paragraph content',
+    },
+    error: {
+      es: 'El contenido del párrafo ingresado es inválido',
+      en: 'The entered paragraph content is invalid',
+    },
+  },
+  imageList: {
+    es: 'Lista de imágenes',
+    en: 'Image list',
+  },
+  imageNro: {
+    es: 'Imagen',
+    en: 'Image',
+  },
+  noImages: {
+    es: 'No tiene imágenes ingresadas',
+    en: "You don't have any images entered",
+  },
+  addImage: {
+    es: 'Agregar imagen',
+    en: 'Add image',
+  },
+  imgError: {
+    es: 'La imágen ingresada es inválida',
+    en: 'The image entered is invalid',
   },
 };
 

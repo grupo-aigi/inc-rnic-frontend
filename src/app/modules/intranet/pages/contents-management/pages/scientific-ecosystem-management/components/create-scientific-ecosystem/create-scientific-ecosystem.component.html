@@ -5,25 +5,69 @@
         class="create-news_content-tabs tabs mb-2"
         (click)="handleClickOnTab()"
       >
-        <li (click)="changeActiveTab(0)">{{ labels.type0[lang] }}</li>
+        <li
+          [ngClass]="{ 'text-primary': activeTabIndex === 0 }"
+          (click)="changeActiveTab(0)"
+        >
+          {{ labels.type0[lang] }}
+        </li>
         @if (!baseInfo) {
           <span></span>
         } @else {
-          <li (click)="changeActiveTab(1)">{{ labels.aboutUs[lang] }}</li>
-          <li (click)="changeActiveTab(2)">
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 1 }"
+            (click)="changeActiveTab(1)"
+          >
+            {{ labels.aboutUs[lang] }}
+          </li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 2 }"
+            (click)="changeActiveTab(2)"
+          >
             {{ labels.generalObjective[lang] }}
           </li>
-          <li (click)="changeActiveTab(3)">
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 3 }"
+            (click)="changeActiveTab(3)"
+          >
             {{ labels.specificObjectives[lang] }}
           </li>
-          <li (click)="changeActiveTab(4)">{{ labels.roadmap[lang] }}</li>
-          <li (click)="changeActiveTab(5)">{{ labels.guidelines[lang] }}</li>
-          <li (click)="changeActiveTab(6)">
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 4 }"
+            (click)="changeActiveTab(4)"
+          >
+            {{ labels.roadmap[lang] }}
+          </li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 5 }"
+            (click)="changeActiveTab(5)"
+          >
+            {{ labels.guidelines[lang] }}
+          </li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 6 }"
+            (click)="changeActiveTab(6)"
+          >
             {{ labels.howToParticipate[lang] }}
           </li>
-          <li (click)="changeActiveTab(7)">{{ labels.members[lang] }}</li>
-          <li (click)="changeActiveTab(8)">{{ labels.projects[lang] }}</li>
-          <li (click)="changeActiveTab(9)">{{ labels.contact[lang] }}</li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 7 }"
+            (click)="changeActiveTab(7)"
+          >
+            {{ labels.members[lang] }}
+          </li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 8 }"
+            (click)="changeActiveTab(8)"
+          >
+            {{ labels.projects[lang] }}
+          </li>
+          <li
+            [ngClass]="{ 'text-primary': activeTabIndex === 9 }"
+            (click)="changeActiveTab(9)"
+          >
+            {{ labels.contact[lang] }}
+          </li>
         }
       </ul>
 
@@ -65,6 +109,7 @@
           @case (4) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-roadmap
+                target="scientific-ecosystems"
                 (onSubmit)="handleUpdateRoadmap($event)"
               ></app-set-scientific-ecosystem-roadmap>
             </div>
@@ -73,6 +118,7 @@
           @case (5) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-guidelines
+                target="scientific-ecosystems"
                 (onSubmit)="handleUpdateGuidelines($event)"
               ></app-set-scientific-ecosystem-guidelines>
             </div>
@@ -81,6 +127,7 @@
           @case (6) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-how-to-participate
+                target="scientific-ecosystems"
                 (onSubmit)="handleUpdateHowToParticipate($event)"
               ></app-set-scientific-ecosystem-how-to-participate>
             </div>
@@ -89,6 +136,7 @@
           @case (7) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-members
+                target="scientific-ecosystems"
                 (onSubmit)="handleUpdateMembers($event)"
               ></app-set-scientific-ecosystem-members>
             </div>
@@ -97,6 +145,7 @@
           @case (8) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-projects
+                target="scientific-ecosystems"
                 (onSubmit)="handleUpdateProjects($event)"
               ></app-set-scientific-ecosystem-projects>
             </div>

@@ -53,7 +53,7 @@ export class UploadOrReuseImageComponent implements OnInit {
           this.allImages = images;
         },
         error: (err) => {
-          this.toastService.error('Ha ocurrido un error');
+          console.error(`ha ocurrido un error: ${err}`);
         },
       });
   }

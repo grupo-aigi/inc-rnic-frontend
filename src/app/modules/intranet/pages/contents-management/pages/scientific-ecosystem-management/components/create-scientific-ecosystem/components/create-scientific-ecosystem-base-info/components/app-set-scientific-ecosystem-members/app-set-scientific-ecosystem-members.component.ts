@@ -30,7 +30,6 @@ export class SetScientificEcosystemMembersComponent {
   public resourceImages: string[] = [];
 
   public formGroup: FormGroup = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.maxLength(200)]],
     paragraph: [''],
   });
 

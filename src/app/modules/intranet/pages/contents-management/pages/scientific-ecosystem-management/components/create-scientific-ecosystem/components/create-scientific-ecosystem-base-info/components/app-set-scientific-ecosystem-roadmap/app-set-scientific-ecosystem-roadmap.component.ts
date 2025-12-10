@@ -6,8 +6,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
-import { FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
 import { EventService } from '../../../../../../../../../../../../services/landing/event/event.service';
@@ -19,13 +19,14 @@ import {
   mimeTypes,
 } from '../../../../../../../../../../../../services/shared/resources/resource.interfaces';
 import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
+import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-roadmap.lang';
 
 @Component({
   standalone: true,
   selector: 'app-set-scientific-ecosystem-roadmap',
   templateUrl: './app-set-scientific-ecosystem-roadmap.component.html',
-  imports: [],
+  imports: [ReactiveFormsModule, UploadOrReuseImageComponent],
 })
 export class SetScientificEcosystemRoadmapComponent {
   @Input() public target!: ContentTarget;
@@ -33,6 +34,9 @@ export class SetScientificEcosystemRoadmapComponent {
     new EventEmitter();
   @ViewChild('filetypeSelect')
   public filetypeSelect!: ElementRef<HTMLSelectElement>;
+  public paragraphs: string[] = [];
+  public editMode: { paragraphIndex: number } | undefined = undefined;
+  public resourceImages: string[] = [];
   public resourceFiles: {
     filename: string;
     filetype: Filetypes;
@@ -40,10 +44,15 @@ export class SetScientificEcosystemRoadmapComponent {
     size: number;
   }[] = [];
 
+  public formGroup: FormGroup = this.formBuilder.group({
+    paragraph: [''],
+  });
+
   public currUploadedFile: File | null = null;
   public currFiletype: Filetypes = 'PDF';
 
   public constructor(
+    private toastService: ToastrService,
     private formBuilder: FormBuilder,
     private langService: LangService,
     private eventsService: EventService,
@@ -79,10 +88,24 @@ export class SetScientificEcosystemRoadmapComponent {
     this.currUploadedFile = file;
   }
 
+  public handleAddImage(selectedImage: string) {
+    this.resourceImages.push(selectedImage);
+  }
+
+  public handleDeleteImage(index: number) {
+    this.resourceImages = this.resourceImages.filter(
+      (_element, i) => i !== index,
+    );
+  }
+
   public handleDeleteFile(index: number) {
     this.resourceFiles = this.resourceFiles.filter(
       (_element, i) => i !== index,
     );
+  }
+
+  public getImageUrlByName(imageName: string) {
+    return this.resourcesService.getImageUrlByName(this.target, imageName);
   }
 
   public get lang() {
@@ -91,6 +114,33 @@ export class SetScientificEcosystemRoadmapComponent {
 
   public get labels() {
     return labels;
+  }
+
+  public handleAddParagraph() {
+    const paragraphText = this.formGroup.get('paragraph');
+    if (!paragraphText?.value) {
+      this.toastService.error('Debe ingresar texto en el campo de párrafo');
+      return;
+    }
+    if (this.editMode) {
+      this.paragraphs[this.editMode.paragraphIndex] = paragraphText.value;
+      this.editMode = undefined;
+      paragraphText.setValue('');
+      return;
+    }
+    this.paragraphs.push(paragraphText.value);
+    paragraphText.setValue('');
+  }
+
+  public handleEditParagraph(i: number) {
+    this.editMode = { paragraphIndex: i };
+    this.formGroup.get('paragraph')?.setValue(this.paragraphs[i]);
+  }
+
+  public handleDeleteParagraph(indexToRemove: number) {
+    this.paragraphs = this.paragraphs.filter(
+      (_element, index) => index !== indexToRemove,
+    );
   }
 
   public handleAddFile(): void {
@@ -146,6 +196,8 @@ export class SetScientificEcosystemRoadmapComponent {
   //   this.resourceFiles = [];
   //   this.currUploadedFile = null;
   // }
+
+  public handleSubmit() {}
 
   public handleReset() {
     this.resourceFiles = [];

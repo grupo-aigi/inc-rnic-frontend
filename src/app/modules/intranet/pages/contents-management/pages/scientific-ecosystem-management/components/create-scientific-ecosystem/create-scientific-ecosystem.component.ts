@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -36,6 +37,7 @@ import labels from './create-scientific-ecosystem.lang';
   selector: 'app-create-scientific-ecosystem',
   templateUrl: './create-scientific-ecosystem.component.html',
   imports: [
+    CommonModule,
     CreateScientificEcosystemBaseInfoComponent,
     SetScientificEcosystemAboutUsComponent,
     SetScientificEcosystemGeneralObjectiveComponent,
