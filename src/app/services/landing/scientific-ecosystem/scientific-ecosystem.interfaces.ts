@@ -190,28 +190,44 @@ export interface ScientificEcosystemDetailSpecificObjectives {
 
 export interface ScientificEcosystemDetailRoadmap {
   TYPE: ScientificEcosystemDetailResourceType;
+  paragraphs: string[];
+  images: string[];
   resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailGuidelines {
   TYPE: ScientificEcosystemDetailResourceType;
+  paragraphs: string[];
+  images: string[];
   resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailHowToParticipate {
   TYPE: ScientificEcosystemDetailResourceType;
+  paragraphs: string[];
+  images: string[];
+  resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailMembers {
   TYPE: ScientificEcosystemDetailResourceType;
-  title: string;
   paragraphs: string[];
   images: string[];
+  resources: ResourceContentFile[];
+}
+
+export interface ScientificEcosystemProject {
+  name: string;
+  author: string;
+  objectives: string[];
 }
 
 export interface ScientificEcosystemDetailProjects {
   TYPE: ScientificEcosystemDetailResourceType;
-  projects: { name: string; author: string; objectives: string[] }[];
+  paragraphs: string[];
+  images: string[];
+  resources: ResourceContentFile[];
+  projects: ScientificEcosystemProject[];
 }
 
 export interface ScientificEcosystemDetailEvents {
@@ -224,7 +240,13 @@ export interface ScientificEcosystemDetailNews {
   news: NewsPoster[];
 }
 
+export interface ScientificEcosystemContact {
+  name: string;
+  role: string;
+  email: string;
+}
+
 export interface ScientificEcosystemDetailContact {
   TYPE: ScientificEcosystemDetailResourceType;
-  contacts: { name: string; role: string; email: string }[];
+  contacts: ScientificEcosystemContact[];
 }

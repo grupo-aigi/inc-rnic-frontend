@@ -138,6 +138,8 @@ export class SetScientificEcosystemRoadmapComponent {
     const resourceInfo: ScientificEcosystemDetailRoadmap = {
       TYPE: 'LINEAMIENTOS',
       resources: this.resourceFiles,
+      paragraphs: [],
+      images: [],
     };
 
     this.onSubmit.emit(resourceInfo);

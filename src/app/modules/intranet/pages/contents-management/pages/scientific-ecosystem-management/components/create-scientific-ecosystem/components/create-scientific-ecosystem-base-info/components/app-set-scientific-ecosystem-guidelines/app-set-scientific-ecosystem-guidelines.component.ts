@@ -138,6 +138,8 @@ export class SetScientificEcosystemGuidelinesComponent {
     const resourceInfo: ScientificEcosystemDetailGuidelines = {
       TYPE: 'LINEAMIENTOS',
       resources: this.resourceFiles,
+      paragraphs: [],
+      images: [],
     };
 
     this.onSubmit.emit(resourceInfo);

@@ -58,6 +58,8 @@ export class ScientificEcosystemService {
         },
         {
           TYPE: 'HOJA_RUTA',
+          paragraphs: [],
+          images: [],
           resources: [
             {
               filename: 'some-file-name.pdf',
@@ -75,6 +77,8 @@ export class ScientificEcosystemService {
         },
         {
           TYPE: 'LINEAMIENTOS',
+          paragraphs: [],
+          images: [],
           resources: [
             {
               filename: 'some-file-name.pdf',
@@ -92,14 +96,17 @@ export class ScientificEcosystemService {
         },
         {
           TYPE: 'INTEGRANTES',
-          title: 'Miembros del ecosistema',
+          images: [],
           paragraphs: [
             'A continuación, se presentan los miembros de este ecosistema',
           ],
-          images: [],
+          resources: [],
         },
         {
           TYPE: 'PROYECTOS',
+          paragraphs: [],
+          images: [],
+          resources: [],
           projects: [
             {
               name: 'Proyecto 1',

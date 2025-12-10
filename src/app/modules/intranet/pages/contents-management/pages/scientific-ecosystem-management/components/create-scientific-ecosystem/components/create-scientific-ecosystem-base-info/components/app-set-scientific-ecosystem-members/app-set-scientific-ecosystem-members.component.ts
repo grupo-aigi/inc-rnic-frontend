@@ -91,13 +91,11 @@ export class SetScientificEcosystemMembersComponent {
       this.toastService.error('El formulario contiene campos inválidos');
       return;
     }
-    const title = this.formGroup.get('title')?.value as string;
-
     const resourceInfo: ScientificEcosystemDetailMembers = {
-      title,
+      TYPE: 'INTEGRANTES',
       paragraphs: this.paragraphs,
       images: this.resourceImages,
-      TYPE: 'INTEGRANTES',
+      resources: [],
     };
     this.onSubmit.emit(resourceInfo);
     this.formGroup.reset();
