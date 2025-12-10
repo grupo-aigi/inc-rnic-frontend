@@ -262,7 +262,6 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
     if (!this.activeSections.includes(sectionType)) {
       this.handleToggleSection(sectionType);
     }
-
     // Esperar un momento para que se renderice la sección
     setTimeout(() => {
       const element = document.getElementById(sectionType);

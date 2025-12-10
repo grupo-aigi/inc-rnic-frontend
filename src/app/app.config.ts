@@ -13,7 +13,8 @@ import { provideToastr } from 'ngx-toastr';
 import { routes } from './app.routes';
 
 const scrollConfig: InMemoryScrollingOptions = {
-  scrollPositionRestoration: 'top',
+  // scrollPositionRestoration: 'top', // Anteriormente
+  scrollPositionRestoration: 'disabled', // Anteriormente
   anchorScrolling: 'enabled',
 };
 
