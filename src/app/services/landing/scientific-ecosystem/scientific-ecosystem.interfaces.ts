@@ -74,6 +74,13 @@ export interface ScientificEcosystemDetail {
 // Events;
 // Contact;
 
+export interface ScientificEcosystemData {
+  id: number;
+  title: string;
+  urlName: string;
+  sections: ScientificEcosystemDetailType[];
+}
+
 export type ScientificEcosystemDetailType =
   | ScientificEcosystemDetailAboutUs
   | ScientificEcosystemDetailGeneralObjective
@@ -95,6 +102,60 @@ export type ScientificEcosystemDetailResourceType =
   | 'SCIENTIFIC_ECOSYSTEM__MEMBERS'
   | 'SCIENTIFIC_ECOSYSTEM__PROJECTS'
   | 'SCIENTIFIC_ECOSYSTEM__CONTACT';
+
+export const ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS: ScientificEcosystemDetailResourceType[] =
+  [
+    'SCIENTIFIC_ECOSYSTEM__ABOUT_US',
+    'SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE',
+    'SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES',
+    'SCIENTIFIC_ECOSYSTEM__ROADMAP',
+    'SCIENTIFIC_ECOSYSTEM__GUIDELINES',
+    'SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE',
+    'SCIENTIFIC_ECOSYSTEM__MEMBERS',
+    'SCIENTIFIC_ECOSYSTEM__PROJECTS',
+    'SCIENTIFIC_ECOSYSTEM__CONTACT',
+  ];
+
+export const SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP: {
+  [key in ScientificEcosystemDetailResourceType]: { es: string; en: string };
+} = {
+  SCIENTIFIC_ECOSYSTEM__ABOUT_US: {
+    es: 'Nosotros',
+    en: 'About Us',
+  },
+  SCIENTIFIC_ECOSYSTEM__GENERAL_OBJECTIVE: {
+    es: 'Objetivo General',
+    en: 'General Objective',
+  },
+  SCIENTIFIC_ECOSYSTEM__SPECIFIC_OBJECTIVES: {
+    es: 'Objetivos Específicos',
+    en: 'Specific Objectives',
+  },
+  SCIENTIFIC_ECOSYSTEM__ROADMAP: {
+    es: 'Hoja de Ruta',
+    en: 'Roadmap',
+  },
+  SCIENTIFIC_ECOSYSTEM__GUIDELINES: {
+    es: 'Lineamientos',
+    en: 'Guidelines',
+  },
+  SCIENTIFIC_ECOSYSTEM__HOW_TO_PARTICIPATE: {
+    es: 'Cómo Participar',
+    en: 'How to Participate',
+  },
+  SCIENTIFIC_ECOSYSTEM__MEMBERS: {
+    es: 'Miembros',
+    en: 'Members',
+  },
+  SCIENTIFIC_ECOSYSTEM__PROJECTS: {
+    es: 'Proyectos',
+    en: 'Projects',
+  },
+  SCIENTIFIC_ECOSYSTEM__CONTACT: {
+    es: 'Contacto',
+    en: 'Contact',
+  },
+};
 
 export interface ScientificEcosystemDetailAboutUs {
   TYPE: ScientificEcosystemDetailResourceType;

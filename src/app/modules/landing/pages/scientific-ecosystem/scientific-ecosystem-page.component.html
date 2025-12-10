@@ -24,9 +24,34 @@
 
   <div style="margin-left: 300px; overflow-x: hidden" class="dynamic-font-size">
     <div class="mt-1">
-      <app-scientific-ecosystem-sections [sections]="ecosystemData.sections">
-      </app-scientific-ecosystem-sections>
+      @for (section of ALL_SECTIONS; track section) {
+        <nav class="row navbar bg-body-tertiary border-1 px-3 mt-1">
+          <div
+            class="py-4 col-12 rounded-1 d-flex justify-content-between align-items-center"
+            style="cursor: pointer"
+            (click)="handleToggleSection(section)"
+          >
+            <a class="navbar-brand" style="width: 10%">
+              {{ SECTIONS_MAP[section][lang] }}
+            </a>
+            @if (activeSections.includes(section)) {
+              <i class="bx bxs-up-arrow"></i>
+            } @else {
+              <i class="bx bxs-down-arrow"></i>
+            }
+          </div>
+          @if (activeSections.includes(section)) {
+            <div class="col-12 mx-auto">
+              <app-scientific-ecosystem-section
+                [section]="getSectionDetailType(section)"
+              ></app-scientific-ecosystem-section>
+            </div>
+          }
+        </nav>
+      }
     </div>
+
+    <!-- 
     <div class="d-flex justify-content-center my-5">
       <img
         src="/img/logos-inc-y-rnic/logo-inc-rnic-lg.png"
@@ -259,6 +284,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+    -->
   </div>
 </div>

@@ -18,12 +18,12 @@ import {
 })
 export class ScientificEcosystemService {
   private _baseUrl: string = `${environment.baseUrl}/scientific-ecosystem`;
-  private _eventPosters: ScientificEcosystemPoster[] = [];
+  private _scientificEcosystemPosters: ScientificEcosystemPoster[] = [];
 
   constructor(private readonly http: HttpClient) {}
 
-  public get eventPosters() {
-    return this._eventPosters;
+  public get scientificEcosystemPosters() {
+    return this._scientificEcosystemPosters;
   }
 
   public async fetchScientificEcosystemPosters(): Promise<
@@ -205,6 +205,21 @@ export class ScientificEcosystemService {
   ): Observable<ScientificEcosystemDetail> {
     return this.http.get<ScientificEcosystemDetail>(
       `${this._baseUrl}/${scientificEcosystemUrlNameToEdit}`,
+    );
+  }
+
+  public fetchPdfDocument(filename: string) {
+    const accessToken = sessionStorage.getItem('access_token');
+    const headers = new HttpHeaders().append(
+      'authorization',
+      `Bearer ${accessToken}`,
+    );
+
+    return lastValueFrom(
+      this.http.request('GET', `${this._baseUrl}/files/${filename}`, {
+        headers,
+        responseType: 'arraybuffer',
+      }),
     );
   }
 }

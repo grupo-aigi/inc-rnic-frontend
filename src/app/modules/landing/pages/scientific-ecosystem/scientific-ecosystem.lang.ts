@@ -8,8 +8,20 @@ const labels = {
     es: 'Ecosistema Científico',
   },
   main: {
-    es: 'Principal',
-    en: 'Main',
+    es: 'Inicio',
+    en: 'Home',
+  },
+  ecosystem: {
+    es: 'Ecosistema',
+    en: 'Ecosystem',
+  },
+  loading: {
+    en: 'Loading...',
+    es: 'Cargando...',
+  },
+  error: {
+    en: 'Error loading content',
+    es: 'Error al cargar el contenido',
   },
 };
 
