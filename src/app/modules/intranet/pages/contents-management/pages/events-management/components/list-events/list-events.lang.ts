@@ -1,11 +1,11 @@
 const labels = {
   loadingEvent: {
-    es: 'Cargando noticias',
-    en: 'Loading news',
+    es: 'Cargando eventos',
+    en: 'Loading events',
   },
   noEvents: {
-    es: 'No hay noticias para mostrar',
-    en: 'No news to show',
+    es: 'No hay eventos para mostrar',
+    en: 'No events to show',
   },
   invalidPage: {
     es: 'Página inválida',

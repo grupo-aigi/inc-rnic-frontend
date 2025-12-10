@@ -93,6 +93,14 @@ export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
         sectionType: 'PROYECTOS',
       },
       {
+        label: { es: 'Eventos', en: 'Events' },
+        sectionType: 'EVENTOS',
+      },
+      {
+        label: { es: 'Noticias', en: 'News' },
+        sectionType: 'NOTICIAS',
+      },
+      {
         label: { es: 'Contacto', en: 'Contact' },
         sectionType: 'CONTACTO',
       },

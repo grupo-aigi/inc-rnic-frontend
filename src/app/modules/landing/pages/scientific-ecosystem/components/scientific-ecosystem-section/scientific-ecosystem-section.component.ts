@@ -10,10 +10,12 @@ import {
 import {
   ScientificEcosystemDetailAboutUs,
   ScientificEcosystemDetailContact,
+  ScientificEcosystemDetailEvents,
   ScientificEcosystemDetailGeneralObjective,
   ScientificEcosystemDetailGuidelines,
   ScientificEcosystemDetailHowToParticipate,
   ScientificEcosystemDetailMembers,
+  ScientificEcosystemDetailNews,
   ScientificEcosystemDetailProjects,
   ScientificEcosystemDetailRoadmap,
   ScientificEcosystemDetailSpecificObjectives,
@@ -21,13 +23,14 @@ import {
 } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
 import { SidebarOption } from '../../../../../../services/shared/layout/layout.interfaces';
-import { SetScientificEcosystemAboutUsComponent } from '../../../../../intranet/pages/contents-management/pages/scientific-ecosystem-management/components/create-scientific-ecosystem/components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-about-us/app-set-scientific-ecosystem-about-us.component';
 import { ScientificEcosystemAboutUsComponent } from './components/scientific-ecosystem-about-us/scientific-ecosystem-about-us.component';
 import { ScientificEcosystemContactComponent } from './components/scientific-ecosystem-contact/scientific-ecosystem-contact.component';
+import { ScientificEcosystemEventsComponent } from './components/scientific-ecosystem-events/scientific-ecosystem-events.component';
 import { ScientificEcosystemGeneralObjectiveComponent } from './components/scientific-ecosystem-general-objective/scientific-ecosystem-general-objective.component';
 import { ScientificEcosystemGuidelinesComponent } from './components/scientific-ecosystem-guidelines/scientific-ecosystem-guidelines.component';
 import { ScientificEcosystemHowToParticipateComponent } from './components/scientific-ecosystem-how-to-participate/scientific-ecosystem-how-to-participate.component';
 import { ScientificEcosystemMembersComponent } from './components/scientific-ecosystem-members/scientific-ecosystem-members.component';
+import { ScientificEcosystemNewsComponent } from './components/scientific-ecosystem-news/scientific-ecosystem-news.component';
 import { ScientificEcosystemProjectsComponent } from './components/scientific-ecosystem-projects/scientific-ecosystem-projects.component';
 import { ScientificEcosystemRoadmapComponent } from './components/scientific-ecosystem-roadmap/scientific-ecosystem-roadmap.component';
 import { ScientificEcosystemSpecificObjectivesComponent } from './components/scientific-ecosystem-specific-objectives/scientific-ecosystem-specific-objectives.component';
@@ -51,7 +54,8 @@ import labels from './scientific-ecosystem-section.lang';
     ScientificEcosystemProjectsComponent,
     ScientificEcosystemRoadmapComponent,
     ScientificEcosystemSpecificObjectivesComponent,
-    SetScientificEcosystemAboutUsComponent,
+    ScientificEcosystemEventsComponent,
+    ScientificEcosystemNewsComponent,
   ],
 })
 export class ScientificEcosystemSectionComponent {
@@ -86,6 +90,12 @@ export class ScientificEcosystemSectionComponent {
   }
   public get parsedToProjects() {
     return this.section as ScientificEcosystemDetailProjects;
+  }
+  public get parsedToEvents() {
+    return this.section as ScientificEcosystemDetailEvents;
+  }
+  public get parsedToNews() {
+    return this.section as ScientificEcosystemDetailNews;
   }
   public get parsedToContact() {
     return this.section as ScientificEcosystemDetailContact;

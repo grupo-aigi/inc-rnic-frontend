@@ -57,6 +57,20 @@
         </app-scientific-ecosystem-projects>
       </div>
     }
+    @case ('EVENTOS') {
+      <div id="EVENTOS" class="pt-5">
+        <app-scientific-ecosystem-events
+          [section]="parsedToEvents"
+        ></app-scientific-ecosystem-events>
+      </div>
+    }
+    @case ('NOTICIAS') {
+      <div id="NOTICIAS" class="pt-5">
+        <app-scientific-ecosystem-news
+          [section]="parsedToNews"
+        ></app-scientific-ecosystem-news>
+      </div>
+    }
     @case ('CONTACTO') {
       <div id="CONTACTO" class="pt-5">
         <app-scientific-ecosystem-contact [section]="parsedToContact">

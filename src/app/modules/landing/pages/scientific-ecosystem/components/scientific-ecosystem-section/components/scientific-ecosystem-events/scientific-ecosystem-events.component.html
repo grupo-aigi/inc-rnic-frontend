@@ -1,0 +1,63 @@
+<div class="row">
+  @for (eventPoster of section.events; track eventPoster) {
+    <div class="col-lg-4 col-md-6">
+      <div class="single-blog-post">
+        <div class="blog-img" style="position: relative">
+          <a
+            target="_blank"
+            [routerLink]="
+              variant === 'PUBLIC'
+                ? '/eventos/' + eventPoster.urlName
+                : '/intranet/eventos/' + eventPoster.urlName
+            "
+          >
+            <img [src]="getImageUrlByName(eventPoster.imageName)" alt="Image" />
+          </a>
+          <p class="event-scope__ribbon">
+            {{
+              eventPoster.scope === 'NATIONAL' ? 'NACIONAL' : 'INTERNACIONAL'
+            }}
+          </p>
+        </div>
+        <div class="blog-content" [title]="eventPoster.description">
+          <span
+            class="rounded-pill badge badge-primary p-2 event-category"
+            [ngStyle]="{
+              'background-color': wordToHexColor(eventPoster.category.name),
+            }"
+          >
+            {{ eventPoster.category.name }}
+          </span>
+          <ul style="margin-top: -10px">
+            <li>
+              <i class="flaticon-calendar"></i
+              >{{ formatDate(eventPoster.startDate) }}
+              -
+              {{ formatDate(eventPoster.endDate) }}
+            </li>
+          </ul>
+          <ul style="margin-top: -20px">
+            <li>
+              <i class="flaticon-user"></i>Organiza:
+              {{ eventPoster.author ? eventPoster.author : 'Sin organizador' }}
+            </li>
+          </ul>
+          <h3 style="margin-top: -15px">
+            <a
+              target="_blank"
+              [routerLink]="
+                variant === 'PUBLIC'
+                  ? '/eventos/' + eventPoster.urlName
+                  : '/intranet/eventos/' + eventPoster.urlName
+              "
+              >{{ eventPoster.title }}</a
+            >
+          </h3>
+          <p>
+            {{ trimEventDescription(eventPoster.description) }}
+          </p>
+        </div>
+      </div>
+    </div>
+  }
+</div>

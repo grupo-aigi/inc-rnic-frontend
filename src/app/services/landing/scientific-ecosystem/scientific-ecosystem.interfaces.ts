@@ -1,4 +1,6 @@
 import { ResourceContentFile } from '../../shared/contents/contents.interfaces';
+import { EventPoster } from '../event/event.interfaces';
+import { NewsPoster } from '../news/news.interfaces';
 
 export interface ScientificEcosystemBaseInfo {
   id?: number;
@@ -90,6 +92,8 @@ export type ScientificEcosystemDetailType =
   | ScientificEcosystemDetailHowToParticipate
   | ScientificEcosystemDetailMembers
   | ScientificEcosystemDetailProjects
+  | ScientificEcosystemDetailEvents
+  | ScientificEcosystemDetailNews
   | ScientificEcosystemDetailContact;
 
 export type ScientificEcosystemDetailResourceType =
@@ -101,6 +105,8 @@ export type ScientificEcosystemDetailResourceType =
   | 'COMO_PARTICIPAR'
   | 'INTEGRANTES'
   | 'PROYECTOS'
+  | 'EVENTOS'
+  | 'NOTICIAS'
   | 'CONTACTO';
 
 export const ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS: ScientificEcosystemDetailResourceType[] =
@@ -113,6 +119,8 @@ export const ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS: ScientificEcosystemDetailResourc
     'COMO_PARTICIPAR',
     'INTEGRANTES',
     'PROYECTOS',
+    'EVENTOS',
+    'NOTICIAS',
     'CONTACTO',
   ];
 
@@ -150,6 +158,14 @@ export const SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP: {
   PROYECTOS: {
     es: 'Proyectos',
     en: 'Projects',
+  },
+  EVENTOS: {
+    es: 'Eventos',
+    en: 'Events',
+  },
+  NOTICIAS: {
+    es: 'Noticias',
+    en: 'News',
   },
   CONTACTO: {
     es: 'Contacto',
@@ -196,6 +212,16 @@ export interface ScientificEcosystemDetailMembers {
 export interface ScientificEcosystemDetailProjects {
   TYPE: ScientificEcosystemDetailResourceType;
   projects: { name: string; author: string; objectives: string[] }[];
+}
+
+export interface ScientificEcosystemDetailEvents {
+  TYPE: ScientificEcosystemDetailResourceType;
+  events: EventPoster[];
+}
+
+export interface ScientificEcosystemDetailNews {
+  TYPE: ScientificEcosystemDetailResourceType;
+  news: NewsPoster[];
 }
 
 export interface ScientificEcosystemDetailContact {
