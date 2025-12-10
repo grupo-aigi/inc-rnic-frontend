@@ -94,7 +94,7 @@ export class SetScientificEcosystemMembersComponent {
     const resourceInfo: ScientificEcosystemDetailMembers = {
       TYPE: 'INTEGRANTES',
       paragraphs: this.paragraphs,
-      images: this.resourceImages,
+      images: this.resourceImages.map((imageName) => ({ cols: 12, imageName })),
       resources: [],
     };
     this.onSubmit.emit(resourceInfo);

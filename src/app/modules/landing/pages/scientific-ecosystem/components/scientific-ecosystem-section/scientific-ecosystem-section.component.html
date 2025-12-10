@@ -3,14 +3,14 @@
 } @else {
   @switch (section.TYPE) {
     @case ('NOSOTROS') {
-      <div id="NOSOTROS" class="pt-5">
+      <div id="NOSOTROS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-about-us
           [section]="parsedToAboutUs"
         ></app-scientific-ecosystem-about-us>
       </div>
     }
     @case ('OBJ_GENERAL') {
-      <div id="OBJ_GENERAL" class="pt-5">
+      <div id="OBJ_GENERAL" class="pt-5 container-fluid">
         <app-scientific-ecosystem-general-objective
           [section]="parsedToGeneralObjective"
         >
@@ -18,7 +18,7 @@
       </div>
     }
     @case ('OBJ_ESPECIFICOS') {
-      <div id="OBJ_ESPECIFICOS" class="pt-5">
+      <div id="OBJ_ESPECIFICOS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-specific-objectives
           [section]="parsedToSpecificObjectives"
         >
@@ -26,19 +26,19 @@
       </div>
     }
     @case ('HOJA_RUTA') {
-      <div id="HOJA_RUTA" class="pt-5">
+      <div id="HOJA_RUTA" class="pt-5 container-fluid">
         <app-scientific-ecosystem-roadmap [section]="parsedToRoadmap">
         </app-scientific-ecosystem-roadmap>
       </div>
     }
     @case ('LINEAMIENTOS') {
-      <div id="LINEAMIENTOS" class="pt-5">
+      <div id="LINEAMIENTOS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-guidelines [section]="parsedToGuidelines">
         </app-scientific-ecosystem-guidelines>
       </div>
     }
     @case ('COMO_PARTICIPAR') {
-      <div id="COMO_PARTICIPAR" class="pt-5">
+      <div id="COMO_PARTICIPAR" class="pt-5 container-fluid">
         <app-scientific-ecosystem-how-to-participate
           [section]="parsedToHowToParticipate"
         >
@@ -46,33 +46,33 @@
       </div>
     }
     @case ('INTEGRANTES') {
-      <div id="INTEGRANTES" class="pt-5">
+      <div id="INTEGRANTES" class="pt-5 container-fluid">
         <app-scientific-ecosystem-members [section]="parsedToMembers">
         </app-scientific-ecosystem-members>
       </div>
     }
     @case ('PROYECTOS') {
-      <div id="PROYECTOS" class="pt-5">
+      <div id="PROYECTOS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-projects [section]="parsedToProjects">
         </app-scientific-ecosystem-projects>
       </div>
     }
     @case ('EVENTOS') {
-      <div id="EVENTOS" class="pt-5">
+      <div id="EVENTOS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-events
           [section]="parsedToEvents"
         ></app-scientific-ecosystem-events>
       </div>
     }
     @case ('NOTICIAS') {
-      <div id="NOTICIAS" class="pt-5">
+      <div id="NOTICIAS" class="pt-5 container-fluid">
         <app-scientific-ecosystem-news
           [section]="parsedToNews"
         ></app-scientific-ecosystem-news>
       </div>
     }
     @case ('CONTACTO') {
-      <div id="CONTACTO" class="pt-5">
+      <div id="CONTACTO" class="pt-5 container-fluid">
         <app-scientific-ecosystem-contact [section]="parsedToContact">
         </app-scientific-ecosystem-contact>
       </div>

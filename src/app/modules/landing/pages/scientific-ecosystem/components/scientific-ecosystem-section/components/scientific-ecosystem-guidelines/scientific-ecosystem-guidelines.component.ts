@@ -4,11 +4,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ScientificEcosystemDetailGuidelines } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
+import { GridImageComponent } from '../../../../../shared/components/grid-images/grid-images.component';
 
 @Component({
   standalone: true,
   templateUrl: './scientific-ecosystem-guidelines.component.html',
-  imports: [],
+  imports: [GridImageComponent],
   selector: 'app-scientific-ecosystem-guidelines',
 })
 export class ScientificEcosystemGuidelinesComponent {
@@ -34,16 +35,6 @@ export class ScientificEcosystemGuidelinesComponent {
     //   this.archive.filename,
     //   this.convertTitleToSlug(this.archive.title),
     // );
-  }
-
-  private convertTitleToSlug(title: string): string {
-    return (
-      title
-        .toLowerCase()
-        .trim()
-        .replace(/ /g, '-')
-        .replace(/[^a-z0-9-]/g, '') + '.pdf'
-    );
   }
 
   public handleFetchPdf(filename: string) {

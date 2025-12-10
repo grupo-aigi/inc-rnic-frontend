@@ -5,12 +5,13 @@ import { ScientificEcosystemDetailRoadmap } from '../../../../../../../../servic
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
 import { formatDate } from '../../../../../../../../helpers/date-formatters';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
+import { GridImageComponent } from '../../../../../shared/components/grid-images/grid-images.component';
 
 @Component({
   standalone: true,
   selector: 'app-scientific-ecosystem-roadmap',
   templateUrl: './scientific-ecosystem-roadmap.component.html',
-  imports: [],
+  imports: [GridImageComponent],
 })
 export class ScientificEcosystemRoadmapComponent {
   @Input() section!: ScientificEcosystemDetailRoadmap;

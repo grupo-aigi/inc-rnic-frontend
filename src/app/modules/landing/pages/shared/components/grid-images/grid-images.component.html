@@ -1,0 +1,11 @@
+<div class="row justify-content-center gy-2 gx-2 w-100">
+  @for (image of images; track $index) {
+    <div [class]="'col-sm-12 col-lg-' + image.cols">
+      <img
+        [src]="getImageUrlByName(image.imageName)"
+        class="w-100"
+        alt="scientific ecosystem image"
+      />
+    </div>
+  }
+</div>

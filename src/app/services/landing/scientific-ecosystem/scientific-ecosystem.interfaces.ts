@@ -188,31 +188,36 @@ export interface ScientificEcosystemDetailSpecificObjectives {
   specificObjectives: string[];
 }
 
+export interface GridImage {
+  imageName: string;
+  cols: number;
+}
+
 export interface ScientificEcosystemDetailRoadmap {
   TYPE: ScientificEcosystemDetailResourceType;
   paragraphs: string[];
-  images: string[];
+  images: GridImage[];
   resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailGuidelines {
   TYPE: ScientificEcosystemDetailResourceType;
   paragraphs: string[];
-  images: string[];
+  images: GridImage[];
   resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailHowToParticipate {
   TYPE: ScientificEcosystemDetailResourceType;
   paragraphs: string[];
-  images: string[];
+  images: GridImage[];
   resources: ResourceContentFile[];
 }
 
 export interface ScientificEcosystemDetailMembers {
   TYPE: ScientificEcosystemDetailResourceType;
   paragraphs: string[];
-  images: string[];
+  images: GridImage[];
   resources: ResourceContentFile[];
 }
 
@@ -225,7 +230,7 @@ export interface ScientificEcosystemProject {
 export interface ScientificEcosystemDetailProjects {
   TYPE: ScientificEcosystemDetailResourceType;
   paragraphs: string[];
-  images: string[];
+  images: GridImage[];
   resources: ResourceContentFile[];
   projects: ScientificEcosystemProject[];
 }
