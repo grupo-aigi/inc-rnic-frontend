@@ -146,4 +146,8 @@ export class SetScientificEcosystemGuidelinesComponent {
     this.resourceFiles = [];
     this.currUploadedFile = null;
   }
+
+  public handleRestore() {
+    this.resourceFiles = [];
+  }
 }

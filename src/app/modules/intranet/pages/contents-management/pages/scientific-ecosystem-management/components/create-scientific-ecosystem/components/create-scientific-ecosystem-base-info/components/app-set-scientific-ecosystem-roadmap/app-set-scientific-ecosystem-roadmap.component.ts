@@ -130,20 +130,24 @@ export class SetScientificEcosystemRoadmapComponent {
     return '';
   }
 
-  public handleSubmit() {
-    if (this.resourceFiles.length === 0) {
-      this.toastrService.error(labels.addAtLeastOneFile[this.lang]);
-      return;
-    }
-    const resourceInfo: ScientificEcosystemDetailRoadmap = {
-      TYPE: 'LINEAMIENTOS',
-      resources: this.resourceFiles,
-      paragraphs: [],
-      images: [],
-    };
+  // public handleSubmit() {
+  //   if (this.resourceFiles.length === 0) {
+  //     this.toastrService.error(labels.addAtLeastOneFile[this.lang]);
+  //     return;
+  //   }
+  //   const resourceInfo: ScientificEcosystemDetailRoadmap = {
+  //     TYPE: 'LINEAMIENTOS',
+  //     resources: this.resourceFiles,
+  //     paragraphs: [],
+  //     images: [],
+  //   };
 
-    this.onSubmit.emit(resourceInfo);
+  //   this.onSubmit.emit(resourceInfo);
+  //   this.resourceFiles = [];
+  //   this.currUploadedFile = null;
+  // }
+
+  public handleReset() {
     this.resourceFiles = [];
-    this.currUploadedFile = null;
   }
 }

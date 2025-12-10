@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -30,7 +30,7 @@ import labels from './create-scientific-ecosystem-base-info.lang';
   standalone: true,
   selector: 'app-create-scientific-ecosystem-base-info',
   templateUrl: './create-scientific-ecosystem-base-info.component.html',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
 })
 export class CreateScientificEcosystemBaseInfoComponent
   implements OnInit, OnChanges
@@ -40,10 +40,7 @@ export class CreateScientificEcosystemBaseInfoComponent
   @Output()
   public onSubmit: EventEmitter<ScientificEcosystemBaseInfo> =
     new EventEmitter();
-  public editMode: { paragraphIndex: number } | undefined = undefined;
   public formGroup: FormGroup = new FormGroup({});
-  public scientificEcosystemDetail: ScientificEcosystemDetail | undefined =
-    undefined;
 
   public constructor(
     private formBuilder: FormBuilder,
@@ -67,7 +64,10 @@ export class CreateScientificEcosystemBaseInfoComponent
   public ngOnChanges(changes: SimpleChanges): void {
     this.formGroup = this.formBuilder.group({
       title: [
-        this.baseInfo?.title || '',
+        {
+          value: this.baseInfo?.title || '',
+          disabled: !!this.baseInfo,
+        },
         [Validators.required, Validators.maxLength(200)],
       ],
     });

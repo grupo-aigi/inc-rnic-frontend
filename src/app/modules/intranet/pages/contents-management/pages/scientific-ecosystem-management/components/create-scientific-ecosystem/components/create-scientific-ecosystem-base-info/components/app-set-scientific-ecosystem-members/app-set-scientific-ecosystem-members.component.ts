@@ -104,4 +104,11 @@ export class SetScientificEcosystemMembersComponent {
   public getImageUrlByName(imageName: string) {
     return this.resourcesService.getImageUrlByName(this.target, imageName);
   }
+
+  public handleRestore() {
+    this.editMode = undefined;
+    this.paragraphs = [];
+    this.resourceImages = [];
+    this.formGroup.reset();
+  }
 }

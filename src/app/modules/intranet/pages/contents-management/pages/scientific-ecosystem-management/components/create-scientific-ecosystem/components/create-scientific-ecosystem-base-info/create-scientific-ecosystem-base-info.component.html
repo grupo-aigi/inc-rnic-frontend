@@ -27,12 +27,11 @@
 
   <div class="row mt-5">
     <div class="col-lg-5 col-sm-12 d-flex m-auto">
-      <button type="submit" class="btn default-btn success-button m-1">
-        {{ labels.buttons.continue[lang] }}
-      </button>
-      <button type="reset" class="btn default-btn clean-button m-1">
-        {{ labels.buttons.clearFields[lang] }}
-      </button>
+      @if (!baseInfo) {
+        <button type="submit" class="btn default-btn success-button m-1">
+          {{ labels.buttons.continue[lang] }}
+        </button>
+      }
     </div>
   </div>
 </form>

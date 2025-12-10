@@ -87,4 +87,10 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
     });
     this.formGroup.reset();
   }
+
+  public handleReset() {
+    this.formGroup.reset();
+    this.specificObjectivesParagraphs = [];
+    this.editMode = undefined;
+  }
 }

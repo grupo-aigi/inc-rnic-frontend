@@ -18,7 +18,6 @@ export class SetScientificEcosystemGeneralObjectiveComponent {
   @Output()
   public onSubmit: EventEmitter<ScientificEcosystemDetailGeneralObjective> =
     new EventEmitter();
-  public editMode: { paragraphIndex: number } | undefined = undefined;
 
   public formGroup: FormGroup =
     this.formBuilder.group<ScientificEcosystemDetailGeneralObjective>({
@@ -50,6 +49,10 @@ export class SetScientificEcosystemGeneralObjectiveComponent {
     this.onSubmit.emit({
       ...this.formGroup.value,
     });
+    this.formGroup.reset();
+  }
+
+  public handleReset() {
     this.formGroup.reset();
   }
 }

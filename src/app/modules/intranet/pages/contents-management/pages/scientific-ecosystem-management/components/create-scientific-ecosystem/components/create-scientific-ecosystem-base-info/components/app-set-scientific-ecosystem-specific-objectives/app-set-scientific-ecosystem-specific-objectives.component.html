@@ -80,10 +80,11 @@
 
   <div class="row">
     <div class="col-lg-5 col-sm-12 d-flex m-auto">
-      <button type="submit" class="btn default-btn success-button m-1">
-        {{ labels.confirmChanges[lang] }}
-      </button>
-      <button type="reset" class="btn default-btn clean-button m-1">
+      <button
+        type="button"
+        (click)="handleReset()"
+        class="btn default-btn clean-button m-1"
+      >
         {{ labels.restoreChanges[lang] }}
       </button>
     </div>

@@ -80,4 +80,10 @@ export class SetScientificEcosystemAboutUsComponent {
     this.descriptionParagraphs = [];
     this.formGroup.reset();
   }
+
+  public handleReset() {
+    this.formGroup.reset();
+    this.descriptionParagraphs = [];
+    this.editMode = undefined;
+  }
 }
