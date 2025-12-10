@@ -1,96 +1,111 @@
-<div class="page-title-area bg-partners">
-  <div class="container">
-    <div class="page-title-content">
-      <h2 class="dynamic-font-size">{{ labels.title[lang] }}</h2>
-      <ul>
-        <li>
-          <a routerLink="/" class="dynamic-font-size">{{
-            labels.main[lang]
-          }}</a>
-        </li>
-        <li>
-          <a routerLink="/ecosistema" class="dynamic-font-size">{{
-            labels.ecosystem[lang]
-          }}</a>
-        </li>
-        <li class="active dynamic-font-size">Ecosistema 1</li>
-      </ul>
+@if (loadingDetail) {
+  <div
+    class="d-flex flex-column my-5 py-5 align-items-center justify-content-center"
+    style="min-height: 500px"
+  >
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="my-2">Cargando Detalle del Ecosistema...</p>
+  </div>
+} @else {
+  <div class="page-title-area bg-partners">
+    <div class="container">
+      <div class="page-title-content">
+        <h2 class="dynamic-font-size">{{ labels.title[lang] }}</h2>
+        <ul>
+          <li>
+            <a routerLink="/" class="dynamic-font-size">{{
+              labels.main[lang]
+            }}</a>
+          </li>
+          <li>
+            <a routerLink="/ecosistema" class="dynamic-font-size">{{
+              labels.ecosystem[lang]
+            }}</a>
+          </li>
+          <li class="active dynamic-font-size">Ecosistema 1</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="m-0 p-0">
-  <app-scientific-ecosystem-sidebar
-    (sectionClicked)="scrollToSection($event)"
-  ></app-scientific-ecosystem-sidebar>
+  <div class="m-0 p-0">
+    <app-scientific-ecosystem-sidebar
+      (sectionClicked)="scrollToSection($event)"
+    ></app-scientific-ecosystem-sidebar>
 
-  <div style="margin-left: 300px; overflow-x: hidden" class="dynamic-font-size">
-    <div class="row justify-content-center">
-      <div class="col-lg-5">
-        <div class="d-flex gap-2 justify-content-center">
-          <img
-            class="w-75 h-auto"
-            src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
-            alt="challenges"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="row justify-content-end px-2 mt-3 mb-2">
-      <div class="col-auto">
-        <button class="btn btn-primary me-2" (click)="expandAll()">
-          <i class="bx bx-expand-alt me-1"></i>
-          {{ lang === 'es' ? 'Expandir Todo' : 'Expand All' }}
-        </button>
-        <button class="btn btn-secondary" (click)="collapseAll()">
-          <i class="bx bx-collapse-alt me-1"></i>
-          {{ lang === 'es' ? 'Colapsar Todo' : 'Collapse All' }}
-        </button>
-      </div>
-    </div>
-
-    <div class="mt-1">
-      @for (section of ALL_SECTIONS; track section) {
-        <nav
-          class="row navbar bg-body-tertiary border-1 px-3 mt-1"
-          [id]="section"
-        >
-          <div
-            class="py-4 col-12 rounded-1 d-flex justify-content-between align-items-center"
-            style="cursor: pointer"
-            (click)="handleToggleSection(section)"
-          >
-            <a class="navbar-brand" style="width: 10%">
-              {{ SECTIONS_MAP[section][lang] }}
-            </a>
-            @if (activeSections.includes(section)) {
-              <i class="bx bxs-up-arrow"></i>
-            } @else {
-              <i class="bx bxs-down-arrow"></i>
-            }
+    <div
+      style="margin-left: 300px; overflow-x: hidden"
+      class="dynamic-font-size"
+    >
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="d-flex gap-2 justify-content-center">
+            <img
+              class="w-75 h-auto"
+              src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
+              alt="challenges"
+            />
           </div>
-          @if (activeSections.includes(section)) {
-            <div class="col-12 mx-auto">
-              <app-scientific-ecosystem-section
-                [section]="getSectionDetailType(section)"
-              ></app-scientific-ecosystem-section>
-            </div>
-          }
-        </nav>
-      }
-    </div>
+        </div>
+      </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-5">
-        <div class="d-flex gap-2 justify-content-center">
-          <img
-            class="w-75 h-auto"
-            src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
-            alt="challenges"
-          />
+      <div class="row justify-content-end px-2 mt-3 mb-2">
+        <div class="col-auto">
+          <button class="btn btn-primary me-2" (click)="expandAll()">
+            <i class="bx bx-expand-alt me-1"></i>
+            {{ lang === 'es' ? 'Expandir Todo' : 'Expand All' }}
+          </button>
+          <button class="btn btn-secondary" (click)="collapseAll()">
+            <i class="bx bx-collapse-alt me-1"></i>
+            {{ lang === 'es' ? 'Colapsar Todo' : 'Collapse All' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-1">
+        @for (section of ALL_SECTIONS; track section) {
+          <nav
+            class="row navbar bg-body-tertiary border-1 px-3 mt-1"
+            [id]="section"
+          >
+            <div
+              class="py-4 col-12 rounded-1 d-flex justify-content-between align-items-center"
+              style="cursor: pointer"
+              (click)="handleToggleSection(section)"
+            >
+              <a class="navbar-brand" style="width: 10%">
+                {{ SECTIONS_MAP[section][lang] }}
+              </a>
+              @if (activeSections.includes(section)) {
+                <i class="bx bxs-up-arrow"></i>
+              } @else {
+                <i class="bx bxs-down-arrow"></i>
+              }
+            </div>
+            @if (activeSections.includes(section)) {
+              <div class="col-12 mx-auto">
+                <app-scientific-ecosystem-section
+                  [section]="getSectionDetailType(section)"
+                ></app-scientific-ecosystem-section>
+              </div>
+            }
+          </nav>
+        }
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="d-flex gap-2 justify-content-center">
+            <img
+              class="w-75 h-auto"
+              src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
+              alt="challenges"
+            />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+}

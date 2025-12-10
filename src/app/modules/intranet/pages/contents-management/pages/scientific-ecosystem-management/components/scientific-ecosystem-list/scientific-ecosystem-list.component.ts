@@ -9,9 +9,7 @@ import { formatDate } from '../../../../../../../../helpers/date-formatters';
 import { ScientificEcosystemPoster } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
-import { AppPagination } from '../../../../../../../../services/shared/misc/pagination.interfaces';
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
-import { CompletePaginationComponent } from '../../../../../../../landing/components/pagination/complete-pagination/complete-pagination.component';
 import { DeleteScientificEcosystemConfirmationComponent } from './components/delete-scientific-ecosystem-confirmation/delete-scientific-ecosystem-confirmation.component';
 import labels from './scientific-ecosystem-list.lang';
 
@@ -22,7 +20,6 @@ import labels from './scientific-ecosystem-list.lang';
   imports: [
     RouterLink,
     CommonModule,
-    CompletePaginationComponent,
     DeleteScientificEcosystemConfirmationComponent,
   ],
 })

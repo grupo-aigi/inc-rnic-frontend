@@ -1,32 +1,12 @@
-<li class="nav-item">
-  <a
-    [routerLink]="['/ecosistema/ecosistema-1']"
-    class="nav-link dynamic-font-size"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Ecosistema 1
-  </a>
-</li>
-
-<li class="nav-item">
-  <a
-    [routerLink]="['/ecosistema/ecosistema-2']"
-    class="nav-link dynamic-font-size"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Ecosistema 2
-  </a>
-</li>
-
-<li class="nav-item">
-  <a
-    [routerLink]="['/ecosistema/ecosistema-3']"
-    class="nav-link dynamic-font-size"
-    routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
-  >
-    Ecosistema 3
-  </a>
-</li>
+@for (scientificEcosystem of scientificEcosystems; track $index) {
+  <li class="nav-item">
+    <a
+      [routerLink]="['/ecosistema/' + scientificEcosystem.urlName]"
+      class="nav-link dynamic-font-size"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      {{ scientificEcosystem.title }}
+    </a>
+  </li>
+}

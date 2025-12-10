@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, lastValueFrom, of } from 'rxjs';
+import { Observable, delay, lastValueFrom, of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment.development';
 import {
   ScientificEcosystemCategory,
   ScientificEcosystemCreateInfo,
+  ScientificEcosystemData,
   ScientificEcosystemDetail,
   ScientificEcosystemPoster,
   ScientificEcosystemSearchRecommendation,
@@ -20,10 +21,126 @@ export class ScientificEcosystemService {
   private _baseUrl: string = `${environment.baseUrl}/scientific-ecosystem`;
   private _scientificEcosystemPosters: ScientificEcosystemPoster[] = [];
 
-  constructor(private readonly http: HttpClient) {}
+  public constructor(private readonly http: HttpClient) {}
 
   public get scientificEcosystemPosters() {
     return this._scientificEcosystemPosters;
+  }
+
+  public fetchScientificEcosystemDetailByUrlName(
+    urlName: string,
+  ): Observable<ScientificEcosystemData> {
+    const sampleEcosystemData: ScientificEcosystemData = {
+      id: 1,
+      title: 'Cáncer Colorrecal',
+      urlName: 'cancer-colorrectal',
+      sections: [
+        {
+          TYPE: 'NOSOTROS',
+          description: [
+            'El cáncer colorrectal (CCR) es una de las neoplasias malignas más comunes en todo el mundo y una de las principales causas de muerte por cáncer. En los últimos años, la incidencia y mortalidad del CCR han aumentado significativamente en muchos países, lo que subraya la importancia de abordar este problema de salud pública de manera integral.',
+          ],
+        },
+        {
+          TYPE: 'OBJ_GENERAL',
+          generalObjective:
+            'El objetivo general de este ecosistema científico es fomentar la colaboración interdisciplinaria entre investigadores, profesionales de la salud, pacientes y otras partes interesadas para avanzar en la comprensión, prevención, diagnóstico y tratamiento del cáncer colorrectal.',
+        },
+        {
+          TYPE: 'OBJ_ESPECIFICOS',
+          specificObjectives: [
+            'Promover la investigación básica y clínica sobre los mecanismos moleculares y genéticos del CCR.',
+            'Desarrollar y validar nuevas estrategias de detección temprana y diagnóstico del CCR.',
+            'Mejorar las opciones de tratamiento y manejo del CCR a través de ensayos clínicos y estudios observacionales.',
+            'Fomentar la educación y concienciación sobre el CCR entre la población general y los profesionales de la salud.',
+            'Facilitar la creación de redes de colaboración entre instituciones académicas, centros de investigación, hospitales y organizaciones de pacientes.',
+          ],
+        },
+        {
+          TYPE: 'HOJA_RUTA',
+          resources: [
+            {
+              filename: 'some-file-name.pdf',
+              filetype: 'PDF',
+              originalFilename: 'some-file-name.pdf',
+              size: 300000,
+            },
+            {
+              filename: 'some-file-name2.pdf',
+              filetype: 'PDF',
+              originalFilename: 'some-file-name2.pdf',
+              size: 500000,
+            },
+          ],
+        },
+        {
+          TYPE: 'LINEAMIENTOS',
+          resources: [
+            {
+              filename: 'some-file-name.pdf',
+              filetype: 'PDF',
+              originalFilename: 'some-file-name.pdf',
+              size: 300000,
+            },
+            {
+              filename: 'some-file-name2.pdf',
+              filetype: 'PDF',
+              originalFilename: 'some-file-name2.pdf',
+              size: 500000,
+            },
+          ],
+        },
+        {
+          TYPE: 'INTEGRANTES',
+          title: 'Miembros del ecosistema',
+          paragraphs: [
+            'A continuación, se presentan los miembros de este ecosistema',
+          ],
+          images: [],
+        },
+        {
+          TYPE: 'PROYECTOS',
+          projects: [
+            {
+              name: 'Proyecto 1',
+              author: 'Nombre del autor',
+              objectives: ['Objectivo 1', 'Objectivo 2'],
+            },
+            {
+              name: 'Proyecto 2',
+              author: 'Nombre del autor',
+              objectives: ['Objectivo 3', 'Objectivo 4'],
+            },
+            {
+              name: 'Proyecto 3',
+              author: 'Nombre del autor',
+              objectives: ['Objectivo 4', 'Objectivo 5'],
+            },
+          ],
+        },
+        {
+          TYPE: 'CONTACTO',
+          contacts: [
+            {
+              name: 'Pedro Pérez',
+              role: 'Administrador',
+              email: 'pedro.perez@gmail.com',
+            },
+            {
+              name: 'Marina Pérez',
+              role: 'Investigadora',
+              email: 'marina.perez@gmail.com',
+            },
+            {
+              name: 'Mario Pérez',
+              role: 'Coordinador general',
+              email: 'mario.perez@gmail.com',
+            },
+          ],
+        },
+      ],
+    };
+    return of(sampleEcosystemData).pipe(delay(1500));
   }
 
   public async fetchScientificEcosystemPosters(): Promise<
