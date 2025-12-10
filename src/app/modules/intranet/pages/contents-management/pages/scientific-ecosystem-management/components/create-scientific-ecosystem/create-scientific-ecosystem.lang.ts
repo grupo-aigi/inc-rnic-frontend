@@ -28,8 +28,8 @@ const labels = {
     en: 'Confirm update',
   },
   publish: {
-    es: 'Publicar',
-    en: 'Publish',
+    es: 'Publicar ecosistema',
+    en: 'Publish ecosystem',
   },
   cancelUpdate: {
     es: 'Cancelar actualización',

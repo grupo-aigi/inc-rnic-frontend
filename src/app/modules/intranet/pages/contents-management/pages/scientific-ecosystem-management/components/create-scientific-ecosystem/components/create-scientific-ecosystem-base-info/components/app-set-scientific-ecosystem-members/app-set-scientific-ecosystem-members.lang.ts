@@ -1,53 +1,85 @@
 const labels = {
-  addImage: {
-    es: 'Agregar imagen',
-    en: 'Add image',
+  selectAFileType: {
+    es: 'Selecciona un tipo de archivo',
+    en: 'Select a file type',
   },
-  imgError: {
-    es: 'La imágen ingresada es inválida',
-    en: 'The image entered is invalid',
-  },
-  title: {
+  paragraphs: {
+    label: {
+      es: 'Párrafo',
+      en: 'Paragraph',
+    },
     placeholder: {
-      es: 'Título. Ej: Esquema Ecosistema XXXXX',
-      en: 'Title',
-    },
-    error: {
-      es: 'El título ingresado es inválido',
-      en: 'The entered title is invalid',
+      es: 'Ingresa el contenido del párrafo',
+      en: 'Enter the paragraph content',
     },
   },
-  subtitle: {
-    placeholder: {
-      es: 'Subítulo',
-      en: 'Subitle',
-    },
-    error: {
-      es: 'El subtítulo ingresado es inválido',
-      en: 'The entered subtitle is invalid',
-    },
+  plainText: {
+    es: 'Texto plano',
+    en: 'Plain text',
   },
-  imageList: {
-    es: 'Lista de imágenes',
-    en: 'Image list',
+  compressedFile: {
+    es: 'Archivo comprimido',
+    en: 'Compressed file',
   },
-  imageNro: {
-    es: 'Imagen',
-    en: 'Image',
+  changeFile: {
+    es: 'Cambiar archivo',
+    en: 'Change file',
   },
-  noImages: {
-    es: 'No tiene imágenes ingresadas',
-    en: "You don't have any images entered",
+  selectAFile: {
+    es: 'Selecciona un archivo',
+    en: 'Select a file',
   },
-  paragraphContent: {
-    placeholder: {
-      es: 'Contenido del párrafo, Ej: A continuación, se presenta del esquema del ecosistema científico',
-      en: 'Paragraph content, e.g.: Below is the scientific ecosystem scheme',
-    },
-    error: {
-      es: 'El contenido del párrafo ingresado es inválido',
-      en: 'The entered paragraph content is invalid',
-    },
+  fileNro: {
+    es: 'Archivo',
+    en: 'File',
+  },
+  fileHasBeenSaved: {
+    en: 'File has been saved successfully',
+    es: 'Archivo ha sido guardado exitosamente',
+  },
+  noFileSelected: {
+    en: 'No file selected',
+    es: 'No ha seleccionado ningún archivo',
+  },
+  confirmFile: {
+    es: 'Confirmar archivo',
+    en: 'Confirm file',
+  },
+  filesList: {
+    es: 'Lista de archivos de integrantes',
+    en: 'Members file list',
+  },
+  noFiles: {
+    es: 'No hay archivos',
+    en: 'No files',
+  },
+  pendingToConfirm: {
+    es: 'Pendiente de confirmar',
+    en: 'Pending to confirm',
+  },
+  errorUploadingFile: {
+    es: 'Hubo un error al subir el archivo',
+    en: 'There was an error uploading the file',
+  },
+  addAtLeastOneFile: {
+    es: 'Por favor agregue al menos un archivo',
+    en: 'Please add at least one file',
+  },
+  edit: {
+    es: 'Editar',
+    en: 'Edit',
+  },
+  delete: {
+    es: 'Eliminar',
+    en: 'Delete',
+  },
+  addResource: {
+    es: 'Agregar recurso',
+    en: 'Add resource',
+  },
+  restoreChanges: {
+    es: 'Restaurar cambios',
+    en: 'Restore changes',
   },
   editParagraph: {
     es: 'Editar párrafo',
@@ -69,22 +101,39 @@ const labels = {
     es: 'Párrafo',
     en: 'Paragraph',
   },
-  edit: {
-    es: 'Editar',
-    en: 'Edit',
+  paragraphContent: {
+    placeholder: {
+      es: 'Contenido del párrafo',
+      en: 'Paragraph content',
+    },
+    error: {
+      es: 'El contenido del párrafo ingresado es inválido',
+      en: 'The entered paragraph content is invalid',
+    },
   },
-  delete: {
-    es: 'Eliminar',
-    en: 'Delete',
+  imageList: {
+    es: 'Lista de imágenes',
+    en: 'Image list',
   },
-  addResource: {
-    es: 'Agregar recurso',
-    en: 'Add resource',
+  imageNro: {
+    es: 'Imagen',
+    en: 'Image',
   },
-  restoreChanges: {
-    es: 'Restaurar cambios',
-    en: 'Restore changes',
+  noImages: {
+    es: 'No tiene imágenes ingresadas',
+    en: "You don't have any images entered",
   },
+  addImage: {
+    es: 'Agregar imagen',
+    en: 'Add image',
+  },
+  imgError: {
+    es: 'La imágen ingresada es inválida',
+    en: 'The image entered is invalid',
+  },
+  paragraphsSection: { es: 'Sección de texto', en: 'Text section' },
+  filesSection: { es: 'Sección de archivos', en: 'Files section' },
+  imagesSection: { es: 'Sección de imágenes', en: 'Images section' },
 };
 
 export default labels;

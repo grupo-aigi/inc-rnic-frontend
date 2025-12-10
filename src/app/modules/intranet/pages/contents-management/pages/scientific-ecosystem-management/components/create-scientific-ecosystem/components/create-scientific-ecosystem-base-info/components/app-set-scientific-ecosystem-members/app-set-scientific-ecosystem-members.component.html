@@ -3,114 +3,288 @@
   (ngSubmit)="handleSubmit()"
   class="get-quote-form"
 >
-  <div class="row pt-3">
-    <div class="col-lg-12 col-sm-12">
-      <div class="form-group">
-        <textarea
-          name="paragraph"
-          formControlName="paragraph"
-          class="form-control"
-          [placeholder]="labels.paragraphContent.placeholder[lang]"
-          style="resize: vertical; min-height: 200px; max-height: 400px"
-        ></textarea>
+  <div class="accordion" id="membersAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button
+          class="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseParagraphs"
+          aria-expanded="true"
+        >
+          {{ labels.paragraphsSection[lang] }}
+          @if (paragraphs.length > 0) {
+            ({{ paragraphs.length }})
+          }
+        </button>
+      </h2>
+
+      <div
+        id="collapseParagraphs"
+        class="accordion-collapse collapse show"
+        data-bs-parent="#membersAccordion"
+      >
+        <div class="accordion-body">
+          <section>
+            <div class="col-lg-12 col-sm-12">
+              <div class="form-group">
+                <textarea
+                  name="paragraph"
+                  formControlName="paragraph"
+                  class="form-control"
+                  [placeholder]="labels.paragraphContent.placeholder[lang]"
+                  style="resize: vertical; min-height: 200px; max-height: 400px"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12">
+              <button
+                type="button"
+                (click)="handleAddParagraph()"
+                class="btn default-btn"
+              >
+                {{
+                  editMode
+                    ? labels.editParagraph[lang]
+                    : labels.addParagraph[lang]
+                }}
+              </button>
+            </div>
+
+            <div class="row">
+              @for (paragraph of paragraphs; track paragraph; let i = $index) {
+                <div class="col-lg-12 col-sm-12 m-1 p-1">
+                  <span>{{ labels.paragraphNro[lang] }} #{{ i + 1 }}</span>
+                  <div class="card">
+                    <div class="row">
+                      <div class="col-lg-12 col-sm-12 p-3">
+                        <span>{{ paragraph }}</span>
+                      </div>
+                      <div
+                        class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center"
+                      >
+                        <button
+                          type="button"
+                          class="btn btn-info m-2 text-white"
+                          (click)="handleEditParagraph(i)"
+                        >
+                          {{ labels.edit[lang] }}
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-danger m-2"
+                          (click)="handleDeleteParagraph(i)"
+                        >
+                          {{ labels.delete[lang] }}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
       </div>
     </div>
 
-    <div class="col-lg-3 col-sm-12">
-      <button
-        type="button"
-        (click)="handleAddParagraph()"
-        class="btn default-btn"
-      >
-        {{ editMode ? labels.editParagraph[lang] : labels.addParagraph[lang] }}
-      </button>
-    </div>
-  </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseFiles"
+        >
+          {{ labels.filesSection[lang] }}
+          @if (resourceFiles.length > 0) {
+            ({{ resourceFiles.length }})
+          }
+        </button>
+      </h2>
 
-  <div class="row">
-    @for (paragraph of paragraphs; track paragraph; let i = $index) {
-      <div class="col-lg-12 col-sm-12 m-1 p-1">
-        <span>{{ labels.paragraphNro[lang] }} #{{ i + 1 }}</span>
-        <div class="card">
-          <div class="row">
-            <div class="col-lg-12 col-sm-12 p-3">
-              <span>{{ paragraph }}</span>
+      <div
+        id="collapseFiles"
+        class="accordion-collapse collapse"
+        data-bs-parent="#membersAccordion"
+      >
+        <div class="accordion-body">
+          <section>
+            <div class="row pt-3">
+              <div class="col-lg-4 col-md-12">
+                <div class="form-group" style="height: 50px">
+                  <select #filetypeSelect class="w-100 h-100 px-2">
+                    <option value="">{{ labels.selectAFileType[lang] }}</option>
+                    <option value="PDF">PDF (.pdf)</option>
+                    <option value="WORD">WORD (.docx)</option>
+                    <option value="PLAIN_TEXT">
+                      {{ labels.plainText[lang] }} (.txt)
+                    </option>
+                    <option value="EXCEL">EXCEL (.xlsx)</option>
+                    <option value="CSV">CSV (.csv)</option>
+                    <option value="COMPRESSED_FILE">
+                      {{ labels.compressedFile[lang] }} (.zip)
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12">
+                <span
+                  class="default-btn rounded-3 cursor-pointer"
+                  style="height: 50px; font-weight: 800"
+                >
+                  <input
+                    type="file"
+                    formControlName="signature"
+                    id="fileInput_3"
+                    (change)="onFileSelected($event)"
+                    class="file-input w-100"
+                  />
+                  <span>{{
+                    currUploadedFile
+                      ? labels.changeFile[lang]
+                      : labels.selectAFile[lang]
+                  }}</span>
+                </span>
+              </div>
+
+              <div class="col-lg-4 col-md-12">
+                <div class="form-group">
+                  <button
+                    class="default-btn bg-success rounded-3 cursor-pointer"
+                    [disabled]="!currUploadedFile"
+                    type="button"
+                    (click)="handleAddFile()"
+                  >
+                    {{ labels.confirmFile[lang] }}
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="col-lg-12 col-sm-12 p-3 d-flex justify-content-center">
-              <button
-                type="button"
-                class="btn btn-info m-2 text-white"
-                (click)="handleEditParagraph(i)"
-              >
-                {{ labels.edit[lang] }}
-              </button>
-              <button
-                type="button"
-                (click)="handleDeleteParagraph(i)"
-                class="btn btn-danger m-2"
-              >
-                {{ labels.delete[lang] }}
-              </button>
+
+            @if (currUploadedFile) {
+              <p>
+                <b
+                  >{{ labels.pendingToConfirm[lang] }}:
+                  {{ currUploadedFile.name }} -
+                  {{ getFileSize(currUploadedFile.size) }}</b
+                >
+              </p>
+            }
+
+            <h4>{{ labels.filesList[lang] }}</h4>
+
+            @if (resourceFiles.length === 0) {
+              <div class="alert alert-info text-center">
+                {{ labels.noFiles[lang] }}
+              </div>
+            }
+
+            <div class="row mb-5">
+              @for (file of resourceFiles; track file; let i = $index) {
+                <div class="col-lg-3 col-sm-12 position-relative">
+                  <img
+                    [src]="'/img/events/filetypes/' + file.filetype + '.png'"
+                    width="100px"
+                    class="image-list"
+                  />
+                  <div>
+                    <b>{{ labels.fileNro[lang] }} #{{ i + 1 }}</b>
+                    <p>
+                      {{ file.originalFilename }} - {{ getFileSize(file.size) }}
+                    </p>
+                    <button
+                      class="btn btn-danger"
+                      (click)="handleDeleteFile(i)"
+                    >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                </div>
+              }
             </div>
-          </div>
+          </section>
         </div>
       </div>
-    }
-  </div>
-
-  <div class="row">
-    <h4>{{ labels.imageList[lang] }}</h4>
-
-    <div class="container">
-      @if (resourceImages.length === 0) {
-        <div class="alert alert-info text-center">
-          {{ labels.noImages[lang] }}
-        </div>
-      }
     </div>
 
-    <div class="col-lg-3 col-sm-12">
-      <button
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#input-scientific-ecosystem-member-image"
-        class="btn default-btn"
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseImages"
+        >
+          {{ labels.imagesSection[lang] }}
+          @if (resourceImages.length > 0) {
+            ({{ resourceImages.length }})
+          }
+        </button>
+      </h2>
+
+      <div
+        id="collapseImages"
+        class="accordion-collapse collapse"
+        data-bs-parent="#membersAccordion"
       >
-        {{ labels.addImage[lang] }}
-      </button>
-    </div>
+        <div class="accordion-body">
+          <section>
+            <h4>{{ labels.imageList[lang] }}</h4>
 
-    <div class="row mb-5">
-      @for (image of resourceImages; track image; let i = $index) {
-        <div class="col-lg-6 col-sm-12 position-relative">
-          <img
-            [src]="getImageUrlByName(image)"
-            class="image-list"
-            style="border: 2px solid #12bec8; border-radius: 5px"
-            [alt]="target + labels.imageNro[lang] + (i + 1)"
-          />
-          <div class="position-absolute" style="top: 10px; left: 20px">
-            <b class="m-2 bg-white p-1"
-              >{{ labels.imageNro[lang] }} #{{ i + 1 }}</b
-            >
-            <button
-              type="button"
-              class="btn btn-danger"
-              (click)="handleDeleteImage(i)"
-            >
-              {{ labels.delete[lang] }}
-            </button>
-          </div>
+            @if (resourceImages.length === 0) {
+              <div class="alert alert-info text-center">
+                {{ labels.noImages[lang] }}
+              </div>
+            }
+
+            <div class="col-lg-3 col-sm-12">
+              <button
+                type="button"
+                data-bs-toggle="modal"
+                data-bs-target="#input-scientific-ecosystem-member-image"
+                class="btn default-btn"
+              >
+                {{ labels.addImage[lang] }}
+              </button>
+            </div>
+
+            <div class="row mb-5">
+              @for (image of resourceImages; track image; let i = $index) {
+                <div class="col-lg-6 col-sm-12 position-relative">
+                  <img
+                    [src]="getImageUrlByName(image)"
+                    class="image-list"
+                    style="border: 2px solid #12bec8; border-radius: 5px"
+                  />
+                  <div class="position-absolute" style="top: 10px; left: 20px">
+                    <b class="m-2 bg-white p-1"
+                      >{{ labels.imageNro[lang] }} #{{ i + 1 }}</b
+                    >
+                    <button
+                      class="btn btn-danger"
+                      (click)="handleDeleteImage(i)"
+                    >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
         </div>
-      }
+      </div>
     </div>
   </div>
 
-  <div class="row">
+  <div class="row mt-4">
     <div class="col-lg-5 col-sm-12 d-flex m-auto">
       <button
         type="button"
-        (click)="handleRestore()"
+        (click)="handleReset()"
         class="btn default-btn clean-button m-1"
       >
         {{ labels.restoreChanges[lang] }}
@@ -122,5 +296,5 @@
 <app-upload-or-reuse-image
   modalFor="input-scientific-ecosystem-member-image"
   [elementType]="target"
-  (onSubmit)="handleAddEventImage($event)"
+  (onSubmit)="handleAddImage($event)"
 ></app-upload-or-reuse-image>
