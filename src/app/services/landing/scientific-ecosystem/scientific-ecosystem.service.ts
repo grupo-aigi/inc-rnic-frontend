@@ -511,6 +511,7 @@ export class ScientificEcosystemService {
         urlName: 'ecosistema-cancer-colorrectal',
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 2,
@@ -518,6 +519,7 @@ export class ScientificEcosystemService {
         urlName: 'ecosistema-cancer-mama',
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: true,
       },
       {
         id: 3,
@@ -525,6 +527,7 @@ export class ScientificEcosystemService {
         urlName: 'ecosistema-cancer-pulmon',
         createdAt: new Date(),
         updatedAt: new Date(),
+        active: false,
       },
     ];
     return list;

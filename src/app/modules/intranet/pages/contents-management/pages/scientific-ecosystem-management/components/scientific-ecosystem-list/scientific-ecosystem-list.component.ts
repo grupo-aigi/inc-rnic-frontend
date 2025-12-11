@@ -17,6 +17,7 @@ import labels from './scientific-ecosystem-list.lang';
   standalone: true,
   selector: 'app-scientific-ecosystem-list',
   templateUrl: './scientific-ecosystem-list.component.html',
+  styleUrl: './scientific-ecosystem-list.component.css',
   imports: [
     RouterLink,
     CommonModule,
@@ -149,5 +150,9 @@ export class ScientificEcosystemListComponent implements OnInit {
 
     // Pad the color with zeros if it's less than 6 characters long
     return '#' + '0'.repeat(6 - color.length) + color;
+  }
+
+  public handleToggleActive(poster: ScientificEcosystemPoster) {
+    window.alert(`poster --> ${poster}`);
   }
 }

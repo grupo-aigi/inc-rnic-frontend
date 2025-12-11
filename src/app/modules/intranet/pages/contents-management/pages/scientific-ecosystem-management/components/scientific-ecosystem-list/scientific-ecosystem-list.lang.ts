@@ -31,6 +31,14 @@ const labels = {
     es: 'Eliminar',
     en: 'Delete',
   },
+  active: {
+    es: 'Activo',
+    en: 'Inactivo',
+  },
+  inactive: {
+    es: 'Inactivo',
+    en: 'Inactive',
+  },
 };
 
 export default labels;

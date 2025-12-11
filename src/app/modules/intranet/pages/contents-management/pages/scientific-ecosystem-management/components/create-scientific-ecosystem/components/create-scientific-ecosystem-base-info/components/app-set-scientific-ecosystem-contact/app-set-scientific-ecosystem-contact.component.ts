@@ -124,4 +124,10 @@ export class SetScientificEcosystemContactComponent {
     this.contacts = [];
     this.editingIndex = -1;
   }
+
+  handleReset() {
+    this.contacts = [];
+    this.editingIndex = -1;
+    this.formGroup.reset();
+  }
 }

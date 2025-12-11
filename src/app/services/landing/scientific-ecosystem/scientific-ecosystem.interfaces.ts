@@ -43,6 +43,7 @@ export interface ScientificEcosystemSearchRecommendation {
 export interface ScientificEcosystemPoster {
   id: number;
   title: string;
+  active: boolean;
   urlName: string;
   createdAt: Date;
   updatedAt: Date;

@@ -45,4 +45,8 @@ export default {
     es: 'Limpiar Todo',
     en: 'Clear All',
   },
+  restoreChanges: {
+    es: 'Restaurar cambios',
+    en: 'Restore changes',
+  },
 };
