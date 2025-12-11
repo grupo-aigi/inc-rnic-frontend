@@ -4,16 +4,16 @@ const labels = {
     es: 'Gestión de Ecosistemas Científicos | Red Nacional de Investigación en Cáncer',
   },
   currentScientificEcosystem: {
-    en: 'Current Ecosystems',
-    es: 'Ecosistemas Científicos Actuales',
+    en: 'Scientific Ecosystems',
+    es: 'Ecosistemas Científicos',
   },
   updateCancelled: {
     en: 'Update cancelled',
     es: 'Actualización cancelada',
   },
   createScientificEcosystem: {
-    en: 'Create Scientific Ecosystem',
-    es: 'Crear Ecosistema Científico',
+    en: 'Create Ecosystem',
+    es: 'Crear Ecosistema',
   },
   announcementCreatedSuccessfully: {
     es: 'Ecosistema Científico creado exitosamente',

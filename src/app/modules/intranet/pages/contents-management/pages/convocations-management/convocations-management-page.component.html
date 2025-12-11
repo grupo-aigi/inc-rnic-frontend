@@ -1,14 +1,14 @@
 <section class="pt-2">
   <div class="tab get-quote-tab">
     <ul class="tabs">
-      <li (click)="changeActiveTab(0)" #allConvocationsTab>
+      <li class="default-btn" (click)="changeActiveTab(0)" #allConvocationsTab>
         {{ labels.listConvocations[lang] }}
       </li>
-      <li (click)="changeActiveTab(1)">
+      <li class="default-btn" (click)="changeActiveTab(1)">
         {{
-        convocationToEdit
-        ? labels.editConvocation[lang]
-        : labels.createConvocation[lang]
+          convocationToEdit
+            ? labels.editConvocation[lang]
+            : labels.createConvocation[lang]
         }}
       </li>
     </ul>

@@ -1,10 +1,12 @@
 <section class="pt-2">
   <div class="tab get-quote-tab">
     <ul class="tabs">
-      <li #listFacilitatorsTab (click)="changeActiveTab(0)">
+      <li class="default-btn" #listFacilitatorsTab (click)="changeActiveTab(0)">
         {{ labels.listFacilitators[lang] }}
       </li>
-      <li (click)="changeActiveTab(1)">{{ labels.createFacilitator[lang] }}</li>
+      <li class="default-btn" (click)="changeActiveTab(1)">
+        {{ labels.createFacilitator[lang] }}
+      </li>
     </ul>
 
     <div class="mb-5">

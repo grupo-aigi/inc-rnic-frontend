@@ -1,10 +1,10 @@
 <section class="pt-2">
   <div class="tab get-quote-tab">
     <ul class="tabs">
-      <li #memoriesLI (click)="changeActiveTab(0)">
+      <li class="default-btn" #memoriesLI (click)="changeActiveTab(0)">
         {{ labels.listMemories[lang] }}
       </li>
-      <li (click)="changeActiveTab(1)">
+      <li class="default-btn" (click)="changeActiveTab(1)">
         {{ memoryToEdit ? labels.editMemory[lang] : labels.createMemory[lang] }}
       </li>
     </ul>
