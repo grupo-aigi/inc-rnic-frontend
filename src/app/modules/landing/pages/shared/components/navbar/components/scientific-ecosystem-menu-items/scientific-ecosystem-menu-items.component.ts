@@ -14,13 +14,16 @@ import { ScientificEcosystemPoster } from '../../../../../../../../services/land
   imports: [RouterLink, RouterLinkActive, JsonPipe],
 })
 export class ScientificEcosystemMenuItemsComponent implements OnInit {
+  public isLoading: boolean = true;
   public scientificEcosystems: ScientificEcosystemPoster[] = [];
+
   public constructor(
     private langService: LangService,
     private scientificEcosystemService: ScientificEcosystemService,
   ) {}
 
   public ngOnInit(): void {
+    this.isLoading = true;
     this.scientificEcosystemService
       .fetchScientificEcosystemPosters()
       .then((response) => {
@@ -28,12 +31,8 @@ export class ScientificEcosystemMenuItemsComponent implements OnInit {
           (a, b) =>
             new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
         );
+        this.isLoading = false;
       });
-  }
-
-  public get isLoading() {
-    return this.scientificEcosystemService
-      .fetchAllScientificEcosystemSearchRecommendations;
   }
 
   public get lang() {

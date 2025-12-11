@@ -18,7 +18,7 @@ import {
   providedIn: 'root',
 })
 export class ScientificEcosystemService {
-  private _baseUrl: string = `${environment.baseUrl}/scientific-ecosystem`;
+  private _baseUrl: string = `${environment.baseUrl}/ecosystems`;
   private _scientificEcosystemPosters: ScientificEcosystemPoster[] = [];
 
   public constructor(private readonly http: HttpClient) {}
@@ -504,39 +504,22 @@ export class ScientificEcosystemService {
   public async fetchScientificEcosystemPosters(): Promise<
     ScientificEcosystemPoster[]
   > {
-    const list: ScientificEcosystemPoster[] = [
-      {
-        id: 1,
-        title: 'Ecosistema Cáncer Colorrectal',
-        urlName: 'ecosistema-cancer-colorrectal',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        active: true,
-      },
-      {
-        id: 2,
-        title: 'Ecosistema Cáncer de Mama',
-        urlName: 'ecosistema-cancer-mama',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        active: true,
-      },
-      {
-        id: 3,
-        title: 'Ecosistema Cáncer de Pulmón',
-        urlName: 'ecosistema-cancer-pulmon',
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        active: false,
-      },
-    ];
-    return list;
+    return lastValueFrom(
+      this.http.get<ScientificEcosystemPoster[]>(this._baseUrl),
+    );
+  }
 
-    // return lastValueFrom(
-    //   this.http.get<ScientificEcosystemPoster[]>(
-    //     this._baseUrl,
-    //   ),
-    // );
+  public async fetchAllScientificEcosystemPosters(): Promise<
+    ScientificEcosystemPoster[]
+  > {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+    });
+    return lastValueFrom(
+      this.http.get<ScientificEcosystemPoster[]>(`${this._baseUrl}/all`, {
+        headers,
+      }),
+    );
   }
 
   public removeScientificEcosystem(id: number) {

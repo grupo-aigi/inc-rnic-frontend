@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -19,13 +20,13 @@ import { ToastrService } from 'ngx-toastr';
 import { ScientificEcosystemDetailMembers } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ContentTarget } from '../../../../../../../../../../../../services/shared/contents/contents.interfaces';
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
-import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
-import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
-import labels from './app-set-scientific-ecosystem-members.lang';
 import {
   Filetypes,
   mimeTypes,
 } from '../../../../../../../../../../../../services/shared/resources/resource.interfaces';
+import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
+import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
+import labels from './app-set-scientific-ecosystem-members.lang';
 
 @Component({
   standalone: true,
@@ -33,13 +34,13 @@ import {
   imports: [ReactiveFormsModule, UploadOrReuseImageComponent],
   selector: 'app-set-scientific-ecosystem-members',
 })
-export class SetScientificEcosystemMembersComponent {
+export class SetScientificEcosystemMembersComponent implements OnInit {
   @Input() public target!: ContentTarget;
 
   @Input() public baseInfo: ScientificEcosystemDetailMembers | null = null;
 
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailMembers> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailMembers> =
     new EventEmitter();
 
   @ViewChild('filetypeSelect')
@@ -70,6 +71,16 @@ export class SetScientificEcosystemMembersComponent {
     private resourcesService: ResourcesService,
     private toastrService: ToastrService,
   ) {}
+
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.onFormChange.emit(value);
+    });
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['baseInfo'] && this.baseInfo) {
@@ -202,17 +213,6 @@ export class SetScientificEcosystemMembersComponent {
     this.paragraphs = this.paragraphs.filter(
       (_element, index) => index !== indexToRemove,
     );
-  }
-
-  public handleSubmit() {
-    const payload: ScientificEcosystemDetailMembers = {
-      TYPE: 'LINEAMIENTOS',
-      resources: this.resourceFiles,
-      paragraphs: this.paragraphs,
-      images: this.resourceImages.map((imageName) => ({ imageName, cols: 12 })),
-    };
-
-    this.onSubmit.emit(payload);
   }
 
   public handleReset() {

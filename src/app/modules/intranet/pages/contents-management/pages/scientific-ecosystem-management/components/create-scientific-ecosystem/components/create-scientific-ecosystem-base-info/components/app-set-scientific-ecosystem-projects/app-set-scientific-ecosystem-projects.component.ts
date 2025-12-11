@@ -4,6 +4,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -40,9 +41,10 @@ import labels from './app-set-scientific-ecosystem-projects.lang';
     UploadOrReuseImageComponent,
   ],
 })
-export class SetScientificEcosystemProjectsComponent {
+export class SetScientificEcosystemProjectsComponent implements OnInit {
   @Input() public target!: ContentTarget;
-  @Output() public onSubmit: EventEmitter<ScientificEcosystemDetailProjects> =
+  @Output()
+  public onFormChange: EventEmitter<ScientificEcosystemDetailProjects> =
     new EventEmitter();
 
   @ViewChild('filetypeSelect')
@@ -78,6 +80,16 @@ export class SetScientificEcosystemProjectsComponent {
     private toastService: ToastrService,
     private resourcesService: ResourcesService,
   ) {}
+
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.onFormChange.emit(value);
+    });
+  }
 
   public get lang() {
     return this.langService.language;
@@ -355,25 +367,6 @@ export class SetScientificEcosystemProjectsComponent {
 
   public getImageUrlByName(imageName: string) {
     return this.resourcesService.getImageUrlByName(this.target, imageName);
-  }
-
-  // ============ SUBMIT Y RESET ============
-  public handleSubmit() {
-    if (this.projects.length === 0) {
-      this.toastService.error('Debe agregar al menos un proyecto');
-      return;
-    }
-
-    const resourceInfo: ScientificEcosystemDetailProjects = {
-      TYPE: 'PROYECTOS',
-      paragraphs: this.paragraphs.value,
-      projects: this.projects.value,
-      images: this.resourceImages.value,
-      resources: this.resourceFiles.value,
-    };
-
-    this.onSubmit.emit(resourceInfo);
-    this.handleReset();
   }
 
   public handleReset() {

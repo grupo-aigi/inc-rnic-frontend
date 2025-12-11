@@ -36,13 +36,13 @@ export class ScientificEcosystemListComponent implements OnInit {
   public scientificEcosystemToDelete: ScientificEcosystemPoster | null = null;
 
   public constructor(
-    private scientificEcosystemsService: ScientificEcosystemService,
     private title: Title,
     private router: Router,
     private route: ActivatedRoute,
     private resourcesService: ResourcesService,
     private toastService: ToastrService,
     private langService: LangService,
+    private scientificEcosystemsService: ScientificEcosystemService,
   ) {}
 
   public ngOnInit(): void {
@@ -110,7 +110,7 @@ export class ScientificEcosystemListComponent implements OnInit {
   private fetchScientificEcosystems() {
     this.loadingScientificEcosystems = true;
     this.scientificEcosystemsService
-      .fetchScientificEcosystemPosters()
+      .fetchAllScientificEcosystemPosters()
       .then((results) => this.processFetchedScientificEcosystems(results));
   }
 

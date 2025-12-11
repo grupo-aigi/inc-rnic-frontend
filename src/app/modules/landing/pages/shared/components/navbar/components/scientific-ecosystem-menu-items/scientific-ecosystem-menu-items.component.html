@@ -10,3 +10,13 @@
     </a>
   </li>
 }
+
+@if (scientificEcosystems.length === 0 && !isLoading) {
+  <p
+    class="nav-link dynamic-font-size"
+    routerLinkActive="active"
+    style="user-select: none"
+  >
+    {{ labels.noEcosystemsFound[lang] }}
+  </p>
+}

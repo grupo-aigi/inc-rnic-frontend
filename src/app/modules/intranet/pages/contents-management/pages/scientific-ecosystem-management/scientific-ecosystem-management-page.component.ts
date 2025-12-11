@@ -68,12 +68,15 @@ export class ScientificEcosystemManagementPage {
     });
   }
 
-  public submitScientificEcosystem(event: ScientificEcosystemCreateInfo) {}
-
   public handleCancelUpdate() {
     this.toastService.info(labels.updateCancelled[this.lang]);
     this.scientificEcosystemToEdit = undefined;
     this.changeActiveTab(0);
+    this.scientificEcosystemsLI.nativeElement.click();
+  }
+
+  public onFormSubmit() {
+    this.activeTabIndex = 0;
     this.scientificEcosystemsLI.nativeElement.click();
   }
 }

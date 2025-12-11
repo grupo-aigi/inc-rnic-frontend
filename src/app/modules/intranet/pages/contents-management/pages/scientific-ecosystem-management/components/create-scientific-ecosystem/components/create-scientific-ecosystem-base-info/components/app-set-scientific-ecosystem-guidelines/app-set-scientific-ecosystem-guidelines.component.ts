@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -33,13 +34,13 @@ import labels from './app-set-scientific-ecosystem-guidelines.lang';
   imports: [ReactiveFormsModule, UploadOrReuseImageComponent],
   selector: 'app-set-scientific-ecosystem-guidelines',
 })
-export class SetScientificEcosystemGuidelinesComponent {
+export class SetScientificEcosystemGuidelinesComponent implements OnInit {
   @Input() public target!: ContentTarget;
 
   @Input() public baseInfo: ScientificEcosystemDetailGuidelines | null = null;
 
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailGuidelines> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailGuidelines> =
     new EventEmitter();
 
   @ViewChild('filetypeSelect')
@@ -70,6 +71,16 @@ export class SetScientificEcosystemGuidelinesComponent {
     private resourcesService: ResourcesService,
     private toastrService: ToastrService,
   ) {}
+
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.onFormChange.emit(value);
+    });
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['baseInfo'] && this.baseInfo) {
@@ -202,17 +213,6 @@ export class SetScientificEcosystemGuidelinesComponent {
     this.paragraphs = this.paragraphs.filter(
       (_element, index) => index !== indexToRemove,
     );
-  }
-
-  public handleSubmit() {
-    const payload: ScientificEcosystemDetailGuidelines = {
-      TYPE: 'LINEAMIENTOS',
-      resources: this.resourceFiles,
-      paragraphs: this.paragraphs,
-      images: this.resourceImages.map((imageName) => ({ imageName, cols: 12 })),
-    };
-
-    this.onSubmit.emit(payload);
   }
 
   public handleReset() {

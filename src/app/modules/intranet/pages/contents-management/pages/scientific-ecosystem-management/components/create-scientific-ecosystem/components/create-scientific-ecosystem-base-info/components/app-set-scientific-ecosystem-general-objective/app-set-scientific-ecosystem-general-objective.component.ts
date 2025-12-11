@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
@@ -14,9 +14,9 @@ import labels from './app-set-scientific-ecosystem-general-objective.lang';
   imports: [ReactiveFormsModule],
   selector: 'app-set-scientific-ecosystem-general-objective',
 })
-export class SetScientificEcosystemGeneralObjectiveComponent {
+export class SetScientificEcosystemGeneralObjectiveComponent implements OnInit {
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailGeneralObjective> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailGeneralObjective> =
     new EventEmitter();
 
   public formGroup: FormGroup =
@@ -31,6 +31,22 @@ export class SetScientificEcosystemGeneralObjectiveComponent {
     private toastService: ToastrService,
   ) {}
 
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      if (value.TYPE === null) {
+        return this.onFormChange.emit({
+          TYPE: 'OBJ_GENERAL',
+          generalObjective: '',
+        });
+      }
+      this.onFormChange.emit(value);
+    });
+  }
+
   public get lang() {
     return this.langService.language;
   }
@@ -39,20 +55,8 @@ export class SetScientificEcosystemGeneralObjectiveComponent {
     return labels;
   }
 
-  public handleSubmit() {
-    if (this.formGroup.invalid) {
-      this.toastService.error('El formulario contiene campos inválidos');
-      return;
-    }
-    const title = this.formGroup.get('title')?.value as string;
-
-    this.onSubmit.emit({
-      ...this.formGroup.value,
-    });
-    this.formGroup.reset();
-  }
-
   public handleReset() {
     this.formGroup.reset();
+    this.onFormChange.emit({ TYPE: 'OBJ_GENERAL', generalObjective: '' });
   }
 }

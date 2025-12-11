@@ -63,7 +63,7 @@ export interface ScientificEcosystemSection {
 }
 
 export interface ScientificEcosystemDetail {
-  sections: ScientificEcosystemSection[];
+  sections: ScientificEcosystemDetailType[];
 }
 
 // AboutUs;

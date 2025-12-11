@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +23,8 @@ import labels from './app-set-scientific-ecosystem-contact.lang';
 })
 export class SetScientificEcosystemContactComponent {
   @Input() public target!: ContentTarget;
-  @Output() public onSubmit: EventEmitter<ScientificEcosystemDetailContact> =
+  @Output()
+  public onFormChange: EventEmitter<ScientificEcosystemDetailContact> =
     new EventEmitter();
 
   public contacts: ScientificEcosystemDetailContact['contacts'] = [];
@@ -67,7 +68,6 @@ export class SetScientificEcosystemContactComponent {
       this.toastService.success('Contacto actualizado correctamente');
       this.editingIndex = -1;
     } else {
-      // Agregar nuevo contacto
       this.contacts.push({
         name: name!,
         role: role!,
@@ -75,6 +75,7 @@ export class SetScientificEcosystemContactComponent {
       });
       this.toastService.success('Contacto agregado correctamente');
     }
+    this.onFormChange.emit({ TYPE: 'CONTACTO', contacts: this.contacts });
 
     this.formGroup.reset();
   }
@@ -95,6 +96,11 @@ export class SetScientificEcosystemContactComponent {
   public handleDeleteContact(index: number) {
     if (confirm('¿Está seguro de eliminar este contacto?')) {
       this.contacts.splice(index, 1);
+      this.onFormChange.emit({
+        TYPE: 'CONTACTO',
+        contacts: this.contacts,
+      });
+
       this.toastService.success('Contacto eliminado');
 
       if (this.editingIndex === index) {
@@ -106,23 +112,6 @@ export class SetScientificEcosystemContactComponent {
   public cancelEdit() {
     this.editingIndex = -1;
     this.formGroup.reset();
-  }
-
-  public handleSubmit() {
-    if (this.contacts.length === 0) {
-      this.toastService.error('Debe agregar al menos un contacto');
-      return;
-    }
-
-    const resourceInfo: ScientificEcosystemDetailContact = {
-      contacts: this.contacts,
-      TYPE: 'CONTACTO',
-    };
-
-    this.onSubmit.emit(resourceInfo);
-    this.formGroup.reset();
-    this.contacts = [];
-    this.editingIndex = -1;
   }
 
   handleReset() {

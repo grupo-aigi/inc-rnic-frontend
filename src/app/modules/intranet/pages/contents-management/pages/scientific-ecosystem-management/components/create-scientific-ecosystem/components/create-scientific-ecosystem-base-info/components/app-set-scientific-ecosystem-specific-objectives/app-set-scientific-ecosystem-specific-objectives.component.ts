@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 
@@ -19,7 +19,7 @@ import {
 })
 export class SetScientificEcosystemSpecificObjectivesComponent {
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailSpecificObjectives> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailSpecificObjectives> =
     new EventEmitter();
   public editMode: { paragraphIndex: number } | undefined = undefined;
   public specificObjectivesParagraphs: string[] = [];
@@ -50,14 +50,23 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
       this.toastService.error('Debe ingresar texto en el campo de párrafo');
       return;
     }
+
     if (this.editMode) {
       this.specificObjectivesParagraphs[this.editMode.paragraphIndex] =
         paragraphText.value;
+      this.onFormChange.emit({
+        TYPE: 'OBJ_ESPECIFICOS',
+        specificObjectives: this.specificObjectivesParagraphs,
+      });
       this.editMode = undefined;
       paragraphText.setValue('');
       return;
     }
     this.specificObjectivesParagraphs.push(paragraphText.value);
+    this.onFormChange.emit({
+      TYPE: 'OBJ_ESPECIFICOS',
+      specificObjectives: this.specificObjectivesParagraphs,
+    });
     paragraphText.setValue('');
   }
 
@@ -66,6 +75,10 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
       this.specificObjectivesParagraphs.filter(
         (_element, index) => index !== indexToRemove,
       );
+    this.onFormChange.emit({
+      TYPE: 'OBJ_ESPECIFICOS',
+      specificObjectives: this.specificObjectivesParagraphs,
+    });
   }
 
   public handleEditSpecificObjectiveParagraph(i: number) {
@@ -75,22 +88,13 @@ export class SetScientificEcosystemSpecificObjectivesComponent {
       ?.setValue(this.specificObjectivesParagraphs[i]);
   }
 
-  public handleSubmit() {
-    if (this.formGroup.invalid) {
-      this.toastService.error('El formulario contiene campos inválidos');
-      return;
-    }
-    const title = this.formGroup.get('title')?.value as string;
-
-    this.onSubmit.emit({
-      ...this.formGroup.value,
-    });
-    this.formGroup.reset();
-  }
-
   public handleReset() {
     this.formGroup.reset();
     this.specificObjectivesParagraphs = [];
     this.editMode = undefined;
+    this.onFormChange.emit({
+      TYPE: 'OBJ_ESPECIFICOS',
+      specificObjectives: this.specificObjectivesParagraphs,
+    });
   }
 }

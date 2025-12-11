@@ -85,7 +85,7 @@
           @case (1) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-about-us
-                (onSubmit)="handleUpdateAboutUs($event)"
+                (onFormChange)="handleUpdateAboutUs($event)"
               ></app-set-scientific-ecosystem-about-us>
             </div>
           }
@@ -93,7 +93,7 @@
           @case (2) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-general-objective
-                (onSubmit)="handleUpdateGeneralObjective($event)"
+                (onFormChange)="handleUpdateGeneralObjective($event)"
               ></app-set-scientific-ecosystem-general-objective>
             </div>
           }
@@ -101,7 +101,7 @@
           @case (3) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-specific-objectives
-                (onSubmit)="handleUpdateSpecificObjectives($event)"
+                (onFormChange)="handleUpdateSpecificObjectives($event)"
               ></app-set-scientific-ecosystem-specific-objectives>
             </div>
           }
@@ -110,7 +110,7 @@
             <div class="tabs_item">
               <app-set-scientific-ecosystem-roadmap
                 target="scientific-ecosystems"
-                (onSubmit)="handleUpdateRoadmap($event)"
+                (onFormChange)="handleUpdateRoadmap($event)"
               ></app-set-scientific-ecosystem-roadmap>
             </div>
           }
@@ -119,7 +119,7 @@
             <div class="tabs_item">
               <app-set-scientific-ecosystem-guidelines
                 target="scientific-ecosystems"
-                (onSubmit)="handleUpdateGuidelines($event)"
+                (onFormChange)="handleUpdateGuidelines($event)"
               ></app-set-scientific-ecosystem-guidelines>
             </div>
           }
@@ -128,7 +128,7 @@
             <div class="tabs_item">
               <app-set-scientific-ecosystem-how-to-participate
                 target="scientific-ecosystems"
-                (onSubmit)="handleUpdateHowToParticipate($event)"
+                (onFormChange)="handleUpdateHowToParticipate($event)"
               ></app-set-scientific-ecosystem-how-to-participate>
             </div>
           }
@@ -137,7 +137,7 @@
             <div class="tabs_item">
               <app-set-scientific-ecosystem-members
                 target="scientific-ecosystems"
-                (onSubmit)="handleUpdateMembers($event)"
+                (onFormChange)="handleUpdateMembers($event)"
               ></app-set-scientific-ecosystem-members>
             </div>
           }
@@ -146,7 +146,7 @@
             <div class="tabs_item">
               <app-set-scientific-ecosystem-projects
                 target="scientific-ecosystems"
-                (onSubmit)="handleUpdateProjects($event)"
+                (onFormChange)="handleUpdateProjects($event)"
               ></app-set-scientific-ecosystem-projects>
             </div>
           }
@@ -154,7 +154,7 @@
           @case (9) {
             <div class="tabs_item">
               <app-set-scientific-ecosystem-contact
-                (onSubmit)="handleUpdateContact($event)"
+                (onFormChange)="handleUpdateContact($event)"
               ></app-set-scientific-ecosystem-contact>
             </div>
           }
@@ -190,3 +190,4 @@
     }
   </div>
 </div>
+<h6>{{ createInfo | json }}</h6>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ScientificEcosystemDetailAboutUs } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
 import labels from './app-set-scientific-ecosystem-about-us.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 @Component({
   standalone: true,
@@ -14,7 +15,8 @@ import labels from './app-set-scientific-ecosystem-about-us.lang';
   imports: [ReactiveFormsModule],
 })
 export class SetScientificEcosystemAboutUsComponent {
-  @Output() public onSubmit: EventEmitter<ScientificEcosystemDetailAboutUs> =
+  @Output()
+  public onFormChange: EventEmitter<ScientificEcosystemDetailAboutUs> =
     new EventEmitter();
   public editMode: { paragraphIndex: number } | undefined = undefined;
   public descriptionParagraphs: string[] = [];
@@ -50,9 +52,17 @@ export class SetScientificEcosystemAboutUsComponent {
         paragraphText.value;
       this.editMode = undefined;
       paragraphText.setValue('');
+      this.onFormChange.emit({
+        TYPE: 'NOSOTROS',
+        description: this.descriptionParagraphs,
+      });
       return;
     }
     this.descriptionParagraphs.push(paragraphText.value);
+    this.onFormChange.emit({
+      TYPE: 'NOSOTROS',
+      description: this.descriptionParagraphs,
+    });
     paragraphText.setValue('');
   }
 
@@ -60,6 +70,10 @@ export class SetScientificEcosystemAboutUsComponent {
     this.descriptionParagraphs = this.descriptionParagraphs.filter(
       (_element, index) => index !== indexToRemove,
     );
+    this.onFormChange.emit({
+      TYPE: 'NOSOTROS',
+      description: this.descriptionParagraphs,
+    });
   }
 
   public handleEditDescriptionParagraph(i: number) {
@@ -67,23 +81,13 @@ export class SetScientificEcosystemAboutUsComponent {
     this.formGroup.get('description')?.setValue(this.descriptionParagraphs[i]);
   }
 
-  public handleSubmit() {
-    if (this.formGroup.invalid) {
-      this.toastService.error('El formulario contiene campos inválidos');
-      return;
-    }
-    const title = this.formGroup.get('title')?.value as string;
-
-    this.onSubmit.emit({
-      ...this.formGroup.value,
-    });
-    this.descriptionParagraphs = [];
-    this.formGroup.reset();
-  }
-
   public handleReset() {
     this.formGroup.reset();
     this.descriptionParagraphs = [];
     this.editMode = undefined;
+    this.onFormChange.emit({
+      TYPE: 'NOSOTROS',
+      description: this.descriptionParagraphs,
+    });
   }
 }

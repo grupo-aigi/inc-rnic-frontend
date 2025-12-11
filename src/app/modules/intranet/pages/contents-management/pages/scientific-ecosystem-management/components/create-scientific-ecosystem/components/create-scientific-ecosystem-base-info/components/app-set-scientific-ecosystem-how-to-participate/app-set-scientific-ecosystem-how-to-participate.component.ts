@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -36,7 +37,7 @@ import labels from './app-set-scientific-ecosystem-how-to-participate.lang';
   imports: [ReactiveFormsModule, UploadOrReuseImageComponent],
 })
 export class SetScientificEcosystemHowToParticipateComponent
-  implements OnChanges
+  implements OnInit, OnChanges
 {
   @Input() public target!: ContentTarget;
 
@@ -44,7 +45,7 @@ export class SetScientificEcosystemHowToParticipateComponent
     null;
 
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailHowToParticipate> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailHowToParticipate> =
     new EventEmitter();
 
   @ViewChild('filetypeSelect')
@@ -75,6 +76,16 @@ export class SetScientificEcosystemHowToParticipateComponent
     private resourcesService: ResourcesService,
     private toastrService: ToastrService,
   ) {}
+
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.onFormChange.emit(value);
+    });
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['baseInfo'] && this.baseInfo) {
@@ -207,17 +218,6 @@ export class SetScientificEcosystemHowToParticipateComponent
     this.paragraphs = this.paragraphs.filter(
       (_element, index) => index !== indexToRemove,
     );
-  }
-
-  public handleSubmit() {
-    const payload: ScientificEcosystemDetailHowToParticipate = {
-      TYPE: 'LINEAMIENTOS',
-      resources: this.resourceFiles,
-      paragraphs: this.paragraphs,
-      images: this.resourceImages.map((imageName) => ({ imageName, cols: 12 })),
-    };
-
-    this.onSubmit.emit(payload);
   }
 
   public handleReset() {

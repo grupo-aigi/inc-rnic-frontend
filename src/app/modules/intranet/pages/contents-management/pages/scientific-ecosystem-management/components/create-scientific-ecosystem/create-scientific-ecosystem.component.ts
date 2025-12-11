@@ -1,9 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { CommonModule, JsonPipe } from '@angular/common';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
+import { ScientificEcosystemCreateService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 import {
   ScientificEcosystemBaseInfo,
   ScientificEcosystemCreateInfo,
@@ -49,18 +58,20 @@ import labels from './create-scientific-ecosystem.lang';
     SetScientificEcosystemMembersComponent,
     SetScientificEcosystemProjectsComponent,
     SetScientificEcosystemContactComponent,
+    JsonPipe,
   ],
 })
 export class CreateScientificEcosystemComponent implements OnInit {
   @Input() public scientificEcosystemToEdit:
     | ScientificEcosystemPoster
     | undefined;
-  @Output() private onSubmit: EventEmitter<ScientificEcosystemCreateInfo> =
-    new EventEmitter();
+  @Output() private onSubmit: EventEmitter<void> = new EventEmitter();
   @Output() private onCancelUpdate: EventEmitter<void> = new EventEmitter();
   public detail: ScientificEcosystemDetail | null = null;
-  public baseInfo: ScientificEcosystemBaseInfo | undefined;
   public activeTabIndex: number = 0;
+  @ViewChild('allScientificEcosystemTabs')
+  public allEventsTab!: ElementRef<HTMLLIElement>;
+
   resources: any;
   eventUrlNameToEdit: any;
 
@@ -69,6 +80,7 @@ export class CreateScientificEcosystemComponent implements OnInit {
     private scientificEcosystemService: ScientificEcosystemService,
     private toastService: ToastrService,
     private langService: LangService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   public ngOnInit(): void {
@@ -78,9 +90,17 @@ export class CreateScientificEcosystemComponent implements OnInit {
     this.scientificEcosystemService
       .fetchScientificEcosystemDetail(this.scientificEcosystemToEdit.urlName)
       .subscribe((response) => {
-        this.baseInfo = { title };
+        this.scientificEcosystemCreateService.createAllSections(title);
         this.detail = response;
       });
+  }
+
+  public get baseInfo(): ScientificEcosystemBaseInfo | undefined {
+    return this.scientificEcosystemCreateService.createInfo?.baseInfo;
+  }
+
+  public get createInfo() {
+    return this.scientificEcosystemCreateService.createInfo;
   }
 
   public handleCancelUpdate() {
@@ -103,7 +123,7 @@ export class CreateScientificEcosystemComponent implements OnInit {
   public handleAddResource() {}
 
   public handleSetBaseInfo(baseInfo: ScientificEcosystemBaseInfo) {
-    this.baseInfo = baseInfo;
+    this.scientificEcosystemCreateService.createAllSections(baseInfo.title);
   }
 
   public changeActiveTab(index: number) {
@@ -111,49 +131,80 @@ export class CreateScientificEcosystemComponent implements OnInit {
   }
 
   public handlePublishScientificEcosystem() {
-    if (!this.baseInfo) return;
-
-    // const scientificEcosystemBaseInfo: ScientificEcosystemBaseInfoBody = {
-    //   ...this.baseInfo,
-    // };
-    // this.onSubmit.emit({
-    //   baseInfo: scientificEcosystemBaseInfo,
-    //   detail: this.detail as ScientificEcosystemDetail,
-    // });
+    this.scientificEcosystemCreateService.publishEcosystem().subscribe({
+      next: (value) => {
+        this.toastService.success(
+          labels.scientificEcosystemCreatedSuccessfully[this.lang],
+        );
+        this.onSubmit.emit();
+      },
+      error: (_err) => {
+        this.toastService.error(
+          this.labels.errorCreatingScientificEcosystem[this.lang],
+        );
+      },
+    });
   }
 
   handleUpdateAboutUs($event: ScientificEcosystemDetailAboutUs) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'NOSOTROS',
+      $event,
+    );
   }
   handleUpdateGeneralObjective(
     $event: ScientificEcosystemDetailGeneralObjective,
   ) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'OBJ_GENERAL',
+      $event,
+    );
   }
   handleUpdateSpecificObjectives(
     $event: ScientificEcosystemDetailSpecificObjectives,
   ) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'OBJ_ESPECIFICOS',
+      $event,
+    );
   }
   handleUpdateRoadmap($event: ScientificEcosystemDetailRoadmap) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'HOJA_RUTA',
+      $event,
+    );
   }
   handleUpdateGuidelines($event: ScientificEcosystemDetailGuidelines) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'LINEAMIENTOS',
+      $event,
+    );
   }
 
   handleUpdateHowToParticipate(
     $event: ScientificEcosystemDetailHowToParticipate,
   ) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'COMO_PARTICIPAR',
+      $event,
+    );
   }
   handleUpdateMembers($event: ScientificEcosystemDetailMembers) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'INTEGRANTES',
+      $event,
+    );
   }
   handleUpdateProjects($event: ScientificEcosystemDetailProjects) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'PROYECTOS',
+      $event,
+    );
   }
   handleUpdateContact($event: ScientificEcosystemDetailContact) {
-    throw new Error('Method not implemented.');
+    this.scientificEcosystemCreateService.handleUpdateSection(
+      'CONTACTO',
+      $event,
+    );
   }
 }

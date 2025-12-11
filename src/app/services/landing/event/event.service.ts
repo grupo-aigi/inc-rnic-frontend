@@ -4,18 +4,16 @@ import { Injectable } from '@angular/core';
 import { Observable, lastValueFrom, of } from 'rxjs';
 
 import { environment } from '../../../../environments/environment.development';
+import filterFalsyValues from '../../../helpers/object-utils';
 import { Pagination } from '../../shared/misc/pagination.interfaces';
 import {
-  EventBaseInfoBody,
   EventCategory,
   EventCreateInfo,
   EventFilterCriteria,
   EventPoster,
-  EventResource,
   EventSearchRecommendation,
   EventTag,
 } from './event.interfaces';
-import filterFalsyValues from '../../../helpers/object-utils';
 
 @Injectable({
   providedIn: 'root',

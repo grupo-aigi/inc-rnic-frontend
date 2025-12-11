@@ -17,10 +17,7 @@ import {
 
 import { ToastrService } from 'ngx-toastr';
 
-import {
-  ScientificEcosystemBaseInfo,
-  ScientificEcosystemDetail,
-} from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
+import { ScientificEcosystemBaseInfo } from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { LangService } from '../../../../../../../../../../services/shared/lang/lang.service';
 import { ResourcesService } from '../../../../../../../../../../services/shared/resources/resource.service';
@@ -30,7 +27,7 @@ import labels from './create-scientific-ecosystem-base-info.lang';
   standalone: true,
   selector: 'app-create-scientific-ecosystem-base-info',
   templateUrl: './create-scientific-ecosystem-base-info.component.html',
-  imports: [ReactiveFormsModule, CommonModule, JsonPipe],
+  imports: [ReactiveFormsModule, CommonModule],
 })
 export class CreateScientificEcosystemBaseInfoComponent
   implements OnInit, OnChanges

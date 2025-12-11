@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
   ViewChild,
@@ -27,7 +28,6 @@ import {
 import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-roadmap.lang';
-import { EventService } from '../../../../../../../../../../../../services/landing/event/event.service';
 
 @Component({
   standalone: true,
@@ -35,13 +35,15 @@ import { EventService } from '../../../../../../../../../../../../services/landi
   templateUrl: './app-set-scientific-ecosystem-roadmap.component.html',
   imports: [ReactiveFormsModule, UploadOrReuseImageComponent],
 })
-export class SetScientificEcosystemRoadmapComponent implements OnChanges {
+export class SetScientificEcosystemRoadmapComponent
+  implements OnInit, OnChanges
+{
   @Input() public target!: ContentTarget;
 
   @Input() public baseInfo: ScientificEcosystemDetailRoadmap | null = null;
 
   @Output()
-  public onSubmit: EventEmitter<ScientificEcosystemDetailRoadmap> =
+  public onFormChange: EventEmitter<ScientificEcosystemDetailRoadmap> =
     new EventEmitter();
 
   @ViewChild('filetypeSelect')
@@ -72,6 +74,16 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
     private resourcesService: ResourcesService,
     private toastrService: ToastrService,
   ) {}
+
+  ngOnInit(): void {
+    this.listenFormChanges();
+  }
+
+  private listenFormChanges(): void {
+    this.formGroup.valueChanges.subscribe((value) => {
+      this.onFormChange.emit(value);
+    });
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if (changes['baseInfo'] && this.baseInfo) {
@@ -142,6 +154,7 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
             originalFilename: name,
             size: value.size,
           });
+          this.handleEmitChanges();
           this.currUploadedFile = null;
         },
         error: () => {
@@ -154,6 +167,7 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
     this.resourceFiles = this.resourceFiles.filter(
       (_element, i) => i !== index,
     );
+    this.handleEmitChanges();
   }
 
   public getFileSize(bytes: number): string {
@@ -165,12 +179,14 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
 
   public handleAddImage(selectedImage: string) {
     this.resourceImages.push(selectedImage);
+    this.handleEmitChanges();
   }
 
   public handleDeleteImage(index: number) {
     this.resourceImages = this.resourceImages.filter(
       (_element, i) => i !== index,
     );
+    this.handleEmitChanges();
   }
 
   public getImageUrlByName(imageName: string) {
@@ -188,11 +204,25 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
       this.paragraphs[this.editMode.paragraphIndex] = paragraphText.value;
       this.editMode = undefined;
       paragraphText.setValue('');
+      this.handleEmitChanges();
       return;
     }
 
     this.paragraphs.push(paragraphText.value);
+    this.handleEmitChanges();
     paragraphText.setValue('');
+  }
+
+  private handleEmitChanges() {
+    this.onFormChange.emit({
+      TYPE: 'HOJA_RUTA',
+      images: this.resourceImages.map((imageName) => ({
+        cols: 12,
+        imageName,
+      })),
+      paragraphs: this.paragraphs,
+      resources: this.resourceFiles,
+    });
   }
 
   public handleEditParagraph(i: number) {
@@ -204,17 +234,7 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
     this.paragraphs = this.paragraphs.filter(
       (_element, index) => index !== indexToRemove,
     );
-  }
-
-  public handleSubmit() {
-    const payload: ScientificEcosystemDetailRoadmap = {
-      TYPE: 'LINEAMIENTOS',
-      resources: this.resourceFiles,
-      paragraphs: this.paragraphs,
-      images: this.resourceImages.map((imageName) => ({ imageName, cols: 12 })),
-    };
-
-    this.onSubmit.emit(payload);
+    this.handleEmitChanges();
   }
 
   public handleReset() {
@@ -222,6 +242,7 @@ export class SetScientificEcosystemRoadmapComponent implements OnChanges {
     this.paragraphs = [];
     this.resourceImages = [];
     this.formGroup.enable();
+    this.handleEmitChanges();
   }
 
   public get lang() {
