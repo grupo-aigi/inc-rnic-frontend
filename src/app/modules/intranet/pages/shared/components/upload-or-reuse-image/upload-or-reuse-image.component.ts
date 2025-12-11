@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -13,7 +14,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { ImageDirectory } from '../../../../../../services/shared/resources/resource.interfaces';
 import { ResourcesService } from '../../../../../../services/shared/resources/resource.service';
 import { PrivateImagesListComponent } from './components/private-images-list/private-images-list.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,

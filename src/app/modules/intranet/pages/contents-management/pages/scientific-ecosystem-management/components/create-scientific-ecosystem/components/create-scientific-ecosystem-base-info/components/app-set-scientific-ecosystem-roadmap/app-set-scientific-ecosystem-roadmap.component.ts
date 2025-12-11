@@ -144,7 +144,7 @@ export class SetScientificEcosystemRoadmapComponent
     const { name } = this.currUploadedFile;
 
     this.resourcesService
-      .createFile('events', this.currUploadedFile, name)
+      .createFile('ecosystems', this.currUploadedFile, name)
       .subscribe({
         next: (value) => {
           this.toastrService.success(labels.fileHasBeenSaved[this.lang]);

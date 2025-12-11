@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Observable, delay, lastValueFrom, of } from 'rxjs';
+import { Observable, delay, lastValueFrom, of, tap } from 'rxjs';
 
 import { environment } from '../../../../environments/environment.development';
 import {
@@ -509,26 +509,43 @@ export class ScientificEcosystemService {
     );
   }
 
-  public async fetchAllScientificEcosystemPosters(): Promise<
+  public fetchAllScientificEcosystemPosters(): Observable<
     ScientificEcosystemPoster[]
   > {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
     });
-    return lastValueFrom(
-      this.http.get<ScientificEcosystemPoster[]>(`${this._baseUrl}/all`, {
+    return this.http
+      .get<ScientificEcosystemPoster[]>(`${this._baseUrl}/all`, {
         headers,
-      }),
-    );
+      })
+      .pipe(
+        tap({
+          next: (response) => {
+            this._scientificEcosystemPosters = response;
+          },
+        }),
+      );
   }
 
   public removeScientificEcosystem(id: number) {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
     });
-    return lastValueFrom(
-      this.http.delete<{ id: number }>(`${this._baseUrl}/${id}`, { headers }),
-    );
+    return this.http
+      .delete<{ id: number }>(`${this._baseUrl}/${id}`, {
+        headers,
+      })
+      .pipe(
+        tap({
+          next: () => {
+            this._scientificEcosystemPosters =
+              this._scientificEcosystemPosters.filter(
+                (poster) => poster.id !== id,
+              );
+          },
+        }),
+      );
   }
 
   public createCategory(
@@ -682,5 +699,28 @@ export class ScientificEcosystemService {
         responseType: 'arraybuffer',
       }),
     );
+  }
+
+  public toggleActive(id: number): Observable<void> {
+    const headers = new HttpHeaders().append(
+      'Authorization',
+      `Bearer ${sessionStorage.getItem('access_token')}`,
+    );
+
+    return this.http
+      .put<void>(`${this._baseUrl}/${id}/status`, {}, { headers })
+      .pipe(
+        tap({
+          next: () => {
+            this._scientificEcosystemPosters =
+              this._scientificEcosystemPosters.map((poster) => {
+                if (poster.id === id) {
+                  return { ...poster, active: !poster.active };
+                }
+                return poster;
+              });
+          },
+        }),
+      );
   }
 }

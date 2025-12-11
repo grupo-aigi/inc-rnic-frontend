@@ -32,13 +32,9 @@ export class ScientificEcosystemListComponent implements OnInit {
   public onEditScientificEcosystem: EventEmitter<ScientificEcosystemPoster> =
     new EventEmitter();
   public loadingScientificEcosystems: boolean = true;
-  public scientificEcosystems: ScientificEcosystemPoster[] = [];
   public scientificEcosystemToDelete: ScientificEcosystemPoster | null = null;
 
   public constructor(
-    private title: Title,
-    private router: Router,
-    private route: ActivatedRoute,
     private resourcesService: ResourcesService,
     private toastService: ToastrService,
     private langService: LangService,
@@ -49,19 +45,11 @@ export class ScientificEcosystemListComponent implements OnInit {
     if (location.href.includes('/intranet')) {
       this.variant = 'INTRANET';
     }
-    this.route.queryParams.subscribe((params) => {
-      const { pagina } = params;
-      if (!pagina) {
-        this.fetchScientificEcosystems();
-        return;
-      }
-      if (isNaN(+pagina)) {
-        this.toastService.error(labels.invalidPage[this.lang]);
-        this.router.navigate(['/'], {});
-        return;
-      }
-      this.fetchScientificEcosystems();
-    });
+    this.fetchScientificEcosystems();
+  }
+
+  public get scientificEcosystems(): ScientificEcosystemPoster[] {
+    return this.scientificEcosystemsService.scientificEcosystemPosters;
   }
 
   public handleSetScientificEcosystemToDelete(
@@ -70,32 +58,21 @@ export class ScientificEcosystemListComponent implements OnInit {
     this.scientificEcosystemToDelete = scientificEcosystemPoster;
   }
 
-  private processFetchedScientificEcosystems(
-    scientificEcosystemPosters: ScientificEcosystemPoster[],
-  ): any {
-    this.loadingScientificEcosystems = false;
-    this.scientificEcosystems = scientificEcosystemPosters.sort(
-      (a, b) =>
-        new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
-    );
-  }
-
   public handleConfirmDelete(id: number) {
     return this.scientificEcosystemsService
       .removeScientificEcosystem(id)
-      .then(({ id }) => {
-        if (id) {
-          this.scientificEcosystems = this.scientificEcosystems.filter(
-            (scientificEcosystemPoster) => scientificEcosystemPoster.id !== id,
-          );
+      .subscribe({
+        next: () => {
           this.scientificEcosystemToDelete = null;
           return this.toastService.success(
             labels.scientificEcosystemDeletedSuccessfully[this.lang],
           );
-        }
-        return this.toastService.error(
-          labels.scientificEcosystemNotDeleted[this.lang],
-        );
+        },
+        error: () => {
+          return this.toastService.error(
+            labels.scientificEcosystemNotDeleted[this.lang],
+          );
+        },
       });
   }
 
@@ -111,14 +88,18 @@ export class ScientificEcosystemListComponent implements OnInit {
     this.loadingScientificEcosystems = true;
     this.scientificEcosystemsService
       .fetchAllScientificEcosystemPosters()
-      .then((results) => this.processFetchedScientificEcosystems(results));
+      .subscribe({
+        next: () => {
+          this.loadingScientificEcosystems = false;
+        },
+        error: () => {
+          this.toastService.error(labels.errorFetchingEcosystems[this.lang]);
+        },
+      });
   }
 
   public getImageByScientificEcosystemId(name: string) {
-    return this.resourcesService.getImageUrlByName(
-      'scientific-ecosystems',
-      name,
-    );
+    return this.resourcesService.getImageUrlByName('ecosystems', name);
   }
 
   public handleEditScientificEcosystem(
@@ -153,6 +134,16 @@ export class ScientificEcosystemListComponent implements OnInit {
   }
 
   public handleToggleActive(poster: ScientificEcosystemPoster) {
-    window.alert(`poster --> ${poster}`);
+    const { id } = poster;
+    this.scientificEcosystemsService.toggleActive(id).subscribe({
+      next: () => {
+        this.toastService.success(
+          labels.ecosystemStatusUpdatedSuccessfully[this.lang],
+        );
+      },
+      error: () => {
+        this.toastService.error(labels.errorFetchingEcosystems[this.lang]);
+      },
+    });
   }
 }

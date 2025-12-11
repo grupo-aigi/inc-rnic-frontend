@@ -3,16 +3,14 @@
     <span
       class="top-title dynamic-font-size"
       style="padding-top: 50px !important"
-      >
+    >
       {{ labels.upcomingEvents[lang] }}
     </span>
     <h2 class="dynamic-font-size">{{ labels.complementaryTitle[lang] }}</h2>
   </div>
 
   @if (loadingPosters) {
-    <div
-      class="d-flex flex-column align-items-center justify-content-center"
-      >
+    <div class="d-flex flex-column align-items-center justify-content-center">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -27,23 +25,20 @@
         <div class="col-lg-7 mt-sm-5 col-sm-12 team-slider dynamic-font-size">
           <owl-carousel-o [options]="teamSlidesOptions">
             @for (eventPoster of eventPosters; track eventPoster) {
-              <ng-template
-                class="col-lg-4 col-md-6"
-                carouselSlide
-                >
+              <ng-template class="col-lg-4 col-md-6" carouselSlide>
                 <div class="single-blog-post dynamic-font-size">
                   <div class="blog-img" style="position: relative">
                     <a
                       [routerLink]="'/eventos/' + eventPoster.urlName"
                       target="_blank"
-                      >
+                    >
                       <img
-                    [src]="
-                      getImageUrlByName(eventPoster.imageName) ||
-                      '/img/blog/blog-10.jpg'
-                    "
+                        [src]="
+                          getImageUrlByName(eventPoster.imageName) ||
+                          '/img/blog/blog-10.jpg'
+                        "
                         alt="Image"
-                        />
+                      />
                     </a>
                     <p class="event-scope__ribbon dynamic-font-size">
                       {{ eventPoster.scope }}
@@ -52,98 +47,84 @@
                   <div
                     class="blog-content position-relative"
                     [title]="eventPoster.description"
-                    >
+                  >
                     <span
                       class="rounded-pill badge badge-primary event-category"
-                  [ngStyle]="{
-                    'background-color': wordToHexColor(
-                      eventPoster.category.name
-                    ),
-                  }"
-                      >
+                      [ngStyle]="{
+                        'background-color': wordToHexColor(
+                          eventPoster.category.name
+                        ),
+                      }"
+                    >
                       {{ eventPoster.category.name }}
                     </span>
                     <ul style="margin-top: -10px">
                       <li>
                         <i class="flaticon-calendar"></i
-                          >{{ formatEventDate(eventPoster.startDate) }}
-                          -
-                          {{ formatEventDate(eventPoster.endDate) }}
-                        </li>
-                      </ul>
-                      <ul style="margin-top: -20px">
-                        <li>
-                          <i class="flaticon-user"></i>{{ labels.organize[lang] }}:
-                          {{
+                        >{{ formatEventDate(eventPoster.startDate) }}
+                        -
+                        {{ formatEventDate(eventPoster.endDate) }}
+                      </li>
+                    </ul>
+                    <ul style="margin-top: -20px">
+                      <li>
+                        <i class="flaticon-user"></i
+                        >{{ labels.organize[lang] }}:
+                        {{
                           eventPoster.author
-                          ? eventPoster.author
-                          : 'Sin organizador'
-                          }}
-                        </li>
-                      </ul>
-                      <h3>
-                        <a
-                          class="dynamic-font-size"
-                          [routerLink]="'/eventos/' + eventPoster.urlName"
-                          target="_blank"
-                          >{{ eventPoster.title }}</a
-                          >
-                        </h3>
-                        <p class="dynamic-font-size">
-                          {{ eventPoster.description }}
-                        </p>
-                        <a
-                          [routerLink]="'/eventos/' + eventPoster.urlName"
-                          class="read-more dynamic-font-size"
-                          >{{ labels.eventDetailButton[lang] }}</a
-                          >
-                        </div>
-                      </div>
-                    </ng-template>
-                  }
-                </owl-carousel-o>
-              </div>
-              <div class="col-12 mx-auto">
-                <div class="col-lg-12 col-md-12" style="margin-top: 20px">
-                  <div class="pagination-area">
-                    <a
-                      href="/eventos"
-                      class="default-btn m-auto dynamic-font-size"
-                      type="submit"
-                      >{{ labels.seeAllEvents[lang] }}...</a
+                            ? eventPoster.author
+                            : 'Sin organizador'
+                        }}
+                      </li>
+                    </ul>
+                    <h3>
+                      <a
+                        class="dynamic-font-size"
+                        [routerLink]="'/eventos/' + eventPoster.urlName"
+                        target="_blank"
+                        >{{ eventPoster.title }}</a
                       >
-                    </div>
+                    </h3>
+                    <p class="dynamic-font-size">
+                      {{ eventPoster.description }}
+                    </p>
+                    <a
+                      [routerLink]="'/eventos/' + eventPoster.urlName"
+                      class="read-more dynamic-font-size"
+                      >{{ labels.eventDetailButton[lang] }}</a
+                    >
                   </div>
                 </div>
-              </div>
-            } @else {
-              <p
-                class="alert text-center"
-        style="
-          border: 1px solid #12bec8;
-          color: white;
-          font-weight: 800;
-          background-color: #82dee5;
-        "
-                role="alert"
-                >
-                {{ labels.noEvents[lang] }}
-              </p>
+              </ng-template>
             }
-            <ng-template #noEvents>
-              <p
-                class="alert text-center"
+          </owl-carousel-o>
+        </div>
+        <div class="col-12 mx-auto">
+          <div class="col-lg-12 col-md-12" style="margin-top: 20px">
+            <div class="pagination-area">
+              <a
+                href="/eventos"
+                class="default-btn m-auto dynamic-font-size"
+                type="submit"
+                >{{ labels.seeAllEvents[lang] }}...</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <p
+        class="alert text-center"
         style="
           border: 1px solid #12bec8;
           color: white;
           font-weight: 800;
           background-color: #82dee5;
         "
-                role="alert"
-                >
-                {{ labels.noEvents[lang] }}
-              </p>
-            </ng-template>
-          }
-
-        </div>
+        role="alert"
+      >
+        {{ labels.noEvents[lang] }}
+      </p>
+    }
+  }
+</div>

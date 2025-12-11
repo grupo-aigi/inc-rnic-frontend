@@ -39,6 +39,22 @@ const labels = {
     es: 'Inactivo',
     en: 'Inactive',
   },
+  showEcosystem: {
+    es: 'Mostrar el ecosistema',
+    en: 'Show this ecosystem',
+  },
+  errorFetchingEcosystems: {
+    es: 'Error al buscar los ecosystemas',
+    en: 'Error fetching ecosystems',
+  },
+  errorUpdatingEcosystemStatus: {
+    es: 'Error al actualizar el estado del ecosystema',
+    en: 'Error when trying to update ecosystem status',
+  },
+  ecosystemStatusUpdatedSuccessfully: {
+    es: 'Estado actualizado exitosamente',
+    en: 'Status updated successfully',
+  },
 };
 
 export default labels;

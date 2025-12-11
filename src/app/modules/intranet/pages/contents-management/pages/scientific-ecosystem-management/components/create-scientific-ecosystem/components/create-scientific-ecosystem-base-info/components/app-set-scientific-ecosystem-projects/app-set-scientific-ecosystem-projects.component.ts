@@ -317,7 +317,7 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     const { name } = this.currUploadedFile;
 
     this.resourcesService
-      .createFile('scientific-ecosystem', this.currUploadedFile, name)
+      .createFile('ecosystems', this.currUploadedFile, name)
       .subscribe({
         next: (value) => {
           this.toastService.success(labels.fileHasBeenSaved[this.lang]);

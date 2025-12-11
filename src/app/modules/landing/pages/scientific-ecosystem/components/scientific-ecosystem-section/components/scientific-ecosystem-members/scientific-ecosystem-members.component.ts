@@ -32,10 +32,7 @@ export class ScientificEcosystemMembersComponent {
   ) {}
 
   public getImageUrlByName(name: string) {
-    return this.resourcesService.getImageUrlByName(
-      'scientific-ecosystems',
-      name,
-    );
+    return this.resourcesService.getImageUrlByName('ecosystems', name);
   }
 
   public ngOnInit(): void {
