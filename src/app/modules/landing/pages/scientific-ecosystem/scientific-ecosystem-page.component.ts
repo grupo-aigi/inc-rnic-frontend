@@ -135,9 +135,16 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
   public getSectionDetailType(
     type: ScientificEcosystemDetailResourceType,
   ): ScientificEcosystemDetailType {
-    return this.ecosystemData.sections.find(
-      (section) => section.TYPE === type,
-    )!;
+    // return this.ecosystemData.sections.find(
+    //   (section) => section.TYPE === type,
+    // )!;
+
+    const contentStr = this.ecosystemData.resources.find(
+      (a) => a.resourceType === type,
+    )!.content;
+
+    const data = JSON.parse(contentStr) as ScientificEcosystemDetailType;
+    return { ...data, TYPE: type };
   }
 
   public scrollToSection(

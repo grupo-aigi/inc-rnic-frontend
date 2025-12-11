@@ -81,7 +81,20 @@ export interface ScientificEcosystemData {
   id: number;
   title: string;
   urlName: string;
-  sections: ScientificEcosystemDetailType[];
+  active: boolean;
+  resources: { resourceType: string; content: string }[];
+}
+
+export interface ScientificEcosystemApi {
+  id: number;
+  title: string;
+  urlName: string;
+  active: boolean;
+  resources: {
+    id: number;
+    resourceType: ScientificEcosystemDetailResourceType;
+    content: string;
+  }[];
 }
 
 export type ScientificEcosystemDetailType =

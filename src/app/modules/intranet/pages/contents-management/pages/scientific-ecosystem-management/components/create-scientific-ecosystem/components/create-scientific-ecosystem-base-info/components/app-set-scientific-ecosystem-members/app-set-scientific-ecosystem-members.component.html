@@ -30,7 +30,7 @@
                   formControlName="paragraph"
                   class="form-control"
                   [placeholder]="labels.paragraphContent.placeholder[lang]"
-                  style="resize: vertical; min-height: 200px; max-height: 400px"
+                  style="resize: vertical"
                 ></textarea>
               </div>
             </div>
@@ -229,6 +229,87 @@
       >
         <div class="accordion-body">
           <section>
+            <div class="card mb-4 p-3 bg-light">
+              <h5 class="mb-3">Agregar Nueva Imagen</h5>
+
+              <div class="row align-items-end" [formGroup]="imageColumnsForm">
+                <div class="col-lg-12 col-md-12 mb-1">
+                  <p class="form-label">Seleccionar Imagen</p>
+                  <div class="d-flex gap-2">
+                    <button
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#input-scientific-ecosystem-member-image"
+                      class="btn default-btn"
+                    >
+                      {{
+                        pendingImage ? 'Cambiar Imagen' : labels.addImage[lang]
+                      }}
+                    </button>
+
+                    <button
+                      type="button"
+                      class="default-btn bg-success"
+                      [disabled]="!pendingImage || !imageColumnsForm.valid"
+                      (click)="handleConfirmImage()"
+                    >
+                      Agregar
+                    </button>
+                  </div>
+
+                  @if (pendingImage) {
+                    <small class="text-success d-block mt-1">
+                      ✓ Imagen seleccionada
+                    </small>
+                  }
+                </div>
+
+                <!-- <div class="col-lg-4 col-md-8 mb-2">
+                  <label class="form-label">Columnas (1-12)</label>
+                  <input
+                    type="number"
+                    formControlName="columns"
+                    class="form-control"
+                    min="1"
+                    max="12"
+                    placeholder="12"
+                  />
+                  <small class="text-muted">
+                    {{ imageColumnsForm.get('columns')?.value }} de 12 columnas
+                  </small>
+                </div> -->
+              </div>
+
+              <!-- Preview de imagen pendiente -->
+              @if (pendingImage) {
+                <div class="mt-3">
+                  <h6>Vista Previa:</h6>
+                  <div class="row">
+                    <div
+                      [class]="
+                        'col-' + (imageColumnsForm.get('columns')?.value || 12)
+                      "
+                    >
+                      <img
+                        [src]="getImageUrlByName(pendingImage.imageName)"
+                        class="w-100"
+                        style="
+                          border: 3px dashed #12bec8;
+                          border-radius: 5px;
+                          object-fit: cover;
+                        "
+                        alt="Preview"
+                      />
+                      <small class="text-muted d-block text-center mt-1">
+                        Ancho: {{ imageColumnsForm.get('columns')?.value }}/12
+                        columnas
+                      </small>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+
             <h4>{{ labels.imageList[lang] }}</h4>
 
             @if (resourceImages.length === 0) {
@@ -237,39 +318,89 @@
               </div>
             }
 
-            <div class="col-lg-3 col-sm-12">
-              <button
-                type="button"
-                data-bs-toggle="modal"
-                data-bs-target="#input-scientific-ecosystem-member-image"
-                class="btn default-btn"
-              >
-                {{ labels.addImage[lang] }}
-              </button>
+            <div class="card p-3 mb-4">
+              <h5 class="mb-3">Vista Previa del Diseño Final</h5>
+              <div class="row g-2">
+                @for (image of resourceImages; track image; let i = $index) {
+                  <div [class]="'col-' + image.cols + ' position-relative'">
+                    <div class="card h-100">
+                      <img
+                        [src]="getImageUrlByName(image.imageName)"
+                        class="card-img-top"
+                        style="border: 2px solid #12bec8; object-fit: cover"
+                        [alt]="'Imagen ' + (i + 1)"
+                      />
+                      <div class="card-body p-2">
+                        <div
+                          class="d-flex justify-content-between align-items-center mb-2"
+                        >
+                          <strong class="text-primary">
+                            {{ labels.imageNro[lang] }} #{{ i + 1 }}
+                          </strong>
+                          <span class="badge bg-info">
+                            {{ image.cols }}/12 cols
+                          </span>
+                        </div>
+
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <label class="form-label small mb-1"
+                              >Columnas:</label
+                            >
+                            <input
+                              type="number"
+                              class="form-control form-control-sm"
+                              [value]="image.cols"
+                              min="1"
+                              max="12"
+                              (change)="
+                                handleEditImageColumns(
+                                  i,
+                                  +$any($event.target).value
+                                )
+                              "
+                            />
+                          </div>
+                          <div class="col-6 d-flex align-items-end">
+                            <button
+                              class="btn btn-danger btn-sm w-100"
+                              (click)="handleDeleteImage(i)"
+                            >
+                              {{ labels.delete[lang] }}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
 
-            <div class="row mb-5 mt-3">
-              @for (image of resourceImages; track image; let i = $index) {
-                <div class="col-lg-6 col-sm-12 position-relative">
-                  <img
-                    [src]="getImageUrlByName(image)"
-                    class="image-list"
-                    style="border: 2px solid #12bec8; border-radius: 5px"
-                  />
-                  <div class="position-absolute" style="top: 10px; left: 20px">
-                    <b class="m-2 bg-white p-1"
-                      >{{ labels.imageNro[lang] }} #{{ i + 1 }}</b
-                    >
-                    <button
-                      class="btn btn-danger"
-                      (click)="handleDeleteImage(i)"
-                    >
-                      {{ labels.delete[lang] }}
-                    </button>
+            <details class="mt-3">
+              <summary class="btn btn-outline-secondary btn-sm mb-2">
+                Ver lista compacta de imágenes
+              </summary>
+              <div class="row mb-5 mt-2">
+                @for (image of resourceImages; track image; let i = $index) {
+                  <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                    <div class="card">
+                      <img
+                        [src]="getImageUrlByName(image.imageName)"
+                        class="card-img-top"
+                        style="height: 150px; object-fit: cover"
+                      />
+                      <div class="card-body p-2">
+                        <small>
+                          <strong>Imagen #{{ i + 1 }}</strong> -
+                          {{ image.cols }} columnas
+                        </small>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              }
-            </div>
+                }
+              </div>
+            </details>
           </section>
         </div>
       </div>
@@ -292,5 +423,5 @@
 <app-upload-or-reuse-image
   modalFor="input-scientific-ecosystem-member-image"
   [elementType]="target"
-  (onSubmit)="handleAddImage($event)"
+  (onSubmit)="handleImageSelected($event)"
 ></app-upload-or-reuse-image>

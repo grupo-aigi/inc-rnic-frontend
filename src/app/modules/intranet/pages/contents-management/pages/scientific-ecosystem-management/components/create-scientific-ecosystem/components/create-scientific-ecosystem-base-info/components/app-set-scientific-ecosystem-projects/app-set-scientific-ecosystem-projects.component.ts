@@ -30,6 +30,11 @@ import { ResourcesService } from '../../../../../../../../../../../../services/s
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-projects.lang';
 
+interface ImageResource {
+  imageName: string;
+  cols: number;
+}
+
 @Component({
   standalone: true,
   selector: 'app-set-scientific-ecosystem-projects',

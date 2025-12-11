@@ -28,6 +28,11 @@ import { ResourcesService } from '../../../../../../../../../../../../services/s
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-members.lang';
 
+interface ImageResource {
+  imageName: string;
+  cols: number;
+}
+
 @Component({
   standalone: true,
   templateUrl: './app-set-scientific-ecosystem-members.component.html',
@@ -49,7 +54,7 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
   public paragraphs: string[] = [];
   public editMode: { paragraphIndex: number } | undefined = undefined;
 
-  public resourceImages: string[] = [];
+  public resourceImages: ImageResource[] = [];
   public resourceFiles: {
     filename: string;
     filetype: Filetypes;
@@ -59,9 +64,13 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
 
   public currUploadedFile: File | null = null;
   public currFiletype: Filetypes = 'PDF';
+  public pendingImage: { imageName: string; cols: number } | null = null;
 
   public formGroup: FormGroup = this.formBuilder.group({
     paragraph: ['', [Validators.required, Validators.maxLength(200)]],
+  });
+  public imageColumnsForm: FormGroup = this.formBuilder.group({
+    columns: [12, [Validators.required, Validators.min(1), Validators.max(12)]],
   });
 
   public constructor(
@@ -91,6 +100,12 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
       this.paragraphs = [...(this.baseInfo.paragraphs || [])];
 
       this.resourceFiles = [...(this.baseInfo.resources || [])];
+
+      this.resourceImages =
+        this.baseInfo.images?.map((img) => ({
+          imageName: img.imageName,
+          cols: img.cols || 12,
+        })) || [];
 
       this.formGroup.get('paragraph')?.disable();
     }
@@ -172,14 +187,40 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
     return `${bytes} B`;
   }
 
-  public handleAddImage(selectedImage: string) {
-    this.resourceImages.push(selectedImage);
+  public handleImageSelected(selectedImage: string) {
+    this.pendingImage = {
+      imageName: selectedImage,
+      cols: this.imageColumnsForm.get('columns')?.value || 12,
+    };
+  }
+
+  public handleConfirmImage() {
+    if (!this.pendingImage) {
+      this.toastrService.error('Debe seleccionar una imagen primero');
+      return;
+    }
+
+    this.resourceImages.push({
+      imageName: this.pendingImage.imageName,
+      cols: this.pendingImage.cols,
+    });
+
+    this.handleEmitChanges();
+    this.pendingImage = null;
+    this.imageColumnsForm.patchValue({ columns: 12 });
   }
 
   public handleDeleteImage(index: number) {
     this.resourceImages = this.resourceImages.filter(
       (_element, i) => i !== index,
     );
+  }
+
+  public handleEditImageColumns(index: number, newCols: number) {
+    if (newCols >= 1 && newCols <= 12) {
+      this.resourceImages[index].cols = newCols;
+      this.handleEmitChanges();
+    }
   }
 
   public getImageUrlByName(imageName: string) {
@@ -215,11 +256,22 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
     );
   }
 
+  private handleEmitChanges() {
+    this.onFormChange.emit({
+      TYPE: 'INTEGRANTES',
+      images: this.resourceImages,
+      paragraphs: this.paragraphs,
+      resources: this.resourceFiles,
+    });
+  }
+
   public handleReset() {
     this.resourceFiles = [];
     this.paragraphs = [];
     this.resourceImages = [];
     this.formGroup.enable();
+    this.pendingImage = null;
+    this.imageColumnsForm.patchValue({ columns: 12 });
   }
 
   public get lang() {

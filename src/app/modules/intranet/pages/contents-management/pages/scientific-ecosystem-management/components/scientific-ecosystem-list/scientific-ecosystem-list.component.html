@@ -9,18 +9,20 @@
       </div>
     } @else {
       <div class="row">
-        <p
-          class="alert text-center"
-          style="
-            border: 1px solid #12bec8;
-            color: white;
-            font-weight: 800;
-            background-color: #82dee5;
-          "
-          role="alert"
-        >
-          {{ labels.noScientificEcosystems[lang] }}
-        </p>
+        @if (scientificEcosystems.length === 0) {
+          <p
+            class="alert text-center"
+            style="
+              border: 1px solid #12bec8;
+              color: white;
+              font-weight: 800;
+              background-color: #82dee5;
+            "
+            role="alert"
+          >
+            {{ labels.noScientificEcosystems[lang] }}
+          </p>
+        }
         @for (
           scientificEcosystem of scientificEcosystems;
           track scientificEcosystem

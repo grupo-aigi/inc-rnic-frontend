@@ -29,6 +29,11 @@ import { ResourcesService } from '../../../../../../../../../../../../services/s
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-roadmap.lang';
 
+interface ImageResource {
+  imageName: string;
+  cols: number;
+}
+
 @Component({
   standalone: true,
   selector: 'app-set-scientific-ecosystem-roadmap',
@@ -52,7 +57,7 @@ export class SetScientificEcosystemRoadmapComponent
   public paragraphs: string[] = [];
   public editMode: { paragraphIndex: number } | undefined = undefined;
 
-  public resourceImages: string[] = [];
+  public resourceImages: ImageResource[] = [];
   public resourceFiles: {
     filename: string;
     filetype: Filetypes;
@@ -63,8 +68,14 @@ export class SetScientificEcosystemRoadmapComponent
   public currUploadedFile: File | null = null;
   public currFiletype: Filetypes = 'PDF';
 
+  public pendingImage: { imageName: string; cols: number } | null = null;
+
   public formGroup: FormGroup = this.formBuilder.group({
     paragraph: ['', [Validators.required, Validators.maxLength(200)]],
+  });
+
+  public imageColumnsForm: FormGroup = this.formBuilder.group({
+    columns: [12, [Validators.required, Validators.min(1), Validators.max(12)]],
   });
 
   public constructor(
@@ -94,6 +105,12 @@ export class SetScientificEcosystemRoadmapComponent
       this.paragraphs = [...(this.baseInfo.paragraphs || [])];
 
       this.resourceFiles = [...(this.baseInfo.resources || [])];
+
+      this.resourceImages =
+        this.baseInfo.images?.map((img) => ({
+          imageName: img.imageName,
+          cols: img.cols || 12,
+        })) || [];
 
       this.formGroup.get('paragraph')?.disable();
     }
@@ -177,9 +194,27 @@ export class SetScientificEcosystemRoadmapComponent
     return `${bytes} B`;
   }
 
-  public handleAddImage(selectedImage: string) {
-    this.resourceImages.push(selectedImage);
+  public handleImageSelected(selectedImage: string) {
+    this.pendingImage = {
+      imageName: selectedImage,
+      cols: this.imageColumnsForm.get('columns')?.value || 12,
+    };
+  }
+
+  public handleConfirmImage() {
+    if (!this.pendingImage) {
+      this.toastrService.error('Debe seleccionar una imagen primero');
+      return;
+    }
+
+    this.resourceImages.push({
+      imageName: this.pendingImage.imageName,
+      cols: this.pendingImage.cols,
+    });
+
     this.handleEmitChanges();
+    this.pendingImage = null;
+    this.imageColumnsForm.patchValue({ columns: 12 });
   }
 
   public handleDeleteImage(index: number) {
@@ -187,6 +222,13 @@ export class SetScientificEcosystemRoadmapComponent
       (_element, i) => i !== index,
     );
     this.handleEmitChanges();
+  }
+
+  public handleEditImageColumns(index: number, newCols: number) {
+    if (newCols >= 1 && newCols <= 12) {
+      this.resourceImages[index].cols = newCols;
+      this.handleEmitChanges();
+    }
   }
 
   public getImageUrlByName(imageName: string) {
@@ -216,10 +258,7 @@ export class SetScientificEcosystemRoadmapComponent
   private handleEmitChanges() {
     this.onFormChange.emit({
       TYPE: 'HOJA_RUTA',
-      images: this.resourceImages.map((imageName) => ({
-        cols: 12,
-        imageName,
-      })),
+      images: this.resourceImages,
       paragraphs: this.paragraphs,
       resources: this.resourceFiles,
     });
@@ -241,7 +280,9 @@ export class SetScientificEcosystemRoadmapComponent
     this.resourceFiles = [];
     this.paragraphs = [];
     this.resourceImages = [];
+    this.pendingImage = null;
     this.formGroup.enable();
+    this.imageColumnsForm.patchValue({ columns: 12 });
     this.handleEmitChanges();
   }
 
