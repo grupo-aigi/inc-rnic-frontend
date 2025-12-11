@@ -1,159 +1,542 @@
-<form [formGroup]="formGroup">
-  <div class="row pt-3">
-    <div class="col-lg-6 col-sm-12">
-      <div class="form-group">
-        <label>Nombre del Proyecto</label>
-        <input
-          type="text"
-          formControlName="name"
-          class="form-control"
-          placeholder="Ingrese el nombre del proyecto"
-        />
-      </div>
-    </div>
-
-    <div class="col-lg-6 col-sm-12">
-      <div class="form-group">
-        <label>Autor</label>
-        <input
-          type="text"
-          formControlName="author"
-          class="form-control"
-          placeholder="Ingrese el autor del proyecto"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div class="row mt-3">
-    <div class="col-lg-12">
-      <label>Objetivos</label>
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          [(ngModel)]="currentObjective"
-          [ngModelOptions]="{ standalone: true }"
-          class="form-control"
-          placeholder="Ingrese un objetivo"
-          (keyup.enter)="handleAddObjective()"
-        />
+<form [formGroup]="formGroup" (ngSubmit)="handleSubmit()">
+  <div class="accordion" id="mainAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingParagraphs">
         <button
+          class="accordion-button"
           type="button"
-          class="btn btn-primary"
-          (click)="handleAddObjective()"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseParagraphs"
+          aria-expanded="true"
+          aria-controls="collapseParagraphs"
         >
-          Agregar Objetivo
+          {{ labels.paragraphsSection[lang] }}
+          @if (paragraphs.length > 0) {
+            ({{ paragraphs.length }})
+          }
         </button>
-      </div>
+      </h2>
 
-      @if (objectives.length > 0) {
-        <ul class="list-group mb-3">
-          @for (
-            objective of objectives.controls;
-            track $index;
-            let i = $index
-          ) {
-            <li
-              class="list-group-item d-flex justify-content-between align-items-center"
-            >
-              {{ objective.value }}
+      <div
+        id="collapseParagraphs"
+        class="accordion-collapse collapse show"
+        aria-labelledby="headingParagraphs"
+        data-bs-parent="#mainAccordion"
+      >
+        <div class="accordion-body">
+          <section>
+            <div class="row">
+              <div class="col-lg-12 col-sm-12">
+                <div class="form-group">
+                  <label>{{ labels.paragraphContent.placeholder[lang] }}</label>
+                  <textarea
+                    formControlName="paragraphText"
+                    class="form-control"
+                    [placeholder]="labels.paragraphContent.placeholder[lang]"
+                    style="
+                      resize: vertical;
+                      min-height: 200px;
+                      max-height: 400px;
+                    "
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12 mt-2">
+                <button
+                  type="button"
+                  (click)="handleAddParagraph()"
+                  class="btn default-btn me-2"
+                  [disabled]="!formGroup.get('paragraphText')?.value?.trim()"
+                >
+                  {{
+                    editingParagraphIndex >= 0
+                      ? labels.editParagraph[lang]
+                      : labels.addParagraph[lang]
+                  }}
+                </button>
+
+                @if (editingParagraphIndex >= 0) {
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="cancelParagraphEdit()"
+                  >
+                    Cancelar Edición
+                  </button>
+                }
+              </div>
+            </div>
+
+            <div class="row mt-4">
+              <h4>Lista de Párrafos</h4>
+
+              @if (paragraphs.length === 0) {
+                <div class="alert alert-info text-center">
+                  No hay párrafos agregados
+                </div>
+              }
+
+              @for (
+                paragraph of paragraphs.controls;
+                track $index;
+                let i = $index
+              ) {
+                <div class="col-lg-12 col-sm-12 mb-3">
+                  <div
+                    class="card"
+                    [class.border-primary]="editingParagraphIndex === i"
+                  >
+                    <div class="card-body">
+                      <div
+                        class="d-flex justify-content-between align-items-start"
+                      >
+                        <div class="flex-grow-1">
+                          <span class="badge bg-secondary mb-2">
+                            {{ labels.paragraphNro[lang] }} #{{ i + 1 }}
+                          </span>
+                          <p class="mb-0">{{ paragraph.value }}</p>
+                        </div>
+                        <div class="d-flex gap-2 ms-3">
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-warning"
+                            (click)="handleEditParagraph(i)"
+                          >
+                            <i class="bx bx-edit"></i> {{ labels.edit[lang] }}
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-sm btn-danger"
+                            (click)="handleDeleteParagraph(i)"
+                          >
+                            <i class="bx bx-trash"></i>
+                            {{ labels.delete[lang] }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingProjects">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseProjects"
+          aria-expanded="false"
+          aria-controls="collapseProjects"
+        >
+          {{ labels.projectsSection[lang] }}
+          @if (projects.length > 0) {
+            ({{ projects.length }})
+          }
+        </button>
+      </h2>
+
+      <div
+        id="collapseProjects"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingProjects"
+        data-bs-parent="#mainAccordion"
+      >
+        <div class="accordion-body">
+          <div class="row pt-3">
+            <div class="col-lg-6 col-sm-12">
+              <div class="form-group">
+                <label>Nombre del Proyecto</label>
+                <input
+                  type="text"
+                  formControlName="projectName"
+                  class="form-control"
+                  placeholder="Ingrese el nombre del proyecto"
+                />
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-12">
+              <div class="form-group">
+                <label>Autor</label>
+                <input
+                  type="text"
+                  formControlName="projectAuthor"
+                  class="form-control"
+                  placeholder="Ingrese el autor del proyecto"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-lg-12">
+              <label>Objetivos</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  [(ngModel)]="currentObjective"
+                  [ngModelOptions]="{ standalone: true }"
+                  class="form-control"
+                  placeholder="Ingrese un objetivo"
+                  (keyup.enter)="handleAddObjective()"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="handleAddObjective()"
+                >
+                  Agregar Objetivo
+                </button>
+              </div>
+
+              @if (projectObjectives.length > 0) {
+                <ul class="list-group mb-3">
+                  @for (
+                    objective of projectObjectives.controls;
+                    track $index;
+                    let i = $index
+                  ) {
+                    <li
+                      class="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {{ objective.value }}
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-danger"
+                        (click)="handleRemoveObjective(i)"
+                      >
+                        <i class="bx bx-trash"></i>
+                      </button>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+          </div>
+
+          <div class="row my-3">
+            <div class="col-lg-12">
+              <button
+                (click)="handleAddProject()"
+                type="button"
+                class="btn default-btn me-2"
+                [disabled]="
+                  !formGroup.get('projectName')?.value ||
+                  !formGroup.get('projectAuthor')?.value ||
+                  projectObjectives.length === 0
+                "
+              >
+                {{
+                  editingProjectIndex >= 0
+                    ? 'Actualizar Proyecto'
+                    : 'Agregar Proyecto'
+                }}
+              </button>
+
+              @if (editingProjectIndex >= 0) {
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="cancelProjectEdit()"
+                >
+                  Cancelar Edición
+                </button>
+              }
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <h4>Lista de Proyectos</h4>
+
+            @if (projects.length === 0) {
+              <div class="alert alert-info text-center">
+                No hay proyectos agregados
+              </div>
+            }
+
+            <div class="row mb-5">
+              @for (
+                project of projects.controls;
+                track $index;
+                let i = $index
+              ) {
+                <div class="col-lg-6 col-sm-12 mb-3">
+                  <div
+                    class="card"
+                    [class.border-primary]="editingProjectIndex === i"
+                  >
+                    <div class="card-body">
+                      <h5 class="card-title">{{ project.value.name }}</h5>
+                      <p class="card-text">
+                        <strong>Autor:</strong> {{ project.value.author }}
+                      </p>
+                      <p class="card-text">
+                        <strong>Objetivos:</strong>
+                      </p>
+                      <ul>
+                        @for (
+                          objective of project.value.objectives;
+                          track $index
+                        ) {
+                          <li>{{ objective }}</li>
+                        }
+                      </ul>
+                      <div class="d-flex gap-2">
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-warning"
+                          (click)="handleEditProject(i)"
+                        >
+                          <i class="bx bx-edit"></i> Editar
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-danger"
+                          (click)="handleDeleteProject(i)"
+                        >
+                          <i class="bx bx-trash"></i> Eliminar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingFiles">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseFiles"
+          aria-expanded="false"
+          aria-controls="collapseFiles"
+        >
+          {{ labels.filesSection[lang] }}
+          @if (resourceFiles.length > 0) {
+            ({{ resourceFiles.length }})
+          }
+        </button>
+      </h2>
+
+      <div
+        id="collapseFiles"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingFiles"
+        data-bs-parent="#mainAccordion"
+      >
+        <div class="accordion-body">
+          <section>
+            <div class="row pt-3">
+              <div class="col-lg-4 col-md-12">
+                <div class="form-group" style="height: 50px">
+                  <select #filetypeSelect class="w-100 h-100 px-2">
+                    <option value="">{{ labels.selectAFileType[lang] }}</option>
+                    <option value="PDF">PDF (.pdf)</option>
+                    <option value="WORD">WORD (.docx)</option>
+                    <option value="PLAIN_TEXT">
+                      {{ labels.plainText[lang] }} (.txt)
+                    </option>
+                    <option value="EXCEL">EXCEL (.xlsx)</option>
+                    <option value="CSV">CSV (.csv)</option>
+                    <option value="COMPRESSED_FILE">
+                      {{ labels.compressedFile[lang] }} (.zip)
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12">
+                <span
+                  class="default-btn rounded-3 cursor-pointer"
+                  style="height: 50px; font-weight: 800"
+                >
+                  <input
+                    type="file"
+                    id="fileInput_3"
+                    (change)="onFileSelected($event)"
+                    class="file-input w-100"
+                  />
+                  <span>{{
+                    currUploadedFile
+                      ? labels.changeFile[lang]
+                      : labels.selectAFile[lang]
+                  }}</span>
+                </span>
+              </div>
+
+              <div class="col-lg-4 col-md-12">
+                <div class="form-group">
+                  <button
+                    class="default-btn bg-success rounded-3 cursor-pointer"
+                    [disabled]="!currUploadedFile"
+                    type="button"
+                    (click)="handleAddFile()"
+                  >
+                    {{ labels.confirmFile[lang] }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            @if (currUploadedFile) {
+              <p>
+                <b
+                  >{{ labels.pendingToConfirm[lang] }}:
+                  {{ currUploadedFile.name }} -
+                  {{ getFileSize(currUploadedFile.size) }}</b
+                >
+              </p>
+            }
+
+            <h4>{{ labels.filesList[lang] }}</h4>
+
+            @if (resourceFiles.length === 0) {
+              <div class="alert alert-info text-center">
+                {{ labels.noFiles[lang] }}
+              </div>
+            }
+
+            <div class="row mb-5">
+              @for (
+                file of resourceFiles.controls;
+                track $index;
+                let i = $index
+              ) {
+                <div class="col-lg-3 col-sm-12 position-relative">
+                  <img
+                    [src]="
+                      '/img/events/filetypes/' + file.value.filetype + '.png'
+                    "
+                    width="100px"
+                    class="image-list"
+                  />
+                  <div>
+                    <b>{{ labels.fileNro[lang] }} #{{ i + 1 }}</b>
+                    <p>
+                      {{ file.value.originalFilename }} -
+                      {{ getFileSize(file.value.size) }}
+                    </p>
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="handleDeleteFile(i)"
+                    >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingImages">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseImages"
+          aria-expanded="false"
+          aria-controls="collapseImages"
+        >
+          {{ labels.imagesSection[lang] }}
+          @if (resourceImages.length > 0) {
+            ({{ resourceImages.length }})
+          }
+        </button>
+      </h2>
+
+      <div
+        id="collapseImages"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingImages"
+        data-bs-parent="#mainAccordion"
+      >
+        <div class="accordion-body">
+          <section>
+            <h4>{{ labels.imageList[lang] }}</h4>
+
+            @if (resourceImages.length === 0) {
+              <div class="alert alert-info text-center">
+                {{ labels.noImages[lang] }}
+              </div>
+            }
+
+            <div class="col-lg-3 col-sm-12">
               <button
                 type="button"
-                class="btn btn-sm btn-danger"
-                (click)="handleRemoveObjective(i)"
+                data-bs-toggle="modal"
+                data-bs-target="#input-scientific-ecosystem-project-image"
+                class="btn default-btn"
               >
-                <i class="bx bx-trash"></i>
+                {{ labels.addImage[lang] }}
               </button>
-            </li>
-          }
-        </ul>
-      }
-    </div>
-  </div>
+            </div>
 
-  <div class="row my-3">
-    <div class="col-lg-12">
-      <button
-        (click)="handleAddProject()"
-        type="button"
-        class="btn default-btn me-2"
-        [disabled]="formGroup.invalid || objectives.length === 0"
-      >
-        {{ editingIndex >= 0 ? 'Actualizar Proyecto' : 'Agregar Proyecto' }}
-      </button>
-
-      @if (editingIndex >= 0) {
-        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">
-          Cancelar Edición
-        </button>
-      }
+            <div class="row mb-5">
+              @for (
+                image of resourceImages.controls;
+                track $index;
+                let i = $index
+              ) {
+                <div class="col-lg-6 col-sm-12 position-relative">
+                  <img
+                    [src]="getImageUrlByName(image.value)"
+                    class="image-list"
+                    style="border: 2px solid #12bec8; border-radius: 5px"
+                  />
+                  <div class="position-absolute" style="top: 10px; left: 20px">
+                    <b class="m-2 bg-white p-1"
+                      >{{ labels.imageNro[lang] }} #{{ i + 1 }}</b
+                    >
+                    <button
+                      type="button"
+                      class="btn btn-danger"
+                      (click)="handleDeleteImage(i)"
+                    >
+                      {{ labels.delete[lang] }}
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          </section>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row mt-4">
-    <h4>Lista de Proyectos</h4>
-
-    <div class="container">
-      @if (projects.length === 0) {
-        <div class="alert alert-info text-center">
-          No hay proyectos agregados
-        </div>
-      }
-    </div>
-
-    <div class="row mb-5">
-      @for (project of projects; track $index; let i = $index) {
-        <div class="col-lg-6 col-sm-12 mb-3">
-          <div class="card" [class.border-primary]="editingIndex === i">
-            <div class="card-body">
-              <h5 class="card-title">{{ project.name }}</h5>
-              <p class="card-text">
-                <strong>Autor:</strong> {{ project.author }}
-              </p>
-              <p class="card-text">
-                <strong>Objetivos:</strong>
-              </p>
-              <ul>
-                @for (objective of project.objectives; track $index) {
-                  <li>{{ objective }}</li>
-                }
-              </ul>
-              <div class="d-flex gap-2">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-warning"
-                  (click)="handleEditProject(i)"
-                >
-                  <i class="bx bx-edit"></i> Editar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-danger"
-                  (click)="handleDeleteProject(i)"
-                >
-                  <i class="bx bx-trash"></i> Eliminar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      }
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-5 col-sm-12 d-flex m-auto">
+    <div class="col-lg-12 col-sm-12 d-flex justify-content-center">
       <button
         type="button"
-        (click)="handleSubmit()"
-        class="btn default-btn success-button m-1"
-        [disabled]="projects.length === 0"
+        (click)="handleReset()"
+        class="btn default-btn clean-button m-1"
       >
-        Guardar Proyectos
-      </button>
-      <button type="reset" class="btn default-btn clean-button m-1">
-        Limpiar Todo
+        {{ labels.restoreChanges[lang] }}
       </button>
     </div>
   </div>
 </form>
+
+<app-upload-or-reuse-image
+  modalFor="input-scientific-ecosystem-project-image"
+  [elementType]="target"
+  (onSubmit)="handleAddImage($event)"
+></app-upload-or-reuse-image>
