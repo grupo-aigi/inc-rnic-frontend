@@ -29,6 +29,7 @@ import {
 import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-projects.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 interface ImageResource {
   imageName: string;
@@ -84,10 +85,28 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     private langService: LangService,
     private toastService: ToastrService,
     private resourcesService: ResourcesService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.listenFormChanges();
+    this.loadExistingData();
+  }
+
+  private loadExistingData(): void {
+    const createInfo = this.scientificEcosystemCreateService.createInfo;
+    if (!createInfo?.detail.sections) return;
+
+    const currentSection = createInfo.detail.sections.find(
+      (section) => section.TYPE === 'PROYECTOS',
+    ) as ScientificEcosystemDetailProjects | undefined;
+
+    if (currentSection) {
+      this.formGroup.get('paragraphs')?.patchValue(currentSection.paragraphs);
+      this.formGroup.get('projects')?.patchValue(currentSection.projects);
+      this.formGroup.get('resourceFiles')?.patchValue(currentSection.resources);
+      this.formGroup.get('resourceImages')?.patchValue(currentSection.images);
+    }
   }
 
   private listenFormChanges(): void {

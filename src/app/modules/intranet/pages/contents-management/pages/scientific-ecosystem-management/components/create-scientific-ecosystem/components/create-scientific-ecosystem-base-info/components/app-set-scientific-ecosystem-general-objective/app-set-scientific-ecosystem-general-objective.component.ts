@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ScientificEcosystemDetailGeneralObjective } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
 import labels from './app-set-scientific-ecosystem-general-objective.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 @Component({
   standalone: true,
@@ -28,11 +29,27 @@ export class SetScientificEcosystemGeneralObjectiveComponent implements OnInit {
   public constructor(
     private formBuilder: FormBuilder,
     private langService: LangService,
-    private toastService: ToastrService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.loadExistingData();
     this.listenFormChanges();
+  }
+
+  private loadExistingData(): void {
+    const createInfo = this.scientificEcosystemCreateService.createInfo;
+    if (!createInfo?.detail.sections) return;
+
+    const currentSection = createInfo.detail.sections.find(
+      (section) => section.TYPE === 'OBJ_GENERAL',
+    ) as ScientificEcosystemDetailGeneralObjective | undefined;
+
+    if (currentSection) {
+      this.formGroup
+        .get('generalObjective')
+        ?.patchValue(currentSection.generalObjective);
+    }
   }
 
   private listenFormChanges(): void {

@@ -14,7 +14,7 @@ import { ScientificEcosystemCreateService } from '../../../../../../../../../../
   selector: 'app-set-scientific-ecosystem-about-us',
   imports: [ReactiveFormsModule],
 })
-export class SetScientificEcosystemAboutUsComponent {
+export class SetScientificEcosystemAboutUsComponent implements OnInit {
   @Output()
   public onFormChange: EventEmitter<ScientificEcosystemDetailAboutUs> =
     new EventEmitter();
@@ -31,7 +31,29 @@ export class SetScientificEcosystemAboutUsComponent {
     private formBuilder: FormBuilder,
     private langService: LangService,
     private toastService: ToastrService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
+
+  public ngOnInit(): void {
+    this.loadExistingData();
+  }
+
+  private loadExistingData(): void {
+    const createInfo = this.scientificEcosystemCreateService.createInfo;
+    if (!createInfo?.detail.sections) return;
+
+    const currentSection = createInfo.detail.sections.find(
+      (section) => section.TYPE === 'NOSOTROS',
+    ) as ScientificEcosystemDetailAboutUs | undefined;
+
+    if (currentSection) {
+      this.descriptionParagraphs = [...currentSection.description];
+      this.formGroup.patchValue({
+        TYPE: 'NOSOTROS',
+        description: [],
+      });
+    }
+  }
 
   public get lang() {
     return this.langService.language;
@@ -52,6 +74,10 @@ export class SetScientificEcosystemAboutUsComponent {
         paragraphText.value;
       this.editMode = undefined;
       paragraphText.setValue('');
+      this.scientificEcosystemCreateService.handleUpdateSection('NOSOTROS', {
+        TYPE: 'NOSOTROS',
+        description: this.descriptionParagraphs,
+      });
       this.onFormChange.emit({
         TYPE: 'NOSOTROS',
         description: this.descriptionParagraphs,
@@ -59,6 +85,10 @@ export class SetScientificEcosystemAboutUsComponent {
       return;
     }
     this.descriptionParagraphs.push(paragraphText.value);
+    this.scientificEcosystemCreateService.handleUpdateSection('NOSOTROS', {
+      TYPE: 'NOSOTROS',
+      description: this.descriptionParagraphs,
+    });
     this.onFormChange.emit({
       TYPE: 'NOSOTROS',
       description: this.descriptionParagraphs,

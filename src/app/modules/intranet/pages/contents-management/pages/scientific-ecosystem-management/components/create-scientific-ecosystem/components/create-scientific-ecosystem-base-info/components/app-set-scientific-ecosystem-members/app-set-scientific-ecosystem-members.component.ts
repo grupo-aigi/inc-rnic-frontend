@@ -27,6 +27,7 @@ import {
 import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-members.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 interface ImageResource {
   imageName: string;
@@ -79,10 +80,27 @@ export class SetScientificEcosystemMembersComponent implements OnInit {
     private langService: LangService,
     private resourcesService: ResourcesService,
     private toastrService: ToastrService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   ngOnInit(): void {
     this.listenFormChanges();
+    this.loadExistingData();
+  }
+
+  private loadExistingData(): void {
+    const createInfo = this.scientificEcosystemCreateService.createInfo;
+    if (!createInfo?.detail.sections) return;
+
+    const currentSection = createInfo.detail.sections.find(
+      (section) => section.TYPE === 'INTEGRANTES',
+    ) as ScientificEcosystemDetailMembers | undefined;
+
+    if (currentSection) {
+      this.paragraphs = currentSection.paragraphs;
+      this.resourceFiles = currentSection.resources;
+      this.resourceImages = currentSection.images;
+    }
   }
 
   private listenFormChanges(): void {

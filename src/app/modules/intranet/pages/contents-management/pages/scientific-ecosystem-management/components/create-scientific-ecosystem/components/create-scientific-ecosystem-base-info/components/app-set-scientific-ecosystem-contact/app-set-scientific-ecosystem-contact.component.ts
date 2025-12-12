@@ -14,6 +14,7 @@ import { ContentTarget } from '../../../../../../../../../../../../services/shar
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
 import { ScientificEcosystemDetailContact } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import labels from './app-set-scientific-ecosystem-contact.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 @Component({
   standalone: true,
@@ -21,7 +22,7 @@ import labels from './app-set-scientific-ecosystem-contact.lang';
   templateUrl: './app-set-scientific-ecosystem-contact.component.html',
   imports: [ReactiveFormsModule, CommonModule, FormsModule],
 })
-export class SetScientificEcosystemContactComponent {
+export class SetScientificEcosystemContactComponent implements OnInit {
   @Input() public target!: ContentTarget;
   @Output()
   public onFormChange: EventEmitter<ScientificEcosystemDetailContact> =
@@ -40,7 +41,25 @@ export class SetScientificEcosystemContactComponent {
     private formBuilder: FormBuilder,
     private langService: LangService,
     private toastService: ToastrService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
+
+  public ngOnInit(): void {
+    this.loadExistingData();
+  }
+
+  private loadExistingData(): void {
+    const createInfo = this.scientificEcosystemCreateService.createInfo;
+    if (!createInfo?.detail.sections) return;
+
+    const currentSection = createInfo.detail.sections.find(
+      (section) => section.TYPE === 'CONTACTO',
+    ) as ScientificEcosystemDetailContact | undefined;
+
+    if (currentSection) {
+      this.contacts = currentSection.contacts;
+    }
+  }
 
   public get lang() {
     return this.langService.language;
