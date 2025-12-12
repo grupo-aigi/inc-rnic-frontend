@@ -5,7 +5,7 @@ const labels = {
       en: 'The entered title is invalid',
     },
     placeholder: {
-      es: 'Título del evento',
+      es: 'Título de la noticia',
       en: 'Event title',
     },
   },
@@ -15,7 +15,7 @@ const labels = {
       en: 'The entered description is invalid',
     },
     placeholder: {
-      es: 'Descripción (Visible en la tarjeta del evento)',
+      es: 'Descripción (Visible en la tarjeta de la noticia)',
       en: 'Description (Visible in the event card)',
     },
   },
@@ -55,7 +55,7 @@ const labels = {
       en: 'The entered scope is invalid',
     },
     label: {
-      es: 'Alcance del evento',
+      es: 'Alcance de la noticia',
       en: 'Event scope',
     },
     types: {

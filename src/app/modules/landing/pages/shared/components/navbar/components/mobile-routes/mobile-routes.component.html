@@ -290,4 +290,43 @@
       }
     </div>
   </section>
+
+  <section class="d-lg-none d-md-block d-sm-block">
+    <div class="mb-1 dynamic-font-size" style="cursor: pointer">
+      <div
+        class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+      >
+        <span>{{ labels.ecosystems[lang] }}</span>
+
+        @if (activeSection === 'ECOSYSTEMS') {
+          <i
+            (click)="handleSetActiveSection('ECOSYSTEMS')"
+            class="bx bx-chevron-up p-2"
+          ></i>
+        } @else {
+          <i
+            (click)="handleSetActiveSection('ECOSYSTEMS')"
+            class="bx bx-chevron-down p-2"
+          ></i>
+        }
+      </div>
+
+      @if (activeSection === 'ECOSYSTEMS') {
+        @for (scientificEcosystem of scientificEcosystems; track $index) {
+          <div
+            class="container mt-1 mb-1 dynamic-font-size"
+            style="cursor: pointer"
+          >
+            <a
+              (click)="handleCloseTopBar()"
+              [routerLink]="['/ecosistema/' + scientificEcosystem.urlName]"
+              class="d-flex justify-content-between align-items-center p-3 bg-secondary-color"
+            >
+              <span>{{ scientificEcosystem.urlName }}</span>
+            </a>
+          </div>
+        }
+      }
+    </div>
+  </section>
 </nav>

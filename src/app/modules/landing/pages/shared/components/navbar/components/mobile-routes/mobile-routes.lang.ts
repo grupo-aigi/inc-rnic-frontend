@@ -72,6 +72,10 @@ const labels = {
     en: 'Others',
     es: 'Otros',
   },
+  ecosystems: {
+    en: 'Ecosystems',
+    es: 'Ecosistemas',
+  },
   memories: {
     en: 'Memories',
     es: 'Memorias',
