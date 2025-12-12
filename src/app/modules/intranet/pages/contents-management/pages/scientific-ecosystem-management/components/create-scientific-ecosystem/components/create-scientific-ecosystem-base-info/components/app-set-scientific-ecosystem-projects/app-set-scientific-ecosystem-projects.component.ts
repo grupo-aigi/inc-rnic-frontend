@@ -9,7 +9,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  FormArray,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -19,6 +18,7 @@ import {
 
 import { ToastrService } from 'ngx-toastr';
 
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 import { ScientificEcosystemDetailProjects } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ContentTarget } from '../../../../../../../../../../../../services/shared/contents/contents.interfaces';
 import { LangService } from '../../../../../../../../../../../../services/shared/lang/lang.service';
@@ -29,7 +29,6 @@ import {
 import { ResourcesService } from '../../../../../../../../../../../../services/shared/resources/resource.service';
 import { UploadOrReuseImageComponent } from '../../../../../../../../../shared/components/upload-or-reuse-image/upload-or-reuse-image.component';
 import labels from './app-set-scientific-ecosystem-projects.lang';
-import { ScientificEcosystemCreateService } from '../../../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 interface ImageResource {
   imageName: string;
@@ -61,23 +60,21 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
   public currentObjective: string = '';
   public currUploadedFile: File | null = null;
 
-  // FormGroup unificado
-  public formGroup: FormGroup = this.formBuilder.group({
-    // Sección de párrafos
-    paragraphText: ['', [Validators.required, Validators.maxLength(200)]],
-    paragraphs: this.formBuilder.array<string>([]),
+  public paragraphs: string[] = [];
+  public projects: any[] = [];
+  public resourceFiles: any[] = [];
+  public resourceImages: ImageResource[] = [];
+  public pendingImage: { imageName: string; cols: number } | null = null;
 
-    // Sección de proyectos
+  public formGroup: FormGroup = this.formBuilder.group({
+    paragraphText: ['', [Validators.required, Validators.maxLength(200)]],
     projectName: ['', Validators.required],
     projectAuthor: ['', Validators.required],
     projectObjectives: this.formBuilder.array<string>([]),
-    projects: this.formBuilder.array([]),
+  });
 
-    // Sección de archivos
-    resourceFiles: this.formBuilder.array([]),
-
-    // Sección de imágenes
-    resourceImages: this.formBuilder.array([]),
+  public imageColumnsForm: FormGroup = this.formBuilder.group({
+    columns: [12, [Validators.required, Validators.min(1), Validators.max(12)]],
   });
 
   public constructor(
@@ -102,17 +99,26 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     ) as ScientificEcosystemDetailProjects | undefined;
 
     if (currentSection) {
-      this.formGroup.get('paragraphs')?.patchValue(currentSection.paragraphs);
-      this.formGroup.get('projects')?.patchValue(currentSection.projects);
-      this.formGroup.get('resourceFiles')?.patchValue(currentSection.resources);
-      this.formGroup.get('resourceImages')?.patchValue(currentSection.images);
+      this.paragraphs = currentSection.paragraphs;
+      this.projects = currentSection.projects;
+      this.resourceFiles = currentSection.resources;
+      this.resourceImages = currentSection.images;
     }
   }
 
   private listenFormChanges(): void {
-    this.formGroup.valueChanges.subscribe((value) => {
-      this.onFormChange.emit(value);
+    this.formGroup.valueChanges.subscribe(() => {
+      this.emitChanges();
     });
+  }
+
+  private emitChanges(): void {
+    this.onFormChange.emit({
+      paragraphs: this.paragraphs,
+      projects: this.projects,
+      resources: this.resourceFiles,
+      images: this.resourceImages,
+    } as any);
   }
 
   public get lang() {
@@ -123,28 +129,10 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     return labels;
   }
 
-  // Getters para FormArrays
-  public get paragraphs(): FormArray {
-    return this.formGroup.get('paragraphs') as FormArray;
+  public get projectObjectives() {
+    return this.formGroup.get('projectObjectives') as any;
   }
 
-  public get projectObjectives(): FormArray {
-    return this.formGroup.get('projectObjectives') as FormArray;
-  }
-
-  public get projects(): FormArray {
-    return this.formGroup.get('projects') as FormArray;
-  }
-
-  public get resourceFiles(): FormArray {
-    return this.formGroup.get('resourceFiles') as FormArray;
-  }
-
-  public get resourceImages(): FormArray {
-    return this.formGroup.get('resourceImages') as FormArray;
-  }
-
-  // ============ SECCIÓN DE PÁRRAFOS ============
   public handleAddParagraph() {
     const paragraphText = this.formGroup.get('paragraphText');
 
@@ -154,33 +142,26 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     }
 
     if (this.editingParagraphIndex >= 0) {
-      // Editar párrafo existente
-      this.paragraphs
-        .at(this.editingParagraphIndex)
-        .setValue(paragraphText.value.trim());
+      this.paragraphs[this.editingParagraphIndex] = paragraphText.value.trim();
       this.toastService.success('Párrafo actualizado correctamente');
       this.editingParagraphIndex = -1;
     } else {
-      // Agregar nuevo párrafo
-      this.paragraphs.push(
-        this.formBuilder.control(paragraphText.value.trim()),
-      );
+      this.paragraphs.push(paragraphText.value.trim());
       this.toastService.success('Párrafo agregado correctamente');
     }
 
     paragraphText.setValue('');
+    this.emitChanges();
   }
 
   public handleEditParagraph(index: number) {
     this.editingParagraphIndex = index;
-    this.formGroup
-      .get('paragraphText')
-      ?.setValue(this.paragraphs.at(index).value);
+    this.formGroup.get('paragraphText')?.setValue(this.paragraphs[index]);
   }
 
   public handleDeleteParagraph(index: number) {
     if (confirm('¿Está seguro de eliminar este párrafo?')) {
-      this.paragraphs.removeAt(index);
+      this.paragraphs.splice(index, 1);
       this.toastService.success('Párrafo eliminado');
 
       if (this.editingParagraphIndex === index) {
@@ -188,6 +169,7 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
       } else if (this.editingParagraphIndex > index) {
         this.editingParagraphIndex--;
       }
+      this.emitChanges();
     }
   }
 
@@ -196,7 +178,6 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     this.formGroup.get('paragraphText')?.setValue('');
   }
 
-  // ============ SECCIÓN DE PROYECTOS ============
   public handleAddObjective() {
     if (!this.currentObjective.trim()) {
       this.toastService.error('El objetivo no puede estar vacío');
@@ -227,32 +208,57 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
       return;
     }
 
-    const projectData = this.formBuilder.group({
-      name: [projectName.value],
-      author: [projectAuthor.value],
-      objectives: [this.projectObjectives.value],
-    });
+    const projectData = {
+      name: projectName.value,
+      author: projectAuthor.value,
+      objectives: this.projectObjectives.value,
+    };
 
     if (this.editingProjectIndex >= 0) {
-      // Editar proyecto existente
-      this.projects.at(this.editingProjectIndex).patchValue({
-        name: projectName.value,
-        author: projectAuthor.value,
-        objectives: this.projectObjectives.value,
-      });
+      this.projects[this.editingProjectIndex] = projectData;
       this.toastService.success('Proyecto actualizado correctamente');
       this.editingProjectIndex = -1;
     } else {
-      // Agregar nuevo proyecto
       this.projects.push(projectData);
       this.toastService.success('Proyecto agregado correctamente');
     }
 
     this.clearProjectForm();
+    this.emitChanges();
+  }
+
+  public handleEditImageColumns(index: number, newCols: number) {
+    if (newCols >= 1 && newCols <= 12) {
+      this.resourceImages[index].cols = newCols;
+      this.handleEmitChanges();
+    }
+  }
+
+  public handleImageSelected(selectedImage: string) {
+    this.pendingImage = {
+      imageName: selectedImage,
+      cols: this.imageColumnsForm.get('columns')?.value || 12,
+    };
+  }
+
+  public handleConfirmImage() {
+    if (!this.pendingImage) {
+      this.toastService.error('Debe seleccionar una imagen primero');
+      return;
+    }
+
+    this.resourceImages.push({
+      imageName: this.pendingImage.imageName,
+      cols: this.pendingImage.cols,
+    });
+
+    this.handleEmitChanges();
+    this.pendingImage = null;
+    this.imageColumnsForm.patchValue({ columns: 12 });
   }
 
   public handleEditProject(index: number) {
-    const project = this.projects.at(index).value;
+    const project = this.projects[index];
     this.editingProjectIndex = index;
 
     this.formGroup.patchValue({
@@ -268,9 +274,19 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     this.toastService.info('Editando proyecto');
   }
 
+  private handleEmitChanges() {
+    this.onFormChange.emit({
+      TYPE: 'PROYECTOS',
+      images: this.resourceImages,
+      paragraphs: this.paragraphs,
+      resources: this.resourceFiles,
+      projects: this.projects,
+    });
+  }
+
   public handleDeleteProject(index: number) {
     if (confirm('¿Está seguro de eliminar este proyecto?')) {
-      this.projects.removeAt(index);
+      this.projects.splice(index, 1);
       this.toastService.success('Proyecto eliminado');
 
       if (this.editingProjectIndex === index) {
@@ -278,6 +294,7 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
       } else if (this.editingProjectIndex > index) {
         this.editingProjectIndex--;
       }
+      this.emitChanges();
     }
   }
 
@@ -295,7 +312,6 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     this.currentObjective = '';
   }
 
-  // ============ SECCIÓN DE ARCHIVOS ============
   public onFileSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const fileList: FileList | null = inputElement.files;
@@ -346,15 +362,16 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
         next: (value) => {
           this.toastService.success(labels.fileHasBeenSaved[this.lang]);
 
-          const fileData = this.formBuilder.group({
-            filename: [value.filename],
-            filetype: [filetype],
-            originalFilename: [name],
-            size: [value.size],
-          });
+          const fileData = {
+            filename: value.filename,
+            filetype: filetype,
+            originalFilename: name,
+            size: value.size,
+          };
 
           this.resourceFiles.push(fileData);
           this.currUploadedFile = null;
+          this.emitChanges();
         },
         error: () => {
           this.toastService.error(labels.errorUploadingFile[this.lang]);
@@ -364,8 +381,9 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
 
   public handleDeleteFile(index: number) {
     if (confirm('¿Está seguro de eliminar este archivo?')) {
-      this.resourceFiles.removeAt(index);
+      this.resourceFiles.splice(index, 1);
       this.toastService.success('Archivo eliminado');
+      this.emitChanges();
     }
   }
 
@@ -376,16 +394,17 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
     return `${bytes} B`;
   }
 
-  // ============ SECCIÓN DE IMÁGENES ============
-  public handleAddImage(selectedImage: string) {
-    this.resourceImages.push(this.formBuilder.control(selectedImage));
-    this.toastService.success('Imagen agregada correctamente');
-  }
+  // public handleAddImage(selectedImage: string) {
+  //   this.resourceImages.push(selectedImage);
+  //   this.toastService.success('Imagen agregada correctamente');
+  //   this.emitChanges();
+  // }
 
   public handleDeleteImage(index: number) {
     if (confirm('¿Está seguro de eliminar esta imagen?')) {
-      this.resourceImages.removeAt(index);
+      this.resourceImages.splice(index, 1);
       this.toastService.success('Imagen eliminada');
+      this.emitChanges();
     }
   }
 
@@ -395,15 +414,16 @@ export class SetScientificEcosystemProjectsComponent implements OnInit {
 
   public handleReset() {
     this.formGroup.reset();
-    this.paragraphs.clear();
-    this.projects.clear();
+    this.paragraphs = [];
+    this.projects = [];
     this.projectObjectives.clear();
-    this.resourceFiles.clear();
-    this.resourceImages.clear();
+    this.resourceFiles = [];
+    this.resourceImages = [];
     this.editingParagraphIndex = -1;
     this.editingProjectIndex = -1;
     this.currentObjective = '';
     this.currUploadedFile = null;
     this.toastService.info('Formulario reiniciado');
+    this.emitChanges();
   }
 }
