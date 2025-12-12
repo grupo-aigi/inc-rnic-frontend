@@ -1,4 +1,4 @@
-export default {
+const labels = {
   name: {
     placeholder: {
       es: 'Nombre completo',
@@ -45,4 +45,14 @@ export default {
     es: 'Limpiar Todo',
     en: 'Clear All',
   },
+  roleName: {
+    es: 'Cargo',
+    en: 'Role',
+  },
+  emailValue: {
+    es: 'Email',
+    en: 'Email',
+  },
 };
+
+export default labels;

@@ -5,8 +5,10 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 import { ScientificEcosystemDetailProjects } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
+import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
 import { GridImageComponent } from '../../../../../shared/components/grid-images/grid-images.component';
+import labels from './scientific-ecosystem-projects.lang';
 
 @Component({
   standalone: true,
@@ -29,8 +31,17 @@ export class ScientificEcosystemProjectsComponent {
   public constructor(
     private sanitizer: DomSanitizer,
     private resourcesService: ResourcesService,
+    private langService: LangService,
     private scientificEcosystemService: ScientificEcosystemService,
   ) {}
+
+  public get labels() {
+    return labels;
+  }
+
+  public get lang() {
+    return this.langService.language;
+  }
 
   public ngOnInit(): void {
     // this.attachmentUrl = this.scientificEcosystemService.getAttachmentUrl(
@@ -58,6 +69,20 @@ export class ScientificEcosystemProjectsComponent {
       })
       .finally(() => {
         this.loadingDocument = false;
+      });
+  }
+
+  public downloadFile(filename: string, originalFilename: string) {
+    return this.resourcesService
+      .fetchFileById('ecosystems', filename)
+      .subscribe((value) => {
+        const blob = new Blob([value], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = originalFilename;
+        a.click();
+        window.URL.revokeObjectURL(url);
       });
   }
 

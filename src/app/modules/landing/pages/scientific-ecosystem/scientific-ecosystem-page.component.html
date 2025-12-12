@@ -32,6 +32,7 @@
 
   <div class="m-0 p-0">
     <app-scientific-ecosystem-sidebar
+      [sectionsToShow]="SECTIONS_TO_SHOW"
       (sectionClicked)="scrollToSection($event)"
     ></app-scientific-ecosystem-sidebar>
 
@@ -55,17 +56,17 @@
         <div class="col-auto">
           <button class="btn btn-primary me-2" (click)="expandAll()">
             <i class="bx bx-expand-alt me-1"></i>
-            {{ lang === 'es' ? 'Expandir Todo' : 'Expand All' }}
+            {{ labels.expandAll[lang] }}
           </button>
           <button class="btn btn-secondary" (click)="collapseAll()">
             <i class="bx bx-collapse-alt me-1"></i>
-            {{ lang === 'es' ? 'Colapsar Todo' : 'Collapse All' }}
+            {{ labels.collapseAll[lang] }}
           </button>
         </div>
       </div>
 
       <div class="mt-1">
-        @for (section of ALL_SECTIONS; track section) {
+        @for (section of SECTIONS_TO_SHOW; track section) {
           <nav
             class="row navbar bg-body-tertiary border-1 px-3 mt-1"
             [id]="section"
@@ -93,18 +94,6 @@
             }
           </nav>
         }
-      </div>
-
-      <div class="row justify-content-center">
-        <div class="col-lg-5">
-          <div class="d-flex gap-2 justify-content-center">
-            <img
-              class="w-75 h-auto"
-              src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
-              alt="challenges"
-            />
-          </div>
-        </div>
       </div>
     </div>
   </div>

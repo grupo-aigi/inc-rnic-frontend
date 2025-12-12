@@ -5,6 +5,8 @@ import { ScientificEcosystemDetailHowToParticipate } from '../../../../../../../
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
 import { GridImageComponent } from '../../../../../shared/components/grid-images/grid-images.component';
+import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
+import labels from './scientific-ecosystem-how-to-participate.lang';
 
 @Component({
   standalone: true,
@@ -26,9 +28,18 @@ export class ScientificEcosystemHowToParticipateComponent {
 
   public constructor(
     private sanitizer: DomSanitizer,
+    private langService: LangService,
     private resourcesService: ResourcesService,
     private scientificEcosystemService: ScientificEcosystemService,
   ) {}
+
+  public get labels() {
+    return labels;
+  }
+
+  public get lang() {
+    return this.langService.language;
+  }
 
   public ngOnInit(): void {
     // this.attachmentUrl = this.scientificEcosystemService.getAttachmentUrl(
@@ -56,6 +67,20 @@ export class ScientificEcosystemHowToParticipateComponent {
       })
       .finally(() => {
         this.loadingDocument = false;
+      });
+  }
+
+  public downloadFile(filename: string, originalFilename: string) {
+    return this.resourcesService
+      .fetchFileById('ecosystems', filename)
+      .subscribe((value) => {
+        const blob = new Blob([value], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = originalFilename;
+        a.click();
+        window.URL.revokeObjectURL(url);
       });
   }
 

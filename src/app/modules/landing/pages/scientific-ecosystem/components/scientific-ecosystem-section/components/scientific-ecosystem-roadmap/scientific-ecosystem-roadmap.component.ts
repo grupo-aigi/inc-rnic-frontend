@@ -6,6 +6,8 @@ import { ResourcesService } from '../../../../../../../../services/shared/resour
 import { formatDate } from '../../../../../../../../helpers/date-formatters';
 import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { GridImageComponent } from '../../../../../shared/components/grid-images/grid-images.component';
+import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
+import labels from './scientific-ecosystem-roadmap.lang';
 
 @Component({
   standalone: true,
@@ -28,6 +30,7 @@ export class ScientificEcosystemRoadmapComponent {
   public constructor(
     private sanitizer: DomSanitizer,
     private resourcesService: ResourcesService,
+    private langService: LangService,
     private scientificEcosystemService: ScientificEcosystemService,
   ) {}
 
@@ -36,6 +39,14 @@ export class ScientificEcosystemRoadmapComponent {
     //   this.archive.filename,
     //   this.convertTitleToSlug(this.archive.title),
     // );
+  }
+
+  public get labels() {
+    return labels;
+  }
+
+  public get lang() {
+    return this.langService.language;
   }
 
   private convertTitleToSlug(title: string): string {
@@ -71,6 +82,20 @@ export class ScientificEcosystemRoadmapComponent {
       })
       .finally(() => {
         this.loadingDocument = false;
+      });
+  }
+
+  public downloadFile(filename: string, originalFilename: string) {
+    return this.resourcesService
+      .fetchFileById('ecosystems', filename)
+      .subscribe((value) => {
+        const blob = new Blob([value], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = originalFilename;
+        a.click();
+        window.URL.revokeObjectURL(url);
       });
   }
 

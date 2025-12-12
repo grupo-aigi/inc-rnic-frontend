@@ -11,7 +11,18 @@ import {
   ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS,
   SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
   ScientificEcosystemData,
+  ScientificEcosystemDetailAboutUs,
+  ScientificEcosystemDetailContact,
+  ScientificEcosystemDetailEvents,
+  ScientificEcosystemDetailGeneralObjective,
+  ScientificEcosystemDetailGuidelines,
+  ScientificEcosystemDetailHowToParticipate,
+  ScientificEcosystemDetailMembers,
+  ScientificEcosystemDetailNews,
+  ScientificEcosystemDetailProjects,
   ScientificEcosystemDetailResourceType,
+  ScientificEcosystemDetailRoadmap,
+  ScientificEcosystemDetailSpecificObjectives,
   ScientificEcosystemDetailType,
 } from '../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../services/shared/lang/lang.service';
@@ -37,7 +48,7 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
   public hasError = false;
   public activeSections: ScientificEcosystemDetailResourceType[] = [];
   public ecosystemData!: ScientificEcosystemData;
-  public ALL_SECTIONS = ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS;
+  public SECTIONS_TO_SHOW: ScientificEcosystemDetailResourceType[] = [];
   public SECTIONS_MAP = SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP;
 
   private destroy$ = new Subject<void>();
@@ -86,7 +97,84 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
       .subscribe((response) => {
         this.ecosystemData = response;
         this.loadingDetail = false;
+
+        this.filterNonEmptySections();
       });
+  }
+
+  public filterNonEmptySections() {
+    const { resources } = this.ecosystemData;
+    this.SECTIONS_TO_SHOW = resources
+      .filter(({ content, resourceType }) => {
+        const contentObj = JSON.parse(content);
+        switch (resourceType as ScientificEcosystemDetailResourceType) {
+          case 'NOSOTROS':
+            const aboutUs = contentObj as ScientificEcosystemDetailAboutUs;
+            return aboutUs.description.length > 0;
+          case 'OBJ_GENERAL':
+            const generalObj =
+              contentObj as ScientificEcosystemDetailGeneralObjective;
+            return generalObj.generalObjective.length > 0;
+          case 'OBJ_ESPECIFICOS':
+            const specificObjs =
+              contentObj as ScientificEcosystemDetailSpecificObjectives;
+            return specificObjs.specificObjectives.length > 0;
+          case 'HOJA_RUTA':
+            const roadmap = contentObj as ScientificEcosystemDetailRoadmap;
+            return (
+              roadmap.paragraphs.length > 0 ||
+              roadmap.images.length > 0 ||
+              roadmap.resources.length > 0
+            );
+          case 'LINEAMIENTOS':
+            const guidelines =
+              contentObj as ScientificEcosystemDetailGuidelines;
+            return (
+              guidelines.paragraphs.length > 0 ||
+              guidelines.images.length > 0 ||
+              guidelines.resources.length > 0
+            );
+          case 'COMO_PARTICIPAR':
+            const howToParticipate =
+              contentObj as ScientificEcosystemDetailHowToParticipate;
+            return (
+              howToParticipate.paragraphs.length > 0 ||
+              howToParticipate.images.length > 0 ||
+              howToParticipate.resources.length > 0
+            );
+          case 'INTEGRANTES':
+            const members = contentObj as ScientificEcosystemDetailMembers;
+            return (
+              members.paragraphs.length > 0 ||
+              members.images.length > 0 ||
+              members.resources.length > 0
+            );
+          case 'PROYECTOS':
+            const projects = contentObj as ScientificEcosystemDetailProjects;
+            return (
+              projects.paragraphs.length > 0 ||
+              projects.projects.length > 0 ||
+              projects.images.length > 0 ||
+              projects.resources.length > 0
+            );
+          case 'EVENTOS':
+            const events = contentObj as ScientificEcosystemDetailEvents;
+            return events.events.length > 0;
+          case 'NOTICIAS':
+            const news = contentObj as ScientificEcosystemDetailNews;
+            return news.news.length > 0;
+          case 'CONTACTO':
+            const contact = contentObj as ScientificEcosystemDetailContact;
+            return contact.contacts.length > 0;
+          //
+          default:
+            return true;
+        }
+      })
+      .map(
+        ({ resourceType }) =>
+          resourceType as ScientificEcosystemDetailResourceType,
+      );
   }
 
   public ngOnDestroy(): void {
@@ -110,7 +198,7 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
   }
 
   public expandAll(): void {
-    this.stateService.expandAll(this.ALL_SECTIONS);
+    this.stateService.expandAll(this.SECTIONS_TO_SHOW);
     this.updateQueryParams();
   }
 

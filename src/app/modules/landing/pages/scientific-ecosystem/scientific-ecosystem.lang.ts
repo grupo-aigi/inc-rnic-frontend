@@ -4,16 +4,16 @@ const labels = {
     es: 'Ecosistema Científico | Red Nacional de Investigación en Cáncer',
   },
   title: {
-    en: 'Scientific Ecosystem',
-    es: 'Ecosistema Científico',
+    en: 'Scientific Ecosystems',
+    es: 'Ecosistemas Científicos',
   },
   main: {
     es: 'Inicio',
     en: 'Home',
   },
   ecosystem: {
-    es: 'Ecosistema',
-    en: 'Ecosystem',
+    es: 'Ecosistemas',
+    en: 'Ecosystems',
   },
   loading: {
     en: 'Loading...',
@@ -22,6 +22,14 @@ const labels = {
   error: {
     en: 'Error loading content',
     es: 'Error al cargar el contenido',
+  },
+  expandAll: {
+    es: 'Expandir Todo',
+    en: 'Expand All',
+  },
+  collapseAll: {
+    es: 'Colapsar Todo',
+    en: 'Collapse All',
   },
 };
 

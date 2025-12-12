@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  Input,
   OnDestroy,
   OnInit,
   Output,
@@ -38,6 +39,7 @@ interface EcosystemSidebarOption {
 export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
   @Output() sectionClicked =
     new EventEmitter<ScientificEcosystemDetailResourceType>();
+  @Input() sectionsToShow!: ScientificEcosystemDetailResourceType[];
 
   public sidebarOptions: EcosystemSidebarOption[] = [];
   public activeSections: ScientificEcosystemDetailResourceType[] = [];
@@ -66,12 +68,10 @@ export class ScientificEcosystemSidebarComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
   private setSidebarOptions(): void {
-    this.sidebarOptions = ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS.map(
-      (sectionType) => ({
-        sectionType,
-        label: SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP[sectionType],
-      }),
-    );
+    this.sidebarOptions = this.sectionsToShow.map((sectionType) => ({
+      sectionType,
+      label: SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP[sectionType],
+    }));
   }
 
   public get labels() {
