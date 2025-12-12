@@ -8,8 +8,16 @@
       >
         {{ labels.currentScientificEcosystem[lang] }}
       </li>
-      <li class="default-btn" (click)="changeActiveTab(1)">
-        {{ labels.createScientificEcosystem[lang] }}
+      <li
+        class="default-btn"
+        (click)="changeActiveTab(1)"
+        #createOrEditEcosystemsLI
+      >
+        @if (isEditing) {
+          {{ labels.editScientificEcosystem[lang] }}
+        } @else {
+          {{ labels.createScientificEcosystem[lang] }}
+        }
       </li>
     </ul>
 
@@ -20,13 +28,13 @@
             <div class="tabs_item">
               <app-scientific-ecosystem-list
                 variant="INTRANET"
+                (onEditScientificEcosystem)="handleStartEditEcosystem($event)"
               ></app-scientific-ecosystem-list>
             </div>
           }
           @case (1) {
             <div class="tabs_item">
               <app-create-scientific-ecosystem
-                [scientificEcosystemToEdit]="scientificEcosystemToEdit"
                 (onSubmit)="onFormSubmit()"
                 (onCancelUpdate)="handleCancelUpdate()"
               ></app-create-scientific-ecosystem>

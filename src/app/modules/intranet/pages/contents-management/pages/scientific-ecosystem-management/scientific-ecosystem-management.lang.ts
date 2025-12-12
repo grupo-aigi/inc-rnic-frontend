@@ -11,9 +11,17 @@ const labels = {
     en: 'Update cancelled',
     es: 'Actualización cancelada',
   },
+  editingEcosystem: {
+    es: 'Se está editando el ecosistema',
+    en: 'Started editing ecosystem',
+  },
   createScientificEcosystem: {
     en: 'Create Ecosystem',
     es: 'Crear Ecosistema',
+  },
+  editScientificEcosystem: {
+    en: 'Edit Ecosystem',
+    es: 'Editar Ecosistema',
   },
   announcementCreatedSuccessfully: {
     es: 'Ecosistema Científico creado exitosamente',

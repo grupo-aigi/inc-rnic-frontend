@@ -12,6 +12,7 @@ import { LangService } from '../../../../../../../../services/shared/lang/lang.s
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
 import { DeleteScientificEcosystemConfirmationComponent } from './components/delete-scientific-ecosystem-confirmation/delete-scientific-ecosystem-confirmation.component';
 import labels from './scientific-ecosystem-list.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 @Component({
   standalone: true,
@@ -39,6 +40,7 @@ export class ScientificEcosystemListComponent implements OnInit {
     private toastService: ToastrService,
     private langService: LangService,
     private scientificEcosystemsService: ScientificEcosystemService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   public ngOnInit(): void {
@@ -46,6 +48,7 @@ export class ScientificEcosystemListComponent implements OnInit {
       this.variant = 'INTRANET';
     }
     this.fetchScientificEcosystems();
+    this.scientificEcosystemCreateService.resetCreateInfo();
   }
 
   public get scientificEcosystems(): ScientificEcosystemPoster[] {

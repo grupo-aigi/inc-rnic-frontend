@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
   OnInit,
   Output,
   ViewChild,
@@ -15,8 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 import { ScientificEcosystemCreateService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 import {
   ScientificEcosystemBaseInfo,
-  ScientificEcosystemCreateInfo,
-  ScientificEcosystemDetail,
   ScientificEcosystemDetailAboutUs,
   ScientificEcosystemDetailContact,
   ScientificEcosystemDetailGeneralObjective,
@@ -26,9 +23,7 @@ import {
   ScientificEcosystemDetailProjects,
   ScientificEcosystemDetailRoadmap,
   ScientificEcosystemDetailSpecificObjectives,
-  ScientificEcosystemPoster,
 } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
-import { ScientificEcosystemService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
 import { SetScientificEcosystemAboutUsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-about-us/app-set-scientific-ecosystem-about-us.component';
 import { SetScientificEcosystemContactComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-contact/app-set-scientific-ecosystem-contact.component';
@@ -62,37 +57,24 @@ import labels from './create-scientific-ecosystem.lang';
   ],
 })
 export class CreateScientificEcosystemComponent implements OnInit {
-  @Input() public scientificEcosystemToEdit:
-    | ScientificEcosystemPoster
-    | undefined;
   @Output() private onSubmit: EventEmitter<void> = new EventEmitter();
   @Output() private onCancelUpdate: EventEmitter<void> = new EventEmitter();
-  public detail: ScientificEcosystemDetail | null = null;
   public activeTabIndex: number = 0;
   @ViewChild('allScientificEcosystemTabs')
   public allEventsTab!: ElementRef<HTMLLIElement>;
-
-  resources: any;
-  eventUrlNameToEdit: any;
+  public isEditing: boolean = false;
 
   public constructor(
     private router: Router,
-    private scientificEcosystemService: ScientificEcosystemService,
     private toastService: ToastrService,
     private langService: LangService,
     private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   public ngOnInit(): void {
-    if (!this.scientificEcosystemToEdit) return;
-    const { title } = this.scientificEcosystemToEdit;
-
-    this.scientificEcosystemService
-      .fetchScientificEcosystemDetail(this.scientificEcosystemToEdit.urlName)
-      .subscribe((response) => {
-        this.scientificEcosystemCreateService.createAllSections(title);
-        this.detail = response;
-      });
+    this.scientificEcosystemCreateService.editing$.subscribe((editing) => {
+      this.isEditing = editing;
+    });
   }
 
   public get baseInfo(): ScientificEcosystemBaseInfo | undefined {
@@ -120,10 +102,8 @@ export class CreateScientificEcosystemComponent implements OnInit {
     this.router.navigate([]);
   }
 
-  public handleAddResource() {}
-
   public handleSetBaseInfo(baseInfo: ScientificEcosystemBaseInfo) {
-    this.scientificEcosystemCreateService.createAllSections(baseInfo.title);
+    this.scientificEcosystemCreateService.setupAllSections(baseInfo.title);
   }
 
   public changeActiveTab(index: number) {

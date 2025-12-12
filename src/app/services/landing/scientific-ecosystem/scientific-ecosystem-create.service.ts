@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EMPTY, Observable, tap } from 'rxjs';
+import { EMPTY, lastValueFrom, Observable, Subject, tap } from 'rxjs';
 import {
   ScientificEcosystemCreateInfo,
   ScientificEcosystemDetailResourceType,
   ScientificEcosystemDetailType,
+  ScientificEcosystemPoster,
 } from './scientific-ecosystem.interfaces';
 import { environment } from '../../../../environments/environment';
 import { ScientificEcosystemService } from './scientific-ecosystem.service';
@@ -15,16 +16,24 @@ import { ScientificEcosystemService } from './scientific-ecosystem.service';
 })
 export class ScientificEcosystemCreateService {
   private _baseUrl: string = `${environment.baseUrl}/ecosystems`;
-
+  private _scientificEcosystemToEdit: ScientificEcosystemPoster | null = null;
   private _createInfo: ScientificEcosystemCreateInfo | undefined;
-
-  constructor(private readonly http: HttpClient) {}
+  private sub = new Subject<boolean>();
+  public editing$ = this.sub.asObservable();
+  constructor(
+    private readonly http: HttpClient,
+    private scientificEcosystemService: ScientificEcosystemService,
+  ) {}
 
   public get createInfo() {
     return this._createInfo;
   }
 
-  public createAllSections(title: string) {
+  public get scientificEcosystemToEdit() {
+    return this._scientificEcosystemToEdit;
+  }
+
+  public async setupAllSections(title: string): Promise<void> {
     this._createInfo = {
       baseInfo: {
         title,
@@ -89,6 +98,41 @@ export class ScientificEcosystemCreateService {
         ],
       },
     };
+  }
+
+  public async setScientificEcosystemToEdit(info: ScientificEcosystemPoster) {
+    this._scientificEcosystemToEdit = info;
+    this.sub.next(true);
+    const scientificEcosystemDetail = await lastValueFrom(
+      this.scientificEcosystemService.fetchScientificEcosystemDetailByUrlName(
+        info.urlName,
+      ),
+    );
+
+    this._createInfo = {
+      baseInfo: {
+        id: scientificEcosystemDetail.id,
+        title: scientificEcosystemDetail.title,
+      },
+      detail: {
+        sections: scientificEcosystemDetail.resources.map(
+          ({ content, resourceType }) => {
+            return {
+              TYPE: resourceType,
+              ...JSON.parse(content),
+            };
+          },
+        ),
+      },
+    };
+
+    return;
+  }
+
+  public resetCreateInfo() {
+    this._createInfo = undefined;
+    this._scientificEcosystemToEdit = null;
+    this.sub.next(false);
   }
 
   public handleUpdateSection(

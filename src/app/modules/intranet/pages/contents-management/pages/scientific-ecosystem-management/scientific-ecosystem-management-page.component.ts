@@ -1,4 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +20,7 @@ import { LangService } from '../../../../../../services/shared/lang/lang.service
 import { CreateScientificEcosystemComponent } from './components/create-scientific-ecosystem/create-scientific-ecosystem.component';
 import { ScientificEcosystemListComponent } from './components/scientific-ecosystem-list/scientific-ecosystem-list.component';
 import labels from './scientific-ecosystem-management.lang';
+import { ScientificEcosystemCreateService } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 
 @Component({
   standalone: true,
@@ -22,22 +30,29 @@ import labels from './scientific-ecosystem-management.lang';
     CreateScientificEcosystemComponent,
   ],
 })
-export class ScientificEcosystemManagementPage {
+export class ScientificEcosystemManagementPage implements OnInit {
   public activeTabIndex: number = 0;
   @ViewChild('scientificEcosystemsLI')
   public scientificEcosystemsLI!: ElementRef<HTMLLIElement>;
-  public scientificEcosystemToEdit: ScientificEcosystemPoster | undefined;
+
+  @ViewChild('createOrEditEcosystemsLI')
+  public createOrEditEcosystemsLI!: ElementRef<HTMLLIElement>;
+  public isEditing: boolean = false;
+
   public constructor(
     private title: Title,
     private langService: LangService,
     private toastService: ToastrService,
-    private announcementService: AnnouncementService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   public ngOnInit(): void {
     this.title.setTitle(labels.pageTitle[this.lang]);
     this.langService.language$.subscribe((lang) => {
       this.title.setTitle(labels.pageTitle[lang]);
+    });
+    this.scientificEcosystemCreateService.editing$.subscribe((editing) => {
+      this.isEditing = editing;
     });
   }
 
@@ -53,24 +68,9 @@ export class ScientificEcosystemManagementPage {
     this.activeTabIndex = index;
   }
 
-  public publishAnnouncement(announcement: AnnouncementInfo) {
-    return this.announcementService.createAnnouncement(announcement).subscribe({
-      next: (value) => {
-        this.toastService.success(
-          labels.announcementCreatedSuccessfully[this.lang],
-        );
-        this.scientificEcosystemsLI.nativeElement.click();
-        this.activeTabIndex = 0;
-      },
-      error: (_err) => {
-        this.toastService.error(labels.errorCreatingAnnouncement[this.lang]);
-      },
-    });
-  }
-
   public handleCancelUpdate() {
     this.toastService.info(labels.updateCancelled[this.lang]);
-    this.scientificEcosystemToEdit = undefined;
+    this.scientificEcosystemCreateService.resetCreateInfo();
     this.changeActiveTab(0);
     this.scientificEcosystemsLI.nativeElement.click();
   }
@@ -78,5 +78,15 @@ export class ScientificEcosystemManagementPage {
   public onFormSubmit() {
     this.activeTabIndex = 0;
     this.scientificEcosystemsLI.nativeElement.click();
+  }
+
+  public handleStartEditEcosystem(ecosystem: ScientificEcosystemPoster) {
+    this.toastService.info(labels.editingEcosystem[this.lang]);
+    this.scientificEcosystemCreateService
+      .setScientificEcosystemToEdit(ecosystem)
+      .then(() => {
+        this.changeActiveTab(1);
+        this.createOrEditEcosystemsLI.nativeElement.click();
+      });
   }
 }

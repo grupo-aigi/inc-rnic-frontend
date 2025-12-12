@@ -1,8 +1,7 @@
-import { CommonModule, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
-  Input,
   OnChanges,
   OnInit,
   Output,
@@ -17,10 +16,9 @@ import {
 
 import { ToastrService } from 'ngx-toastr';
 
+import { ScientificEcosystemCreateService } from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 import { ScientificEcosystemBaseInfo } from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
-import { ScientificEcosystemService } from '../../../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.service';
 import { LangService } from '../../../../../../../../../../services/shared/lang/lang.service';
-import { ResourcesService } from '../../../../../../../../../../services/shared/resources/resource.service';
 import labels from './create-scientific-ecosystem-base-info.lang';
 
 @Component({
@@ -29,11 +27,7 @@ import labels from './create-scientific-ecosystem-base-info.lang';
   templateUrl: './create-scientific-ecosystem-base-info.component.html',
   imports: [ReactiveFormsModule, CommonModule],
 })
-export class CreateScientificEcosystemBaseInfoComponent
-  implements OnInit, OnChanges
-{
-  @Input() public baseInfo: ScientificEcosystemBaseInfo | undefined;
-
+export class CreateScientificEcosystemBaseInfoComponent implements OnInit {
   @Output()
   public onSubmit: EventEmitter<ScientificEcosystemBaseInfo> =
     new EventEmitter();
@@ -41,33 +35,27 @@ export class CreateScientificEcosystemBaseInfoComponent
 
   public constructor(
     private formBuilder: FormBuilder,
-    private scientificEcosystemsService: ScientificEcosystemService,
-    private resourcesService: ResourcesService,
     private toastService: ToastrService,
     private langService: LangService,
+    private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
 
   public ngOnInit(): void {
-    //   if (!this.scientificEcosystemToEdit) return;
-    //   const { id, title, urlName } = this.scientificEcosystemToEdit;
-    //   this.scientificEcosystemsService
-    //     .fetchScientificEcosystemDetail(this.scientificEcosystemToEdit.urlName)
-    //     .subscribe((response) => {
-    //       this.baseInfo = { id, title };
-    //       this.scientificEcosystemDetail = response;
-    //     });
-  }
-
-  public ngOnChanges(changes: SimpleChanges): void {
+    const baseInfo = this.scientificEcosystemCreateService.createInfo?.baseInfo;
+    console.log({ baseInfo });
     this.formGroup = this.formBuilder.group({
       title: [
         {
-          value: this.baseInfo?.title || '',
-          disabled: !!this.baseInfo,
+          value: baseInfo?.title || '',
+          disabled: !!baseInfo,
         },
         [Validators.required, Validators.maxLength(200)],
       ],
     });
+  }
+
+  public get baseInfo() {
+    return this.scientificEcosystemCreateService.createInfo?.baseInfo;
   }
 
   public get lang() {

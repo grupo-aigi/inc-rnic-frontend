@@ -76,7 +76,6 @@
           @case (0) {
             <div class="tabs_item">
               <app-create-scientific-ecosystem-base-info
-                [baseInfo]="baseInfo"
                 (onSubmit)="handleSetBaseInfo($event)"
               ></app-create-scientific-ecosystem-base-info>
             </div>
@@ -174,12 +173,10 @@
       (click)="handlePublishScientificEcosystem()"
       class="btn default-btn m-1"
     >
-      {{
-        eventUrlNameToEdit ? labels.confirmUpdate[lang] : labels.publish[lang]
-      }}
+      {{ isEditing ? labels.confirmUpdate[lang] : labels.publish[lang] }}
     </button>
 
-    @if (eventUrlNameToEdit) {
+    @if (isEditing) {
       <button
         type="button"
         (click)="handleCancelUpdate()"
@@ -190,4 +187,4 @@
     }
   </div>
 </div>
-<h6>{{ createInfo | json }}</h6>
+<!-- <h6>{{ createInfo | json }}</h6> -->
