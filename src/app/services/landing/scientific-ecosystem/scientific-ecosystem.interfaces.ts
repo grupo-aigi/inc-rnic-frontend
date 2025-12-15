@@ -1,4 +1,5 @@
 import { ResourceContentFile } from '../../shared/contents/contents.interfaces';
+import { ConvocationPoster } from '../convocation/convocation.interfaces';
 import { EventPoster } from '../event/event.interfaces';
 import { NewsPoster } from '../news/news.interfaces';
 
@@ -66,6 +67,12 @@ export interface ScientificEcosystemDetail {
   sections: ScientificEcosystemDetailType[];
 }
 
+export interface Resource {
+  id: number;
+  resourceType: string;
+  content: string;
+}
+
 // AboutUs;
 // GeneralObjective;
 // SpecificObjectives;
@@ -86,15 +93,9 @@ export interface ScientificEcosystemData {
 }
 
 export interface ScientificEcosystemApi {
-  id: number;
-  title: string;
-  urlName: string;
-  active: boolean;
-  resources: {
-    id: number;
-    resourceType: ScientificEcosystemDetailResourceType;
-    content: string;
-  }[];
+  poster: ScientificEcosystemData;
+  events: EventPoster[];
+  convocations: ConvocationPoster[];
 }
 
 export type ScientificEcosystemDetailType =
@@ -166,20 +167,20 @@ export const SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP: {
     en: 'How to Participate',
   },
   INTEGRANTES: {
-    es: 'Miembros',
-    en: 'Members',
+    es: 'Actores',
+    en: 'Actors',
   },
   PROYECTOS: {
     es: 'Proyectos',
     en: 'Projects',
   },
   EVENTOS: {
-    es: 'Convocatorias',
-    en: 'Convocations',
+    es: 'Eventos',
+    en: 'Events',
   },
   NOTICIAS: {
-    es: 'Noticias',
-    en: 'News',
+    es: 'Convocatorias',
+    en: 'Convocations',
   },
   CONTACTO: {
     es: 'Contacto',
@@ -256,7 +257,7 @@ export interface ScientificEcosystemDetailEvents {
 
 export interface ScientificEcosystemDetailNews {
   TYPE: ScientificEcosystemDetailResourceType;
-  news: NewsPoster[];
+  news: ConvocationPoster[];
 }
 
 export interface ScientificEcosystemContact {

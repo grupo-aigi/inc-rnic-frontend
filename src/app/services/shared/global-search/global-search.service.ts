@@ -17,6 +17,7 @@ import {
   SearchSectionType,
 } from './global-search.interfaces';
 import { LocalSearchService } from './local-search.service';
+import { ScientificEcosystemService } from '../../landing/scientific-ecosystem/scientific-ecosystem.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class GlobalSearchService {
     private publicationService: PublicationService,
     private memoriesService: MemoriesService,
     private localSearchService: LocalSearchService,
+    private ecosystemsService: ScientificEcosystemService,
   ) {}
 
   public fetchLandingRecommendations(
@@ -44,6 +46,7 @@ export class GlobalSearchService {
       this.searchConvocations(searchTerm, enabledSections),
       this.searchPublications(searchTerm, enabledSections),
       this.searchMemories(searchTerm, enabledSections),
+      this.searchEcosystems(searchTerm, enabledSections),
       this.searchLocal(searchTerm, 'LANDING'),
     ]);
   }
@@ -59,6 +62,7 @@ export class GlobalSearchService {
       this.searchNews(searchTerm, enabledSections),
       this.searchConvocations(searchTerm, enabledSections),
       this.searchPublications(searchTerm, enabledSections),
+      this.searchEcosystems(searchTerm, enabledSections),
       this.searchLocal(searchTerm, 'INTRANET'),
     ]);
   }
@@ -122,6 +126,32 @@ export class GlobalSearchService {
       .then((records) => {
         return {
           type: SearchSectionType.EVENTS,
+          records,
+        };
+      });
+  }
+
+  private searchEcosystems(
+    searchTerm: string,
+    enabledSections: SearchSection[],
+  ): Promise<GlobalSearchRecommendation> {
+    return this.ecosystemsService
+      .fetchScientificEcosystemPosters()
+      .then((res) => {
+        return res
+          .filter(({ title }) =>
+            title.toLowerCase().includes(searchTerm.toLowerCase()),
+          )
+          .map((e) => ({
+            title: e.title,
+            url: `ecosistema/${e.urlName}`,
+            description: '',
+            breadCrumbs: [{ es: 'Ecosistema CCR', en: 'CCR Ecosystem' }],
+          }));
+      })
+      .then((records) => {
+        return {
+          type: SearchSectionType.ECOSYSTEMS,
           records,
         };
       });

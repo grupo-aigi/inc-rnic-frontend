@@ -108,11 +108,11 @@ export class ScientificEcosystemCreateService {
 
     this._createInfo = {
       baseInfo: {
-        id: scientificEcosystemDetail.id,
-        title: scientificEcosystemDetail.title,
+        id: scientificEcosystemDetail.poster.id,
+        title: scientificEcosystemDetail.poster.title,
       },
       detail: {
-        sections: scientificEcosystemDetail.resources.map(
+        sections: scientificEcosystemDetail.poster.resources.map(
           ({ content, resourceType }) => {
             return {
               TYPE: resourceType,
@@ -159,11 +159,31 @@ export class ScientificEcosystemCreateService {
     if (!this._createInfo) return EMPTY;
     const { baseInfo, detail } = this._createInfo;
 
+    if (!this._scientificEcosystemToEdit) {
+      return this.http
+        .post<{ urlName: string }>(
+          `${this._baseUrl}`,
+          {
+            ...baseInfo,
+            resources: detail.sections.map(({ TYPE, ...rest }) => ({
+              resourceType: TYPE,
+              content: JSON.stringify(rest),
+            })),
+          },
+          { headers },
+        )
+        .pipe(
+          tap({
+            next: () => {
+              this._createInfo = undefined;
+            },
+          }),
+        );
+    }
     return this.http
-      .post<{ urlName: string }>(
-        `${this._baseUrl}`,
+      .put<{ urlName: string }>(
+        `${this._baseUrl}/${this._scientificEcosystemToEdit.id}`,
         {
-          ...baseInfo,
           resources: detail.sections.map(({ TYPE, ...rest }) => ({
             resourceType: TYPE,
             content: JSON.stringify(rest),

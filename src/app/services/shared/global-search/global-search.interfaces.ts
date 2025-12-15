@@ -34,4 +34,5 @@ export enum SearchSectionType {
   MEMORIES = 'memories',
   LANDING = 'landing',
   INTRANET = 'intranet',
+  ECOSYSTEMS = 'ecosystems',
 }

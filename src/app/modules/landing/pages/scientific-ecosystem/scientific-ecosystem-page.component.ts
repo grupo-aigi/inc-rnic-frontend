@@ -95,7 +95,23 @@ export class ScientificEcosystemPage implements OnInit, OnDestroy {
         this.route.snapshot.paramMap.get('urlName')!,
       )
       .subscribe((response) => {
-        this.ecosystemData = response;
+        this.ecosystemData = response.poster;
+        this.ecosystemData.resources = this.ecosystemData.resources.map(
+          ({ resourceType, content }) => {
+            if (resourceType === 'EVENTOS') {
+              return {
+                resourceType,
+                content: JSON.stringify({ events: response.events }),
+              };
+            } else if (resourceType === 'NOTICIAS') {
+              return {
+                resourceType,
+                content: JSON.stringify({ news: response.convocations }),
+              };
+            }
+            return { resourceType, content };
+          },
+        );
         this.loadingDetail = false;
 
         this.filterNonEmptySections();

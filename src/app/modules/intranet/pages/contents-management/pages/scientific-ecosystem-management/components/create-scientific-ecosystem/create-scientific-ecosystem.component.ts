@@ -88,7 +88,9 @@ export class CreateScientificEcosystemComponent {
   }
 
   public get sections() {
-    return this.createInfo?.detail.sections || [];
+    return (this.createInfo?.detail.sections || []).filter(
+      ({ TYPE }) => TYPE !== 'NOTICIAS' && TYPE !== 'EVENTOS',
+    );
   }
 
   public handleCancelUpdate() {

@@ -59,9 +59,13 @@ const labels = {
     en: 'Convocations',
     es: 'Convocatorias',
   },
-  ncp: {
+  ncpFull: {
     es: 'Punto Nacional de Contacto',
     en: 'National Contact Point',
+  },
+  ncp: {
+    es: 'PNC',
+    en: 'NCP',
   },
   publications: {
     en: 'Publications',

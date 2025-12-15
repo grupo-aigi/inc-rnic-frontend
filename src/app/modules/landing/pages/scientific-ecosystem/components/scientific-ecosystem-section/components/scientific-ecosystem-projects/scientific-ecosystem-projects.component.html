@@ -28,7 +28,13 @@
             </p>
             <ul>
               @for (objective of project.objectives; track $index) {
+                @if ($index === 0) {
+                  <b>{{ labels.generalObjective[lang] }}</b>
+                }
                 <li>{{ objective }}</li>
+                @if ($index === 0) {
+                  <b>{{ labels.specificObjectives[lang] }}</b>
+                }
               }
             </ul>
           </div>

@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -18,10 +17,7 @@ import labels from './global-search.lang';
   standalone: true,
   selector: 'app-global-landing-search',
   templateUrl: './global-search.component.html',
-  imports: [
-    FormsModule,
-    RouterModule
-],
+  imports: [FormsModule, RouterModule],
 })
 export class GlobalSearchComponent {
   public searchDebounce: Subject<string> = new Subject();
@@ -54,6 +50,12 @@ export class GlobalSearchComponent {
       id: 3,
       type: SearchSectionType.PUBLICATIONS,
       label: { es: 'Publicaciones', en: 'Publications' },
+      enabled: true,
+    },
+    {
+      id: 4,
+      type: SearchSectionType.ECOSYSTEMS,
+      label: { es: 'Ecosistemas', en: 'Ecosystems' },
       enabled: true,
     },
   ];

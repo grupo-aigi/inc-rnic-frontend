@@ -12,7 +12,10 @@
   <div class="page-title-area bg-partners">
     <div class="container">
       <div class="page-title-content">
-        <h2 class="dynamic-font-size">{{ labels.title[lang] }}</h2>
+        <h2 class="dynamic-font-size">
+          {{ labels.title1[lang] }} <br />
+          {{ labels.title2[lang] }}
+        </h2>
         <ul>
           <li>
             <a routerLink="/" class="dynamic-font-size">{{
@@ -88,3 +91,5 @@
     </div>
   </div>
 }
+
+{{ ecosystemData | json }}

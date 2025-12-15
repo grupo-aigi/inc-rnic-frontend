@@ -4,8 +4,16 @@ const labels = {
     es: 'Ecosistema Científico | Red Nacional de Investigación en Cáncer',
   },
   title: {
-    en: 'Scientific Ecosystems',
-    es: 'Ecosistemas Científicos',
+    en: 'Colorectal Cancer Scientific Ecosystem',
+    es: 'Ecosistema Científico de Cáncer Colorrectal',
+  },
+  title1: {
+    en: 'Colorectal Cancer',
+    es: 'Ecosistema Científico',
+  },
+  title2: {
+    en: 'Scientific Ecosystem',
+    es: 'de Cáncer Colorrectal',
   },
   main: {
     es: 'Inicio',

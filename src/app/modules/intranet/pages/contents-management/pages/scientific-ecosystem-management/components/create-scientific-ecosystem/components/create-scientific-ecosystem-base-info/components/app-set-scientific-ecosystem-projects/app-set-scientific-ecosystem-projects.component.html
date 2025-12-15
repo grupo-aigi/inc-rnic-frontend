@@ -161,7 +161,7 @@
                   type="text"
                   formControlName="projectAuthor"
                   class="form-control"
-                  placeholder="Ingrese el autor del proyecto"
+                  placeholder="Ingrese el investigador principal del proyecto"
                 />
               </div>
             </div>
@@ -176,7 +176,11 @@
                   [(ngModel)]="currentObjective"
                   [ngModelOptions]="{ standalone: true }"
                   class="form-control"
-                  placeholder="Ingrese un objetivo"
+                  [placeholder]="
+                    projectObjectives.length === 0
+                      ? 'Ingrese el objetivo general'
+                      : 'Ingrese un objetivo específico'
+                  "
                   (keyup.enter)="handleAddObjective()"
                 />
                 <button
@@ -195,6 +199,9 @@
                     track $index;
                     let i = $index
                   ) {
+                    @if ($index === 0) {
+                      <b>Objetivo general: </b>
+                    }
                     <li
                       class="list-group-item d-flex justify-content-between align-items-center"
                     >
@@ -207,6 +214,9 @@
                         <i class="bx bx-trash"></i>
                       </button>
                     </li>
+                    @if ($index === 0) {
+                      <b>Objetivos específicos: </b>
+                    }
                   }
                 </ul>
               }
@@ -263,7 +273,8 @@
                     <div class="card-body">
                       <h5 class="card-title">{{ project.name }}</h5>
                       <p class="card-text">
-                        <strong>Autor:</strong> {{ project.author }}
+                        <strong>Investigador Principal:</strong>
+                        {{ project.author }}
                       </p>
                       <p class="card-text">
                         <strong>Objetivos:</strong>

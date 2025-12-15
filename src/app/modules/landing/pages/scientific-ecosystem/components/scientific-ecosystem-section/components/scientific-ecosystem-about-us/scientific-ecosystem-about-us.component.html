@@ -1,1 +1,3 @@
-<p class="mb-3">{{ section.description }}</p>
+@for (item of section.description; track $index) {
+  <p class="mb-3">{{ item }}</p>
+}

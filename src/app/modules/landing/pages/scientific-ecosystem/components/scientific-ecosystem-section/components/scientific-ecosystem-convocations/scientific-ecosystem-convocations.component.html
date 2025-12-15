@@ -1,0 +1,98 @@
+<div class="row">
+  @for (convocationPoster of section.news; track convocationPoster) {
+    <div class="col-lg-4 col-md-6">
+      <div class="single-blog-post dynamic-font-size">
+        <div class="blog-img" style="position: relative">
+          <a
+            [routerLink]="
+              variant === 'PUBLIC'
+                ? '/convocatorias/' + convocationPoster.urlName
+                : '/intranet/convocatorias/' + convocationPoster.urlName
+            "
+          >
+            <img
+              [src]="
+                getImageUrlByName(convocationPoster.imageName) ||
+                '/img/blog/blog-10.jpg'
+              "
+              alt="Image"
+            />
+          </a>
+          <p class="event-scope__ribbon dynamic-font-size">
+            {{
+              lang === 'es'
+                ? convocationPoster.scope === 'NATIONAL'
+                  ? 'NACIONAL'
+                  : 'INTERNACIONAL'
+                : convocationPoster.scope === 'NATIONAL'
+                  ? 'NATIONAL'
+                  : 'INTERNATIONAL'
+            }}
+          </p>
+        </div>
+        <div
+          class="blog-content position-relative"
+          [title]="convocationPoster.description"
+        >
+          <span
+            class="rounded-pill badge badge-primary p-2 event-category"
+            [ngStyle]="{
+              'background-color': wordToHexColor(
+                convocationPoster.category.name
+              ),
+            }"
+          >
+            {{ convocationPoster.category.name }}
+          </span>
+          <ul style="margin-top: 10px">
+            <li>
+              <i class="bx bxs-calendar"></i>
+              {{ labels.fromDate[lang] }}
+              {{ formatConvocationDate(convocationPoster.startDate) }}
+              {{ labels.toDate[lang] }}
+              {{ formatConvocationDate(convocationPoster.endDate) }}
+            </li>
+          </ul>
+          <ul style="margin-top: -20px">
+            <li>
+              <i class="bx bx-money-withdraw"></i>
+              {{ labels.budget[lang] }}:
+              @if (convocationPoster.budget) {
+                {{ convocationPoster.budget | currency }}
+                <small>COP</small>
+              } @else {
+                {{ labels.noBudget[lang] }}
+              }
+            </li>
+          </ul>
+          <h3 style="margin-top: -15px">
+            <a
+              target="_blank"
+              class="dynamic-font-size"
+              [routerLink]="
+                variant === 'PUBLIC'
+                  ? '/convocatorias/' + convocationPoster.urlName
+                  : '/intranet/convocatorias/' + convocationPoster.urlName
+              "
+              >{{ convocationPoster.title }}</a
+            >
+          </h3>
+          <p class="dynamic-font-size">
+            {{ trimConvocationDescription(convocationPoster.description) }}
+          </p>
+          <a
+            class="dynamic-font-size"
+            target="_blank"
+            [routerLink]="
+              variant === 'PUBLIC'
+                ? '/convocatorias/' + convocationPoster.urlName
+                : '/intranet/convocatorias/' + convocationPoster.urlName
+            "
+            class="read-more"
+            >{{ labels.seeConvocationDetail[lang] }}</a
+          >
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -141,8 +141,13 @@ const labels = {
     es: 'Ocultar',
     en: 'Ocultar',
   },
-  author: { es: 'Autor', en: 'Author' },
+  author: { es: 'Investigador principal', en: 'Main researcher' },
   objectives: { es: 'Objetivos', en: 'Objectives' },
+  generalObjective: { es: 'Objetivo general', en: 'General objective' },
+  specificObjectives: {
+    es: 'Objetivos específicos',
+    en: 'Specific objectives',
+  },
 };
 
 export default labels;

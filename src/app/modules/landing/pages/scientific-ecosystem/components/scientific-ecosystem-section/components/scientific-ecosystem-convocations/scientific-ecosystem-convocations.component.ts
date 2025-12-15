@@ -3,17 +3,19 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { formatDateByLang } from '../../../../../../../../helpers/date-formatters';
-import { ScientificEcosystemDetailEvents } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
+import {
+  formatDate,
+  formatDateByLang,
+} from '../../../../../../../../helpers/date-formatters';
+import { ScientificEcosystemDetailNews } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
 import { ResourcesService } from '../../../../../../../../services/shared/resources/resource.service';
-import { CompletePaginationComponent } from '../../../../../../components/pagination/complete-pagination/complete-pagination.component';
-import labels from './scientific-ecosystem-events.lang';
+import labels from './scientific-ecosystem-convocations.lang';
 
 @Component({
   standalone: true,
-  selector: 'app-scientific-ecosystem-events',
-  templateUrl: './scientific-ecosystem-events.component.html',
+  selector: 'app-scientific-ecosystem-convocations',
+  templateUrl: './scientific-ecosystem-convocations.component.html',
   imports: [
     ReactiveFormsModule,
     FormsModule,
@@ -22,8 +24,8 @@ import labels from './scientific-ecosystem-events.lang';
     RouterLink,
   ],
 })
-export class ScientificEcosystemEventsComponent implements OnInit {
-  @Input() section!: ScientificEcosystemDetailEvents;
+export class ScientificEcosystemConvocationsComponent implements OnInit {
+  @Input() section!: ScientificEcosystemDetailNews;
 
   public variant: 'INTRANET' | 'PUBLIC' = 'PUBLIC';
 
@@ -39,7 +41,18 @@ export class ScientificEcosystemEventsComponent implements OnInit {
   }
 
   public getImageUrlByName(name: string) {
-    return this.resourcesService.getImageUrlByName('events', name);
+    return this.resourcesService.getImageUrlByName('news', name);
+  }
+
+  public formatConvocationDate(date: Date): string {
+    return formatDate(date);
+  }
+
+  public trimConvocationDescription(description: string) {
+    if (description.length > 200) {
+      return description.slice(0, 200) + '...';
+    }
+    return description;
   }
 
   public get labels() {
@@ -51,7 +64,7 @@ export class ScientificEcosystemEventsComponent implements OnInit {
   }
 
   public getImageByEventId(name: string) {
-    return this.resourcesService.getImageUrlByName('events', name);
+    return this.resourcesService.getImageUrlByName('convocations', name);
   }
 
   public trimEventDescription(description: string) {

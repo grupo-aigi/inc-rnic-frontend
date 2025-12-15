@@ -30,7 +30,7 @@ import { ScientificEcosystemGeneralObjectiveComponent } from './components/scien
 import { ScientificEcosystemGuidelinesComponent } from './components/scientific-ecosystem-guidelines/scientific-ecosystem-guidelines.component';
 import { ScientificEcosystemHowToParticipateComponent } from './components/scientific-ecosystem-how-to-participate/scientific-ecosystem-how-to-participate.component';
 import { ScientificEcosystemMembersComponent } from './components/scientific-ecosystem-members/scientific-ecosystem-members.component';
-import { ScientificEcosystemNewsComponent } from './components/scientific-ecosystem-news/scientific-ecosystem-news.component';
+import { ScientificEcosystemConvocationsComponent } from './components/scientific-ecosystem-convocations/scientific-ecosystem-convocations.component';
 import { ScientificEcosystemProjectsComponent } from './components/scientific-ecosystem-projects/scientific-ecosystem-projects.component';
 import { ScientificEcosystemRoadmapComponent } from './components/scientific-ecosystem-roadmap/scientific-ecosystem-roadmap.component';
 import { ScientificEcosystemSpecificObjectivesComponent } from './components/scientific-ecosystem-specific-objectives/scientific-ecosystem-specific-objectives.component';
@@ -55,7 +55,7 @@ import labels from './scientific-ecosystem-section.lang';
     ScientificEcosystemRoadmapComponent,
     ScientificEcosystemSpecificObjectivesComponent,
     ScientificEcosystemEventsComponent,
-    ScientificEcosystemNewsComponent,
+    ScientificEcosystemConvocationsComponent,
   ],
 })
 export class ScientificEcosystemSectionComponent {
