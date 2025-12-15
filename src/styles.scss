@@ -915,12 +915,18 @@ textarea {
   }
 }
 
+.scientific-ecosystem-main-container {
+  position: relative;
+  height: auto;
+  min-height: 100vh;
+}
+
 .scientific-ecosystem-sidebar {
   box-shadow: var(--boxShadow);
   background-color: var(--whiteColor);
-  height: 100vh;
+  height: calc(100vh - 100px);
   overflow-y: auto;
-  position: fixed;
+  position: sticky;
   top: 100px;
   left: 0px;
   border-right: 1px solid rgb(221, 220, 220);
@@ -932,7 +938,6 @@ textarea {
       user-select: none;
       list-style: none;
       div {
-        // background-color: red;
         display: flex;
         flex-direction: row;
         width: 100% !important;
@@ -941,7 +946,6 @@ textarea {
         padding: 30px 30px;
         cursor: pointer;
         border-bottom: 1px solid lightgray;
-        // border-right: 1px solid lightgray;
 
         i {
           padding: 23px;
@@ -964,7 +968,6 @@ textarea {
       }
       ul > li {
         border-bottom: 1px solid rgb(231, 229, 229);
-        // border-right: 1px solid lightgray;
         padding-left: 25px;
         width: 100%;
         &:hover {

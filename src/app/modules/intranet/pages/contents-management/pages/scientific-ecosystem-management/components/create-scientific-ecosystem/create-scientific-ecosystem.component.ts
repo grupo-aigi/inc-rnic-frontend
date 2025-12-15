@@ -60,7 +60,7 @@ import labels from './create-scientific-ecosystem.lang';
     JsonPipe,
   ],
 })
-export class CreateScientificEcosystemComponent implements OnInit {
+export class CreateScientificEcosystemComponent {
   @Output() private onSubmit: EventEmitter<void> = new EventEmitter();
   @Output() private onCancelUpdate: EventEmitter<void> = new EventEmitter();
   public activeTabIndex: number = 0;
@@ -74,12 +74,6 @@ export class CreateScientificEcosystemComponent implements OnInit {
     private langService: LangService,
     private scientificEcosystemCreateService: ScientificEcosystemCreateService,
   ) {}
-
-  public ngOnInit(): void {
-    this.scientificEcosystemCreateService.editing$.subscribe((editing) => {
-      this.isEditing = editing;
-    });
-  }
 
   public get baseInfo(): ScientificEcosystemBaseInfo | undefined {
     return this.scientificEcosystemCreateService.createInfo?.baseInfo;

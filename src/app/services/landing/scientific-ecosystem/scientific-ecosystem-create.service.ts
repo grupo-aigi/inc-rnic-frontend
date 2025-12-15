@@ -18,8 +18,6 @@ export class ScientificEcosystemCreateService {
   private _baseUrl: string = `${environment.baseUrl}/ecosystems`;
   private _scientificEcosystemToEdit: ScientificEcosystemPoster | null = null;
   private _createInfo: ScientificEcosystemCreateInfo | undefined;
-  private sub = new Subject<boolean>();
-  public editing$ = this.sub.asObservable();
   constructor(
     private readonly http: HttpClient,
     private scientificEcosystemService: ScientificEcosystemService,
@@ -102,7 +100,6 @@ export class ScientificEcosystemCreateService {
 
   public async setScientificEcosystemToEdit(info: ScientificEcosystemPoster) {
     this._scientificEcosystemToEdit = info;
-    this.sub.next(true);
     const scientificEcosystemDetail = await lastValueFrom(
       this.scientificEcosystemService.fetchScientificEcosystemDetailByUrlName(
         info.urlName,
@@ -132,7 +129,6 @@ export class ScientificEcosystemCreateService {
   public resetCreateInfo() {
     this._createInfo = undefined;
     this._scientificEcosystemToEdit = null;
-    this.sub.next(false);
   }
 
   public handleUpdateSection(

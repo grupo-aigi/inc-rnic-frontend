@@ -51,9 +51,6 @@ export class ScientificEcosystemManagementPage implements OnInit {
     this.langService.language$.subscribe((lang) => {
       this.title.setTitle(labels.pageTitle[lang]);
     });
-    this.scientificEcosystemCreateService.editing$.subscribe((editing) => {
-      this.isEditing = editing;
-    });
   }
 
   public get labels() {

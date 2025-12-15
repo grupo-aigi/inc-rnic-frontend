@@ -6,13 +6,10 @@
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
-    <p class="my-2">Cargando Detalle del Ecosistema...</p>
+    <p class="my-2">{{ labels.loading[lang] }}...</p>
   </div>
 } @else {
-  <div
-    class="page-title-area bg-partners position-relative"
-    style="z-index: 20"
-  >
+  <div class="page-title-area bg-partners">
     <div class="container">
       <div class="page-title-content">
         <h2 class="dynamic-font-size">{{ labels.title[lang] }}</h2>
@@ -33,12 +30,15 @@
     </div>
   </div>
 
-  <div class="m-0 p-0">
-    <app-scientific-ecosystem-sidebar
-      [sectionsToShow]="SECTIONS_TO_SHOW"
-      (sectionClicked)="scrollToSection($event)"
-    ></app-scientific-ecosystem-sidebar>
+  <app-scientific-ecosystem-sidebar
+    [sectionsToShow]="SECTIONS_TO_SHOW"
+    (sectionClicked)="scrollToSection($event)"
+  ></app-scientific-ecosystem-sidebar>
 
+  <div
+    class="m-0 p-0 position-relative"
+    style="min-height: 10vh !important; top: -90vh"
+  >
     <div
       style="margin-left: 300px; overflow-x: hidden"
       class="dynamic-font-size scientific-ecosystem-main-container"
