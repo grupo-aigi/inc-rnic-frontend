@@ -281,7 +281,13 @@
                       </p>
                       <ul>
                         @for (objective of project.objectives; track $index) {
+                          @if ($index === 0) {
+                            <b>Objetivo general: </b>
+                          }
                           <li>{{ objective }}</li>
+                          @if ($index === 0) {
+                            <b>Objetivos específicos: </b>
+                          }
                         }
                       </ul>
                       <div class="d-flex gap-2">
