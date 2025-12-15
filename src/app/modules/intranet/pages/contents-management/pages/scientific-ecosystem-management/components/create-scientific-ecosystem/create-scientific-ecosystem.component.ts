@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ScientificEcosystemCreateService } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-create.service';
 import {
+  SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
   ScientificEcosystemBaseInfo,
   ScientificEcosystemDetailAboutUs,
   ScientificEcosystemDetailContact,
@@ -21,10 +22,12 @@ import {
   ScientificEcosystemDetailHowToParticipate,
   ScientificEcosystemDetailMembers,
   ScientificEcosystemDetailProjects,
+  ScientificEcosystemDetailResourceType,
   ScientificEcosystemDetailRoadmap,
   ScientificEcosystemDetailSpecificObjectives,
 } from '../../../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../../../services/shared/lang/lang.service';
+import { ChangeScientificEcosystemSectionsModalComponent } from './components/change-scientific-ecosystem-sections-modal/change-scientific-ecosystem-sections-modal.component';
 import { SetScientificEcosystemAboutUsComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-about-us/app-set-scientific-ecosystem-about-us.component';
 import { SetScientificEcosystemContactComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-contact/app-set-scientific-ecosystem-contact.component';
 import { SetScientificEcosystemGeneralObjectiveComponent } from './components/create-scientific-ecosystem-base-info/components/app-set-scientific-ecosystem-general-objective/app-set-scientific-ecosystem-general-objective.component';
@@ -53,6 +56,7 @@ import labels from './create-scientific-ecosystem.lang';
     SetScientificEcosystemMembersComponent,
     SetScientificEcosystemProjectsComponent,
     SetScientificEcosystemContactComponent,
+    ChangeScientificEcosystemSectionsModalComponent,
     JsonPipe,
   ],
 })
@@ -83,6 +87,14 @@ export class CreateScientificEcosystemComponent implements OnInit {
 
   public get createInfo() {
     return this.scientificEcosystemCreateService.createInfo;
+  }
+
+  public getSectionName(sectionType: ScientificEcosystemDetailResourceType) {
+    return SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP[sectionType];
+  }
+
+  public get sections() {
+    return this.createInfo?.detail.sections || [];
   }
 
   public handleCancelUpdate() {

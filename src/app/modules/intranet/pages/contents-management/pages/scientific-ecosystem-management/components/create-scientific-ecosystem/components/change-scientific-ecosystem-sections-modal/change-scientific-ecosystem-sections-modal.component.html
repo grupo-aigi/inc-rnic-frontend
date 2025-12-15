@@ -1,0 +1,70 @@
+<div
+  class="modal fade w-100"
+  id="changeEcosystemSectionsOrder"
+  tabindex="-1"
+  aria-labelledby="changeEcosystemSectionsOrder"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="changeEcosystemSectionsOrder">
+          {{ labels.title[lang] }}
+        </h5>
+
+        <button
+          #closeModalBtn
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <ul class="mt-2 list-unstyled">
+          @for (section of sections; track section.TYPE; let i = $index) {
+            <li class="border rounded mb-2 p-3 bg-light">
+              <div class="d-flex align-items-center justify-content-between">
+                <span class="fw-bold">
+                  {{ i + 1 }} - {{ getSectionName(section.TYPE)[lang] }}
+                </span>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary d-flex align-items-center"
+                    (click)="moveUp(i)"
+                    [disabled]="i === 0"
+                    title="Subir"
+                  >
+                    <i class="bx bx-arrow-up fs-4"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary d-flex align-items-center"
+                    (click)="moveDown(i)"
+                    [disabled]="i === sections.length - 1"
+                    title="Bajar"
+                  >
+                    <i class="bx bx-arrow-down fs-4"></i>
+                  </button>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          {{ labels.close[lang] }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-info text-white"
+          (click)="saveOrder()"
+        >
+          {{ labels.save[lang] || 'Guardar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

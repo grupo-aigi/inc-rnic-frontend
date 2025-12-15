@@ -9,7 +9,10 @@
     <p class="my-2">Cargando Detalle del Ecosistema...</p>
   </div>
 } @else {
-  <div class="page-title-area bg-partners">
+  <div
+    class="page-title-area bg-partners position-relative"
+    style="z-index: 20"
+  >
     <div class="container">
       <div class="page-title-content">
         <h2 class="dynamic-font-size">{{ labels.title[lang] }}</h2>
@@ -41,27 +44,14 @@
       class="dynamic-font-size scientific-ecosystem-main-container"
     >
       <div class="row justify-content-center">
-        <div class="col-lg-5">
+        <div class="col-lg-3 col-md-6 col-sm-12 my-3">
           <div class="d-flex gap-2 justify-content-center">
             <img
-              class="w-75 h-auto"
+              class="w-50 h-auto"
               src="/img/logos-inc-y-rnic/logo-minciencias-DARK.jpg"
               alt="challenges"
             />
           </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-start px-2 mt-3 mb-2">
-        <div class="col-auto">
-          <button class="btn btn-primary me-2" (click)="expandAll()">
-            <i class="bx bx-expand-alt me-1"></i>
-            {{ labels.expandAll[lang] }}
-          </button>
-          <button class="btn btn-secondary" (click)="collapseAll()">
-            <i class="bx bx-collapse-alt me-1"></i>
-            {{ labels.collapseAll[lang] }}
-          </button>
         </div>
       </div>
 

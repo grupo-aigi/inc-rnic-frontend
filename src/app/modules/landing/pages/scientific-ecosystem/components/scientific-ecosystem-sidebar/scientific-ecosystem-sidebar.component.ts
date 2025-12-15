@@ -15,14 +15,13 @@ import {
 } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
+import { ScientificEcosystemStateService } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-state.service';
 import {
-  ALL_SCIENTIFIC_ECOSYSTEM_SECTIONS,
   SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP,
   ScientificEcosystemDetailResourceType,
 } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem.interfaces';
 import { LangService } from '../../../../../../services/shared/lang/lang.service';
 import labels from './scientific-ecosystem-sidebar.lang';
-import { ScientificEcosystemStateService } from '../../../../../../services/landing/scientific-ecosystem/scientific-ecosystem-state.service';
 
 interface EcosystemSidebarOption {
   label: { es: string; en: string };

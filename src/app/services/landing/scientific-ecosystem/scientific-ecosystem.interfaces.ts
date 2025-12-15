@@ -174,8 +174,8 @@ export const SCIENTIFIC_ECOSYSTEM_SECTIONS_MAP: {
     en: 'Projects',
   },
   EVENTOS: {
-    es: 'Eventos',
-    en: 'Events',
+    es: 'Convocatorias',
+    en: 'Convocations',
   },
   NOTICIAS: {
     es: 'Noticias',

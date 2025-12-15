@@ -1,20 +1,20 @@
 const labels = {
   type0: {
-    en: '[0] Base information',
-    es: '[0] Información base',
+    en: 'Base information',
+    es: 'Información base',
   },
-  aboutUs: { es: '[1] Nosotros', en: '[1] About us' },
-  generalObjective: { es: '[2] Objetivo General', en: '[2] General Objective' },
+  aboutUs: { es: 'Nosotros', en: 'About us' },
+  generalObjective: { es: 'Objetivo General', en: 'General Objective' },
   specificObjectives: {
-    es: '[3] Objetivos Específicos',
-    en: '[3] Specific Objectives',
+    es: 'Objetivos Específicos',
+    en: 'Specific Objectives',
   },
-  roadmap: { es: '[4] Hoja de Ruta', en: '[4] Roadmap' },
-  guidelines: { es: '[5] Lineamientos', en: '[5] Guidelines' },
-  howToParticipate: { es: '[6] Cómo participar', en: '[6] How to Participate' },
-  members: { es: '[7] Integrantes', en: '[7] Members' },
-  projects: { es: '[8] Proyectos', en: '[8] Projects' },
-  contact: { es: '[9] Contacto', en: '[9] Contact' },
+  roadmap: { es: 'Hoja de Ruta', en: 'Roadmap' },
+  guidelines: { es: 'Lineamientos', en: 'Guidelines' },
+  howToParticipate: { es: 'Cómo participar', en: 'How to Participate' },
+  members: { es: 'Integrantes', en: 'Members' },
+  projects: { es: 'Proyectos', en: 'Projects' },
+  contact: { es: 'Contacto', en: 'Contact' },
   scientificEcosystemCreatedSuccessfully: {
     es: 'Ecosistema Científico creado exitosamente',
     en: 'Scientific Ecosystem created successfully',
@@ -27,13 +27,25 @@ const labels = {
     es: 'Confirmar actualización',
     en: 'Confirm update',
   },
+  changeSectionsOrder: {
+    es: 'Cambiar Orden de las Secciones',
+    en: 'Change Section Order',
+  },
   publish: {
-    es: 'Publicar ecosistema',
-    en: 'Publish ecosystem',
+    es: 'Publicar',
+    en: 'Publish',
   },
   cancelUpdate: {
     es: 'Cancelar actualización',
     en: 'Cancel update',
+  },
+  convocations: {
+    es: 'Convocatorias',
+    en: 'Convocations',
+  },
+  events: {
+    es: 'Eventos',
+    en: 'Events',
   },
 };
 

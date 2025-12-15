@@ -14,60 +14,14 @@
         @if (!baseInfo) {
           <span></span>
         } @else {
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 1 }"
-            (click)="changeActiveTab(1)"
-          >
-            {{ labels.aboutUs[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 2 }"
-            (click)="changeActiveTab(2)"
-          >
-            {{ labels.generalObjective[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 3 }"
-            (click)="changeActiveTab(3)"
-          >
-            {{ labels.specificObjectives[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 4 }"
-            (click)="changeActiveTab(4)"
-          >
-            {{ labels.roadmap[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 5 }"
-            (click)="changeActiveTab(5)"
-          >
-            {{ labels.guidelines[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 6 }"
-            (click)="changeActiveTab(6)"
-          >
-            {{ labels.howToParticipate[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 7 }"
-            (click)="changeActiveTab(7)"
-          >
-            {{ labels.members[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 8 }"
-            (click)="changeActiveTab(8)"
-          >
-            {{ labels.projects[lang] }}
-          </li>
-          <li
-            [ngClass]="{ 'text-primary': activeTabIndex === 9 }"
-            (click)="changeActiveTab(9)"
-          >
-            {{ labels.contact[lang] }}
-          </li>
+          @for (section of sections; track $index) {
+            <li
+              [ngClass]="{ 'text-primary': activeTabIndex === $index + 1 }"
+              (click)="changeActiveTab($index + 1)"
+            >
+              {{ getSectionName(section.TYPE)[lang] }}
+            </li>
+          }
         }
       </ul>
 
@@ -167,11 +121,21 @@
 
 <div class="row mt-5">
   <div class="col-lg-12 col-sm-12 d-flex justify-content-center">
+    @if (baseInfo) {
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#changeEcosystemSectionsOrder"
+        class="btn default-btn m-1"
+      >
+        {{ labels.changeSectionsOrder[lang] }}
+      </button>
+    }
+    {{ isEditing ? 'EDITING' : 'CREATING' }}
     <button
       [disabled]="!baseInfo"
       type="button"
       (click)="handlePublishScientificEcosystem()"
-      class="btn default-btn m-1"
+      class="btn default-btn m-1 bg-success text-white"
     >
       {{ isEditing ? labels.confirmUpdate[lang] : labels.publish[lang] }}
     </button>
@@ -180,7 +144,7 @@
       <button
         type="button"
         (click)="handleCancelUpdate()"
-        class="btn default-btn bg-danger m-1"
+        class="btn default-btn bg-danger m-1 text-white"
       >
         {{ labels.cancelUpdate[lang] }}
       </button>
@@ -188,3 +152,6 @@
   </div>
 </div>
 <!-- <h6>{{ createInfo | json }}</h6> -->
+
+<app-change-scientific-ecosystem-sections-modal>
+</app-change-scientific-ecosystem-sections-modal>

@@ -150,6 +150,11 @@ export class ScientificEcosystemCreateService {
     );
   }
 
+  public reorderSections(newOrder: ScientificEcosystemDetailType[]) {
+    if (!this._createInfo?.detail) return;
+    this._createInfo.detail.sections = newOrder;
+  }
+
   public publishEcosystem(): Observable<{ urlName: string }> {
     const headers = new HttpHeaders().append(
       'Authorization',
