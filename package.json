@@ -26,6 +26,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "boxicons": "^2.1.4",
+    "core-js": "^3.47.0",
     "darkreader": "^4.9.86",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
