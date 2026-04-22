@@ -64,7 +64,7 @@ const labels = {
     en: 'National Contact Point',
   },
   ncp: {
-    es: 'PNC',
+    es: 'NCP',
     en: 'NCP',
   },
   publications: {
