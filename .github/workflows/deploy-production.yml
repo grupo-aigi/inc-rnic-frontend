@@ -44,9 +44,8 @@ jobs:
       - name: Configure kubeconfig
         run: |
           echo "${{ secrets.KUBECONFIG_PROD }}" > kubeconfig
-          export KUBECONFIG=$PWD/kubeconfig
 
       - name: Deploy to Kubernetes
         run: |
           sed -i "s|IMAGE_TAG|${{ github.ref_name }}|g" k8s/deployment.yml
-          kubectl apply -f k8s/deployment.yml
+          kubectl --kubeconfig=$PWD/kubeconfig apply -f k8s/deployment.yml
