@@ -62,6 +62,7 @@ git checkout develop
 # realizar cambios en el frontend
 git commit -m "feat: cambio funcional"
 git push origin develop
+```
 
 2. Release
 
@@ -70,6 +71,7 @@ git checkout develop
 git checkout -b release/2.1.4
 # ajustes finales (si aplican)
 git commit -m "chore: prepare release 2.1.4"
+```
 
 Create PR from GitHub website from **release/2.1.4** → **main**
 
@@ -117,6 +119,7 @@ From a computer with access to the cluster:
 
 ```bash
 kubectl set image deployment/rnic-frontend rnic-frontend=cancerologiadevteam/rnic-frontend:v2.1.4 -n production
+```
 
 Check the deployment status:
 
