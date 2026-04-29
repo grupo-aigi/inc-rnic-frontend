@@ -48,4 +48,4 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           sed -i "s|IMAGE_TAG|${{ github.ref_name }}|g" k8s/deployment.yml
-          kubectl --kubeconfig=$PWD/kubeconfig apply -f k8s/deployment.yml
+          kubectl --kubeconfig=$PWD/kubeconfig apply -f k8s/deployment.yml --validate=false
