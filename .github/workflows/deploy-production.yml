@@ -40,12 +40,13 @@ jobs:
 
       - name: Push Docker image
         run: docker push $IMAGE_NAME:${{ github.ref_name }}
-
-      - name: Configure kubeconfig
-        run: |
-          echo "${{ secrets.KUBECONFIG_PROD }}" > kubeconfig
-
-      - name: Deploy to Kubernetes
-        run: |
-          sed -i "s|IMAGE_TAG|${{ github.ref_name }}|g" k8s/deployment.yml
-          kubectl --kubeconfig=$PWD/kubeconfig apply -f k8s/deployment.yml --validate=false
+ #------------------------------------------------------------
+#      - name: Configure kubeconfig
+#        run: |
+#          echo "${{ secrets.KUBECONFIG_PROD }}" > kubeconfig
+#
+#      - name: Deploy to Kubernetes
+#        run: |
+#          sed -i "s|IMAGE_TAG|${{ github.ref_name }}|g" k8s/deployment.yml
+#          kubectl --kubeconfig=$PWD/kubeconfig apply -f k8s/deployment.yml --validate=false
+#--------------------------------------------------------------------------------------------
